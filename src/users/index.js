@@ -29,7 +29,7 @@ class UsersHome extends React.PureComponent {
     }
 
     render() {
-
+        console.log(this.props);
         let userList  = [];
         for(let user of this.props.users){
             userList.push(<User user={user} />);
