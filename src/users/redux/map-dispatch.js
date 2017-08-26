@@ -1,8 +1,9 @@
-import setUser from './set-user'
-import {bindActionCreators} from 'redux'
+import setUser from './set-user';
 
-export default function mapDispatchToProps(dispatch,props) {
+const mapDispatchToProps = (dispatch, props) => {
     return {
         setUser: (users) => dispatch(setUser(users))
     }
-}
+};
+
+export default mapDispatchToProps;

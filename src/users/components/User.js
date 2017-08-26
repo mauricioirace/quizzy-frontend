@@ -1,14 +1,12 @@
 import React from 'react';
 
-export default class User extends React.PureComponent{
-    constructor(props){
-        super(props);
+class User extends React.PureComponent {
 
-        console.log('usuario');
-        console.log(this.props.user);
-        console.log('fin usuario');
+    constructor(props) {
+        super(props);
     }
-    render(){
+
+    render() {
         return(
             <label>
                 Email:{this.props.user.email}
@@ -16,3 +14,5 @@ export default class User extends React.PureComponent{
         );
     }
 }
+
+export default User;
