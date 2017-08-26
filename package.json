@@ -1,0 +1,39 @@
+{
+  "name": "pis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.dev.js",
+  "scripts": {
+    "dev": "webpack --config ./config/webpack.config.dev.js -p",
+    "prod": "webpack --config ./config/webpack.config.js -p"
+  },
+  "author": "Mauricio Irace",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "history": "^4.7.2",
+    "postcss-loader": "^2.0.6",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.1.2",
+    "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "sass-loader": "^6.0.6",
+    "socket.io": "^2.0.3",
+    "svg-react-loader": "^0.4.4"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.1",
+    "http-server": "^0.10.0",
+    "node-sass": "^4.5.3",
+    "webpack": "^3.5.5",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2"
+  }
+}
