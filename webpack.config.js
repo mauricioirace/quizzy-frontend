@@ -68,4 +68,4 @@ module.exports = {
             sample: './config/.dev.sample.env'
         })
     ]
-}
+};
