@@ -5,10 +5,15 @@
 # Logs
 logs
 *.log
+
+config/.env
+config/.dev.env
+
+dist/public/*
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
 # Runtime data
 pids
 *.pid

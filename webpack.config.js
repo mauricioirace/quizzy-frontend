@@ -1,5 +1,6 @@
 const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
+
 module.exports = {
   context: path.join(__dirname, './app'),
   entry: [
@@ -8,6 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, './dist/public'),
     filename: 'bundle.js',
+    publicPath: '/assets/'
   },
   module: {
     rules: [
@@ -57,13 +59,13 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.jsx'],
     modules: [
-      path.join(__dirname, '../node_modules'),
+      path.join(__dirname, './node_modules'),
     ],
   },
     plugins: [
         new DotenvPlugin({
-            path: './.dev.env',
-            sample: './.dev.sample.env'
+            path: './config/.dev.env',
+            sample: './config/.dev.sample.env'
         })
     ]
 }

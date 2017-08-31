@@ -15,13 +15,13 @@ app.set('json spaces', 4);
 app.use(morgan('combined'));
 
 // Static
-app.use('/public',express.static(STATIC_CONTENT));
+app.use('/assets',express.static(STATIC_CONTENT));
 // Index
 app.use('/',(req,res)=> {
     return res.sendFile(path.join(__dirname,'./index.html'));
 });
 
-const server = app.listen(3000, () => {
+const server = app.listen(8080, () => {
   const { address, port } = server.address();
   console.log(`Listening at http://${address}:${port}`);
 });

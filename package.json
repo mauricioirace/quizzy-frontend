@@ -2,9 +2,9 @@
   "name": "pis",
   "version": "1.0.0",
   "description": "",
-  "main": "server.dev.js",
+  "main": "./dist/server.js",
   "scripts": {
-    "start:dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --content-base /",
+    "start:dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js  --inline --hot --content-base ./dist/",
     "start:prod": "npm run build:app && node_modules/nodemon/bin/nodemon.js   -r dotenv/config -- node_modules/babel-cli/bin/babel-node.js dist/server.js dotenv_config_path=./config/.env",
     "build:app": "webpack --config ./config/webpack.config.js -p"
   },
