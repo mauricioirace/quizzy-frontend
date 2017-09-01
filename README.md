@@ -1,4 +1,4 @@
-# quizzy-backend
+# quizzy-frontend
 
 Frontend repository for the Quizzy Project. PIS 2017 Facultad de Ingeniería, UdelaR.
 ## Requirements
