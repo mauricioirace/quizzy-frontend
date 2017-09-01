@@ -1,12 +1,11 @@
 import React from 'react';
-import test from './test.css';
-
 
 class Home extends React.PureComponent {
 
-    render(){
+    render() {
         return (
-            <p style={ test.test } > PLACEHOLDER DEL HOME</p>
+
+            <p > PLACEHOLDER DEL HOME</p>
         )
     }
 }

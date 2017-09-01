@@ -1,4 +1,3 @@
-import axios from 'axios';
 import AbstractCrudService from './crud-service'
 
 const REPOSITORY =  process.env.GAMES_API;

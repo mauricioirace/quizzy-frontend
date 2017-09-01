@@ -6,13 +6,16 @@ import history from './common/history';
 export default class App extends React.PureComponent {
     render() {
         return (
-
-            <BrowserRouter history={ history }>
-                <Switch>
-                    <Route exact path='/' component={ Home }/>
-                    <Route exact path='/:match'/>
-                </Switch>
-            </BrowserRouter>
+            <div>
+                {/*<Header/>*/}
+                <BrowserRouter history={ history }>
+                    <Switch>
+                        <Route exact path='/' component={ Home }/>
+                        {/*<Route exact path='/:match'/>*/}
+                    </Switch>
+                </BrowserRouter>
+                {/*<Footer/>*/}
+            </div>
         )
     }
 
