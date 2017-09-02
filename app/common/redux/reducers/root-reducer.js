@@ -1,8 +1,12 @@
 import { combineReducers } from "redux";
-import { routerReducer } from 'react-router-redux'
+import { routerReducer } from 'react-router-redux';
+import match from './match';
+import gamesData from './games';
 
 const rootReducer = combineReducers({
-    routing: routerReducer
+    routing: routerReducer,
+    match,
+    gamesData,
 });
 
 export default rootReducer;

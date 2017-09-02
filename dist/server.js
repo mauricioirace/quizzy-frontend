@@ -17,7 +17,7 @@ app.use(morgan('combined'));
 // Static
 app.use('/assets',express.static(STATIC_CONTENT));
 // Index
-app.use('/',(req,res)=> {
+app.use('/', (req, res) => {
     return res.sendFile(path.join(__dirname,'./index.html'));
 });
 

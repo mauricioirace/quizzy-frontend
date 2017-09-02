@@ -19,7 +19,7 @@ class CrudService {
      * @returns {AxiosPromise}
      */
     create(elem) {
-        return axios.post(this.repository,elem);
+        return axios.post(this.repository, elem);
     }
 
 
@@ -33,8 +33,8 @@ class CrudService {
      * @returns {AxiosPromise}
      */
     retrieve(id) {
-        const id = id === undefined ? '' : id;
-        return axios.get(`${ this.repository }/${ id }`);
+        const _id = id === undefined ? '' : id;
+        return axios.get(`${ this.repository }/${ _id }`);
     }
 
     /**
@@ -45,7 +45,7 @@ class CrudService {
      * @returns {AxiosPromise}
      */
     update(elem) {
-        return axios.put(this.repository,elem);
+        return axios.put(this.repository, elem);
     }
 
     /**
