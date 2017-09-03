@@ -14,11 +14,14 @@ export class App extends React.Component {
       <div>
         <BrowserRouter history={ history }>
           <Switch>
+            { this.props.game !== '' ?
+                <Route exact path={ '/' + this.props.game } component={ Match }/>
+              : ''
+            }
             <Route exact path='/' component={ Home }/>
             <Route exact path='/about' component={ About }/>
             <Route exact path='/register' component={ Register }/>
             <Route exact path='/login' component={ Login }/>
-            <Route exact path={ '/:' + this.props.match } component={ Match }/>
           </Switch>
         </BrowserRouter>
         {/*<Footer/>*/}
@@ -29,7 +32,7 @@ export class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    match: state.match,
+    game: state.game,
   }
 }
 

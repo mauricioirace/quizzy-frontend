@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import Header from '../common/components/header';
 import { connect } from 'react-redux';
-import { loadMatch } from '../common/redux/actions/match';
+import { loadGame } from '../common/redux/actions/game';
 import { fetchGames } from '../common/redux/actions/games';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export class Home extends React.Component {
   constructor(props) {
@@ -11,12 +11,12 @@ export class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchGames();
-  }
+  // componentWillMount() {
+  //   this.props.fetchGames();
+  // }
 
   handleChange(event) {
-    this.props.loadMatch(event.target.value);
+    this.props.loadGame(event.target.value);
   }
 
   render() {
@@ -24,8 +24,8 @@ export class Home extends React.Component {
       <div>
         <Header/>
         <br/>
-        quizzy.com/<input type='text' name='match' placeholder='match_name' onChange={ this.handleChange }/>
-        <Link to={ '/' + this.props.match }>PLAY</Link> <br/>
+        quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
+        <Link to={'/' + this.props.game }>PLAY</Link> <br/>
 
       </div>
     )
@@ -33,22 +33,22 @@ export class Home extends React.Component {
 }
 
 Home.propTypes = {
-  match: PropTypes.string,
+  game: PropTypes.string,
   gamesData: PropTypes.object,
-  newMatch: PropTypes.func,
+  loadGame: PropTypes.func,
   fetchGames: PropTypes.func,
 }
 
 const mapStateToProps = state => {
   return {
-    match: state.match,
+    game: state.game,
     gamesData: state.gamesData,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadMatch: (input) => dispatch(loadMatch(input)),
+    loadGame: (input) => dispatch(loadGame(input)),
     fetchGames: () => dispatch(fetchGames()),
   };
 }

@@ -10,7 +10,7 @@ const initialState = {
   error: false
 }
 
-export default gamesReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case LOAD_GAMES:
       return {

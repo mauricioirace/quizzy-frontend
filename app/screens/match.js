@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Header from '../common/components/header';
+import { removeGame } from '../common/redux/actions/game';
+import { connect } from 'react-redux';
 
-class Match extends React.PureComponent {
+export class Match extends React.PureComponent {
+  componentWillUnmount() {
+    this.props.removeGame();
+  }
 
   render() {
     return (
       <div>
+
         <Header/>
-        { this.props.params } screen
+          { this.props.game + ' game screen'}
       </div>
     )
   }
 }
 
-export default Match;
+Match.propTypes = {
+  removeGame: PropTypes.func,
+  game: PropTypes.string,
+}
+
+const mapStateToProps = state => {
+  return {
+    game: state.game,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeGame: () => dispatch(removeGame()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Match)
