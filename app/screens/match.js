@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Header from '../common/components/header';
-import { removeGame } from '../common/redux/actions/game';
+import Header from '../components/header';
+import { removeGame } from '../redux/actions/game';
 import { connect } from 'react-redux';
 
 export class Match extends React.PureComponent {

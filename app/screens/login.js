@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../common/components/header';
+import Header from '../components/header';
 
 class Login extends React.PureComponent {
   render() {

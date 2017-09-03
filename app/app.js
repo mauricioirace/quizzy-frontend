@@ -1,18 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import Home from './screens/home';
 import About from './screens/about';
-import history from './common/history';
 import Register from './screens/register';
 import Login from './screens/login';
 import Match from './screens/match';
 import { connect } from 'react-redux'
+import history from './history';
 
 export class App extends React.Component {
   render() {
     return (
       <div>
-        <BrowserRouter history={ history }>
+        <Router history={ history } >
           <Switch>
             { this.props.game !== '' ?
                 <Route exact path={ '/' + this.props.game } component={ Match }/>
@@ -23,7 +23,7 @@ export class App extends React.Component {
             <Route exact path='/register' component={ Register }/>
             <Route exact path='/login' component={ Login }/>
           </Switch>
-        </BrowserRouter>
+        </Router>
         {/*<Footer/>*/}
       </div>
     )

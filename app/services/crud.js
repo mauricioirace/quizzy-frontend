@@ -23,6 +23,7 @@ class CrudService {
     }
 
 
+
     /**
      * Retrieve the element whiches id is 'id' and return the
      * corresponding promise.
@@ -58,4 +59,5 @@ class CrudService {
         return axios.delete(`${ this.repository }/${ id }`);
     }
 }
+
 export default CrudService;

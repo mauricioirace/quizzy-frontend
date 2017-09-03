@@ -5,7 +5,7 @@ import {
 } from '../constants/games';
 
 const initialState = {
-  games: false,
+  games: [],
   isFetching: false,
   error: false
 }
@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
     case LOAD_GAMES_FAILURE:
       return {
         ...state,
+          games: ['falle'],
         isFetching: false,
         error: true,
       }

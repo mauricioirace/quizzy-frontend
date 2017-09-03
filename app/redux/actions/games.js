@@ -1,4 +1,4 @@
-import gameService from '../../services/game-service'
+import gameService from '../../services/game'
 import {
   LOAD_GAMES,
   LOAD_GAMES_SUCCESS,
@@ -16,24 +16,25 @@ export const loadGamesSuccess = games => {
     type: LOAD_GAMES_SUCCESS,
     games,
   }
-}
+};
 
 export const loadGamesFailure = () => {
   return {
     type: LOAD_GAMES_FAILURE,
   }
-}
+};
 
 export const fetchGames = () => {
   return (dispatch) => {
-    dispatch(loadGames())
+    dispatch(loadGames());
     gameService.retrieve()
-      .then(([response, json]) => {
-        dispatch(loadGamesSuccess(json))
+      .then((res) => {
+        console.log(res);
+        dispatch(loadGamesSuccess(res.data.games))
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         dispatch(loadGamesFailure())
       });
   }
-}
+};
