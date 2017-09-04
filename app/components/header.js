@@ -1,20 +1,17 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-
+import {Router,Link} from 'react-router-dom';
+import { withRouter } from 'react-router';
 class Header extends React.PureComponent {
   render() {
     return (
       <div>
-        <Link to='/'>QUIZZY</Link>
-        <Route exact path='/' render={ () => (
-          <Link to='/about'>About</Link>) }/>
-        <Route exact path='/' render={ () => (
-          <Link to='/register'>Register</Link>) }/>
-        <Route exact path='/' render={ () => (
-          <Link to='/login'>Login</Link>) }/>
+          <Link to='/'>QUIZZY</Link>
+          <Link to='/about'>About</Link>
+          <Link to='/register'>Register</Link>
+          <Link to='/login'>Login</Link>
       </div>
     )
   }
 }
 
-export default Header;
+export default withRouter(Header);

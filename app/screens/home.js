@@ -1,10 +1,8 @@
-import React, { PropTypes } from 'react';
-import Header from '../components/header';
-import { connect } from 'react-redux';
-import { loadGame } from '../redux/actions/game';
-import { fetchGames } from '../redux/actions/games';
-import { Link, Redirect } from 'react-router-dom';
-
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {loadGame} from '../redux/actions/game';
+import {fetchGames} from '../redux/actions/games';
+import { Link } from 'react-router-dom';
 export class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -28,10 +26,10 @@ export class Home extends React.Component {
     console.log(this.props.games.games);
     return (
       <div>
-        <Header/>
+        {/*<Header/>*/}
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
-        <Link to={'/match/' + this.props.game }>PLAY</Link> <br/>
+        <Link to={'/' + this.props.game }>PLAY</Link> <br/>
         <Link to={'/featured' + this.props.game }>FEATURED</Link> <Link to={'/my_games' + this.props.game }>MY GAMES</Link>
 
 
@@ -39,13 +37,13 @@ export class Home extends React.Component {
     )
   }
 }
-
-Home.propTypes = {
-  game: PropTypes.string,
-  games: PropTypes.object,
-  loadGame: PropTypes.func,
-  fetchGames: PropTypes.func,
-}
+//
+// Home.propTypes = {
+//   game: PropTypes.string,
+//   games: PropTypes.object,
+//   loadGame: PropTypes.func,
+//   fetchGames: PropTypes.func,
+// }
 
 const mapStateToProps = state => {
   return {
