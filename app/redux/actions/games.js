@@ -26,6 +26,7 @@ export const loadGamesFailure = () => {
 
 export const fetchGames = () => {
   return (dispatch) => {
+    // debugger;
     dispatch(loadGames());
     gameService.retrieve()
       .then((res) => {

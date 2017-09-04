@@ -15,7 +15,7 @@ export class App extends React.Component {
         <Router history={ history } >
           <Switch>
             { this.props.game !== '' ?
-                <Route exact path={ '/' + this.props.game } component={ Match }/>
+                <Route exact path={ '/match/' + this.props.game } component={ Match }/>
               : ''
             }
             <Route exact path='/' component={ Home }/>

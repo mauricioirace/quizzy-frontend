@@ -20,20 +20,20 @@ export class Home extends React.Component {
   }
 
   render() {
-    let games = [];
-    console.log(this.props);
-
-    for(let i in this.props.games) {
-      console.log(this.props.games[i]);
-      games.push(<label> {this.props.games[i] } </label>);
-    }
+    // let games = [];
+    //
+    // for(let i in this.props.games) {
+    //   games.push(<label> {this.props.games[i] } </label>);
+    // }
+    console.log(this.props.games.games);
     return (
       <div>
         <Header/>
         <br/>
-        {/*quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>*/}
-        <Link to={'/' + this.props.game }>PLAY</Link> <br/>
-        { games }
+        quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
+        <Link to={'/match/' + this.props.game }>PLAY</Link> <br/>
+        <Link to={'/featured' + this.props.game }>FEATURED</Link> <Link to={'/my_games' + this.props.game }>MY GAMES</Link>
+
 
       </div>
     )
