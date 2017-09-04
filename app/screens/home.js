@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import Game from '../components/game';
 import { connect } from 'react-redux';
-import { loadGame } from '../redux/actions/game';
+import { loadCurrentMatch } from '../redux/actions/currentMatch';
 import { fetchGames } from '../redux/actions/games';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ export class Home extends React.Component {
   }
 
   handleChange(event) {
-    this.props.loadGame(event.target.value);
+    this.props.loadCurrentMatch(event.target.value);
   }
 
   renderTable() {
@@ -70,7 +70,7 @@ export class Home extends React.Component {
         <Header/>
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
-        <Link to={'/match/' + this.props.game }>PLAY</Link> <br/>
+        <Link to={'/match/' + this.props.currentMatch }>PLAY</Link> <br/>
         <Link to={'/featured'}>FEATURED</Link> <Link to={'/my_games'}>MY GAMES</Link>
         { /*this.renderTable()*/ }
       </div>
@@ -79,22 +79,22 @@ export class Home extends React.Component {
 }
 
 Home.propTypes = {
-  game: PropTypes.string,
+  currentMatch: PropTypes.string,
   gamesData: PropTypes.object,
-  loadGame: PropTypes.func,
+  loadCurrentMatch: PropTypes.func,
   fetchGames: PropTypes.func,
 }
 
 const mapStateToProps = state => {
   return {
-    game: state.game,
+    currentMatch: state.currentMatch,
     gamesData: state.gamesData,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadGame: (input) => dispatch(loadGame(input)),
+    loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
     fetchGames: () => dispatch(fetchGames()),
   };
 }

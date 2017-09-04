@@ -1,38 +1,37 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
-import { removeGame } from '../redux/actions/game';
+import { removeCurrentMatch } from '../redux/actions/currentMatch';
 import { connect } from 'react-redux';
 
 export class Match extends React.PureComponent {
   componentWillUnmount() {
-    this.props.removeGame();
+    this.props.removeCurrentMatch();
   }
 
   render() {
     return (
       <div>
-
         <Header/>
-          { this.props.game + ' game screen'}
+          { this.props.currentMatch + ' game screen'}
       </div>
     )
   }
 }
 
 Match.propTypes = {
-  removeGame: PropTypes.func,
-  game: PropTypes.string,
+  removeCurrentMatch: PropTypes.func,
+  currentMatch: PropTypes.string,
 }
 
 const mapStateToProps = state => {
   return {
-    game: state.game,
+    currentMatch: state.currentMatch,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeGame: () => dispatch(removeGame()),
+    removeCurrentMatch: () => dispatch(removeCurrentMatch()),
   };
 }
 
