@@ -25,7 +25,7 @@ export class Home extends React.Component {
     // for(let i in this.props.games) {
     //   games.push(<label> {this.props.games[i] } </label>);
     // }
-    console.log(this.props.games.games);
+    console.log(this.props.gamesData.games);
     return (
       <div>
         <Header/>
@@ -42,7 +42,7 @@ export class Home extends React.Component {
 
 Home.propTypes = {
   game: PropTypes.string,
-  games: PropTypes.object,
+  gamesData: PropTypes.object,
   loadGame: PropTypes.func,
   fetchGames: PropTypes.func,
 }
@@ -50,7 +50,7 @@ Home.propTypes = {
 const mapStateToProps = state => {
   return {
     game: state.game,
-    games: state.games,
+    gamesData: state.gamesData,
   }
 }
 
