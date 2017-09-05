@@ -61,7 +61,7 @@ export class Home extends React.Component {
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
         <Link to={'/match/' + this.props.matchData.currentMatch }>PLAY</Link> <br/>
-        <Link to={'/featured'}>FEATURED</Link> <Link to={'/my_games'}>MY GAMES</Link>
+        <Link to={'/featured'}>FEATURED</Link> | <Link to={'/my_games'}>MY GAMES</Link>
         { this.renderTable() }
         <Link to={'/all_games'}>ALL GAMES</Link>
       </div>
