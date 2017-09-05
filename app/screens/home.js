@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react';
-import Header from '../components/header';
+
 import Game from '../components/game';
 import { connect } from 'react-redux';
 import { loadCurrentMatch } from '../redux/actions/match';
 import { fetchGames } from '../redux/actions/games';
 import { Link, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
+
 
 export class Home extends React.Component {
   constructor(props) {
@@ -60,7 +62,7 @@ export class Home extends React.Component {
         {/*<Header/>*/}
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
-        <Link to={'/match/' + this.props.matchData.currentMatch }>PLAY</Link> <br/>
+        <Link to={`/match/${this.props.matchData.currentMatch}`}>PLAY</Link> <br/>
         <Link to={'/featured'}>FEATURED</Link> <Link to={'/my_games'}>MY GAMES</Link>
         { this.renderTable() }
         <Link to={'/all_games'}>ALL GAMES</Link>

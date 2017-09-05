@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Home from './screens/home';
 import About from './screens/about';
 import Register from './screens/register';
@@ -12,7 +12,7 @@ import Header from './components/header';
 export class App extends React.Component {
   render() {
     return (
-        <Router history={ history } >
+        <BrowserRouter history={ history } >
           <div>
             <Header/>
               <Switch>
@@ -24,7 +24,7 @@ export class App extends React.Component {
               </Switch>
           </div>
         {/*<Footer/>*/}
-        </Router>
+        </BrowserRouter>
     )
   }
 }
@@ -33,6 +33,6 @@ const mapStateToProps = state => {
   return {
     matchData: state.matchData,
   }
-}
+};
 
 export default connect(mapStateToProps)(App)

@@ -7,7 +7,7 @@ import FetchedMatch from './fetched-match';
 
 export class Match extends React.PureComponent {
   componentWillMount() {
-    fetchMatch(this.props.matchData.currentMatch);
+    this.props.fetchMatch(this.props.match.params.currentMatch);
   }
 
   componentWillUnmount() {
@@ -33,7 +33,6 @@ export class Match extends React.PureComponent {
   render() {
     return (
       <div>
-        <Header/>
           { this.showMatch() }
       </div>
     )
