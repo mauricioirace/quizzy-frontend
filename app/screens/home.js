@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import Game from '../components/game';
 import { connect } from 'react-redux';
-import { loadCurrentMatch } from '../redux/actions/currentMatch';
+import { loadCurrentMatch } from '../redux/actions/match';
 import { fetchGames } from '../redux/actions/games';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -45,41 +45,31 @@ export class Home extends React.Component {
   }
 
   renderGames() {
-    // const items = [];
-    // this.props.gamesData.games.forEach( game => {
-    //   items.push(
-    //     <Game game={ game } />
-    //   );
-    // });
-    // return items;
-    console.log(this.props.gamesData);
-    console.log(this.props.gamesData.games);
-    console.log(this.props.gamesData.games[5]);
-    debugger;
-    return <Game data={ this.props.gamesData.games[5] } />
+    const items = [];
+    this.props.gamesData.games.forEach( game => {
+      items.push(
+        <Game data={ game } />
+      );
+    });
+    return (<div> { items } </div>);
   }
 
   render() {
-    // let games = [];
-    //
-    // for(let i in this.props.games) {
-    //   games.push(<label> {this.props.games[i] } </label>);
-    // }
     return (
       <div>
         <Header/>
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
-        <Link to={'/match/' + this.props.currentMatch }>PLAY</Link> <br/>
+        <Link to={'/match/' + this.props.matchData.currentMatch }>PLAY</Link> <br/>
         <Link to={'/featured'}>FEATURED</Link> <Link to={'/my_games'}>MY GAMES</Link>
-        { /*this.renderTable()*/ }
+        { this.renderTable() }
       </div>
     )
   }
 }
 
 Home.propTypes = {
-  currentMatch: PropTypes.string,
+  matchData: PropTypes.object,
   gamesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
   fetchGames: PropTypes.func,
@@ -87,7 +77,7 @@ Home.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    currentMatch: state.currentMatch,
+    matchData: state.matchData,
     gamesData: state.gamesData,
   }
 }

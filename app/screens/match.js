@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
-import { removeCurrentMatch } from '../redux/actions/currentMatch';
+import { removeCurrentMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 
 export class Match extends React.PureComponent {
+  componentWillMount() {
+    fetchMatch(this.props.currentMatch);
+  }
+
   componentWillUnmount() {
     this.props.removeCurrentMatch();
   }
@@ -12,7 +16,7 @@ export class Match extends React.PureComponent {
     return (
       <div>
         <Header/>
-          { this.props.currentMatch + ' game screen'}
+          { this.props.matchData.currentMatch + ' game screen'}
       </div>
     )
   }
@@ -21,6 +25,7 @@ export class Match extends React.PureComponent {
 Match.propTypes = {
   removeCurrentMatch: PropTypes.func,
   currentMatch: PropTypes.string,
+  fetchMatch: PropTypes.func,
 }
 
 const mapStateToProps = state => {
@@ -32,6 +37,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeCurrentMatch: () => dispatch(removeCurrentMatch()),
+    fetchMatch: matchName => dispatch(fetchMatch(matchName)),
   };
 }
 

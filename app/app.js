@@ -15,7 +15,7 @@ export class App extends React.Component {
         <Router history={ history } >
           <Switch>
             { this.props.game !== '' ?
-                <Route exact path={ '/match/' + this.props.game } component={ Match }/>
+                <Route exact path={ '/match/' + this.props.matchData.currentMatch } component={ Match }/>
               : ''
             }
             <Route exact path='/' component={ Home }/>
@@ -32,7 +32,7 @@ export class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    game: state.game,
+    matchData: state.matchData,
   }
 }
 
