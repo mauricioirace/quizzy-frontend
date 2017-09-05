@@ -63,6 +63,7 @@ export class Home extends React.Component {
         <Link to={'/match/' + this.props.matchData.currentMatch }>PLAY</Link> <br/>
         <Link to={'/featured'}>FEATURED</Link> <Link to={'/my_games'}>MY GAMES</Link>
         { this.renderTable() }
+        <Link to={'/all_games'}>ALL GAMES</Link>
       </div>
     )
   }
