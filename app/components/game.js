@@ -9,10 +9,10 @@ class Game extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td> { this.props.data.image } </td>
-        <td> { this.props.data.name } </td>
-        <td> Rating: { this.props.data.rating } </td>
-        <td> <Link to={'/match/' + this.props.data.name }>PLAY</Link> </td>
+        <td> { this.props.data.game.image } </td>
+        <td> { this.props.data.game.name } </td>
+        <td> Rating: { this.props.data.game.rating } </td>
+        <td> <Link to={'/match/' + this.props.data.game.name }>PLAY</Link> </td>
       </tr>
     )
   }

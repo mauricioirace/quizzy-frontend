@@ -7,7 +7,7 @@ import FetchedMatch from './fetched-match';
 
 export class Match extends React.PureComponent {
   componentWillMount() {
-    this.props.fetchMatch(this.props.match.params.currentMatch);
+    this.props.fetchMatch(this.props.match.params.match);
   }
 
   componentWillUnmount() {
@@ -22,7 +22,7 @@ export class Match extends React.PureComponent {
           Cargando...
         </div>
       );
-    } else if (matchData.error) {
+    } else if (matchData.error ) {
       return <NewMatch/>;
     } else if (matchData.match) {
       return <FetchedMatch match={ this.props.matchData.match } />;

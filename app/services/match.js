@@ -1,6 +1,6 @@
 import CrudService from './crud';
 import axios from 'axios';
-const REPOSITORY =  process.env.MATCH_API;
+const REPOSITORY =  process.env.MATCHES_API;
 
 class MatchService extends CrudService{
 

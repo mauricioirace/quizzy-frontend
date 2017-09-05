@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-
+import { Button } from 'react-foundation';
 import Game from '../components/game';
 import { connect } from 'react-redux';
 import { loadCurrentMatch } from '../redux/actions/match';
@@ -59,7 +59,7 @@ export class Home extends React.Component {
   render() {
     return (
       <div>
-        {/*<Header/>*/}
+        { /* <Header/> */ }
         <br/>
         quizzy.com/<input type='text' name='game' placeholder='match_name' onChange={ this.handleChange }/>
         <Link to={`/match/${this.props.matchData.currentMatch}`}>PLAY</Link> <br/>
