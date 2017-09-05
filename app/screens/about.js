@@ -5,7 +5,6 @@ class About extends React.PureComponent {
   render() {
     return (
       <div>
-        <Header/>
         About the game
       </div>
     )
