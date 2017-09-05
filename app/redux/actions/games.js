@@ -26,15 +26,12 @@ export const loadGamesFailure = () => {
 
 export const fetchGames = () => {
   return (dispatch) => {
-    // debugger;
     dispatch(loadGames());
     gameService.retrieve()
       .then((res) => {
-        console.log(res);
         dispatch(loadGamesSuccess(res.data.games))
       })
       .catch((err) => {
-        console.log(err);
         dispatch(loadGamesFailure())
       });
   }

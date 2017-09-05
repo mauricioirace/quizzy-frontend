@@ -1,22 +1,40 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
-import { removeCurrentMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
+import { fetchMatch, removeCurrentMatch } from '../redux/actions/match';
+import NewMatch from './new-match';
+import FetchedMatch from './fetched-match';
 
 export class Match extends React.PureComponent {
   componentWillMount() {
-    fetchMatch(this.props.currentMatch);
+    fetchMatch(this.props.matchData.currentMatch);
   }
 
   componentWillUnmount() {
     this.props.removeCurrentMatch();
   }
 
+  showMatch() {
+    const { matchData } = this.props;
+    if (matchData.isFetching) {
+      return (
+        <div>
+          Cargando...
+        </div>
+      );
+    } else if (matchData.error) {
+      return <NewMatch/>;
+    } else if (matchData.match) {
+      return <FetchedMatch match={ this.props.matchData.match } />;
+    }
+    return (<div></div>);
+  }
+
   render() {
     return (
       <div>
         <Header/>
-          { this.props.matchData.currentMatch + ' game screen'}
+          { this.showMatch() }
       </div>
     )
   }
@@ -24,15 +42,15 @@ export class Match extends React.PureComponent {
 
 Match.propTypes = {
   removeCurrentMatch: PropTypes.func,
-  currentMatch: PropTypes.string,
+  matchData: PropTypes.object,
   fetchMatch: PropTypes.func,
 }
 
 const mapStateToProps = state => {
   return {
-    currentMatch: state.currentMatch,
+    matchData: state.matchData,
   }
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {

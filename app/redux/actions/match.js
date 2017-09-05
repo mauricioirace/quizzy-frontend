@@ -35,12 +35,10 @@ export const loadMatchDataFailure = () => ({
 
 export const fetchMatch = (matchName) => {
   return (dispatch) => {
-    debugger;
     dispatch(loadMatchData());
     matchService.retrieve(matchName)
       .then((res) => {
-        console.log(res);
-        dispatch(loadMatchDataSuccess(res.data))
+        dispatch(loadMatchDataSuccess(res.data.match))
       })
       .catch((err) => {
         console.log(err);
