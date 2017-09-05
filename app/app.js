@@ -1,22 +1,38 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './home/index';
-import history from './common/history';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import Home from './screens/home';
+import About from './screens/about';
+import Register from './screens/register';
+import Login from './screens/login';
+import Match from './screens/match';
+import {connect} from 'react-redux'
+import history from './history';
+import Header from './components/header';
 
-export default class App extends React.PureComponent {
-    render() {
-        return (
-            <div>
-                {/*<Header/>*/}
-                <BrowserRouter history={ history }>
-                    <Switch>
-                        <Route exact path='/' component={ Home }/>
-                        {/*<Route exact path='/:match'/>*/}
-                    </Switch>
-                </BrowserRouter>
-                {/*<Footer/>*/}
-            </div>
-        )
-    }
-
+export class App extends React.Component {
+  render() {
+    return (
+        <BrowserRouter history={ history } >
+          <div>
+            <Header/>
+              <Switch>
+                <Route exact path='/' component={ Home }/>
+                <Route exact path='/about' component={ About }/>
+                <Route exact path='/register' component={ Register }/>
+                <Route exact path='/login' component={ Login }/>
+                <Route exact path='/match/:match' component={ Match }/>
+              </Switch>
+          </div>
+        {/*<Footer/>*/}
+        </BrowserRouter>
+    )
+  }
 }
+
+const mapStateToProps = state => {
+  return {
+    matchData: state.matchData,
+  }
+};
+
+export default connect(mapStateToProps)(App)

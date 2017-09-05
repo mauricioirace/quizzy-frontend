@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "start:dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js  --inline --hot --content-base ./dist/",
+    "start:dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --history-api-fallback --inline --hot --content-base ./dist/",
     "start:prod": "npm run build:app && node_modules/nodemon/bin/nodemon.js   -r dotenv/config -- node_modules/babel-cli/bin/babel-node.js dist/server.js dotenv_config_path=./config/.env",
     "build:app": "webpack --config ./config/webpack.config.js -p"
   },
@@ -32,6 +32,8 @@
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "socket.io": "^2.0.3",
     "style-loader": "^0.18.2"
