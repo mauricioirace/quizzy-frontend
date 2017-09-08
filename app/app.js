@@ -8,6 +8,7 @@ import Match from './screens/match';
 import {connect} from 'react-redux'
 import history from './history';
 import Header from './components/header';
+import './styles.scss';
 
 export class App extends React.PureComponent {
   render() {

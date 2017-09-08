@@ -24,27 +24,15 @@ module.exports = {
             test: /\.css$/,
             use: [
               'style-loader',
-              { loader: 'css-loader',
-                options: {
-                  modules: false,
-                  importLoaders: 1,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                }
-              }
+              'css-loader'
             ]
           },
           {
             test: /\.scss$/,
             use: [
-              'style-loader',
-              { loader: 'css-loader',
-                options: {
-                  modules: false,
-                  importLoaders: 1,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                }
-              },
-              'sass-loader'
+              { loader: "style-loader" },
+              { loader: "css-loader" },
+              { loader: "sass-loader" }
             ]
           },
           {
