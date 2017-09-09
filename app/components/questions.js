@@ -6,10 +6,6 @@ class Questions extends React.PureComponent {
     children: PropTypes.node
   };
 
-  // renderQuestions(){
-  //   return this.props.children.map((q) => <Question obj={ q } />)
-  // }
-
   render() {
     return (
       <ul>
