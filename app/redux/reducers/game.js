@@ -1,6 +1,6 @@
 import {
   ADD_QUESTION,
-  CHANGE_QUESTION_NAME
+  CHANGE_QUESTION_NAME, REMOVE_ALL_QUESTIONS
 } from "../constants/game";
 
 const initialState = {
@@ -12,28 +12,24 @@ export default (state = initialState, action) => {
     case ADD_QUESTION:
       return {
         ...state,
-        questions: [
-          {
-            question: action.question,
-            index: state.questions.length
-          }
-        ].concat(state.questions)
+        questions: state.questions.concat([ action.question ])
       };
     case CHANGE_QUESTION_NAME:
       return {
         ...state,
         questions: state.questions.map((q,i) => {
           return {
-            question: {
-              ...q.question,
-              name: i == q.index ? state.questionName : q.name
-            },
-            index: i
-          }
+            ...q,
+            name: i === action.index ? action.questionName : q.name
+            }
         })
+      };
+    case REMOVE_ALL_QUESTIONS:
+      return {
+        ...state,
+        questions: []
       };
       default:
         return state;
-
   }
 }

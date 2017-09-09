@@ -7,13 +7,13 @@ class Questions extends React.PureComponent {
   };
 
   // renderQuestions(){
-    // return this.props.children.map((q) => <Question obj={ q } />)
+  //   return this.props.children.map((q) => <Question obj={ q } />)
   // }
 
   render() {
     return (
       <ul>
-        { this.props.children() }
+        { this.props.children }
       </ul>
     );
   }

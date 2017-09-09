@@ -6,7 +6,7 @@ import gameReducer from './game';
 
 export default combineReducers({
         routing: routerReducer,
-        matchReducer,
-        gamesReducer,
-        gameReducer
+        matchData: matchReducer,
+        gamesData: gamesReducer,
+        gameData: gameReducer
     });

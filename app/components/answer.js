@@ -4,8 +4,8 @@ class Answer extends React.PureComponent {
 
   render() {
     return this.props.correct
-        ? (<p> { this.props.text } </p>)
-        : (<h1> { this.props.text } </h1>);
+        ? (<h3> { this.props.text } </h3>)
+        : (<p> { this.props.text } </p>);
   }
 }
 
