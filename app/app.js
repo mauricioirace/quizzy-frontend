@@ -9,22 +9,22 @@ import {connect} from 'react-redux'
 import history from './history';
 import Header from './components/header';
 
-export class App extends React.Component {
+export class App extends React.PureComponent {
   render() {
     return (
-        <BrowserRouter history={ history } >
-          <div>
-            <Header/>
-              <Switch>
-                <Route exact path='/' component={ Home }/>
-                <Route exact path='/about' component={ About }/>
-                <Route exact path='/register' component={ Register }/>
-                <Route exact path='/login' component={ Login }/>
-                <Route exact path='/match/:match' component={ Match }/>
-              </Switch>
-          </div>
+      <BrowserRouter history={ history } >
+        <div>
+          <Header/>
+            <Switch>
+              <Route exact path='/' component={ Home }/>
+              <Route exact path='/about' component={ About }/>
+              <Route exact path='/register' component={ Register }/>
+              <Route exact path='/login' component={ Login }/>
+              <Route exact path='/match/:match' component={ Match }/>
+            </Switch>
+        </div>
         {/*<Footer/>*/}
-        </BrowserRouter>
+      </BrowserRouter>
     )
   }
 }

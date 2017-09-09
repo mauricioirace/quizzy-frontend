@@ -7,8 +7,7 @@ import { fetchGames } from '../redux/actions/games';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-
-export class Home extends React.Component {
+export class Home extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);

@@ -1,31 +1,28 @@
 import React from 'react';
 import Answer from './answer';
 
-// const mapStateToProps = (state) => {
-//   return {
-//     self
-//   };
-// };
-
 class Question extends React.PureComponent {
   constructor(props){
     super(props);
-    // this.onChange = this.onChange.bind(this);
-
   }
 
   render() {
-    let q = this.props.obj;
+    let question = this.props.obj;
     let id = this.props.id;
     let answers = [];
-
-    q.answers.forEach((a,i) =>{
-      answers.push(<Answer key={ i } id={ i } text={ a } correct={ q.correctAnswer === i }/>);
+    question.answers.forEach( (answer, index) => {
+      answers.push(<Answer key={ index } id={ index } text={ answer } correct={ question.correctAnswer === index }/>);
     });
 
     return (
       <li>
-        <input type="text" defaultValue={ q.text } />
+        <input type='text' defaultValue={ question.text } />
+        Difficulty 
+        <select>
+          <option value='easy'>Easy</option>
+          <option value='medium'>Medium</option>
+          <option value='challenging'>Challenging</option>
+        </select> <br/>
         <ul>
           { answers }
         </ul>

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Router,Link} from 'react-router-dom';
+import { Router, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+
 class Header extends React.PureComponent {
   render() {
     return (

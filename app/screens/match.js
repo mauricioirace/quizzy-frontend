@@ -33,7 +33,7 @@ export class Match extends React.PureComponent {
   render() {
     return (
       <div>
-          { this.showMatch() }
+        { this.showMatch() }
       </div>
     )
   }

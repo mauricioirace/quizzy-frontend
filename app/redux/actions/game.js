@@ -5,7 +5,7 @@ import {
 } from '../constants/game';
 
 
-export const changeQuestionName = (questionName,index) => {
+export const changeQuestionName = (questionName, index) => {
   return {
     type: CHANGE_QUESTION_NAME,
     questionName,
