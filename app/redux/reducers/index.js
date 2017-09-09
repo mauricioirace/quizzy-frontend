@@ -1,10 +1,12 @@
-import { combineReducers, applyMiddleware } from "redux";
+import { combineReducers, applyMiddleware } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import matchData from './match';
-import gamesData from './games';
+import matchReducer from './match';
+import gamesReducer from './games';
+import gameReducer from './game';
 
 export default combineReducers({
-        routing: routerReducer,
-        matchData,
-        gamesData,
-    });
+  routing: routerReducer,
+  matchData: matchReducer,
+  gamesData: gamesReducer,
+  gameData: gameReducer
+});
