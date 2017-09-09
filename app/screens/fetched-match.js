@@ -1,5 +1,6 @@
 import React from 'react';
 import { Callout ,Row,Column} from 'react-foundation';
+
 class FetchedMatch extends React.PureComponent {
     render() {
         console.log(this.props.match);

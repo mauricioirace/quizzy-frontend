@@ -9,7 +9,7 @@ export const loadGames = () => {
   return {
     type: LOAD_GAMES,
   }
-}
+};
 
 export const loadGamesSuccess = games => {
   return {

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import { connect } from 'react-redux';
 import { fetchMatch, removeCurrentMatch } from '../redux/actions/match';
-import NewMatch from './new-match';
+import CreateGame from './create-game';
 import FetchedMatch from './fetched-match';
 
 export class Match extends React.PureComponent {
@@ -23,7 +23,7 @@ export class Match extends React.PureComponent {
         </div>
       );
     } else if (matchData.error ) {
-      return <NewMatch/>;
+      return <CreateGame/>;
     } else if (matchData.match) {
       return <FetchedMatch match={ this.props.matchData.match } />;
     }
