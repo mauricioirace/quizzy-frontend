@@ -1,4 +1,4 @@
-import gameService from '../../services/game'
+import gameService from '../../services/game';
 import {
   LOAD_GAMES,
   LOAD_GAMES_SUCCESS,

@@ -11,13 +11,20 @@ class Question extends React.PureComponent {
     let id = this.props.id;
     let answers = [];
     question.answers.forEach( (answer, index) => {
-      answers.push(<Answer key={ index } id={ index } text={ answer } correct={ question.correctAnswer === index }/>);
+      answers.push(
+        <Answer
+          key={ index }
+          id={ index }
+          text={ answer }
+          correct={ question.correctAnswer === index }
+          question={ id }
+        />);
     });
 
     return (
       <li>
         <input type='text' defaultValue={ question.text } />
-        Difficulty 
+        Difficulty
         <select>
           <option value='easy'>Easy</option>
           <option value='medium'>Medium</option>
