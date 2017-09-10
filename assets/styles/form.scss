@@ -1,0 +1,119 @@
+.form-container {
+  float: left;
+  width: 100%;
+
+  form {
+    width: 100%;
+    margin-top: 20px;
+    float: inherit;
+  }
+
+  .form-input {
+    margin-bottom: 15px;
+
+    &.vertical {
+      label {
+        margin-bottom: 5px;
+      }
+
+      .error-message {
+        margin-top: 10px;
+      }
+    }
+
+    &.horizontal {
+      display: flex;
+
+      label {
+        padding: 5px 0;
+        margin: 0 10px 0 0;
+      }
+
+      .error-message {
+        margin-top: 5px;
+        margin-left: 5px;
+      }
+    }
+
+    &.long {
+      label {
+        width: 110px;
+      }
+    }
+
+    &.medium {
+      label {
+        width: 85px;
+      }
+    }
+
+    &.small {
+      label {
+        width: 40px;
+      }
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+
+      &.fs-16 {
+        font-size: 16px;
+      }
+    }
+
+    a {
+      float: right;
+      margin: 0;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    input {
+      border: 1px solid gainsboro;
+      border-radius: 4px;
+      padding: 7px 12px;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 500px;
+
+      &.fs-16 {
+        font-size: 16px;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    select {
+      border: 1px solid gainsboro;
+      border-radius: 4px;
+      background-color: $white;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .error-message {
+      font-size: 14px;
+      color: $error-color;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .form-input {
+    a {
+      font-size: 13px !important;
+    }
+  }
+}

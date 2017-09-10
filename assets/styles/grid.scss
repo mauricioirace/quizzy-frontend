@@ -1,0 +1,69 @@
+$grid-spacing: 3%;
+
+.row {
+  float: left;
+  width: 100%;
+
+  & + & {
+    margin-top: $grid-spacing;
+  }
+}
+
+.row.without-margin {
+  margin-top: 0 !important;
+}
+
+[class^='col-'], [class*=' col-'] {
+  float: left;
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: $grid-spacing;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  @for $i from 1 through 12 {
+    .col-lx-#{$i} {
+      width: ((100% / 12) * $i) - (($grid-spacing * (12 - $i)) / 12);
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      width: ((100% / 12) * $i) - (($grid-spacing * (12 - $i)) / 12);
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} {
+      width: ((100% / 12) * $i) - (($grid-spacing * (12 - $i)) / 12);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  @for $i from 1 through 12 {
+    .col-sm-#{$i} {
+      width: ((100% / 12) * $i) - (($grid-spacing * (12 - $i)) / 12);
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  @for $i from 1 through 12 {
+    .col-xs-#{$i} {
+      width: ((100% / 12) * $i) - (($grid-spacing * (12 - $i)) / 12);
+    }
+  }
+}

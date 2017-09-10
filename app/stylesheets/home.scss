@@ -1,0 +1,59 @@
+@import '../../assets/styles/variables.scss';
+
+.main-view {
+  padding: 15px 70px;
+
+  .table-container {
+    width: 520px;
+    float: left;
+
+    .table {
+      margin-bottom: 15px;
+
+      th:last-child {
+        width: 125px;
+      }
+
+      th, td {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .match-container {
+    float: right;
+    width: 450px;
+    min-width: 295px;
+    height: 180px;
+    border-radius: 5px;
+    padding: 25px 35px;
+    text-align: center;
+    background-color: $white;
+    color: $black;
+
+    button {
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      border-radius: 3px;
+      height: 35px;
+      font-size: 14px;
+      background-color: transparent;
+      border: 1px solid $primary-color;
+      color: $primary-color;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $white;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.play-button {
+  height: 50px;
+}

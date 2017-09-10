@@ -24,35 +24,20 @@ module.exports = {
             test: /\.css$/,
             use: [
               'style-loader',
-              { loader: 'css-loader',
-                options: {
-                  modules: false,
-                  importLoaders: 1,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                }
-              }
+              'css-loader'
             ]
           },
           {
             test: /\.scss$/,
             use: [
-              'style-loader',
-              { loader: 'css-loader',
-                options: {
-                  modules: false,
-                  importLoaders: 1,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                }
-              },
-              'sass-loader'
+              { loader: 'style-loader' },
+              { loader: 'css-loader' },
+              { loader: 'sass-loader' }
             ]
           },
           {
-              test: /\.(jpe?g|png|gif|svg)$/i,
-              loaders: [
-                  'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                  'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-              ]
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            loader: 'file-loader'
           }
     ],
   },
