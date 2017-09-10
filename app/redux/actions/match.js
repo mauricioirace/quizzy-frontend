@@ -5,6 +5,7 @@ import {
   LOAD_MATCH_DATA,
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
+  MATCH_NAME_ERROR,
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -46,3 +47,8 @@ export const fetchMatch = (matchName) => {
       });
   }
 };
+
+export const matchNameError = (msg) => ({
+  type: MATCH_NAME_ERROR,
+  msg
+});
