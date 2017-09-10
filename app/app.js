@@ -5,7 +5,7 @@ import About from './screens/about';
 import Register from './screens/register';
 import Login from './screens/login';
 import Match from './screens/match';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
 import './styles.scss';
