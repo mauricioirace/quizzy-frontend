@@ -1,0 +1,50 @@
+@import '../../assets/styles/variables.scss';
+
+.header {
+  width: 100%;
+  height: $header-height;
+  z-index: 2;
+  background: transparent;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  line-height: 60px;
+  display: block;
+  font-size: 20px;
+  line-height: 30px;
+  position: relative;
+
+  .logo-img {
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    margin-left: 62px;
+
+    img {
+      height: 60px;
+    }
+  }
+
+  .action-container {
+    display: flex;
+    margin-right: 50px;
+    cursor: pointer;
+    float: right;
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+      display: inline;
+      margin-left: 15px;
+
+      &:hover {
+        color: lighter($primary-color);
+      }
+    }
+
+    &:active {
+      color: $primary-color;
+    }
+  }
+}

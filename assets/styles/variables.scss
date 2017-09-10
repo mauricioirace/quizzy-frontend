@@ -2,7 +2,7 @@ $primary-color: #ff8d40;
 $secondary-color: #381d2a;
 $terciary-color: #2f4858;
 $black: #3b413c;
-$white: #fcf8ef;
+$white: #fbf7f3;
 $success-color: #3e6990;
 $error-color: #c8553d;
 $warning-color: #a90000;
@@ -11,6 +11,7 @@ $hover-grey: rgba(0, 0, 0, 0.065);
 $background-grey: #f2f4f5;
 $background-grey-light: #f7f7f7;
 $background-grey-dark: #e8e8e8;
+
 $font-white: rgba(255,255,255, 1);
 $font-black: #373a3c;
 $font-black-light: #5b5d5f;
@@ -18,6 +19,8 @@ $font-grey: #b6bcc1;
 $font-grey-dark: #9c9c9c;
 $fa-grey: #757575;
 
+$header-height: 65px;
+
 @function lighter($color) {
-  @return hsl(hue($color), saturation($color) + 5, lightness($color) + 2)
+  @return hsl(hue($color), saturation($color) + 5, lightness($color) + 4)
 }

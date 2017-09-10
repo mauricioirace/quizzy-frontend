@@ -1,0 +1,60 @@
+.button {
+  cursor: pointer;
+  border: 0px solid;
+  border-radius: 5px;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &.medium {
+    width: 80px;
+    min-height: 35px;
+    font-size: 16px;
+  }
+
+  &.long {
+    width: 100%;
+    min-height: 35px;
+    font-size: 16px;
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    color: $white;
+
+    &:hover {
+      background-color: lighter($primary-color);
+    }
+  }
+
+  &.action {
+    font-size: 14px;
+    padding: 5px 6px;
+    border-radius: 3px;
+    color: white;
+    background-color: $black;
+
+    &:hover {
+      background-color: lighter($black);
+    }
+  }
+}
+
+.cancel {
+  color: $black;
+  border: none;
+  height: 38px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: transparent !important;
+
+  &:hover {
+    box-shadow: none;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: none !important;
+  }
+}
