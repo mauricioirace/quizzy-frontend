@@ -1,5 +1,4 @@
 import React from 'react';
-import createGameStyle from '../assets/styles/create-game.scss';
 import { addQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
