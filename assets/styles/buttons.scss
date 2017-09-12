@@ -1,6 +1,6 @@
 .button {
   cursor: pointer;
-  border: 0px solid;
+  border: none !important;
   border-radius: 5px;
 
   &:focus {

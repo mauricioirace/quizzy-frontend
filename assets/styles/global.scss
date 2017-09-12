@@ -6,10 +6,15 @@
   height: 100%;
 }
 
+.main-view {
+  position: relative;
+  padding: 15px 0;
+}
+
 div [data-reactroot] {
   background-color: $secondary-color;
   height: 100%;
-  width: 100%;
+  padding: 0 70px;
 }
 
 body {

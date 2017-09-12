@@ -5,21 +5,20 @@
   height: $header-height;
   z-index: 2;
   background: transparent;
-  padding: 15px 20px;
   box-sizing: border-box;
-  line-height: 60px;
   display: block;
   font-size: 20px;
   line-height: 30px;
   position: relative;
+  margin-bottom: 50px;
+  border-bottom: 1px solid $primary-color;
 
   .logo-img {
     height: 100%;
     display: inline-block;
     position: absolute;
-    top: 2px;
-    left: 0;
-    margin-left: 62px;
+    top: 8px;
+    left: -7px;
 
     img {
       height: 60px;
@@ -28,9 +27,10 @@
 
   .action-container {
     display: flex;
-    margin-right: 50px;
     cursor: pointer;
-    float: right;
+    position: absolute;
+    top: 23px;
+    right: 0;
 
     a {
       color: $primary-color;
