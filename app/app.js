@@ -16,6 +16,7 @@ export class App extends React.PureComponent {
       <BrowserRouter history={ history } >
         <div>
           <Header/>
+          <div className='main-view'>
             <Switch>
               <Route exact path='/' component={ Home }/>
               <Route exact path='/about' component={ About }/>
@@ -23,6 +24,7 @@ export class App extends React.PureComponent {
               <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
             </Switch>
+          </div>
         </div>
         {/*<Footer/>*/}
       </BrowserRouter>

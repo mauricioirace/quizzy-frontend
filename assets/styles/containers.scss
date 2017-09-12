@@ -1,0 +1,13 @@
+.centered-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%);
+  left: 50%;
+  width: 400px;
+  max-width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: $white;
+  border-radius: 5px;
+}

@@ -19,7 +19,7 @@ $font-grey: #b6bcc1;
 $font-grey-dark: #9c9c9c;
 $fa-grey: #757575;
 
-$header-height: 65px;
+$header-height: 75px;
 
 @function lighter($color) {
   @return hsl(hue($color), saturation($color) + 5, lightness($color) + 4)
