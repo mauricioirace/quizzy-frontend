@@ -1,5 +1,6 @@
 import React from 'react';
-import { addQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
+import createGameStyle from '../assets/styles/create-game.scss';
+import { addQuestion, removeQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
+    removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
     changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index))
   };
@@ -31,11 +33,14 @@ class CreateGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
+    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
   }
+  
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
     this.props.addQuestion(question(0));
+    this.props.removeQuestion(question(0));
   }
 
   componentWillUnmount() {
@@ -47,9 +52,17 @@ class CreateGame extends React.PureComponent {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
   }
+
+  onRemoveQuestion(index) {
+    console.log("removing question, index=", index);
+    let questions = this.props.questions;
+    // questions.splice(index, 1);
+    this.props.removeQuestion(index)
+  }
+
   render() {
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } />);
+      <Question key={ index } id={ index } obj={ question } onRemoveQuestion={this.onRemoveQuestion} />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
@@ -63,7 +76,7 @@ class CreateGame extends React.PureComponent {
         </select> <br/>
         Questions <br/>
         <Questions>
-          { questions }
+          { questions } 
         </Questions>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
         <button>Done</button>  <button>Cancel</button> <br/>

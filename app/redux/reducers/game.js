@@ -1,5 +1,6 @@
 import {
   ADD_QUESTION,
+  REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER
@@ -16,6 +17,15 @@ export default (state = initialState, action) => {
         ...state,
         questions: state.questions.concat([ action.question ])
       };
+    case REMOVE_QUESTION:
+      console.log("REMOVEEE ACTION", action.question);
+      console.log("QUESTIONSSSS", state.questions);
+      return {
+        ...state,
+        questions: state.questions.filter( (question, index) => {
+          return action.question !== index
+        }
+      )};
     case CHANGE_QUESTION_NAME:
       return {
         ...state,

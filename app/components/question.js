@@ -6,6 +6,10 @@ class Question extends React.PureComponent {
     super(props);
   }
 
+  removeQuestion(id){
+    this.props.onRemoveQuestion(id);
+  }
+
   render() {
     let question = this.props.obj;
     let id = this.props.id;
@@ -29,7 +33,9 @@ class Question extends React.PureComponent {
           <option value='easy'>Easy</option>
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
-        </select> <br/>
+        </select> 
+        <a href="#" onClick={this.removeQuestion.bind(this, this.props.id)}> X </a>
+        <br/>
         <ul>
           { answers }
         </ul>
