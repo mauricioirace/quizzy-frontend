@@ -50,8 +50,8 @@ module.exports = {
   },
     plugins: [
         new DotenvPlugin({
-            path: './config/.dev.env',
-            sample: './config/.dev.sample.env'
+            path: './config/.env',
+            sample: './config/.sample.env'
         })
     ]
 };
