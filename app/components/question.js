@@ -35,14 +35,15 @@ class Question extends React.PureComponent {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
-  removeQuestion(id){
+  removeQuestion(){
+    const id = this.props.id;
     this.props.onRemoveQuestion(id);
   }
 
   render() {
-    let question = this.props.obj;
-    let id = this.props.id;
-    let answers = [];
+    const question = this.props.obj;
+    const id = this.props.id;
+    const answers = [];
     question.answers.forEach( (answer, index) => {
       answers.push(
         <Answer
@@ -63,7 +64,7 @@ class Question extends React.PureComponent {
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
         </select> 
-        <a href="#" onClick={this.removeQuestion.bind(this, this.props.id)}> X </a>
+        <button onClick={this.removeQuestion.bind(this)}> X </button>
         <br/>
         <ul>
           { answers }
