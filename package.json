@@ -5,7 +5,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "start:dev": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --history-api-fallback --inline --hot --content-base ./dist/",
-    "start:prod": "npm run build:app && node_modules/nodemon/bin/nodemon.js   -r dotenv/config -- node_modules/babel-cli/bin/babel-node.js dist/server.js dotenv_config_path=./config/.env",
+    "start:prod": "npm run build:app && node_modules/nodemon/bin/nodemon.js -r dotenv/config -- node_modules/babel-cli/bin/babel-node.js dist/server.js dotenv_config_path=./config/.env > /home/centos/pis/frontend.txt 2>&1 &",
     "build:app": "webpack --config ./prod.webpack.config.js -p"
   },
   "author": "Mauricio Irace",
