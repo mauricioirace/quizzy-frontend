@@ -6,14 +6,15 @@ class Question extends React.PureComponent {
     super(props);
   }
 
-  removeQuestion(id){
+  removeQuestion(){
+    const id = this.props.id;
     this.props.onRemoveQuestion(id);
   }
 
   render() {
-    let question = this.props.obj;
-    let id = this.props.id;
-    let answers = [];
+    const question = this.props.obj;
+    const id = this.props.id;
+    const answers = [];
     question.answers.forEach( (answer, index) => {
       answers.push(
         <Answer
@@ -27,14 +28,14 @@ class Question extends React.PureComponent {
 
     return (
       <li>
-        <input type='text' defaultValue={ question.text } />
+        <input type='text' placeholder={ question.text } />
         Difficulty
         <select>
           <option value='easy'>Easy</option>
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
         </select> 
-        <a href="#" onClick={this.removeQuestion.bind(this, this.props.id)}> X </a>
+        <button onClick={this.removeQuestion.bind(this)}> X </button>
         <br/>
         <ul>
           { answers }

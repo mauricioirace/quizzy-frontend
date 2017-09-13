@@ -18,8 +18,6 @@ export default (state = initialState, action) => {
         questions: state.questions.concat([ action.question ])
       };
     case REMOVE_QUESTION:
-      console.log("REMOVEEE ACTION", action.question);
-      console.log("QUESTIONSSSS", state.questions);
       return {
         ...state,
         questions: state.questions.filter( (question, index) => {

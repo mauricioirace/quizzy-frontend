@@ -21,10 +21,11 @@ export const addQuestion = (question) => {
   }
 };
 
-export const removeQuestion = (question) => {
+export const removeQuestion = (question, index) => {
   return {
     type: REMOVE_QUESTION,
-    question
+    question,
+    index
   }
 };
 

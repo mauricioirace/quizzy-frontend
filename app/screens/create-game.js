@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const question = (question) => {
   return {
-    text: `Question ${question}`,
+    text: `Question ${question + 1}`,
     difficulty: 'easy',
     answers: [1, 2, 3, 4].map( (answer) =>`Answer ${answer}`),
     correctAnswer: 0
@@ -54,9 +54,6 @@ class CreateGame extends React.PureComponent {
   }
 
   onRemoveQuestion(index) {
-    console.log("removing question, index=", index);
-    let questions = this.props.questions;
-    // questions.splice(index, 1);
     this.props.removeQuestion(index)
   }
 
