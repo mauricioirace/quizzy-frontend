@@ -1,4 +1,5 @@
 import React from 'react';
+import '../stylesheets/create-game.scss';
 import { addQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
@@ -47,14 +48,19 @@ class CreateGame extends React.PureComponent {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
   }
+
+  /*onUploadImage() {
+    document.getElementById('file').click();
+  }*/
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/>
-        Image <button>Load</button><br/>
+        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
+        <label className='upload-image' htmlFor='uploadImage'>Image</label> <br/>
+        <input hidden type='file' id='uploadImage' name='image'/>
         Category
         <select>
           <option value='sport'>Sport</option>
