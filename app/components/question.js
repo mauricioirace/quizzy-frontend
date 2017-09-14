@@ -1,10 +1,29 @@
 import React from 'react';
 import Answer from './answer';
+import { connect } from 'react-redux';
+import { changeQuestionName } from '../redux/actions/game';
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index))
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {  };
+};
 
 class Question extends React.PureComponent {
   constructor(props){
     super(props);
+    this.changeQuestion = this.changeQuestion.bind(this);
   }
+
+
+  changeQuestion(event) {
+    this.props.changeQuestionName(event.target.value,this.props.id);
+
+  }
+
 
   render() {
     let question = this.props.obj;
@@ -23,7 +42,7 @@ class Question extends React.PureComponent {
 
     return (
       <li>
-        <input type='text' defaultValue={ question.text } />
+        <input type='text' onChange={ this.changeQuestion } defaultValue={ question.text } />
         Difficulty
         <select>
           <option value='easy'>Easy</option>
@@ -38,4 +57,4 @@ class Question extends React.PureComponent {
   }
 }
 
-export default Question;
+export default connect(mapStateToProps,mapDispatchToProps)(Question);

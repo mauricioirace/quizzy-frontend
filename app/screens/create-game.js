@@ -14,15 +14,14 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index))
   };
 };
 
-const question = (question) => {
+const question = () => {
   return {
-    text: `Question ${question}`,
+    text: '',
     difficulty: 'easy',
-    answers: [1, 2, 3, 4].map( (answer) =>`Answer ${answer}`),
+    answers: [ '','','','' ],
     correctAnswer: 0
   };
 };

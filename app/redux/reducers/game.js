@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         questions: state.questions.map( (question, index) => {
           return {
             ...question,
-            name: index === action.index ? action.questionName : question.name
+            text: index === action.index ? action.questionName : question.text
             }
         })
       };
