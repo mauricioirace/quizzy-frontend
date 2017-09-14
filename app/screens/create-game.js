@@ -54,7 +54,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onRemoveQuestion(index) {
-    this.props.removeQuestion(index)
+    this.props.removeQuestion(index);
   }
 
   render() {
