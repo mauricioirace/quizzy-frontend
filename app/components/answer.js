@@ -76,4 +76,12 @@ class Answer extends React.PureComponent {
   }
 }
 
+Answer.propTypes = {
+  text : React.PropTypes.string.isRequired,
+  //correct : React.PropTypes.bool.isRequired,
+  key : React.PropTypes.number,
+  id : React.PropTypes.number,
+  question : React.PropTypes.number,
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(Answer);
