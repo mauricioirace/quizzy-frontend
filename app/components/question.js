@@ -35,7 +35,7 @@ class Question extends React.PureComponent {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
-  removeQuestion(){
+  removeQuestion() {
     const id = this.props.id;
     this.props.onRemoveQuestion(id);
   }

@@ -71,7 +71,7 @@ class CreateGame extends React.PureComponent {
 
   render() {
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } onRemoveQuestion={this.onRemoveQuestion} />);
+      <Question key={ index } id={ index } obj={ question } onRemoveQuestion={ this.onRemoveQuestion } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
