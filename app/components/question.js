@@ -6,7 +6,7 @@ class Question extends React.PureComponent {
     super(props);
   }
 
-  removeQuestion(){
+  removeQuestion() {
     const id = this.props.id;
     this.props.onRemoveQuestion(id);
   }
