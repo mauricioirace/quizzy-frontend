@@ -21,9 +21,6 @@ export default (state = initialState, action) => {
       return{
         ...state,
         questions: state.questions.map( (question, index) => {
-          console.log('question',  question)
-          console.log('index', index)
-          console.log('action', action)
           return {
             ...question,
             difficulty: index === action.index ? action.difficulty : question.difficulty
