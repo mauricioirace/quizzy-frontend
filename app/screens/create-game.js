@@ -32,6 +32,9 @@ class CreateGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
+    this.state = {
+      image: ""
+    }
   }
   componentWillMount() {
     // remove all questions
@@ -49,9 +52,21 @@ class CreateGame extends React.PureComponent {
     this.props.addQuestion(question(indexWhereAdd));
   }
 
-  /*onUploadImage() {
-    document.getElementById('file').click();
-  }*/
+  onChangeImage() {
+    //Chequear extension
+
+    var file = this.refs.file.files[0];
+    var reader = new FileReader();
+    var url = reader.readAsDataURL(file);
+    reader.onloadend = function (e) {
+      console.log(e.srcElement.result)
+      this.setState({
+        image: [reader.result]
+      })
+    }.bind(this);
+  }
+
+
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);
@@ -59,8 +74,9 @@ class CreateGame extends React.PureComponent {
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
         Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
-        <label className='upload-image' htmlFor='uploadImage'>Image</label> <br/>
-        <input hidden type='file' id='uploadImage' name='image'/>
+        <label className='upload-image' htmlFor='uploadImage'>Image</label>
+        <input hidden ref='file' type='file' id='uploadImage' name='image' onChange={ () => this.onChangeImage() }/>
+        <img src={this.state.image} height="100" id="previewImage"/><br/>
         Category
         <select>
           <option value='sport'>Sport</option>
