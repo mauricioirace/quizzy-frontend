@@ -23,7 +23,7 @@ const question = (question) => {
     text: `Question ${question}`,
     difficulty: 'easy',
     answers: [1, 2, 3, 4].map( (answer) =>`Answer ${answer}`),
-    correctAnswer: 0
+    correctAnswer: -1
   };
 };
 

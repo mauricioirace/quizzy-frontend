@@ -2,7 +2,8 @@ import {
   ADD_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
-  CHANGE_ANSWER
+  CHANGE_ANSWER,
+  CHANGE_SELECTED_ANSWER
 } from "../constants/game";
 
 const initialState = {
@@ -10,6 +11,8 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  let newQuestions;
+  let newAnswers;
   switch (action.type) {
     case ADD_QUESTION:
       return {
@@ -32,10 +35,17 @@ export default (state = initialState, action) => {
         questions: []
       };
     case CHANGE_ANSWER:
-      let newAnswers = state.questions[action.question].answers.slice(0, 4);
+      newAnswers = state.questions[action.question].answers.slice(0, 4);
       newAnswers[action.index] = action.answer;
-      let newQuestions = state.questions.slice(0, state.questions.length);
+      newQuestions = state.questions.slice(0, state.questions.length);
       newQuestions[action.question].answers = newAnswers;
+      return {
+        ...state,
+        questions: newQuestions
+      };
+    case CHANGE_SELECTED_ANSWER:
+      newQuestions = state.questions.slice(0, state.questions.length);
+      newQuestions[action.question].correctAnswer = action.answer;
       return {
         ...state,
         questions: newQuestions

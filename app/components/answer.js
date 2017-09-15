@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeAnswer } from '../redux/actions/game';
+import { changeAnswer, changeSelectedAnswer } from '../redux/actions/game';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeAnswer: (question, answer, index) => dispatch(changeAnswer(question, answer, index))
+    changeAnswer: (question, answer, index) => dispatch(changeAnswer(question, answer, index)),
+    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer))
   }
 };
 
@@ -18,10 +19,15 @@ class Answer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelectionChange = this.handleSelectionChange.bind(this);
   }
 
   handleChange(event) {
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
+  }
+
+  handleSelectionChange(event) {
+    this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
   render() {
@@ -29,10 +35,16 @@ class Answer extends React.PureComponent {
       return (
         <div>
           <input
+            type='radio'
+            name={ this.props.question }
+            value={ this.props.id }
+            onClick={ this.handleSelectionChange }
+          />
+          <input
             className='answer correct'
             type='text'
             defaultValue={ this.props.text }
-            onChange={ this.handleChange }
+            onClick={ this.handleChange }
           />
           <br/>
         </div>
@@ -41,6 +53,12 @@ class Answer extends React.PureComponent {
     else {
       return (
         <div>
+           <input
+            type='radio'
+            name={ this.props.question }
+            value={ this.props.id }
+            onClick={ this.handleSelectionChange }
+          />
           <input
             className='answer'
             type='text'

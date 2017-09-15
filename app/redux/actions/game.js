@@ -2,7 +2,8 @@ import {
   ADD_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
-  CHANGE_ANSWER
+  CHANGE_ANSWER,
+  CHANGE_SELECTED_ANSWER
 } from '../constants/game';
 
 export const changeQuestionName = (questionName, index) => {
@@ -34,3 +35,11 @@ export const changeAnswer = (question, answer, index) => {
     index
   }
 };
+
+export const changeSelectedAnswer = (question, answer) => {
+  return {
+    type: CHANGE_SELECTED_ANSWER,
+    question,
+    answer
+  }
+}
