@@ -46,6 +46,7 @@ class CreateGame extends React.PureComponent {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
   }
+  
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);
