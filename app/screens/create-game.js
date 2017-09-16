@@ -1,12 +1,13 @@
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { addQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
+import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
-
+import empty from '../../assets/images/empty.svg';
 const mapStateToProps = (state) => {
   return {
+    image: state.gameData.image,
     questions: state.gameData.questions
   };
 };
@@ -15,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index))
+    changeImage: (image) => dispatch(changeImage(image))
   };
 };
 
@@ -32,9 +33,9 @@ class CreateGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
-    this.state = {
-      image: ""
-    }
+    this.onChangeImage = this.onChangeImage.bind(this);
+
+
   }
   componentWillMount() {
     // remove all questions
@@ -52,18 +53,12 @@ class CreateGame extends React.PureComponent {
     this.props.addQuestion(question(indexWhereAdd));
   }
 
-  onChangeImage() {
-    //Chequear extension
+  onChangeImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = (e) => this.props.changeImage(reader.result);
 
-    var file = this.refs.file.files[0];
-    var reader = new FileReader();
-    var url = reader.readAsDataURL(file);
-    reader.onloadend = function (e) {
-      console.log(e.srcElement.result)
-      this.setState({
-        image: [reader.result]
-      })
-    }.bind(this);
   }
 
 
@@ -74,9 +69,14 @@ class CreateGame extends React.PureComponent {
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
         Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
-        <label className='upload-image' htmlFor='uploadImage'>Image</label>
-        <input hidden ref='file' type='file' id='uploadImage' name='image' onChange={ () => this.onChangeImage() }/>
-        <img src={this.state.image} height="100" id="previewImage"/><br/>
+        <label className='upload-image' htmlFor='uploadImage'>
+          {/* use CSS to set image size */}
+          <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
+          <input hidden type='file' id='uploadImage' name='image' onChange={ this.onChangeImage }/>
+        </label>
+        <br/>
+          <label> Choose an image! </label>
+        <br/>
         Category
         <select>
           <option value='sport'>Sport</option>

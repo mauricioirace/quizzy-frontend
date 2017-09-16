@@ -2,8 +2,15 @@ import {
   ADD_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
-  CHANGE_ANSWER
+  CHANGE_ANSWER,
+  CHANGE_IMAGE
 } from '../constants/game';
+export const changeImage = (image) => {
+  return {
+    type: CHANGE_IMAGE,
+    image
+  }
+};
 
 export const changeQuestionName = (questionName, index) => {
   return {
