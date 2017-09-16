@@ -79,7 +79,6 @@ class CreateGame extends React.PureComponent {
 
   onChangeCategory(event) {
     this.props.changeCategory(event.target.value);
-  }
 
   test() {}
 
@@ -114,6 +113,7 @@ class CreateGame extends React.PureComponent {
         <Questions>
           { questions }
         </Questions>
+        <EmptyFieldError show = { this.props.error } subject = 'Answer' />
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
         <button onClick={ this.createGame }>Done</button>  <button>Cancel</button> <br/>
       </div>

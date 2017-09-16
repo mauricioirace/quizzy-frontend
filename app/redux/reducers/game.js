@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
             difficulty: index === action.index ? action.difficulty : question.difficulty
             }
         })
-      };  
+      };
     case REMOVE_QUESTION:
       return {
         ...state,
@@ -94,7 +94,7 @@ export default (state = initialState, action) => {
       return{
         ...state,
         category: action.category
-      }; 
+      };
     default:
       return state;
   }

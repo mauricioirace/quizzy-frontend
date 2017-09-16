@@ -70,6 +70,13 @@ export const changeAnswer = (question, answer, index) => {
     question,
     answer,
     index
+  };
+};
+
+export const foundError = (error) => {
+  return {
+    type: 'Done',
+    error,
   }
 };
 
