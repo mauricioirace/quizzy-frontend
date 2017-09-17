@@ -9,7 +9,7 @@ class Game extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td> { this.props.data.game.image } </td>
+        <td> <img src={ this.props.data.game.image } height="80" /> </td>
         <td> { this.props.data.game.name } </td>
         <td> Rating: { this.props.data.game.rating } </td>
         <td> <Link to={'/match/' + this.props.data.game.name }><img className='play-button' src={ require('../../assets/images/play_button.png') }/></Link> </td>

@@ -4,11 +4,13 @@ import {
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
+  CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER
 } from "../constants/game";
 
 const initialState = {
-  questions: []
+  questions: [],
+  image: null
 };
 
 export default (state = initialState, action) => {
@@ -55,13 +57,18 @@ export default (state = initialState, action) => {
         ...state,
         questions: newQuestions
       };
+    case CHANGE_IMAGE:
+      return {
+        ...state,
+        image: action.image
+      };
     case CHANGE_SELECTED_ANSWER:
       newQuestions = state.questions.slice(0, state.questions.length);
       newQuestions[action.question].correctAnswer = action.answer;
       return {
         ...state,
         questions: newQuestions
-      }
+      };
     default:
       return state;
   }

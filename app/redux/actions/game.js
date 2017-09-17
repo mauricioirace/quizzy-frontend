@@ -3,9 +3,16 @@ import {
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
+  CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
   CHANGE_QUESTION_DIFFICULTY
 } from '../constants/game';
+export const changeImage = (image) => {
+  return {
+    type: CHANGE_IMAGE,
+    image
+  }
+};
 
 
 

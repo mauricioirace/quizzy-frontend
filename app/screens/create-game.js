@@ -1,11 +1,13 @@
 import React from 'react';
-import { addQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
+import '../stylesheets/create-game.scss';
+import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
-
+import empty from '../../assets/images/empty.svg';
 const mapStateToProps = (state) => {
   return {
+    image: state.gameData.image,
     questions: state.gameData.questions
   };
 };
@@ -14,6 +16,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
+    changeImage: (image) => dispatch(changeImage(image))
   };
 };
 
@@ -30,6 +33,9 @@ class CreateGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
+
+
   }
   componentWillMount() {
     // remove all questions
@@ -46,15 +52,29 @@ class CreateGame extends React.PureComponent {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
   }
-  
+
+  onChangeImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = (e) => this.props.changeImage(reader.result);
+
+  }
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/>
-        Image <button>Load</button><br/>
+        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
+        <label className='upload-image' htmlFor='uploadImage'>
+          {/* use CSS to set image size */}
+          <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
+          <input hidden type='file' id='uploadImage' name='image' onChange={ this.onChangeImage }/>
+        </label>
+        <br/>
+          <label> Choose an image! </label>
+        <br/>
         Category
         <select>
           <option value='sport'>Sport</option>
