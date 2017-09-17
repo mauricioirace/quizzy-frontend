@@ -27,7 +27,7 @@ class Question extends React.PureComponent {
 
 
   changeQuestion(event) {
-    this.props.changeQuestionName(event.target.value,this.props.id);
+    this.props.changeQuestionName(event.target.value, this.props.id);
   }
 
 
@@ -68,4 +68,4 @@ class Question extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Question);
+export default connect(mapStateToProps, mapDispatchToProps)(Question);
