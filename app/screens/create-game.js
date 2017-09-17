@@ -14,16 +14,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index))
   };
 };
 
-const question = (question) => {
+const question = () => {
   return {
-    text: `Question ${question}`,
+    text: '',
     difficulty: 'easy',
-    answers: [1, 2, 3, 4].map( (answer) =>`Answer ${answer}`),
-    correctAnswer: -1
+    answers: [ '','','','' ],
+    correctAnswer: 0
   };
 };
 
@@ -47,6 +46,7 @@ class CreateGame extends React.PureComponent {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
   }
+  
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);

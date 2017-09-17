@@ -3,8 +3,20 @@ import {
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
-  CHANGE_SELECTED_ANSWER
+  CHANGE_SELECTED_ANSWER,
+  CHANGE_QUESTION_DIFFICULTY
 } from '../constants/game';
+
+
+
+export const changeQuestionDifficulty = (difficulty, index) => {
+  return {
+      type: CHANGE_QUESTION_DIFFICULTY, 
+      difficulty,
+      index
+  }
+};
+
 
 export const changeQuestionName = (questionName, index) => {
   return {
