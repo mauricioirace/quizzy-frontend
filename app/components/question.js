@@ -4,6 +4,7 @@ import Answer from './answer';
 class Question extends React.PureComponent {
   constructor(props){
     super(props);
+    this.removeQuestion = this.removeQuestion.bind(this);
   }
 
   removeQuestion() {
@@ -35,7 +36,7 @@ class Question extends React.PureComponent {
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
         </select> 
-        <button onClick={this.removeQuestion.bind(this)}> X </button>
+        <button onClick={ this.removeQuestion }> X </button>
         <br/>
         <ul>
           { answers }
