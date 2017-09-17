@@ -3,7 +3,9 @@ import {
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
-  CHANGE_IMAGE
+  CHANGE_IMAGE,
+  CHANGE_SELECTED_ANSWER,
+  CHANGE_QUESTION_DIFFICULTY
 } from '../constants/game';
 export const changeImage = (image) => {
   return {
@@ -11,6 +13,17 @@ export const changeImage = (image) => {
     image
   }
 };
+
+
+
+export const changeQuestionDifficulty = (difficulty, index) => {
+  return {
+      type: CHANGE_QUESTION_DIFFICULTY, 
+      difficulty,
+      index
+  }
+};
+
 
 export const changeQuestionName = (questionName, index) => {
   return {
@@ -41,3 +54,11 @@ export const changeAnswer = (question, answer, index) => {
     index
   }
 };
+
+export const changeSelectedAnswer = (question, answer) => {
+  return {
+    type: CHANGE_SELECTED_ANSWER,
+    question,
+    answer
+  }
+}

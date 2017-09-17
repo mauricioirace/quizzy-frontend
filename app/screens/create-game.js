@@ -20,11 +20,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const question = (question) => {
+const question = () => {
   return {
-    text: `Question ${question}`,
+    text: '',
     difficulty: 'easy',
-    answers: [1, 2, 3, 4].map( (answer) =>`Answer ${answer}`),
+    answers: [ '','','','' ],
     correctAnswer: 0
   };
 };
@@ -60,8 +60,6 @@ class CreateGame extends React.PureComponent {
     reader.onloadend = (e) => this.props.changeImage(reader.result);
 
   }
-
-
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } />);
