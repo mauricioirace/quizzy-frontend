@@ -1,12 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
 import '../stylesheets/create-game.scss';
 import createGameStyle from '../assets/styles/create-game.scss';
-import { addQuestion, changeImage, removeQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
-=======
-import createGameStyle from '../assets/styles/create-game.scss';
-import { addQuestion, removeQuestion, changeQuestionName, removeAllQuestions } from '../redux/actions/game';
->>>>>>> 69a516981b62091ba95ac9b0bbb8ef9ac51425ad
+import { addQuestion, changeImage, removeQuestion, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
