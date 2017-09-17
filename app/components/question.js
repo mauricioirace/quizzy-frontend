@@ -33,6 +33,7 @@ class Question extends React.PureComponent {
 
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
+    this.removeQuestion = this.removeQuestion.bind(this);
   }
 
   removeQuestion() {
@@ -64,7 +65,7 @@ class Question extends React.PureComponent {
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
         </select> 
-        <button onClick={this.removeQuestion.bind(this)}> X </button>
+        <button onClick={ this.removeQuestion }> X </button>
         <br/>
         <ul>
           { answers }

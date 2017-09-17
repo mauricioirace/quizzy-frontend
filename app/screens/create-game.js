@@ -45,7 +45,6 @@ class CreateGame extends React.PureComponent {
     // remove all questions
     this.props.removeAllQuestions();
     this.props.addQuestion(question(0));
-    this.props.removeQuestion(question(0));
   }
 
   componentWillUnmount() {
