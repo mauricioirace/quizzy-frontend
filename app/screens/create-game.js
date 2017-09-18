@@ -1,8 +1,16 @@
-
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { changeDescription, addQuestion, changeImage, changeName, changeCategory, removeAllQuestions, removeQuestion } from '../redux/actions/game';
 
+import {
+  addQuestion,
+  changeCategory,
+  changeDescription,
+  changeImage,
+  changeName,
+  createGame,
+  removeAllQuestions,
+  removeQuestion
+} from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -14,7 +22,8 @@ const mapStateToProps = (state) => {
     image: state.gameData.image,
     name: state.gameData.name,
     category: state.gameData.category,
-    questions: state.gameData.questions
+    questions: state.gameData.questions,
+    error: state.gameData.error
   };
 };
 
@@ -26,19 +35,22 @@ const mapDispatchToProps = (dispatch) => {
     changeImage: (image) => dispatch(changeImage(image)),
     changeDescription: (name) => dispatch(changeDescription(name)),
     changeName: (name) => dispatch(changeName(name)),
-    changeCategory: (category) => dispatch(changeCategory(category))    
+    changeCategory: (category) => dispatch(changeCategory(category)),
+    createGame: (game) => dispatch(createGame(game))
   };
 };
 
 const question = () => {
   return {
     text: '',
-    difficulty: 'easy',
-    answers: [ '','','','' ]
+    difficulty: 'Easy',
+    answers: [ '','','','' ],
+    correctAnswer: 0
   };
 };
 
 class CreateGame extends React.PureComponent {
+
   constructor(props) {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
@@ -46,8 +58,23 @@ class CreateGame extends React.PureComponent {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
+    this.onDone= this.onDone.bind(this);
+
   }
-  
+
+  onDone() {
+    const { name, description,
+      tags, questions} = this.props;
+    const game = {
+      creator: 'Fulane of such',
+      name,
+      description,
+      tags,
+      questions
+    };
+    this.props.createGame(game);
+  }
+
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
@@ -114,8 +141,9 @@ class CreateGame extends React.PureComponent {
         <Questions>
           { questions } 
         </Questions>
+        <div className="error-message">{ this.props.error }</div>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
-        <button>Done</button>  <button>Cancel</button> <br/>
+        <button onClick={ this.onDone }>Done</button>  <button>Cancel</button> <br/>
       </div>
     )
   }
