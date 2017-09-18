@@ -1,7 +1,6 @@
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import createGameStyle from '../assets/styles/create-game.scss';
-import { addQuestion, changeImage, removeQuestion, removeAllQuestions } from '../redux/actions/game';
+import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -37,7 +36,6 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
-    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
   }
   
   componentWillMount() {
@@ -63,13 +61,10 @@ class CreateGame extends React.PureComponent {
     reader.onloadend = (e) => this.props.changeImage(reader.result);
 
   }
-  onRemoveQuestion(index) {
-    this.props.removeQuestion(index);
-  }
 
   render() {
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } onRemoveQuestion={ this.onRemoveQuestion } />);
+      <Question key={ index } id={ index } obj={ question }  />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
