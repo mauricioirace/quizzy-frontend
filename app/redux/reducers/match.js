@@ -4,6 +4,7 @@ import {
   LOAD_MATCH_DATA,
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
+  MATCH_NAME_ERROR,
 } from '../constants/match';
 
 const initialState = {
@@ -15,6 +16,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case MATCH_NAME_ERROR:
+      return {
+        ...state,
+        error: action.msg
+
+      }
     case LOAD_CURRENT_MATCH:
       return {
         ...state,

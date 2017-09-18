@@ -1,0 +1,1 @@
+export const EMPTY_MATCH_NAME = 'You must enter the match name';

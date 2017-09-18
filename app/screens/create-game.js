@@ -1,3 +1,4 @@
+
 import React from 'react';
 import '../stylesheets/create-game.scss';
 import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
