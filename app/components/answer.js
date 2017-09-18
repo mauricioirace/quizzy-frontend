@@ -43,7 +43,7 @@ class Answer extends React.PureComponent {
           <input
             className='answer correct'
             type='text'
-            value={ this.props.self.text }
+            value={ this.props.text }
             onChange={ this.handleChange }
           />
           <br/>
@@ -62,7 +62,7 @@ class Answer extends React.PureComponent {
           <input
             className='answer'
             type='text'
-            value={ this.props.self.text }
+            value={ this.props.text }
             onChange={ this.handleChange }
           />
           <br/>

@@ -59,12 +59,13 @@ class CreateGame extends React.PureComponent {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
-
   }
+
+  test() {}
 
   render() {
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question }  />);
+      <Question key={ index } id={ index } obj={ question } test={this.test.bind(this)} />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
