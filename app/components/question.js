@@ -3,9 +3,6 @@ import Answer from './answer';
 import { connect } from 'react-redux';
 import { changeQuestionName, changeQuestionDifficulty, removeQuestion } from '../redux/actions/game';
 
-
-
-
 const mapDispatchToProps = (dispatch) => {
     return {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
@@ -27,7 +24,6 @@ class Question extends React.PureComponent {
     this.changeDifficulty = this.changeDifficulty.bind(this);
     this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
   }
-
 
   changeQuestion(event) {
     this.props.changeQuestionName(event.target.value, this.props.id);
