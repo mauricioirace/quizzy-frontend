@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { changeAnswer, changeSelectedAnswer } from '../redux/actions/game';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,props) => {
   return {
-    questions: state.gameData.questions
+    self: state.gameData.questions[props.question].answers[props.id]
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -43,8 +43,8 @@ class Answer extends React.PureComponent {
           <input
             className='answer correct'
             type='text'
-            defaultValue={ this.props.text }
-            onClick={ this.handleChange }
+            value={ this.props.text }
+            onChange={ this.handleChange }
           />
           <br/>
         </div>
@@ -62,7 +62,7 @@ class Answer extends React.PureComponent {
           <input
             className='answer'
             type='text'
-            defaultValue={ this.props.text }
+            value={ this.props.text }
             onChange={ this.handleChange }
           />
           <br/>

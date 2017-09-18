@@ -1,5 +1,6 @@
 import {
   ADD_QUESTION,
+  REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
@@ -37,6 +38,14 @@ export const addQuestion = (question) => {
   return {
     type: ADD_QUESTION,
     question
+  }
+};
+
+export const removeQuestion = (question, index) => {
+  return {
+    type: REMOVE_QUESTION,
+    question,
+    index
   }
 };
 

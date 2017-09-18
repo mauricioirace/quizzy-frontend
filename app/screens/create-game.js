@@ -5,6 +5,7 @@ import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
+
 const mapStateToProps = (state) => {
   return {
     image: state.gameData.image,
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (question) => dispatch(addQuestion(question)),
+    removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
     changeImage: (image) => dispatch(changeImage(image))
   };
@@ -34,9 +36,8 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
-
-
   }
+  
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
@@ -58,11 +59,13 @@ class CreateGame extends React.PureComponent {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
-
   }
+
+  test() {}
+
   render() {
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } />);
+      <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
@@ -83,7 +86,7 @@ class CreateGame extends React.PureComponent {
         </select> <br/>
         Questions <br/>
         <Questions>
-          { questions }
+          { questions } 
         </Questions>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
         <button>Done</button>  <button>Cancel</button> <br/>

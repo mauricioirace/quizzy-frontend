@@ -1,5 +1,6 @@
 import {
   ADD_QUESTION,
+  REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
@@ -33,6 +34,13 @@ export default (state = initialState, action) => {
         })
 
       }  
+    case REMOVE_QUESTION:
+      return {
+        ...state,
+        questions: state.questions.filter( (question, index) => {
+          return action.question !== index
+        }
+      )};
     case CHANGE_QUESTION_NAME:
       return {
         ...state,
