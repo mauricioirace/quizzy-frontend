@@ -47,7 +47,7 @@ class Answer extends React.PureComponent {
     if (event.target.value === '' && !this.hasErrors(this.props.error)){
       this.props.foundError('emptyFieldError', this.props.question, this.props.id);
     }else if (event.target.value !== '' && this.hasErrors(this.props.error)) {
-      this.props.removeError('emptyFieldError', this.props.question, this.props.id);
+      this.props.removeError(EMPTY_FIELD_ERROR, this.props.question, this.props.id);
     }
   }
 
