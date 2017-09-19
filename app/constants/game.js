@@ -1,0 +1,1 @@
+export const EMPTY_FIELD_ERROR = 'EMPTY_FIELD_ERROR';

@@ -9,13 +9,16 @@ import {
   CHANGE_SELECTED_ANSWER,
   CHANGE_DESCRIPTION,
   CHANGE_NAME,
-  CHANGE_CATEGORY
+  CHANGE_CATEGORY,
+  SHOW_ERROR,
+  HIDE_ERROR,
 } from "../constants/game";
 
 const initialState = {
   questions: [],
   category: 'sports',
-  image: null
+  image: null,
+  error: [],
 };
 
 export default (state = initialState, action) => {
@@ -36,7 +39,7 @@ export default (state = initialState, action) => {
             difficulty: index === action.index ? action.difficulty : question.difficulty
             }
         })
-      };  
+      };
     case REMOVE_QUESTION:
       return {
         ...state,
@@ -94,7 +97,25 @@ export default (state = initialState, action) => {
       return{
         ...state,
         category: action.category
-      }; 
+      };
+    case SHOW_ERROR:
+      return {
+        ...state,
+        error:  state.error.concat([{
+          type:action.error,
+          question: action.question,
+          answer: action.index,
+      }])
+    };
+
+    case HIDE_ERROR:
+      return {
+        ...state,
+        error:  state.error.filter( (error) => {
+          return !(error.answer == action.index && error.question === action.question && error.type === action.error);
+        })
+    };
+
     default:
       return state;
   }
