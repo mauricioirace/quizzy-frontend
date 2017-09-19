@@ -30,7 +30,7 @@ const question = () => {
     text: '',
     difficulty: 'easy',
     answers: [ '','','','' ],
-    correctAnswer: 0
+    // correctAnswer: 0
   };
 };
 
@@ -102,9 +102,6 @@ class CreateGame extends React.PureComponent {
           { questions } 
         </Questions>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
-
-        <button onClick={ this.showprops.bind(this) }>PROPS...</button> <br/>
-        
         <button>Done</button>  <button>Cancel</button> <br/>
       </div>
     )

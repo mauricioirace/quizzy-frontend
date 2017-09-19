@@ -37,7 +37,8 @@ class Answer extends React.PureComponent {
           <input
             type='radio'
             name={ this.props.question }
-            value={ this.props.id }
+            value={ this.props.id }       
+            checked={ this.props.correct }
             onClick={ this.handleSelectionChange }
           />
           <input
@@ -57,7 +58,8 @@ class Answer extends React.PureComponent {
           <input
             type='radio'
             name={ this.props.question }
-            value={ this.props.id }
+            value={ this.props.id }       
+            checked={ this.props.correct }            
             onClick={ this.handleSelectionChange }
           />
           <input

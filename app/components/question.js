@@ -47,7 +47,7 @@ class Question extends React.PureComponent {
           key={ index }
           id={ index }
           text={ answer }
-          correct={ question.correctAnswer === index }
+          correct={ question.correctAnswer == index }
           question={ id }
         />);
     });
