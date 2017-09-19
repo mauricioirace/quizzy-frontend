@@ -12,10 +12,10 @@ class emptyFieldError extends React.PureComponent {
     if (this.props.show ){
       return(
         <div>
-          {content}
+          { content }
         </div>
       );
-    }else return null;
+    } else return null;
   }
 }
 

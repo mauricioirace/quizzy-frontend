@@ -4,6 +4,7 @@ import { changeAnswer, changeSelectedAnswer } from '../redux/actions/game';
 import EmptyFieldError from '../components/errors/emptyFieldError';
 import { foundError, removeError } from '../redux/actions/game';
 import EMPTY_FIELD_ERROR from '../constants/game';
+import '../stylesheets/question.scss';
 
 const mapStateToProps = (state,props) => {
   return {
@@ -55,47 +56,51 @@ class Answer extends React.PureComponent {
   render() {
     if (this.props.correct) {
       return (
-        <div>
-          <input
-            type='radio'
-            name={ this.props.question }
-            value={ this.props.id }
-            checked={ this.props.correct }
-            onClick={ this.handleSelectionChange }
-          />
-          <input
-            className='answer correct'
-            type='text'
-            value={ this.props.text }
-            placeholder={ 'Answer #' + (this.props.id + 1) }
-            onChange={ this.handleChange }
-            onBlur={ this.validateAnswers }
-          />
-          <EmptyFieldError show = { this.hasErrors(this.props.error) } subject = 'Answer' />
-          <br/>
+        <div className='form-container'>
+          <div className='row'>
+            <div className='form-input horizontal long'>
+              <input
+                type='radio'
+                name={ this.props.question }
+                value={ this.props.id }
+                checked={ this.props.correct }
+                onClick={ this.handleSelectionChange }
+              />
+              <input
+                className='answer correct'
+                type='text'
+                value={ this.props.text }
+                placeholder={ 'Answer #' + (this.props.id + 1) }
+                onChange={ this.handleChange }
+              />
+              <EmptyFieldError show={ this.hasErrors(this.props.error) } subject='Answer' />
+            </div>
+          </div>
         </div>
       )
     }
     else {
       return (
-        <div>
-          <input
-            type='radio'
-            name={ this.props.question }
-            value={ this.props.id }
-            checked={ this.props.correct }
-            onClick={ this.handleSelectionChange }
-          />
-          <input
-            className='answer'
-            type='text'
-            value={ this.props.text }
-            placeholder={ 'Answer #' + (this.props.id + 1) }
-            onChange={ this.handleChange }
-            onBlur={ this.validateAnswers }
-          />
-          <EmptyFieldError show = { this.hasErrors(this.props.error) } subject = 'Answer'/>
-          <br/>
+        <div className='form-container'>
+          <div className='row'>
+            <div className='form-input horizontal long'>
+              <input
+                type='radio'
+                name={ this.props.question }
+                value={ this.props.id }
+                checked={ this.props.correct }
+                onClick={ this.handleSelectionChange }
+              />
+              <input
+                className='answer'
+                type='text'
+                value={ this.props.text }
+                placeholder={ 'Answer #' + (this.props.id + 1) }
+                onChange={ this.handleChange }
+              />
+              <EmptyFieldError show = { this.hasErrors(this.props.error) } subject = 'Answer'/>
+            </div>
+          </div>
         </div>
       )
     }
@@ -104,7 +109,6 @@ class Answer extends React.PureComponent {
 
 Answer.propTypes = {
   text : React.PropTypes.string.isRequired,
-  //correct : React.PropTypes.bool.isRequired,
   key : React.PropTypes.number,
   id : React.PropTypes.number,
   question : React.PropTypes.number,
