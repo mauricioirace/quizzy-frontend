@@ -85,12 +85,12 @@ export default (state = initialState, action) => {
         ...state,
         description: action.description
       };
-      case CHANGE_NAME:
+    case CHANGE_NAME:
       return {
         ...state,
         name: action.name
       };
-      case CHANGE_CATEGORY:
+    case CHANGE_CATEGORY:
       return{
         ...state,
         category: action.category
