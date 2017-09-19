@@ -7,11 +7,13 @@ import {
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
-  CHANGE_NAME
+  CHANGE_NAME,
+  CHANGE_CATEGORY
 } from "../constants/game";
 
 const initialState = {
   questions: [],
+  category: 'sports',
   image: null
 };
 
@@ -33,8 +35,7 @@ export default (state = initialState, action) => {
             difficulty: index === action.index ? action.difficulty : question.difficulty
             }
         })
-
-      }  
+      };  
     case REMOVE_QUESTION:
       return {
         ...state,
@@ -83,6 +84,11 @@ export default (state = initialState, action) => {
         ...state,
         name: action.name
       };
+      case CHANGE_CATEGORY:
+      return{
+        ...state,
+        category: action.category
+      };  
     default:
       return state;
   }
