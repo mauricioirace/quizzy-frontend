@@ -29,7 +29,6 @@ class Question extends React.PureComponent {
     this.props.changeQuestionName(event.target.value, this.props.id);
   }
 
-
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
@@ -62,7 +61,7 @@ class Question extends React.PureComponent {
           placeholder={ 'Question #' + (this.props.id + 1) } 
         />
         Difficulty
-        <select onChange={ this.changeDifficulty }>
+        <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
           <option value='easy'>Easy</option>
           <option value='medium'>Medium</option>
           <option value='challenging'>Challenging</option>
