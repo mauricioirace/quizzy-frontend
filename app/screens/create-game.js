@@ -79,6 +79,7 @@ class CreateGame extends React.PureComponent {
 
   onChangeCategory(event) {
     this.props.changeCategory(event.target.value);
+  }
 
   test() {}
 

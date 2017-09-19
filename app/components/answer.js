@@ -6,7 +6,7 @@ import { foundError, removeError } from '../redux/actions/game';
 
 const mapStateToProps = (state,props) => {
   return {
-    self: state.gameData.questions[props.question].answers[props.id]
+    self: state.gameData.questions[props.question].answers[props.id],
     questions: state.gameData.questions,
     error : state.gameData.error,
   }
@@ -15,7 +15,7 @@ const mapStateToProps = (state,props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeAnswer: (question, answer, index) => dispatch(changeAnswer(question, answer, index)),
-    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer))
+    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),
     foundError: (error, question, index) => dispatch(foundError(error, question, index)),
     removeError: (error, question, index) => dispatch(removeError(error, question, index)),
   }
@@ -45,10 +45,8 @@ class Answer extends React.PureComponent {
 
   validateAnswers(event) {
     if (event.target.value === '' && !this.hasErrors(this.props.error)){
-      console.log('oli');
       this.props.foundError('emptyFieldError', this.props.question, this.props.id);
     }else if (event.target.value !== '' && this.hasErrors(this.props.error)) {
-      console.log('olo');
       this.props.removeError('emptyFieldError', this.props.question, this.props.id);
     }
   }

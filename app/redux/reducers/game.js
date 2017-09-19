@@ -9,7 +9,7 @@ import {
   CHANGE_SELECTED_ANSWER,
   CHANGE_DESCRIPTION,
   CHANGE_NAME,
-  CHANGE_CATEGORY
+  CHANGE_CATEGORY,
   SHOW_ERROR,
   HIDE_ERROR,
 } from "../constants/game";
@@ -17,7 +17,7 @@ import {
 const initialState = {
   questions: [],
   category: 'sports',
-  image: null
+  image: null,
   error: [],
 };
 
