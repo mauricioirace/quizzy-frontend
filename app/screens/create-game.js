@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     removeAllQuestions: () => dispatch(removeAllQuestions()),
     changeImage: (image) => dispatch(changeImage(image)),
     changeName: (name) => dispatch(changeName(name)),
-    changeCategory: (category, index) => dispatch(changeCategory(category, index))    
+    changeCategory: (category) => dispatch(changeCategory(category))    
   };
 };
 
@@ -73,7 +73,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onChangeCategory(event) {
-    this.props.changeCategory(event.target.value, this.props.id);
+    this.props.changeCategory(event.target.value);
   }
 
   test() {}

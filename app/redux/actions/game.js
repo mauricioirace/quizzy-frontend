@@ -79,10 +79,9 @@ export const changeName = (name) => {
   }
 };
 
-  export const changeCategory = (category, index) => {
+  export const changeCategory = (category) => {
     return {
       type: CHANGE_CATEGORY,
-      category,
-      index
+      category
     }
 };
