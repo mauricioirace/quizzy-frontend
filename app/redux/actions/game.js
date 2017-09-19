@@ -53,12 +53,13 @@ export const createGameFailure = (error) => {
 
 
 
-export const createGame = (game) => {
+export const createGame = (game,onSuccess) => {
   return (dispatch) => {
     dispatch(creatingGame());
     gameService.create(game)
       .then(() => {
-        dispatch(push('/', { game: game }));
+        // dispatch(push('/'));
+        onSuccess();
       })
       .catch((error) => {
         dispatch(createGameFailure(error.response.data.error))

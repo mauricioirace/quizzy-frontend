@@ -16,8 +16,8 @@ import {
 } from "../constants/game";
 
 const initialState = {
-  name: "test",
-  description: "test description",
+  name: '',
+  description: '',
   image: null,
   questions: [],
   category: 'sports',

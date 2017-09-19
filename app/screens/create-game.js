@@ -11,10 +11,12 @@ import {
   removeAllQuestions,
   removeQuestion
 } from '../redux/actions/game';
+
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -36,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     changeDescription: (name) => dispatch(changeDescription(name)),
     changeName: (name) => dispatch(changeName(name)),
     changeCategory: (category) => dispatch(changeCategory(category)),
-    createGame: (game) => dispatch(createGame(game))
+    createGame: (game,onSuccess) => dispatch(createGame(game,onSuccess))
   };
 };
 
@@ -58,25 +60,32 @@ class CreateGame extends React.PureComponent {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onDone= this.onDone.bind(this);
+    this.onDone = this.onDone.bind(this);
+    this.onSuccess = this.onSuccess.bind(this);
 
   }
 
   onDone() {
     const { name, description,
-      tags, questions} = this.props;
+      category, questions , image} = this.props;
     const game = {
       creator: 'Fulane of such',
       name,
       description,
-      tags,
-      questions
+      tags: [ category ],
+      questions,
+      image
     };
-    this.props.createGame(game);
+    this.props.createGame(game,this.onSuccess);
+  }
+
+  onSuccess(){
+    this.props.history.push('/');
   }
 
   componentWillMount() {
     // remove all questions
+
     this.props.removeAllQuestions();
     this.props.addQuestion(question());
   }
@@ -149,4 +158,4 @@ class CreateGame extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CreateGame);
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(CreateGame));
