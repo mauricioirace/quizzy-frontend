@@ -1,7 +1,7 @@
 
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
+import { changeDescription, addQuestion, changeImage, removeAllQuestions, removeQuestion } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import empty from '../../assets/images/empty.svg';
 
 const mapStateToProps = (state) => {
   return {
+    description: state.gameData.description,
     image: state.gameData.image,
     questions: state.gameData.questions
   };
@@ -19,7 +20,8 @@ const mapDispatchToProps = (dispatch) => {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    changeImage: (image) => dispatch(changeImage(image))
+    changeImage: (image) => dispatch(changeImage(image)),
+    changeDescription: (name) => dispatch(changeDescription(name))
   };
 };
 
@@ -37,12 +39,13 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
+    this.onChangeDescription = this.onChangeDescription.bind(this);
   }
   
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
-    this.props.addQuestion(question(0));
+    this.props.addQuestion(question());
   }
 
   componentWillUnmount() {
@@ -62,6 +65,9 @@ class CreateGame extends React.PureComponent {
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
 
+  onChangeDescription(event) {
+    this.props.changeDescription(event.target.value);
+  }
   test() {}
 
   render() {
@@ -70,7 +76,8 @@ class CreateGame extends React.PureComponent {
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
+        Name <input type='text' name='name' placeholder='eg: The Game' /><br/>
+        description <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/><br/>
         <label className='upload-image' htmlFor='uploadImage'>
           {/* use CSS to set image size */}
           <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>

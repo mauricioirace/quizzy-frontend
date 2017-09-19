@@ -6,7 +6,8 @@ import {
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
-  CHANGE_SELECTED_ANSWER
+  CHANGE_SELECTED_ANSWER,
+  CHANGE_DESCRIPTION
 } from "../constants/game";
 
 const initialState = {
@@ -76,6 +77,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         questions: newQuestions
+      };
+    case CHANGE_DESCRIPTION:
+      return {
+        ...state,
+        description: action.description
       };
     default:
       return state;
