@@ -2,6 +2,7 @@
 import React from 'react';
 import '../stylesheets/create-game.scss';
 import { changeDescription, addQuestion, changeImage, removeAllQuestions, removeQuestion } from '../redux/actions/game';
+
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -11,6 +12,8 @@ const mapStateToProps = (state) => {
   return {
     description: state.gameData.description,
     image: state.gameData.image,
+    name: state.gameData.name,
+    category: state.gameData.category,
     questions: state.gameData.questions
   };
 };
@@ -21,7 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
     changeImage: (image) => dispatch(changeImage(image)),
-    changeDescription: (name) => dispatch(changeDescription(name))
+    changeDescription: (name) => dispatch(changeDescription(name)),
+    changeName: (name) => dispatch(changeName(name)),
+    changeCategory: (category) => dispatch(changeCategory(category))    
   };
 };
 
@@ -29,8 +34,7 @@ const question = () => {
   return {
     text: '',
     difficulty: 'easy',
-    answers: [ '','','','' ],
-    correctAnswer: 0
+    answers: [ '','','','' ]
   };
 };
 
@@ -40,6 +44,8 @@ class CreateGame extends React.PureComponent {
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeCategory = this.onChangeCategory.bind(this);
   }
   
   componentWillMount() {
@@ -64,20 +70,33 @@ class CreateGame extends React.PureComponent {
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
-
   onChangeDescription(event) {
     this.props.changeDescription(event.target.value);
   }
-  test() {}
+  onChangeName(event) {
+    this.props.changeName(event.target.value);
+  }
 
+  onChangeCategory(event) {
+    this.props.changeCategory(event.target.value);
+  }
+
+  test() {}
+  
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' placeholder='eg: The Game' /><br/>
+        Name 
+        <input 
+          type='text' name='name' value={ this.props.name || '' } 
+          onChange={ this.onChangeName } placeholder='eg: Tennis Champions'
+        /> 
+        <br/>
         description <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/><br/>
+
         <label className='upload-image' htmlFor='uploadImage'>
           {/* use CSS to set image size */}
           <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
@@ -87,8 +106,8 @@ class CreateGame extends React.PureComponent {
           <label> Choose an image! </label>
         <br/>
         Category
-        <select>
-          <option value='sport'>Sport</option>
+        <select onChange={ this.onChangeCategory }>
+          <option value='sports'>Sports</option>
           <option value='tv'>Television</option>
           <option value='videogames'>Videogames</option>
         </select> <br/>

@@ -37,13 +37,15 @@ class Answer extends React.PureComponent {
           <input
             type='radio'
             name={ this.props.question }
-            value={ this.props.id }
+            value={ this.props.id }       
+            checked={ this.props.correct }
             onClick={ this.handleSelectionChange }
           />
           <input
             className='answer correct'
             type='text'
             value={ this.props.text }
+            placeholder={ 'Answer #' + (this.props.id + 1) }
             onChange={ this.handleChange }
           />
           <br/>
@@ -53,16 +55,18 @@ class Answer extends React.PureComponent {
     else {
       return (
         <div>
-           <input
+          <input
             type='radio'
             name={ this.props.question }
-            value={ this.props.id }
+            value={ this.props.id }       
+            checked={ this.props.correct }            
             onClick={ this.handleSelectionChange }
           />
           <input
             className='answer'
             type='text'
             value={ this.props.text }
+            placeholder={ 'Answer #' + (this.props.id + 1) }
             onChange={ this.handleChange }
           />
           <br/>
