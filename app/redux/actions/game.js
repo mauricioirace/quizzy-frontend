@@ -11,6 +11,8 @@ import {
   CHANGE_NAME,
   CHANGE_CATEGORY
 
+  SHOW_ERROR,
+  HIDE_ERROR,
 } from '../constants/game';
 
 export const changeImage = (image) => {
@@ -29,7 +31,7 @@ export const changeDescription = (description) => {
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
-      type: CHANGE_QUESTION_DIFFICULTY, 
+      type: CHANGE_QUESTION_DIFFICULTY,
       difficulty,
       index
   }
@@ -73,9 +75,20 @@ export const changeAnswer = (question, answer, index) => {
   };
 };
 
-export const foundError = (error) => {
+export const foundError = (error, question, index) => {
   return {
-    type: 'Done',
+    type: SHOW_ERROR,
+    question,
+    index,
+    error,
+  }
+};
+
+export const removeError = (error, question, index) => {
+  return {
+    type: HIDE_ERROR,
+    question,
+    index,
     error,
   }
 };

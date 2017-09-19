@@ -8,7 +8,7 @@ class emptyFieldError extends React.PureComponent {
   }
 
   render() {
-    let content = this.props.subject + 'field cannot be empty!';
+    let content = this.props.subject + ' field cannot be empty!';
     if (this.props.show ){
       return(
         <div>
