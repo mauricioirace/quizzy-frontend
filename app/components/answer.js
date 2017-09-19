@@ -44,7 +44,7 @@ class Answer extends React.PureComponent {
             className='answer correct'
             type='text'
             value={ this.props.text }
-            placeholder={ 'Enter answer #' + (this.props.id+1) }
+            placeholder={ 'Enter answer #' + (this.props.id + 1) }
             onChange={ this.handleChange }
           />
           <br/>
@@ -64,7 +64,7 @@ class Answer extends React.PureComponent {
             className='answer'
             type='text'
             value={ this.props.text }
-            placeholder={ 'Enter answer #' + (this.props.id+1) }
+            placeholder={ 'Enter answer #' + (this.props.id + 1) }
             onChange={ this.handleChange }
           />
           <br/>
