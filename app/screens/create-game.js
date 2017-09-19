@@ -96,7 +96,6 @@ class CreateGame extends React.PureComponent {
         /> 
         <br/>
         description <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/><br/>
-
         <label className='upload-image' htmlFor='uploadImage'>
           {/* use CSS to set image size */}
           <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
