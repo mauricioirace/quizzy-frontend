@@ -55,7 +55,12 @@ class Question extends React.PureComponent {
 
     return (
       <li>
-        <input type='text' onChange={ this.changeQuestion } value={ question.text } />
+        <input 
+          type='text' 
+          onChange={ this.changeQuestion } 
+          value={ question.text } 
+          placeholder={ 'Question #' + (this.props.id + 1) } 
+        />
         Difficulty
         <select onChange={ this.changeDifficulty }>
           <option value='easy'>Easy</option>
