@@ -1,3 +1,5 @@
+import gameService from '../../services/game';
+import { push } from 'react-router-redux';
 import {
   ADD_QUESTION,
   REMOVE_QUESTION,
@@ -10,9 +12,13 @@ import {
   CHANGE_DESCRIPTION,
   CHANGE_NAME,
   CHANGE_CATEGORY,
+  CREATING_GAME,
+  CREATE_GAME_SUCCESS,
+  CREATE_GAME_FAILURE,
   SHOW_ERROR,
   HIDE_ERROR,
 } from '../constants/game';
+
 
 export const changeImage = (image) => {
   return {
@@ -25,6 +31,41 @@ export const changeDescription = (description) => {
   return {
     type: CHANGE_DESCRIPTION,
     description
+  }
+};
+export const creatingGame = () => {
+  return {
+    type: CREATING_GAME,
+  }
+};
+
+export const createGameSuccess = (game) => {
+  return {
+    type: CREATE_GAME_SUCCESS,
+    game
+  }
+};
+
+export const createGameFailure = (error) => {
+  return {
+    type: CREATE_GAME_FAILURE,
+    error
+  }
+};
+
+
+
+export const createGame = (game,onSuccess) => {
+  return (dispatch) => {
+    dispatch(creatingGame());
+    gameService.create(game)
+      .then(() => {
+        // dispatch(push('/'));
+        onSuccess();
+      })
+      .catch((error) => {
+        dispatch(createGameFailure(error.response.data.error))
+      });
   }
 };
 

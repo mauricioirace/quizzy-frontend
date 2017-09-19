@@ -10,15 +10,20 @@ import {
   CHANGE_DESCRIPTION,
   CHANGE_NAME,
   CHANGE_CATEGORY,
+  CREATING_GAME,
+  CREATE_GAME_SUCCESS,
+  CREATE_GAME_FAILURE,
   SHOW_ERROR,
   HIDE_ERROR,
 } from "../constants/game";
 
 const initialState = {
+  name: '',
+  description: '',
+  image: null,
   questions: [],
   category: 'sports',
-  image: null,
-  error: [],
+  error: false,
 };
 
 export default (state = initialState, action) => {
@@ -97,6 +102,17 @@ export default (state = initialState, action) => {
       return{
         ...state,
         category: action.category
+      }; 
+    case CREATING_GAME:
+      return {
+        ...state,
+        error: false
+      };
+    case CREATE_GAME_FAILURE:
+      console.log(action);
+      return {
+        ...state,
+        error: action.error
       };
     case SHOW_ERROR:
       return {
