@@ -166,7 +166,7 @@ class CreateGame extends React.PureComponent {
                   </Questions>
                   <div className="error-message">{ this.props.error }</div>
                   <button className='button action small' onClick={ this.onAddQuestion }>Add...</button>
-                  <button className='button primary small'>Done</button>  <button className='cancel'>Cancel</button>
+                  <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>
                 </div>
               </div>
             </div>
