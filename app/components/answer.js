@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { changeAnswer, changeSelectedAnswer } from '../redux/actions/game';
 import EmptyFieldError from '../components/errors/emptyFieldError';
 import { foundError, removeError } from '../redux/actions/game';
+import EMPTY_FIELD_ERROR from '../constants/game';
 
 const mapStateToProps = (state,props) => {
   return {
@@ -45,7 +46,7 @@ class Answer extends React.PureComponent {
 
   validateAnswers(event) {
     if (event.target.value === '' && !this.hasErrors(this.props.error)){
-      this.props.foundError('emptyFieldError', this.props.question, this.props.id);
+      this.props.foundError(EMPTY_FIELD_ERROR, this.props.question, this.props.id);
     }else if (event.target.value !== '' && this.hasErrors(this.props.error)) {
       this.props.removeError(EMPTY_FIELD_ERROR, this.props.question, this.props.id);
     }
