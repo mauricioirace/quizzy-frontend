@@ -1,7 +1,7 @@
 
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { addQuestion, changeImage, removeAllQuestions, changeName } from '../redux/actions/game';
+import { addQuestion, changeImage, removeAllQuestions, changeName, changeCategory } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
   return {
     image: state.gameData.image,
     name: state.gameData.name,
+    category: state.gameData.category,
     questions: state.gameData.questions
   };
 };
@@ -21,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
     removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
     changeImage: (image) => dispatch(changeImage(image)),
-    changeName: (name) => dispatch(changeName(name))    
+    changeName: (name) => dispatch(changeName(name)),
+    changeCategory: (category, index) => dispatch(changeCategory(category, index))    
   };
 };
 
@@ -40,6 +42,7 @@ class CreateGame extends React.PureComponent {
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeCategory = this.onChangeCategory.bind(this);
   }
   
   componentWillMount() {
@@ -69,6 +72,10 @@ class CreateGame extends React.PureComponent {
     this.props.changeName(event.target.value);
   }
 
+  onChangeCategory(event) {
+    this.props.changeCategory(event.target.value, this.props.id);
+  }
+
   test() {}
   
   render() {
@@ -92,8 +99,8 @@ class CreateGame extends React.PureComponent {
           <label> Choose an image! </label>
         <br/>
         Category
-        <select>
-          <option value='sport'>Sport</option>
+        <select onChange={ this.onChangeCategory }>
+          <option value='sports'>Sports</option>
           <option value='tv'>Television</option>
           <option value='videogames'>Videogames</option>
         </select> <br/>

@@ -7,7 +7,8 @@ import {
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
   CHANGE_QUESTION_DIFFICULTY,
-  CHANGE_NAME
+  CHANGE_NAME,
+  CHANGE_CATEGORY
 } from '../constants/game';
 
 export const changeImage = (image) => {
@@ -69,11 +70,19 @@ export const changeSelectedAnswer = (question, answer) => {
     question,
     answer
   }
-}
+};
 
 export const changeName = (name) => {
   return {
     type: CHANGE_NAME,
     name
   }
+};
+
+  export const changeCategory = (category, index) => {
+    return {
+      type: CHANGE_CATEGORY,
+      category,
+      index
+    }
 };
