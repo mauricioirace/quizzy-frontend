@@ -26,10 +26,9 @@ export class Home extends React.Component {
 
   checkEmptyName(event) {
     if (!this.props.matchData.currentMatch) {
-      console.log('CACA');
       event.preventDefault(); 
-      this.props.matchNameError(EMPTY_MATCH_NAME);       
-    }    
+      this.props.matchNameError(EMPTY_MATCH_NAME);
+    }
   }
 
   renderTable() {
@@ -88,11 +87,11 @@ export class Home extends React.Component {
             <div className='form-input horizontal medium'>
               <label className='fs-16'>quizzy.com/</label><input className='fs-16' type='text' name='game' placeholder='Match Name' onChange={ this.handleChange }/>
             </div>
-              <div className='form-input horizontal medium'>      
-                <span className='error-message'> { this.props.matchData.error ? this.props.matchData.error : null } </span> 
+              <div className='form-input horizontal medium'>
+                <span className='error-message'> { this.props.matchData.error ? this.props.matchData.error : null } </span>
               </div>
           </div>
-          <Link to={ `/match/${ this.props.matchData.currentMatch }` } 
+          <Link to={ `/match/${ this.props.matchData.currentMatch }` }
             onClick={ this.checkEmptyName } >
             <button>GO!</button>
           </Link>

@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
     changeDescription: (name) => dispatch(changeDescription(name)),
     changeName: (name) => dispatch(changeName(name)),
     changeCategory: (category) => dispatch(changeCategory(category)),
-    createGame: (game,onSuccess) => dispatch(createGame(game,onSuccess))
+    createGame: (game,onSuccess) => dispatch(createGame(game,onSuccess)),
   };
 };
 
@@ -118,18 +118,18 @@ class CreateGame extends React.PureComponent {
   }
 
   test() {}
-  
+
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name 
-        <input 
-          type='text' name='name' value={ this.props.name || '' } 
+        Name
+        <input
+          type='text' name='name' value={ this.props.name || '' }
           onChange={ this.onChangeName } placeholder='eg: Tennis Champions'
-        /> 
+        />
         <br/>
         description <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/><br/>
         <label className='upload-image' htmlFor='uploadImage'>
@@ -148,7 +148,7 @@ class CreateGame extends React.PureComponent {
         </select> <br/>
         Questions <br/>
         <Questions>
-          { questions } 
+          { questions }
         </Questions>
         <div className="error-message">{ this.props.error }</div>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>

@@ -14,7 +14,9 @@ import {
   CHANGE_CATEGORY,
   CREATING_GAME,
   CREATE_GAME_SUCCESS,
-  CREATE_GAME_FAILURE
+  CREATE_GAME_FAILURE,
+  SHOW_ERROR,
+  HIDE_ERROR,
 } from '../constants/game';
 
 
@@ -69,7 +71,7 @@ export const createGame = (game,onSuccess) => {
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
-      type: CHANGE_QUESTION_DIFFICULTY, 
+      type: CHANGE_QUESTION_DIFFICULTY,
       difficulty,
       index
   }
@@ -110,6 +112,24 @@ export const changeAnswer = (question, answer, index) => {
     question,
     answer,
     index
+  };
+};
+
+export const foundError = (error, question, index) => {
+  return {
+    type: SHOW_ERROR,
+    question,
+    index,
+    error,
+  }
+};
+
+export const removeError = (error, question, index) => {
+  return {
+    type: HIDE_ERROR,
+    question,
+    index,
+    error,
   }
 };
 

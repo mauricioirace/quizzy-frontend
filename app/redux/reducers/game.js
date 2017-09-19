@@ -12,7 +12,9 @@ import {
   CHANGE_CATEGORY,
   CREATING_GAME,
   CREATE_GAME_SUCCESS,
-  CREATE_GAME_FAILURE
+  CREATE_GAME_FAILURE,
+  SHOW_ERROR,
+  HIDE_ERROR,
 } from "../constants/game";
 
 const initialState = {
@@ -112,6 +114,24 @@ export default (state = initialState, action) => {
         ...state,
         error: action.error
       };
+    case SHOW_ERROR:
+      return {
+        ...state,
+        error:  state.error.concat([{
+          type:action.error,
+          question: action.question,
+          answer: action.index,
+      }])
+    };
+
+    case HIDE_ERROR:
+      return {
+        ...state,
+        error:  state.error.filter( (error) => {
+          return !(error.answer == action.index && error.question === action.question && error.type === action.error);
+        })
+    };
+
     default:
       return state;
   }
