@@ -1,7 +1,7 @@
 
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { changeDescription, addQuestion, changeImage, removeAllQuestions, removeQuestion } from '../redux/actions/game';
+import { changeDescription, addQuestion, changeImage, changeName, changeCategory, removeAllQuestions, removeQuestion } from '../redux/actions/game';
 
 import Questions from '../components/questions';
 import Question from '../components/question';
