@@ -7,6 +7,7 @@ import {
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
+  CHANGE_DESCRIPTION,
   CHANGE_NAME,
   CHANGE_CATEGORY
 } from "../constants/game";
@@ -79,16 +80,21 @@ export default (state = initialState, action) => {
         ...state,
         questions: newQuestions
       };
-      case CHANGE_NAME:
+    case CHANGE_DESCRIPTION:
+      return {
+        ...state,
+        description: action.description
+      };
+    case CHANGE_NAME:
       return {
         ...state,
         name: action.name
       };
-      case CHANGE_CATEGORY:
+    case CHANGE_CATEGORY:
       return{
         ...state,
         category: action.category
-      };  
+      }; 
     default:
       return state;
   }

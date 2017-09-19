@@ -7,14 +7,23 @@ import {
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
   CHANGE_QUESTION_DIFFICULTY,
+  CHANGE_DESCRIPTION,
   CHANGE_NAME,
   CHANGE_CATEGORY
+
 } from '../constants/game';
 
 export const changeImage = (image) => {
   return {
     type: CHANGE_IMAGE,
     image
+  }
+};
+
+export const changeDescription = (description) => {
+  return {
+    type: CHANGE_DESCRIPTION,
+    description
   }
 };
 
