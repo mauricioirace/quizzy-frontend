@@ -12,7 +12,6 @@ import {
 
 const initialState = {
   questions: [],
-  game: "",
   image: null
 };
 

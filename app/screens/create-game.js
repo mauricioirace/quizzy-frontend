@@ -70,10 +70,6 @@ class CreateGame extends React.PureComponent {
   }
 
   test() {}
-
-  showProps() {
-    console.log(this.props)
-  }
   
   render() {
     let questions = this.props.questions.map( (question, index) =>
@@ -81,7 +77,12 @@ class CreateGame extends React.PureComponent {
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' value={this.props.name} onChange={this.onChangeName} placeholder='eg: Tennis Champions'/><br/>
+        Name 
+        <input 
+          type='text' name='name' value={ this.props.name || '' } 
+          onChange={ this.onChangeName } placeholder='eg: Tennis Champions'
+        /> 
+        <br/>
         <label className='upload-image' htmlFor='uploadImage'>
           {/* use CSS to set image size */}
           <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
@@ -101,9 +102,6 @@ class CreateGame extends React.PureComponent {
           { questions } 
         </Questions>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
-
-        <button onClick={ this.showProps.bind(this) }>PROPS...</button> <br/>
-        
         <button>Done</button>  <button>Cancel</button> <br/>
       </div>
     )
