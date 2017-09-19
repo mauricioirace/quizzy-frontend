@@ -30,7 +30,6 @@ const question = () => {
     text: '',
     difficulty: 'easy',
     answers: [ '','','','' ]
-    // ,correctAnswer: 0
   };
 };
 
