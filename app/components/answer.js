@@ -28,14 +28,9 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.validateAnswers = this.validateAnswers.bind(this);
-  }
+    
+ }
 
-  hasErrors(errors) {
-    return errors.filter( (error) => {
-      return error.answer === this.props.id && error.question === this.props.question;
-    } ).length > 0;
-  }
 
   handleChange(event) {
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
@@ -45,13 +40,6 @@ class Answer extends React.PureComponent {
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
-  validateAnswers(event) {
-    if (event.target.value === '' && !this.hasErrors(this.props.error)){
-      this.props.foundError(EMPTY_FIELD_ERROR, this.props.question, this.props.id);
-    }else if (event.target.value !== '' && this.hasErrors(this.props.error)) {
-      this.props.removeError(EMPTY_FIELD_ERROR, this.props.question, this.props.id);
-    }
-  }
 
   render() {
     if (this.props.correct) {
@@ -73,8 +61,7 @@ class Answer extends React.PureComponent {
                 placeholder={ 'Answer #' + (this.props.id + 1) }
                 onChange={ this.handleChange }
               />
-              <EmptyFieldError show={ this.hasErrors(this.props.error) } subject='Answer' />
-            </div>
+               </div>
           </div>
         </div>
       )
@@ -98,7 +85,6 @@ class Answer extends React.PureComponent {
                 placeholder={ 'Answer #' + (this.props.id + 1) }
                 onChange={ this.handleChange }
               />
-              <EmptyFieldError show = { this.hasErrors(this.props.error) } subject = 'Answer'/>
             </div>
           </div>
         </div>
