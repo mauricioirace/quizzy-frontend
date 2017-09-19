@@ -1,7 +1,7 @@
 
 import React from 'react';
 import '../stylesheets/create-game.scss';
-import { addQuestion, changeImage, removeAllQuestions } from '../redux/actions/game';
+import { addQuestion, changeImage, removeAllQuestions, changeName } from '../redux/actions/game';
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ import empty from '../../assets/images/empty.svg';
 const mapStateToProps = (state) => {
   return {
     image: state.gameData.image,
+    name: state.gameData.name,
     questions: state.gameData.questions
   };
 };
@@ -19,7 +20,8 @@ const mapDispatchToProps = (dispatch) => {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    changeImage: (image) => dispatch(changeImage(image))
+    changeImage: (image) => dispatch(changeImage(image)),
+    changeName: (name) => dispatch(changeName(name))    
   };
 };
 
@@ -37,6 +39,7 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
   }
   
   componentWillMount() {
@@ -62,15 +65,23 @@ class CreateGame extends React.PureComponent {
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
 
+  onChangeName(event) {
+    this.props.changeName(event.target.value);
+  }
+
   test() {}
 
+  showProps() {
+    console.log(this.props)
+  }
+  
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
     return (
       <div>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name <input type='text' name='name' placeholder='eg: Tennis Champions'/><br/>
+        Name <input type='text' name='name' value={this.props.name} onChange={this.onChangeName} placeholder='eg: Tennis Champions'/><br/>
         <label className='upload-image' htmlFor='uploadImage'>
           {/* use CSS to set image size */}
           <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
@@ -90,6 +101,9 @@ class CreateGame extends React.PureComponent {
           { questions } 
         </Questions>
         <button onClick={ this.onAddQuestion }>Add...</button> <br/>
+
+        <button onClick={ this.showProps.bind(this) }>PROPS...</button> <br/>
+        
         <button>Done</button>  <button>Cancel</button> <br/>
       </div>
     )

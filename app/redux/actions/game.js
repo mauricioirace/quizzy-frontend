@@ -6,16 +6,16 @@ import {
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
-  CHANGE_QUESTION_DIFFICULTY
+  CHANGE_QUESTION_DIFFICULTY,
+  CHANGE_NAME
 } from '../constants/game';
+
 export const changeImage = (image) => {
   return {
     type: CHANGE_IMAGE,
     image
   }
 };
-
-
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
@@ -24,7 +24,6 @@ export const changeQuestionDifficulty = (difficulty, index) => {
       index
   }
 };
-
 
 export const changeQuestionName = (questionName, index) => {
   return {
@@ -71,3 +70,10 @@ export const changeSelectedAnswer = (question, answer) => {
     answer
   }
 }
+
+export const changeName = (name) => {
+  return {
+    type: CHANGE_NAME,
+    name
+  }
+};
