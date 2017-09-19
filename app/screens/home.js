@@ -26,7 +26,7 @@ export class Home extends React.Component {
 
   checkEmptyName(event) {
     if (!this.props.matchData.currentMatch) {
-      event.preventDefault(); 
+      event.preventDefault();
       this.props.matchNameError(EMPTY_MATCH_NAME);
     }
   }
@@ -84,7 +84,7 @@ export class Home extends React.Component {
         <div className='match-container'>
           <h2>Create or join a match and start playing!</h2>
           <div className='form-container'>
-            <div className='form-input horizontal medium'>
+            <div className='form-input horizontal long'>
               <label className='fs-16'>quizzy.com/</label><input className='fs-16' type='text' name='game' placeholder='Match Name' onChange={ this.handleChange }/>
             </div>
               <div className='form-input horizontal medium'>

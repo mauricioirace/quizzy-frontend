@@ -8,9 +8,9 @@ class Questions extends React.PureComponent {
 
   render() {
     return (
-      <ul>
+      <div className='questions-container'>
         { this.props.children }
-      </ul>
+      </div>
     );
   }
 }

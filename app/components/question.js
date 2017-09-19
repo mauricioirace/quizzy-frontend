@@ -2,6 +2,7 @@ import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
 import { changeQuestionName, changeQuestionDifficulty, removeQuestion } from '../redux/actions/game';
+import '../stylesheets/question.scss';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -53,25 +54,37 @@ class Question extends React.PureComponent {
     });
 
     return (
-      <li>
-        <input 
-          type='text' 
-          onChange={ this.changeQuestion } 
-          value={ question.text } 
-          placeholder={ 'Question #' + (this.props.id + 1) } 
-        />
-        Difficulty
-        <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
-          <option value='Easy'>Easy</option>
-          <option value='Medium'>Medium</option>
-          <option value='Hard'>Hard</option>
-        </select>
-        <button onClick={ this.onRemoveQuestion }> X </button>
-        <br/>
-        <ul>
-          { answers }
-        </ul>
-      </li>
+      <div className='question'>
+        <div className='form-container'>
+          <div className='form-input vertical long'>
+            <div className='row'>
+              <div className='flex-container'>
+                <input
+                  type='text'
+                  onChange={ this.changeQuestion }
+                  value={ question.text }
+                  placeholder={ 'Question #' + (this.props.id + 1) }
+                />
+                <button onClick={ this.onRemoveQuestion }> X </button>
+              </div>
+            </div>
+            <div className='row'>
+              <label>Difficulty:</label>
+                <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
+                  <option value='easy'>Easy</option>
+                  <option value='medium'>Medium</option>
+                  <option value='challenging'>Challenging</option>
+                </select>
+            </div>
+            <div className='row'>
+              <label>Answers:</label>
+              <div className='answers-container'>
+                { answers }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

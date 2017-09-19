@@ -1,6 +1,4 @@
 import React from 'react';
-import '../stylesheets/create-game.scss';
-
 import {
   addQuestion,
   changeCategory,
@@ -11,12 +9,12 @@ import {
   removeAllQuestions,
   removeQuestion
 } from '../redux/actions/game';
-
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
+import '../stylesheets/create-game.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -123,36 +121,57 @@ class CreateGame extends React.PureComponent {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
     return (
-      <div>
+      <div className='create-game'>
         <h2> MAKE UP YOUR OWN GAME </h2>
-        Name
-        <input
-          type='text' name='name' value={ this.props.name || '' }
-          onChange={ this.onChangeName } placeholder='eg: Tennis Champions'
-        />
-        <br/>
-        description <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/><br/>
-        <label className='upload-image' htmlFor='uploadImage'>
-          {/* use CSS to set image size */}
-          <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
-          <input hidden type='file' id='uploadImage' name='image' onChange={ this.onChangeImage }/>
-        </label>
-        <br/>
-          <label> Choose an image! </label>
-        <br/>
-        Category
-        <select onChange={ this.onChangeCategory }>
-          <option value='sports'>Sports</option>
-          <option value='tv'>Television</option>
-          <option value='videogames'>Videogames</option>
-        </select> <br/>
-        Questions <br/>
-        <Questions>
-          { questions }
-        </Questions>
-        <div className="error-message">{ this.props.error }</div>
-        <button onClick={ this.onAddQuestion }>Add...</button> <br/>
-        <button onClick={ this.onDone }>Done</button>  <button>Cancel</button> <br/>
+        <div className='flex-container'>
+          <div className='centered-container'>
+            <div className='form-container'>
+              <div className='form-input vertical long'>
+                <div className='row'>
+                  <label>Name:</label>
+                  <input
+                    type='text' name='name' value={ this.props.name || '' }
+                    onChange={ this.onChangeName } placeholder='eg: Tennis Champions'
+                  />
+                </div>
+                <div className='row'>
+                  <label>Description:</label>
+                  <textarea value={ this.props.description } onChange={ this.onChangeDescription } placeholder="eg: You've just lost the game"/>
+                </div>
+                <div className='row'>
+                  <label className='upload-image' htmlFor='uploadImage'>
+                    <label> Choose an image:</label>
+                    <input hidden type='file' id='uploadImage' name='image' onChange={ this.onChangeImage }/>
+                    <img src={ this.props.image === null ? empty : this.props.image } height="100" id="previewImage"/>
+                  </label>
+                </div>
+                <div className='row'>
+                  <label>Category:</label>
+                  <select onChange={ this.onChangeCategory }>
+                    <option value='sports'>Sports</option>
+                    <option value='tv'>Television</option>
+                    <option value='videogames'>Videogames</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='centered-container'>
+            <div className='form-container'>
+              <div className='form-input vertical long'>
+                <div className='row'>
+                  <label>Questions:</label>
+                  <Questions>
+                    { questions }
+                  </Questions>
+                  <div className="error-message">{ this.props.error }</div>
+                  <button className='button action small' onClick={ this.onAddQuestion }>Add...</button>
+                  <button className='button primary small'>Done</button>  <button className='cancel'>Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

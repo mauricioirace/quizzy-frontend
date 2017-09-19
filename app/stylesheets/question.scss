@@ -1,0 +1,16 @@
+@import '../../assets/styles/variables.scss';
+
+.flex-container {
+  display: flex;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  .form-container {
+    height: 100% !important;
+  }
+}
