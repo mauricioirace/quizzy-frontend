@@ -29,8 +29,8 @@ const question = () => {
   return {
     text: '',
     difficulty: 'easy',
-    answers: [ '','','','' ],
-    // correctAnswer: 0
+    answers: [ '','','','' ]
+    // ,correctAnswer: 0
   };
 };
 
