@@ -25,6 +25,7 @@
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-foundation": "^0.9.0",
     "react-redux": "^5.0.6",
@@ -37,7 +38,8 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "socket.io": "^2.0.3",
-    "style-loader": "^0.18.2"
+    "style-loader": "^0.18.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
