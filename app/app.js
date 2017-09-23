@@ -13,11 +13,20 @@ import './styles.scss';
 
 export class App extends React.PureComponent {
   render() {
+    const obj = {
+      game: {
+        name: "Nombre del juego",
+        ranking: [ {nickname: 'Tito', points: 40}, {nickname: 'JP', points: 400},  {nickname: 'Mauri', points: 0}],
+        image: 'http://media.supercheapauto.com.au/sports/images/thumbs/384463-thumb.jpg',
+        description: 'Este juego es de prueba'
+      }
+    }
     return (
       <BrowserRouter history={ history } >
         <div>
           <Header/>
-          <div className='main-view'>
+          <StartMatch match={obj}/>
+          { /* <div className='main-view'>
             <Switch>
               <Route exact path='/' component={ Home }/>
               <Route exact path='/about' component={ About }/>
@@ -27,6 +36,7 @@ export class App extends React.PureComponent {
               <Route exact path='/start-match' component={ StartMatch }/>
             </Switch>
           </div>
+          */ }
         </div>
         {/*<Footer/>*/}
       </BrowserRouter>
