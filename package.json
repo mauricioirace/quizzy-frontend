@@ -25,18 +25,21 @@
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-foundation": "^0.9.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^4.0.8",
+    "react-toggle-switch": "^3.0.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "socket.io": "^2.0.3",
-    "style-loader": "^0.18.2"
+    "style-loader": "^0.18.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

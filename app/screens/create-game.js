@@ -116,7 +116,7 @@ class CreateGame extends React.PureComponent {
   }
 
   test() {}
-
+  
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);

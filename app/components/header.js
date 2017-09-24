@@ -10,8 +10,8 @@ class Header extends React.PureComponent {
         <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
         <div className='action-container'>
           <Link to='/about'>About</Link>
-          <Link to='/register'>Register</Link>
           <Link to='/login'>Login</Link>
+          <Link to='/register'>Register</Link>
         </div>
       </div>
     )
