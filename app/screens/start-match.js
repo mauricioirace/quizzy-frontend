@@ -1,13 +1,8 @@
 import React, { PropTypes } from 'react';
-import Header from '../components/header';
-import NormalMatch from '../components/normalMatch';
-import RealTimeMatch from '../components/realTimeMatch';
-import { Route, Link, Redirect } from 'react-router';
-import { connect } from 'react-redux';
-import Switch from 'react-toggle-switch';
+import { Link } from 'react-router';
 import '../stylesheets/start-match.scss';
 import '../../node_modules/react-toggle-switch/dist/css/switch.min.css';
-import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Button, Col, Row, Table } from 'react-bootstrap';
 import { sortBy } from 'underscore';
 
 export default class StartMatch extends React.PureComponent {
