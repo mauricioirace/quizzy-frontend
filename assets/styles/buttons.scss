@@ -7,6 +7,12 @@
     outline: none !important;
   }
 
+  &.small {
+    width: 60px;
+    min-height: 20px;
+    font-size: 14px;
+  }
+
   &.medium {
     width: 80px;
     min-height: 35px;

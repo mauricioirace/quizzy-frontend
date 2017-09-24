@@ -71,7 +71,7 @@
       margin-left: 5px;
     }
 
-    input {
+    input, textarea, select {
       border: 1px solid gainsboro;
       border-radius: 4px;
       padding: 7px 12px;
@@ -87,6 +87,11 @@
       &:focus {
         outline: none;
       }
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      margin-top: 9px;
     }
 
     select {

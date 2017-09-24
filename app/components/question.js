@@ -1,21 +1,21 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName } from '../redux/actions/game';
-import { changeQuestionDifficulty } from '../redux/actions/game';
-
-
-
+import { changeQuestionName, changeQuestionDifficulty, removeQuestion } from '../redux/actions/game';
+import '../stylesheets/question.scss';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
-    changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index))
+      changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
+      changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
+      removeQuestion: (question) => dispatch(removeQuestion(question)),
     };
 };
 
-const mapStateToProps = (state) => {
-    return {  };
+const mapStateToProps = (state,props) => {
+    return {
+      self: state.gameData.questions[props.id]
+    };
 };
 
 class Question extends React.PureComponent {
@@ -23,47 +23,68 @@ class Question extends React.PureComponent {
     super(props);
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
+    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
   }
-
 
   changeQuestion(event) {
     this.props.changeQuestionName(event.target.value, this.props.id);
   }
 
-
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
+  onRemoveQuestion(index) {
+    this.props.removeQuestion(this.props.id);
+  }
 
   render() {
-    let question = this.props.obj;
-    let id = this.props.id;
-    let answers = [];
+    const question = this.props.self;
+    const id = this.props.id;
+    const answers = [];
     question.answers.forEach( (answer, index) => {
       answers.push(
         <Answer
           key={ index }
           id={ index }
           text={ answer }
-          correct={ question.correctAnswer === index }
+          correct={ question.correctAnswer == index }
           question={ id }
         />);
     });
 
     return (
-      <li>
-        <input type='text' onChange={ this.changeQuestion } defaultValue={ question.text } />
-        Difficulty
-        <select onChange={ this.changeDifficulty }>
-          <option value='easy'>Easy</option>
-          <option value='medium'>Medium</option>
-          <option value='challenging'>Challenging</option>
-        </select> <br/>
-        <ul>
-          { answers }
-        </ul>
-      </li>
+      <div className='question'>
+        <div className='form-container'>
+          <div className='form-input vertical long'>
+            <div className='row'>
+              <div className='flex-container'>
+                <input
+                  type='text'
+                  onChange={ this.changeQuestion }
+                  value={ question.text }
+                  placeholder={ 'Question #' + (this.props.id + 1) }
+                />
+                <button onClick={ this.onRemoveQuestion }> X </button>
+              </div>
+            </div>
+            <div className='row'>
+              <label>Difficulty:</label>
+                <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
+                  <option value='easy'>Easy</option>
+                  <option value='medium'>Medium</option>
+                  <option value='challenging'>Challenging</option>
+                </select>
+            </div>
+            <div className='row'>
+              <label>Answers:</label>
+              <div className='answers-container'>
+                { answers }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

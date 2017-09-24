@@ -1,12 +1,25 @@
+import gameService from '../../services/game';
+import { push } from 'react-router-redux';
 import {
   ADD_QUESTION,
+  REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
-  CHANGE_QUESTION_DIFFICULTY
+  CHANGE_QUESTION_DIFFICULTY,
+  CHANGE_DESCRIPTION,
+  CHANGE_NAME,
+  CHANGE_CATEGORY,
+  CREATING_GAME,
+  CREATE_GAME_SUCCESS,
+  CREATE_GAME_FAILURE,
+  SHOW_ERROR,
+  HIDE_ERROR,
 } from '../constants/game';
+
+
 export const changeImage = (image) => {
   return {
     type: CHANGE_IMAGE,
@@ -14,16 +27,55 @@ export const changeImage = (image) => {
   }
 };
 
+export const changeDescription = (description) => {
+  return {
+    type: CHANGE_DESCRIPTION,
+    description
+  }
+};
+export const creatingGame = () => {
+  return {
+    type: CREATING_GAME,
+  }
+};
 
+export const createGameSuccess = (game) => {
+  return {
+    type: CREATE_GAME_SUCCESS,
+    game
+  }
+};
+
+export const createGameFailure = (error) => {
+  return {
+    type: CREATE_GAME_FAILURE,
+    error
+  }
+};
+
+
+
+export const createGame = (game,onSuccess) => {
+  return (dispatch) => {
+    dispatch(creatingGame());
+    gameService.create(game)
+      .then(() => {
+        // dispatch(push('/'));
+        onSuccess();
+      })
+      .catch((error) => {
+        dispatch(createGameFailure(error.response.data.error))
+      });
+  }
+};
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
-      type: CHANGE_QUESTION_DIFFICULTY, 
+      type: CHANGE_QUESTION_DIFFICULTY,
       difficulty,
       index
   }
 };
-
 
 export const changeQuestionName = (questionName, index) => {
   return {
@@ -40,6 +92,14 @@ export const addQuestion = (question) => {
   }
 };
 
+export const removeQuestion = (question, index) => {
+  return {
+    type: REMOVE_QUESTION,
+    question,
+    index
+  }
+};
+
 export const removeAllQuestions = () => {
   return {
     type: REMOVE_ALL_QUESTIONS,
@@ -52,6 +112,24 @@ export const changeAnswer = (question, answer, index) => {
     question,
     answer,
     index
+  };
+};
+
+export const foundError = (error, question, index) => {
+  return {
+    type: SHOW_ERROR,
+    question,
+    index,
+    error,
+  }
+};
+
+export const removeError = (error, question, index) => {
+  return {
+    type: HIDE_ERROR,
+    question,
+    index,
+    error,
   }
 };
 
@@ -61,4 +139,18 @@ export const changeSelectedAnswer = (question, answer) => {
     question,
     answer
   }
-}
+};
+
+export const changeName = (name) => {
+  return {
+    type: CHANGE_NAME,
+    name
+  }
+};
+
+  export const changeCategory = (category) => {
+    return {
+      type: CHANGE_CATEGORY,
+      category
+    }
+};

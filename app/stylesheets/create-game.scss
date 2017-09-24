@@ -2,4 +2,35 @@
 
 .upload-image {
   cursor: pointer;
+  width: 100% !important;
+
+  label {
+    width: 100% !important;
+  }
+}
+
+.create-game {
+  margin: auto;
+  width: 850px;
+
+  h2 {
+    text-align: center;
+    color: $primary-color;
+    margin-top: 0;
+  }
+
+  .flex-container {
+    display: flex;
+  }
+
+  .centered-container {
+    margin: 0 15px;
+
+    .form-container {
+      display: flex;
+      overflow: hidden;
+      overflow-y: auto;
+      height: 480px;
+    }
+  }
 }

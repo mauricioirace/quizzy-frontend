@@ -6,6 +6,11 @@ class GameService extends CrudService{
   constructor() {
     super(REPOSITORY)
   }
+
+  create(game){
+    return super.create({ game: game });
+  }
+
 }
 
 const gameService = new GameService();
