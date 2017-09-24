@@ -1,0 +1,27 @@
+@import '../../assets/styles/variables.scss';
+@import '~bootstrap/dist/css/bootstrap.css';
+
+
+  .jumbotronQuestion {
+    background-color: $primary-color;
+    h1 {
+      color: $secondary-color;
+    }
+  }
+
+//.btn-primary {
+//  .btn-answer {
+//    border: 2px solid $primary-color;
+//    color: $primary-color;
+//    &:hover, &:focus, &:active, &.active, &.open > .dropdown-toggle.btn-primary {
+//      color: $secondary-color;
+//      border-color: $secondary-color;
+//    }
+//  }
+//  &:active, &.active {
+//    color: $secondary-color;
+//    border-color: $secondary-color;
+//    box-shadow: none;
+//  }
+//}
+

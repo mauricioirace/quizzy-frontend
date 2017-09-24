@@ -11,6 +11,8 @@ import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
 import './styles.scss';
+import AnswerQuestion from './screens/answer-question';
+
 
 export class App extends React.PureComponent {
   render() {
@@ -27,6 +29,7 @@ export class App extends React.PureComponent {
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/start-match' component={ StartMatch }/>
               <Route exact path='/end-normal-game' component={ EndNormalGame }/>
+              <Route exact path='/answer-question' component={ AnswerQuestion }/>
             </Switch>
           </div>
         </div>
