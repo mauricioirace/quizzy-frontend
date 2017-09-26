@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { changeQuestionName, changeQuestionDifficulty } from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Row, Col, Form, FormGroup,
-   FormControl, Button, FieldGroup, ControlLabel } from 'react-bootstrap';
+   FormControl, Button, Glyphicon, FieldGroup, ControlLabel } from 'react-bootstrap';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -69,8 +69,6 @@ class Question extends React.PureComponent {
                 value={ question.text }
                 placeholder={ 'Question text' }
               /> {' '}
-              <Button onClick={ this.onEditQuestion.bind(this) }> Edit </Button> {' '}
-              <Button onClick={ this.removeQuestion }> X </Button>
             </Form>   
           </FormGroup>
           
@@ -86,7 +84,6 @@ class Question extends React.PureComponent {
 
           <FormGroup>               
             <ControlLabel>Answers:</ControlLabel>
-            
               { answers }
           </FormGroup>               
 

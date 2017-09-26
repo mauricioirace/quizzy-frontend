@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
-import { Button, Modal, Form, FormControl, FormGroup, Col, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Button, Modal, Form, FormControl, FormGroup, Col, ControlLabel, Glyphicon } from 'react-bootstrap';
 
 const mapStateToProps = (state) => {
   return {
@@ -128,23 +128,23 @@ class CreateGame extends React.PureComponent {
   }
 
   onEditQuestion(index) {
-    console.log(index)
     this.setState({editIndex: index});
     this.setState({show:true});
   }
 
   onRemoveQuestion(index) {
     this.props.removeQuestion(index);
+    this.closeModal()
   }
 
   renderQuestions(questions) {   
     let list = []; 
     let asd = questions.map( (question, index) => {
       let questionText = question.props.obj.text;
-      let text = <FormControl type='text' key={index} value={questionText} placeholder={'Question #' + (index + 1)} />;
-      let closeButton = <Button onClick={ () => this.onRemoveQuestion(index) }> X </Button>
+      let text = <FormControl type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
+      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"></Glyphicon></Button>
       let editButton = <Button onClick={ () => this.onEditQuestion(index) }> Edit </Button>
-      list.push( <Form inline> {text} {closeButton} {editButton} </Form> );
+      list.push( <Form inline> { text } { deleteButton } { editButton } </Form> );
     });
     return list;
   }
@@ -153,11 +153,18 @@ class CreateGame extends React.PureComponent {
     this.setState({ show: false});
   }
 
-  saveModal() {
-    this.closeModal()
-    this.onAddQuestion()
-    this.onEditQuestion(this.props.questions.length)
-    console.log("SAVE", this)
+  nextQuestion(index) {
+    const next = index + 1;
+    if ((this.props.questions.length -1) < next) {
+      this.onAddQuestion();
+    }
+    this.onEditQuestion(index + 1)    
+  }
+
+  prevQuestion(index) {
+    if (index != 0) {
+      this.onEditQuestion(index - 1)
+    }
   }
  
   render() {
@@ -166,6 +173,7 @@ class CreateGame extends React.PureComponent {
     <Question key={ index } id={ index } obj={ question } 
       edit={this.onEditQuestion.bind(this)}  onRemoveQuestion={ this.onRemoveQuestion } />);
     
+    const currentItem = this.state.editIndex;
     let displayQuestions = this.renderQuestions(questions);
 
     return (
@@ -208,17 +216,13 @@ class CreateGame extends React.PureComponent {
             <div className='form-container'>
               <div className='form-input vertical long'>
                   <label>Questions:</label>
-
                     { displayQuestions }
-                    {/* {questions} */}
-
                   <div className="error-message">{ this.props.error }</div>
                   <button className='button action small' onClick={ this.onAddQuestion }>Add...</button>
                   <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>                 
                </div>
             </div>
           </div>
-
 
           <div className="modal-container">
             <Modal
@@ -228,16 +232,18 @@ class CreateGame extends React.PureComponent {
               aria-labelledby="contained-modal-title"
             >
               <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title">Question #{ this.state.editIndex + 1 } </Modal.Title>
+                <Modal.Title id="contained-modal-title">Question #{ currentItem + 1 } </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                   <Questions>
-                    { questions[this.state.editIndex] }
+                    { questions[currentItem] }
                   </Questions>
               </Modal.Body>
               <Modal.Footer>
-                <Button bsStyle="primary" onClick={ this.saveModal.bind(this) } >Next</Button>
-                <Button onClick={ this.closeModal.bind(this) }>Finish</Button>
+                <Button bsStyle='primary' onClick={ () => this.prevQuestion(currentItem) } >Prev</Button>
+                <Button bsStyle='primary' onClick={ () => this.nextQuestion(currentItem) } >Next</Button>
+                <Button onClick={ () => this.onRemoveQuestion(currentItem) }  bsStyle='danger'> <Glyphicon glyph="trash"></Glyphicon> </Button>
+                <Button onClick={ this.closeModal.bind(this) }>Close</Button>
               </Modal.Footer>
             </Modal>
           </div>
