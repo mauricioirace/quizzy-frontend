@@ -1,20 +1,40 @@
 import React from 'react';
 import { Router, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { Navbar } from 'react-bootstrap';
 import '../stylesheets/header.scss';
 
 class Header extends React.PureComponent {
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('load', this.animateScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    if ($('.navbar').offset().top > 50) {
+      $('.navbar-fixed-top').addClass('top-nav-collapse');
+    } else {
+      $('.navbar-fixed-top').removeClass('top-nav-collapse');
+    }
+  }
+
+  animateScroll() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+  }
+
   render() {
     return (
-      <div className='header'>
-        <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
-        <div className='action-container'>
-          <Link to='/about'>About</Link>
-          <Link to='/login'>Login</Link>
-          <Link to='/register'>Register</Link>
-      </div>
-      </div>
-      <nav className='navbar navbar-custom navbar-fixed-top' role='navigation'>
+      <Navbar fixedTop role='navigation'>
         <div className='container'>
             <div className='navbar-header'>
                 <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-main-collapse'>
@@ -45,7 +65,7 @@ class Header extends React.PureComponent {
             </div>
         </div>
 
-    </nav>
+    </Navbar>
     )
   }
 }

@@ -1,59 +1,16 @@
 @import '../../assets/styles/variables.scss';
 
-.header {
-  width: 100%;
-  height: $header-height;
-  z-index: 2;
-  background: transparent;
-  box-sizing: border-box;
-  display: block;
-  font-size: 20px;
-  line-height: 30px;
-  position: relative;
-  border-bottom: 1px solid $primary-color;
-
-  .logo-img {
-    height: 100%;
-    display: inline-block;
-    position: absolute;
-    top: 8px;
-    left: -7px;
-
-    img {
-      height: 60px;
-    }
-  }
-
-  .action-container {
-    display: flex;
-    cursor: pointer;
-    position: absolute;
-    top: 23px;
-    right: 0;
-
-    a {
-      color: $primary-color;
-      text-decoration: none;
-      display: inline;
-      margin-left: 15px;
-
-      &:hover {
-        color: lighter($primary-color);
-      }
-    }
-
-    &:active {
-      color: $primary-color;
-    }
-  }
-}
-.navbar-custom {
+.navbar-default {
   margin-bottom: 0;
-  border-bottom: 1px solid rgba(white, 0.3);
+  border-bottom: none !important;
   text-transform: uppercase;
-  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
-  background-color: black;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: transparent !important;
 
+    &.top-nav-collapse {
+      background: $black !important;
+      border-bottom: 1px solid rgba(white, 0.3);
+    }
   .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
@@ -65,6 +22,10 @@
     }
   }
 
+  .navbar-right {
+    font-size: 18px;
+  }
+
   .navbar-brand {
     font-weight: 700;
 
@@ -72,8 +33,7 @@
       height: 100%;
       display: inline-block;
       position: absolute;
-      top: 8px;
-      left: -7px;
+      top: 6px;
 
       img {
         height: 60px;
@@ -86,7 +46,7 @@
   }
 
   a {
-    color: $primary-color;
+    color: $white !important;
   }
 
   .nav {
@@ -124,7 +84,7 @@
   }
 
   @media(min-width:768px) {
-    padding: 20px 0;
+    padding: 10px 0;
     border-bottom: none;
     letter-spacing: 1px;
     background: transparent;
@@ -132,10 +92,5 @@
     -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
     transition: background .5s ease-in-out,padding .5s ease-in-out;
 
-    &.top-nav-collapse {
-      padding: 0;
-      background: black;
-      border-bottom: 1px solid rgba(white, 0.3);
-    }
   }
 }
