@@ -3,8 +3,8 @@ import Answer from './answer';
 import { connect } from 'react-redux';
 import { changeQuestionName, changeQuestionDifficulty } from '../redux/actions/game';
 import '../stylesheets/question.scss';
-import { Row, Col, Form, FormGroup,
-   FormControl, Button, Glyphicon, FieldGroup, ControlLabel } from 'react-bootstrap';
+import { Row, Col, Form, FormGroup, FormControl, Button, 
+  Glyphicon, FieldGroup, ControlLabel, InputGroup } from 'react-bootstrap';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -61,31 +61,34 @@ class Question extends React.PureComponent {
     return (
       <div className='question'>
 
-          <FormGroup>
-            <Form inline>   
-              <FormControl
-                type='text'
-                onChange={ this.changeQuestion }
-                value={ question.text }
-                placeholder={ 'Question text' }
-              /> {' '}
-            </Form>   
-          </FormGroup>
-          
-          <FormGroup>             
-            <ControlLabel>Difficulty:</ControlLabel>
-            <FormControl componentClass="select" onChange={ this.changeDifficulty } 
-            value={ this.props.self.difficulty }>
-              <option value='easy'>Easy</option>
-              <option value='medium'>Medium</option>
-              <option value='challenging'>Challenging</option>
-            </FormControl>
-          </FormGroup>             
+        <FormGroup>
+          <InputGroup>
+          <FormControl
+            type='text'
+            onChange={ this.changeQuestion }
+            value={ question.text }
+            placeholder={ 'Question text' }
+          /> {' '}
+          <InputGroup.Addon>
+            ?
+          </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
 
-          <FormGroup>               
-            <ControlLabel>Answers:</ControlLabel>
-              { answers }
-          </FormGroup>               
+        <FormGroup>             
+          <ControlLabel>Difficulty:</ControlLabel>
+          <FormControl componentClass="select" onChange={ this.changeDifficulty } 
+          value={ this.props.self.difficulty }>
+            <option value='easy'>Easy</option>
+            <option value='medium'>Medium</option>
+            <option value='challenging'>Challenging</option>
+          </FormControl>
+        </FormGroup>             
+
+        <FormGroup>               
+          <ControlLabel>Answers:</ControlLabel>
+            { answers }
+        </FormGroup>               
 
       </div>
     );
