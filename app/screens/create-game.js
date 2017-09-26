@@ -54,11 +54,8 @@ class CreateGame extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
     this.state = { show: false };
     this.state = { editIndex: 0 };
-    
-
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -90,7 +87,6 @@ class CreateGame extends React.PureComponent {
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
-    this.props.addQuestion(question());
   }
 
   componentWillUnmount() {
@@ -123,10 +119,6 @@ class CreateGame extends React.PureComponent {
     this.props.changeCategory(event.target.value);
   }
 
-  showProps() {
-    console.log("PROPS!", this.props.questions)
-  }
-
   onEditQuestion(index) {
     this.setState({editIndex: index});
     this.setState({show:true});
@@ -143,7 +135,7 @@ class CreateGame extends React.PureComponent {
       let questionText = question.props.obj.text;
       let text = <FormControl type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
       let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"></Glyphicon></Button>
-      let editButton = <Button onClick={ () => this.onEditQuestion(index) }> Edit </Button>
+      let editButton = <Button onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph="edit"></Glyphicon> </Button>
       list.push( <Form inline> { text } { deleteButton } { editButton } </Form> );
     });
     return list;
@@ -168,12 +160,10 @@ class CreateGame extends React.PureComponent {
   }
  
   render() {
-    
+    const currentItem = this.state.editIndex;
     let questions = this.props.questions.map( (question, index) => 
     <Question key={ index } id={ index } obj={ question } 
       edit={this.onEditQuestion.bind(this)}  onRemoveQuestion={ this.onRemoveQuestion } />);
-    
-    const currentItem = this.state.editIndex;
     let displayQuestions = this.renderQuestions(questions);
 
     return (
@@ -247,16 +237,8 @@ class CreateGame extends React.PureComponent {
               </Modal.Footer>
             </Modal>
           </div>
-
-
-        <button onClick={ this.showProps.bind(this) }>props</button>  
-
         </div>
-
       </div>
-
-
-
     )
   }
 }

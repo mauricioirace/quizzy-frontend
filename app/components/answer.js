@@ -5,7 +5,7 @@ import EmptyFieldError from '../components/errors/emptyFieldError';
 import { foundError, removeError } from '../redux/actions/game';
 import EMPTY_FIELD_ERROR from '../constants/game';
 import '../stylesheets/question.scss';
-import { Form, FormControl, FormGroup, Radio } from 'react-bootstrap';
+import { Form, FormControl, FormGroup, Radio, Checkbox, InputGroup } from 'react-bootstrap';
 
 const mapStateToProps = (state,props) => {
   return {
@@ -42,33 +42,10 @@ handleSelectionChange(event) {
 
 
   render() {
-    if (this.props.correct) {
-      return (
-        <Form inline>
-          <FormGroup>
-            <FormControl
-              className='answer correct'
-              type='text'
-              value={ this.props.text }
-              placeholder={ 'Answer #' + (this.props.id + 1) }
-              onChange={ this.handleChange }
-            /> {' '}
-            <Radio
-              type='radio'
-              name={ this.props.question }
-              value={ this.props.id }
-              checked={ this.props.correct }
-              onClick={ this.handleSelectionChange }
-            />
-        </FormGroup>  
-      </Form>
-      )
-    }
-    else {
-      return (
-
-        <Form inline>
-          <FormGroup>
+    return (
+      <div>
+        <FormGroup>
+          <InputGroup>
             <FormControl
               className='answer'
               type='text'
@@ -76,18 +53,18 @@ handleSelectionChange(event) {
               placeholder={ 'Answer #' + (this.props.id + 1) }
               onChange={ this.handleChange }
             /> {' '}
-            <Radio
-              type='radio'
-              name={ this.props.question }
-              value={ this.props.id }
-              checked={ this.props.correct }
-              onClick={ this.handleSelectionChange }
+            <InputGroup.Addon>
+            <input type="checkbox" aria-label="..."
+            name={ this.props.question }
+            value={ this.props.id }
+            checked={ this.props.correct }
+            onClick={ this.handleSelectionChange }
             />
-          </FormGroup>
-        </Form>
-
-      )
-    }
+            </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+      </div>
+    )
   }
 }
 
