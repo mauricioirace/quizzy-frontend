@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
+import { Button, Modal, Form, FormControl, FormGroup, Col, ControlLabel, Checkbox } from 'react-bootstrap';
 
 const mapStateToProps = (state) => {
   return {
@@ -53,14 +54,19 @@ class CreateGame extends React.PureComponent {
 
   constructor(props) {
     super(props);
+
+    this.state = { show: false };
+    this.state = { editIndex: 0 };
+    
+
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeCategory = this.onChangeCategory.bind(this);
+    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
     this.onDone = this.onDone.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
-
   }
 
   onDone() {
@@ -83,7 +89,6 @@ class CreateGame extends React.PureComponent {
 
   componentWillMount() {
     // remove all questions
-
     this.props.removeAllQuestions();
     this.props.addQuestion(question());
   }
@@ -96,6 +101,7 @@ class CreateGame extends React.PureComponent {
   onAddQuestion() {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
+    this.onEditQuestion(indexWhereAdd);
   }
 
   onChangeImage(event) {
@@ -104,9 +110,11 @@ class CreateGame extends React.PureComponent {
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
+
   onChangeDescription(event) {
     this.props.changeDescription(event.target.value);
   }
+
   onChangeName(event) {
     this.props.changeName(event.target.value);
   }
@@ -115,11 +123,51 @@ class CreateGame extends React.PureComponent {
     this.props.changeCategory(event.target.value);
   }
 
-  test() {}
-  
+  showProps() {
+    console.log("PROPS!", this.props.questions)
+  }
+
+  onEditQuestion(index) {
+    console.log(index)
+    this.setState({editIndex: index});
+    this.setState({show:true});
+  }
+
+  onRemoveQuestion(index) {
+    this.props.removeQuestion(index);
+  }
+
+  renderQuestions(questions) {   
+    let list = []; 
+    let asd = questions.map( (question, index) => {
+      let questionText = question.props.obj.text;
+      let text = <FormControl type='text' key={index} value={questionText} placeholder={'Question #' + (index + 1)} />;
+      let closeButton = <Button onClick={ () => this.onRemoveQuestion(index) }> X </Button>
+      let editButton = <Button onClick={ () => this.onEditQuestion(index) }> Edit </Button>
+      list.push( <Form inline> {text} {closeButton} {editButton} </Form> );
+    });
+    return list;
+  }
+
+  closeModal() {
+    this.setState({ show: false});
+  }
+
+  saveModal() {
+    this.closeModal()
+    this.onAddQuestion()
+    this.onEditQuestion(this.props.questions.length)
+    console.log("SAVE", this)
+  }
+ 
   render() {
-    let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);
+    
+    let questions = this.props.questions.map( (question, index) => 
+    <Question key={ index } id={ index } obj={ question } 
+      edit={this.onEditQuestion.bind(this)}  onRemoveQuestion={ this.onRemoveQuestion } />);
+    
+    let displayQuestions = this.renderQuestions(questions);
+
     return (
       <div className='create-game'>
         <h2> MAKE UP YOUR OWN GAME </h2>
@@ -159,20 +207,50 @@ class CreateGame extends React.PureComponent {
           <div className='centered-container'>
             <div className='form-container'>
               <div className='form-input vertical long'>
-                <div className='row'>
                   <label>Questions:</label>
-                  <Questions>
-                    { questions }
-                  </Questions>
+
+                    { displayQuestions }
+                    {/* {questions} */}
+
                   <div className="error-message">{ this.props.error }</div>
                   <button className='button action small' onClick={ this.onAddQuestion }>Add...</button>
-                  <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>
-                </div>
-              </div>
+                  <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>                 
+               </div>
             </div>
           </div>
+
+
+          <div className="modal-container">
+            <Modal
+              show={this.state.show}
+              onHide={this.closeModal.bind(this)}
+              container={this}
+              aria-labelledby="contained-modal-title"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title">Question #{ this.state.editIndex + 1 } </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <Questions>
+                    { questions[this.state.editIndex] }
+                  </Questions>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button bsStyle="primary" onClick={ this.saveModal.bind(this) } >Next</Button>
+                <Button onClick={ this.closeModal.bind(this) }>Finish</Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+
+
+        <button onClick={ this.showProps.bind(this) }>props</button>  
+
         </div>
+
       </div>
+
+
+
     )
   }
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, removeQuestion } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty } from '../redux/actions/game';
 import '../stylesheets/question.scss';
+import { Row, Col, Form, FormGroup,
+   FormControl, Button, FieldGroup, ControlLabel } from 'react-bootstrap';
 
 const mapDispatchToProps = (dispatch) => {
     return {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
       changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
-      removeQuestion: (question) => dispatch(removeQuestion(question)),
     };
 };
 
@@ -23,7 +24,7 @@ class Question extends React.PureComponent {
     super(props);
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
-    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
+    this.removeQuestion = this.removeQuestion.bind(this);
   }
 
   changeQuestion(event) {
@@ -34,8 +35,12 @@ class Question extends React.PureComponent {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
-  onRemoveQuestion(index) {
-    this.props.removeQuestion(this.props.id);
+  removeQuestion(index) {
+    this.props.onRemoveQuestion(this.props.id);
+  }
+
+  onEditQuestion(index) {
+    this.props.edit(this.props.id);
   }
 
   render() {
@@ -55,35 +60,36 @@ class Question extends React.PureComponent {
 
     return (
       <div className='question'>
-        <div className='form-container'>
-          <div className='form-input vertical long'>
-            <div className='row'>
-              <div className='flex-container'>
-                <input
-                  type='text'
-                  onChange={ this.changeQuestion }
-                  value={ question.text }
-                  placeholder={ 'Question #' + (this.props.id + 1) }
-                />
-                <button onClick={ this.onRemoveQuestion }> X </button>
-              </div>
-            </div>
-            <div className='row'>
-              <label>Difficulty:</label>
-                <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
-                  <option value='easy'>Easy</option>
-                  <option value='medium'>Medium</option>
-                  <option value='challenging'>Challenging</option>
-                </select>
-            </div>
-            <div className='row'>
-              <label>Answers:</label>
-              <div className='answers-container'>
-                { answers }
-              </div>
-            </div>
-          </div>
-        </div>
+
+          <FormGroup>
+            <Form inline>   
+              <FormControl
+                type='text'
+                onChange={ this.changeQuestion }
+                value={ question.text }
+                placeholder={ 'Question text' }
+              /> {' '}
+              <Button onClick={ this.onEditQuestion.bind(this) }> Edit </Button> {' '}
+              <Button onClick={ this.removeQuestion }> X </Button>
+            </Form>   
+          </FormGroup>
+          
+          <FormGroup>             
+            <ControlLabel>Difficulty:</ControlLabel>
+            <FormControl componentClass="select" onChange={ this.changeDifficulty } 
+            value={ this.props.self.difficulty }>
+              <option value='easy'>Easy</option>
+              <option value='medium'>Medium</option>
+              <option value='challenging'>Challenging</option>
+            </FormControl>
+          </FormGroup>             
+
+          <FormGroup>               
+            <ControlLabel>Answers:</ControlLabel>
+            
+              { answers }
+          </FormGroup>               
+
       </div>
     );
   }
