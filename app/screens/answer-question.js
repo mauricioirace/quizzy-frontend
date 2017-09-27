@@ -1,8 +1,19 @@
 import React from 'react';
 import AnswerButtons from '../components/answer-buttons';
-import { Grid, Jumbotron, Row, Col } from 'react-bootstrap';
+import { Col, Grid, Jumbotron, Row, Well } from 'react-bootstrap';
 import { Line } from 'rc-progress';
-import style from '../stylesheets/answer-question.scss';
+import '../stylesheets/answer-question.scss';
+import { connect } from 'react-redux';
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+const mapStateToProps = (state,props) => {
+  return {
+  };
+};
 
 class AnswerQuestion extends React.PureComponent {
   render() {
@@ -12,7 +23,7 @@ class AnswerQuestion extends React.PureComponent {
           <Grid>
             <Row>
               <Col>
-                <h1 className="text-center"> What is love? </h1>
+                <h1 className="text-center question"> What is love? </h1>
                 <Line percent='35' strokeWidth='1' strokeColor='#ff8d40' />
               </Col>
             </Row>
@@ -24,10 +35,19 @@ class AnswerQuestion extends React.PureComponent {
                 <AnswerButtons/>
             </Col>
           </Row>
+          <Row>
+            <Col xs={12} mdOffset={3} md={6}>
+            </Col>
+          </Row>
         </Grid>
+        <Jumbotron>
+          <h3 className='text-center'> 1/2 </h3>
+        </Jumbotron>
+
+
       </div>
     )
   }
 }
 
-export default AnswerQuestion;
+export default connect(mapStateToProps, mapDispatchToProps )(AnswerQuestion);

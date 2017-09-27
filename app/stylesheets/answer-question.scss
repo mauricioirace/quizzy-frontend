@@ -2,26 +2,12 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 
 
-  .jumbotronQuestion {
-    background-color: $primary-color;
-    h1 {
-      color: $secondary-color;
-    }
-  }
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
 
-//.btn-primary {
-//  .btn-answer {
-//    border: 2px solid $primary-color;
-//    color: $primary-color;
-//    &:hover, &:focus, &:active, &.active, &.open > .dropdown-toggle.btn-primary {
-//      color: $secondary-color;
-//      border-color: $secondary-color;
-//    }
-//  }
-//  &:active, &.active {
-//    color: $secondary-color;
-//    border-color: $secondary-color;
-//    box-shadow: none;
-//  }
-//}
-
+.jumbotron {
+  background: transparent;
+}
