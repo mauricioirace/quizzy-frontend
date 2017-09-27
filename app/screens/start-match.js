@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import Header from '../components/header';
+import { Route, Link, Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../../node_modules/react-toggle-switch/dist/css/switch.min.css';
 import { Button, Col, Row, Table } from 'react-bootstrap';
 import { sortBy } from 'underscore';
+import userService from '../services/user';
+import { withRouter } from 'react-router-dom';
 
-export default class StartMatch extends React.PureComponent {
+class StartMatch extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -22,18 +27,30 @@ export default class StartMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    /*
-      TODO
-      Preguntar al backend si this.state.nickname existe o no en el sistema.
-      En caso en que no exista, hacer el Redirect; en caso contrario,
-      indicar al usuario que ese nickname ya existe y mantenerlo en la
-      misma pantalla.
-    */
-    /* return (<Redirect to='/pantalla_del_match'/>); */
+    if (!this.state.nickname) {
+      let error = document.getElementById('error');
+      error.innerHTML = 'Please, enter a nickname';
+      error.style.color = 'red';
+      return;
+    }
+    userService.findByName(this.state.nickname).then((res) => {
+      if (res.data.res) {
+        let error = document.getElementById('error');
+        error.innerHTML = 'That nickname already exists';
+        error.style.color = 'red';
+      }
+      else {
+        this.props.history.push('/answer-question')
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      console.log('El servidor no responde');
+    });
   }
 
   renderRanking() {
-    const ranking = sortBy(this.props.match.game.ranking, 'points').reverse();
+    const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
     const items = [];
     ranking.forEach( (entry, index) => {
       items.push(
@@ -52,11 +69,11 @@ export default class StartMatch extends React.PureComponent {
       <div>
         <Row>
           <Col xs={4}>
-            <img src={ this.props.match.game.image === null ? empty : this.props.match.game.image } height='100' id='previewImage'/>
+            <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
           </Col>
           <Col xs={8} >
             <Row>
-              <h1>{ this.props.match.game.name }</h1>
+              <h1>{ this.props.currentMatch.game.name }</h1>
             </Row>
             <Row>
               Mode: Normal
@@ -71,12 +88,16 @@ export default class StartMatch extends React.PureComponent {
             </Table>
           </Col>
           <Col xs={12} lg={8}>
-            <p className='game-description'>{ this.props.match.game.description }</p>
+            <p className='game-description'>{ this.props.currentMatch.game.description }</p>
           </Col>
         </Row>
         <Row>
           <Col xs={6}>
-            Enter your nickname: <input type='text' onChange={ this.handleChange }/>
+            <Row>Enter your nickname: <input type='text' onChange={ this.handleChange }/></Row>
+            <Row>
+              <p id='error'>
+              </p>
+            </Row>
           </Col>
           <Col xs={4}/>
           <Col xs={2}>
@@ -89,5 +110,7 @@ export default class StartMatch extends React.PureComponent {
 }
 
 StartMatch.propTypes = {
-  match: PropTypes.object,
+  currentMatch: PropTypes.object,
 }
+
+export default withRouter(StartMatch);
