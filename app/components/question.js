@@ -24,7 +24,6 @@ class Question extends React.PureComponent {
     super(props);
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
-    this.removeQuestion = this.removeQuestion.bind(this);
   }
 
   changeQuestion(event) {
@@ -33,14 +32,6 @@ class Question extends React.PureComponent {
 
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
-  }
-
-  removeQuestion(index) {
-    this.props.onRemoveQuestion(this.props.id);
-  }
-
-  onEditQuestion(index) {
-    this.props.edit(this.props.id);
   }
 
   render() {
