@@ -32,14 +32,13 @@ class Answer extends React.PureComponent {
  }
 
 
-handleChange(event) {
-  this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
-}
+  handleChange(event) {
+    this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
+  }
 
-handleSelectionChange(event) {
-  this.props.changeSelectedAnswer(this.props.question, event.target.value);
-}
-
+  handleSelectionChange(event) {
+    this.props.changeSelectedAnswer(this.props.question, event.target.value);
+  }
 
   render() {
     return (

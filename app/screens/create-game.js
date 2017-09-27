@@ -64,6 +64,9 @@ class CreateGame extends React.PureComponent {
     this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
     this.onDone = this.onDone.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.onEditQuestion = this.onEditQuestion.bind(this);
   }
 
   onDone() {
@@ -120,29 +123,36 @@ class CreateGame extends React.PureComponent {
   }
 
   onEditQuestion(index) {
-    this.setState({editIndex: index});
-    this.setState({show:true});
+    this.setState({ editIndex: index });
+    this.openModal();
   }
 
   onRemoveQuestion(index) {
     this.props.removeQuestion(index);
-    this.closeModal()
+    this.closeModal();
   }
 
   renderQuestions(questions) {   
     let list = []; 
-    let asd = questions.map( (question, index) => {
+
+    questions.map( (question, index) => {
       let questionText = question.props.obj.text;
       let text = <FormControl type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
-      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"></Glyphicon></Button>
-      let editButton = <Button onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph="edit"></Glyphicon> </Button>
+      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"/></Button>
+      let editButton = <Button onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph="edit"/> </Button>
+      
       list.push( <Form inline> { text } { deleteButton } { editButton } </Form> );
+      list.push( <br/> );
     });
     return list;
   }
 
+  openModal() {
+    this.setState({ show:true });    
+  }
+
   closeModal() {
-    this.setState({ show: false});
+    this.setState({ show: false });
   }
 
   nextQuestion(index) {
@@ -158,12 +168,12 @@ class CreateGame extends React.PureComponent {
       this.onEditQuestion(index - 1)
     }
   }
- 
+
   render() {
     const currentItem = this.state.editIndex;
     let questions = this.props.questions.map( (question, index) => 
-    <Question key={ index } id={ index } obj={ question } 
-      edit={this.onEditQuestion.bind(this)}  onRemoveQuestion={ this.onRemoveQuestion } />);
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
+    );
     let displayQuestions = this.renderQuestions(questions);
 
     return (
@@ -203,7 +213,6 @@ class CreateGame extends React.PureComponent {
             </div>
           </div>
           <div className='centered-container'>
-            <div className='form-container'>
               <div className='form-input vertical long'>
                   <label>Questions:</label>
                     { displayQuestions }
@@ -212,15 +221,9 @@ class CreateGame extends React.PureComponent {
                   <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>                 
                </div>
             </div>
-          </div>
 
           <div className="modal-container">
-            <Modal
-              show={this.state.show}
-              onHide={this.closeModal.bind(this)}
-              container={this}
-              aria-labelledby="contained-modal-title"
-            >
+            <Modal show={ this.state.show } onHide={ this.closeModal } container={ this } aria-labelledby="contained-modal-title">
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title">Question #{ currentItem + 1 } </Modal.Title>
               </Modal.Header>
@@ -230,10 +233,18 @@ class CreateGame extends React.PureComponent {
                   </Questions>
               </Modal.Body>
               <Modal.Footer>
-                <Button bsStyle='primary' onClick={ () => this.prevQuestion(currentItem) } >Prev</Button>
-                <Button bsStyle='primary' onClick={ () => this.nextQuestion(currentItem) } >Next</Button>
-                <Button onClick={ () => this.onRemoveQuestion(currentItem) }  bsStyle='danger'> <Glyphicon glyph="trash"></Glyphicon> </Button>
-                <Button onClick={ this.closeModal.bind(this) }>Close</Button>
+                <Button bsStyle='default pull-left' onClick={ () => this.onRemoveQuestion(currentItem) } >
+                   <Glyphicon glyph="trash"/> 
+                </Button>
+                <Button bsStyle='default pull-left' onClick={ () => this.prevQuestion(currentItem) } >
+                   <Glyphicon glyph='chevron-left'/> 
+                </Button>
+                <Button bsStyle='default' onClick={ () => this.nextQuestion(currentItem) } >
+                   <Glyphicon glyph='chevron-right'/> 
+                </Button>
+                <Button bsStyle='default' onClick={ this.closeModal }> 
+                  <Glyphicon glyph='check'/> 
+                </Button>
               </Modal.Footer>
             </Modal>
           </div>
