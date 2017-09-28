@@ -34,6 +34,14 @@
   color: $white;
 }
 
+.slideInUp {
+  display: flex;
+}
+
+.bounceInLeft {
+  width: 100%;
+}
+
 .play-button {
   height: 50px;
 }
@@ -60,7 +68,8 @@
     display: table-cell;
     vertical-align: middle;
     .brand-heading {
-      font-size: 100px;
+      font-size: 90px;
+      text-align: left;
     }
     .intro-text {
       font-size: 18px;
@@ -149,7 +158,12 @@
 }
 
 .content-section {
-  padding-top: 100px;
+  padding-top: 150px;
+
+  .brand-heading {
+    font-size: 90px;
+    margin: auto;
+  }
 }
 
 .download-section {
@@ -166,7 +180,7 @@
 
 @media(min-width: 767px) {
   .content-section {
-    padding-top: 250px;
+    // padding-top: 250px;
   }
 
   .download-section {

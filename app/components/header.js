@@ -48,18 +48,11 @@ class Header extends React.PureComponent {
 
             <div className='collapse navbar-collapse navbar-right navbar-main-collapse'>
                 <ul className='nav navbar-nav'>
-
-                    <li className='hidden'>
-                        <a href='#page-top'></a>
+                    <li>
+                        <a className='page-scroll' href='#matches'>Matches</a>
                     </li>
                     <li>
                         <a className='page-scroll' href='#about'>About</a>
-                    </li>
-                    <li>
-                        <a className='page-scroll' href='#download'>Download</a>
-                    </li>
-                    <li>
-                        <a className='page-scroll' href='#contact'>Contact</a>
                     </li>
                 </ul>
             </div>
