@@ -4,15 +4,32 @@ import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table } fro
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import endNormalGameStyle from '../../assets/js/end-normal-game.js';
+import { sortBy } from 'underscore';
 
 class EndNormalGame extends React.PureComponent {
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: true
-    };
-  }
+  /*renderRanking() {
+    const obj = {
+      game: {
+        image: '',
+        description: 'Juego de prueba',
+        name: 'Experto Fútbol',
+        ranking: [ {user: 'Tito', points: 40}, {user: 'Juan', points: 500}, {user: 'Pepito', points: 0} ]
+      }
+    }
+    const ranking = sortBy(obj.game.ranking, 'points').reverse();
+    const items = [];
+    ranking.forEach( (entry, index) => {
+      items.push(
+        <tr> ACA HAY QUE DISTINGUIR AL CURRENT PLAYER PARA PINTARLO DE OTRO COLOR COMO ABAJO
+          <td>{ index + 1 }</td>
+          <td>{ entry.user }</td>
+          <td>{ entry.points } pts</td>
+        </tr>
+      );
+    });
+    return (<tbody>{ items }</tbody>);
+  }*/
 
   render() {
     return (
@@ -24,7 +41,7 @@ class EndNormalGame extends React.PureComponent {
             <Button bsStyle="success">Save</Button>
           </p>
         </Jumbotron> 
-        <h2>Standings</h2>
+        <h2>Leaderboard</h2>
         <Table responsive>
           <thead>
             <tr>
@@ -33,6 +50,14 @@ class EndNormalGame extends React.PureComponent {
               <th>Points</th>
             </tr>
           </thead>
+          {/*{ this.renderRanking() }
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Player</th>
+              <th>Points</th>
+            </tr>
+          </thead> */}
           <tbody>
             <tr>
               <td>13</td>
@@ -46,7 +71,7 @@ class EndNormalGame extends React.PureComponent {
             </tr>
             <tr style={ endNormalGameStyle.currentPlayer } >
               <td>15</td>
-              <td>pepito</td>
+              <td>pepito (You)</td>
               <td>100</td>
             </tr>
             <tr>
@@ -61,39 +86,6 @@ class EndNormalGame extends React.PureComponent {
             </tr>
           </tbody>
         </Table>
-
-
-        {/*  
-        <ListGroup>
-          <ListGroupItem bsStyle="success">pepito 100 pts</ListGroupItem>
-          <ListGroupItem >seba_bolso 95 pts</ListGroupItem>
-          <ListGroupItem >guille_cheto 93 pts</ListGroupItem>
-          <ListGroupItem >mauricap 92 pts</ListGroupItem>
-        </ListGroup>*/}
-
-        {/*<br />
-        <h1>CONGRATULATIONS pepito!</h1>
-        <h1>Your final score is 100</h1>
-        <br />
-        <br />
-        <br />
-        <h2>
-          Would you like to save your score to compete with other players?
-        </h2>
-        <br />
-        <div className='container'>
-          <ButtonToolbar>
-            <Link to={ "/login" }>
-                <Button bsStyle="success" bsSize="large">Save</Button>
-            </Link>
-            <Link to={ "/" }>
-                <Button bsSize="large">Return Home</Button>
-            </Link>
-          </ButtonToolbar>
-        </div>
-        <br />
-        <br />
-        <br />*/}
         <p>
           Share your score!
         </p>
