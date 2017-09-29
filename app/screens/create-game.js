@@ -132,15 +132,15 @@ class CreateGame extends React.PureComponent {
     this.closeModal();
   }
 
-  renderQuestions(questions) {   
-    let list = []; 
+  renderQuestions(questions) {
+    let list = [];
 
     questions.map( (question, index) => {
       let questionText = question.props.obj.text;
       let text = <FormControl type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
       let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"/></Button>
       let editButton = <Button onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph="edit"/> </Button>
-      
+
       list.push( <Form inline> { text } { deleteButton } { editButton } </Form> );
       list.push( <br/> );
     });
@@ -148,7 +148,7 @@ class CreateGame extends React.PureComponent {
   }
 
   openModal() {
-    this.setState({ show:true });    
+    this.setState({ show:true });
   }
 
   closeModal() {
@@ -160,7 +160,7 @@ class CreateGame extends React.PureComponent {
     if ((this.props.questions.length -1) < next) {
       this.onAddQuestion();
     }
-    this.onEditQuestion(index + 1)    
+    this.onEditQuestion(index + 1)
   }
 
   prevQuestion(index) {
@@ -171,7 +171,7 @@ class CreateGame extends React.PureComponent {
 
   render() {
     const currentItem = this.state.editIndex;
-    let questions = this.props.questions.map( (question, index) => 
+    let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
     );
     let displayQuestions = this.renderQuestions(questions);
@@ -218,7 +218,7 @@ class CreateGame extends React.PureComponent {
                     { displayQuestions }
                   <div className="error-message">{ this.props.error }</div>
                   <button className='button action small' onClick={ this.onAddQuestion }>Add...</button>
-                  <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>                 
+                  <button className='button primary small' onClick={ this.onDone }>Done</button>  <button className='cancel'>Cancel</button>
                </div>
             </div>
 
@@ -234,16 +234,16 @@ class CreateGame extends React.PureComponent {
               </Modal.Body>
               <Modal.Footer>
                 <Button bsStyle='default pull-left' onClick={ () => this.onRemoveQuestion(currentItem) } >
-                   <Glyphicon glyph="trash"/> 
+                   <Glyphicon glyph="trash"/>
                 </Button>
                 <Button bsStyle='default pull-left' onClick={ () => this.prevQuestion(currentItem) } >
-                   <Glyphicon glyph='chevron-left'/> 
+                   <Glyphicon glyph='chevron-left'/>
                 </Button>
                 <Button bsStyle='default' onClick={ () => this.nextQuestion(currentItem) } >
-                   <Glyphicon glyph='chevron-right'/> 
+                   <Glyphicon glyph='chevron-right'/>
                 </Button>
-                <Button bsStyle='default' onClick={ this.closeModal }> 
-                  <Glyphicon glyph='check'/> 
+                <Button bsStyle='default' onClick={ this.closeModal }>
+                  <Glyphicon glyph='check'/>
                 </Button>
               </Modal.Footer>
             </Modal>
