@@ -1,35 +1,20 @@
 import React from 'react';
 import Header from '../components/header';
-import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table } from 'react-bootstrap';
+import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
+        FormControl, Checkbox, Form, ControlLabel } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import endNormalGameStyle from '../../assets/js/end-normal-game.js';
 import { sortBy } from 'underscore';
 
 class EndNormalGame extends React.PureComponent {
-  
-  /*renderRanking() {
-    const obj = {
-      game: {
-        image: '',
-        description: 'Juego de prueba',
-        name: 'Experto Fútbol',
-        ranking: [ {user: 'Tito', points: 40}, {user: 'Juan', points: 500}, {user: 'Pepito', points: 0} ]
-      }
+    
+    constructor(props) {
+      super(props);
+      this.state = {
+        show: false
+      };
     }
-    const ranking = sortBy(obj.game.ranking, 'points').reverse();
-    const items = [];
-    ranking.forEach( (entry, index) => {
-      items.push(
-        <tr> ACA HAY QUE DISTINGUIR AL CURRENT PLAYER PARA PINTARLO DE OTRO COLOR COMO ABAJO
-          <td>{ index + 1 }</td>
-          <td>{ entry.user }</td>
-          <td>{ entry.points } pts</td>
-        </tr>
-      );
-    });
-    return (<tbody>{ items }</tbody>);
-  }*/
 
   render() {
     return (
@@ -38,9 +23,64 @@ class EndNormalGame extends React.PureComponent {
           <h1>Your final score is 100!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
-            <Button bsStyle="success">Save</Button>
+            <Button bsStyle="success" onClick={() => this.setState({ show: true})}>Login for save</Button>
+            <Button bsStyle="success" onClick={() => this.setState({ show: true})}>Save with your nickname</Button>
           </p>
-        </Jumbotron> 
+        </Jumbotron>
+
+        <div className="modal-container" style={{height: 20}}>
+          <Modal
+            show={this.state.show}
+            onHide={close}
+            container={this}
+            aria-labelledby="contained-modal-title" 
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">Sign in to Quizzy</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form horizontal>
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Email
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="email" placeholder="Email" />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup controlId="formHorizontalPassword">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Password
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="password" placeholder="Password" />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <Checkbox>Remember me</Checkbox>
+                  </Col>
+                </FormGroup>
+
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <Button bsStyle="primary" type="submit">
+                      Sign in
+                    </Button> 
+                  </Col>
+                </FormGroup>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button bsStyle="link">Create account</Button>
+              <Button onClick={close}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+
+
         <h2>Leaderboard</h2>
         <Table responsive>
           <thead>
@@ -50,14 +90,7 @@ class EndNormalGame extends React.PureComponent {
               <th>Points</th>
             </tr>
           </thead>
-          {/*{ this.renderRanking() }
-          <thead>
-            <tr>
-              <th>Place</th>
-              <th>Player</th>
-              <th>Points</th>
-            </tr>
-          </thead> */}
+          {/*{ this.renderRanking() */}
           <tbody>
             <tr>
               <td>13</td>
@@ -90,7 +123,7 @@ class EndNormalGame extends React.PureComponent {
           Share your score!
         </p>
         <Link to={ "" }>
-            <Button bsStyle="primary" bsSize="small">f | Compartir</Button>
+          <Button bsStyle="primary" bsSize="small">f | Compartir</Button>
         </Link>
       </div>
     )
@@ -110,3 +143,29 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
+
+
+
+  /*CODIGO PARA ORDENAR LAS POSICIONES DEL RANKING
+  renderRanking() {
+    const obj = {
+      game: {
+        image: '',
+        description: 'Juego de prueba',
+        name: 'Experto Fútbol',
+        ranking: [ {user: 'Tito', points: 40}, {user: 'Juan', points: 500}, {user: 'Pepito', points: 0} ]
+      }
+    }
+    const ranking = sortBy(obj.game.ranking, 'points').reverse();
+    const items = [];
+    ranking.forEach( (entry, index) => {
+      items.push(
+        <tr> ACA HAY QUE DISTINGUIR AL CURRENT PLAYER PARA PINTARLO DE OTRO COLOR COMO ABAJO
+          <td>{ index + 1 }</td>
+          <td>{ entry.user }</td>
+          <td>{ entry.points } pts</td>
+        </tr>
+      );
+    });
+    return (<tbody>{ items }</tbody>);
+  }*/
