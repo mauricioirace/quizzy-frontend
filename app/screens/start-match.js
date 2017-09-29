@@ -67,43 +67,47 @@ class StartMatch extends React.PureComponent {
   render() {
     return (
       <div>
-        <Row>
-          <Col xs={4}>
-            <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
-          </Col>
-          <Col xs={8} >
-            <Row>
-              <h1>{ this.props.currentMatch.game.name }</h1>
-            </Row>
-            <Row>
-              Mode: Normal
-            </Row>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} lg={4}>
-            <p>Best players</p>
-            <Table striped bordered condensed hover>
-              { this.renderRanking() }
-            </Table>
-          </Col>
-          <Col xs={12} lg={8}>
-            <p className='game-description'>{ this.props.currentMatch.game.description }</p>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={6}>
-            <Row>Enter your nickname: <input type='text' onChange={ this.handleChange }/></Row>
-            <Row>
-              <p id='error'>
-              </p>
-            </Row>
-          </Col>
-          <Col xs={4}/>
-          <Col xs={2}>
-            <Button onClick={ this.handleClick }>START</Button>
-          </Col>
-        </Row>
+        <Grid fluid>
+          <Row>
+            <Col xs={1} md={1} lg={1}>
+              <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
+            </Col>
+            <Col xs={9} md={9} lg={9}>
+              <Row>
+                <h1>{ this.props.currentMatch.game.name }</h1>
+              </Row>
+              <Row>
+                Mode: Normal
+              </Row>
+            </Col>
+            <Col xs={1} md={1} lg={1}></Col>
+          </Row>
+          <Row>
+            <Col xs={12} md={4} lg={4}>
+              <p>Best players</p>
+              <Table striped bordered condensed hover>
+                { this.renderRanking() }
+              </Table>
+            </Col>
+            <Col xs={12} md={7} lg={7}>
+              <Row><p className='game-description'>Game description</p></Row>
+              <Row><p className='game-description'>{ this.props.currentMatch.game.description }</p></Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={6}>
+              <Row>Enter your nickname: <input type='text' onChange={ this.handleChange }/></Row>
+              <Row>
+                <p id='error'>
+                </p>
+              </Row>
+            </Col>
+            <Col xs={4}></Col>
+            <Col xs={1}>
+              <Button onClick={ this.handleClick }>START</Button>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     )
   }
