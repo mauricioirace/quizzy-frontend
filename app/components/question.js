@@ -10,7 +10,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
       changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
-      changeHintQuestion:(newHint,index) => dispatch(changeHintQuestion(newHint,index))
+      changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
     };
 };
 
@@ -32,8 +32,8 @@ class Question extends React.PureComponent {
     this.props.changeQuestionName(event.target.value, this.props.id);
   }
 
-  changeHint (event){
-    this.props.changeHintQuestion(event.target.value,this.props.id)
+  changeHint(event){
+    this.props.changeHintQuestion(event.target.value, this.props.id);
   }
 
 
@@ -43,7 +43,7 @@ class Question extends React.PureComponent {
 
   render() {
     const question = this.props.self;
-    const hint = [];
+    const hint = this.props.id;
     const id = this.props.id;
     const answers = [];
     question.answers.forEach( (answer, index) => {
@@ -59,7 +59,6 @@ class Question extends React.PureComponent {
 
     return (
       <div className='question'>
-
         <FormGroup>
           <InputGroup>
           <FormControl
@@ -69,23 +68,21 @@ class Question extends React.PureComponent {
             placeholder={ 'Question text' }
           /> {' '}
           <InputGroup.Addon>
-              ?
+            ?
           </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
-
         <FormGroup>
-        <InputGroup>
           <ControlLabel>Hint:</ControlLabel>
-            <FormControl
-            type='text'
-            onChange={ this.changeHint }
-            value={ hint.text }
-            placeholder={ 'Hint text' }
+          <InputGroup>
+          <FormControl
+          type='text'
+          onChange={ this.changeHint }
+          value={ hint.text }
+          placeholder={ 'Question hint' }
           /> {' '}
           </InputGroup>
         </FormGroup>
-
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass="select" onChange={ this.changeDifficulty }
