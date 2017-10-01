@@ -136,7 +136,6 @@ class EndNormalGame extends React.PureComponent {
           </Modal>
         </div>
 
-
         <div className="modal-container" style={{height: 20}}>
           <Modal
             show={this.state.showModalSignUp}
@@ -194,7 +193,7 @@ class EndNormalGame extends React.PureComponent {
             </Modal.Footer>
           </Modal>
         </div>
-
+        
         <h2>Leaderboard</h2>
         <Table responsive>
           <thead>
