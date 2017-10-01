@@ -15,37 +15,39 @@
     position: relative;
     height: auto;
     padding: 20px;
-    overflow: hidden;
-    overflow-y: auto;
+    overflow: visible;
 
     #title {
-      text-align: center;
-      color: black;
+      color: $black;
+      h1 {
+        text-align: center;
+        font-size: 50px;
+      }
     }
 
     .formContainer {
-      left: 10%;
+      right: 25%;
       min-height: 500px;
       width: 70%;
       position: absolute;
       padding: 10px;
-      overflow: hidden;
-      overflow-y: auto;
+      overflow: visible;
       form {
         Label {
-          color: grey;
+          color: $black;
           font-size: 18px;
         }
       }
 
-      #title {
-        h1 {
-          font-size: 50px;
-        }
+      #formu {
+        padding-left: 50px;
+        padding-top: 50px;
       }
 
-      #formu {
-        padding-top: 50px;
+      textarea {
+        min-height: 120px;
+        max-height: 200px;
+        min-width: 100%;
       }
 
       #addQuestions {
@@ -66,7 +68,6 @@
       width: 20%;
       position: relative;
       overflow: hidden;
-      overflow-y: auto;
 
       #contDUK {
 
@@ -76,8 +77,7 @@
         right: 5%;
         left: 5%;
         width: 90%;
-        top: 30%;
-        background-color: white;
+        top: 20%;
         color: $primary-color;
 
         h2 {
@@ -89,32 +89,6 @@
           font-size: 18px;
         }
       }
-    }
-  }
-}
-
-.create-game {
-  margin: auto;
-  width: 850px;
-
-  h2 {
-    text-align: center;
-    color: $primary-color;
-    margin-top: 0;
-  }
-
-  .flex-container {
-    display: flex;
-  }
-
-  .centered-container {
-    margin: 0 15px;
-
-    .form-container {
-      display: flex;
-      overflow: hidden;
-      overflow-y: auto;
-      height: 480px;
     }
   }
 }
