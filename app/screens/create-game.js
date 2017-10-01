@@ -270,13 +270,6 @@ class CreateGame extends React.PureComponent {
               <Grid>
                 <Row className="show-grid">
                   { displayQuestions }
-                  {/* <Col sm={4} md={2}>
-                    <a href='#' onClick={ this.onAddQuestion } style={{ textDecoration: 'none' }} >
-                      <Thumbnail>
-                        <h3>ADD A NEW QUESTION</h3>
-                      </Thumbnail>
-                    </a>
-                  </Col> */}
                 </Row>
               </Grid>
               <div>

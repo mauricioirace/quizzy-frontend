@@ -39,13 +39,8 @@ export default (state = initialState, action) => {
       };
     case CHANGE_HINT_QUESTION:
         return {
-          // ...state,
-          // hint: action.hint
-
           ...state,
           questions: state.questions.map( (question, index) => {
-            console.log("action", action)
-            console.log("question", question)
             return {
               ...question,
               hint: index === action.index ? action.hint : question.hint
@@ -126,7 +121,6 @@ export default (state = initialState, action) => {
         error: false
       };
     case CREATE_GAME_FAILURE:
-      console.log(action);
       return {
         ...state,
         error: action.error
