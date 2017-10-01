@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './screens/home';
 import About from './screens/about';
 import Register from './screens/register';
@@ -12,7 +12,6 @@ import history from './history';
 import Header from './components/header';
 import './styles.scss';
 import AnswerQuestion from './screens/answer-question';
-
 
 export class App extends React.PureComponent {
   render() {
