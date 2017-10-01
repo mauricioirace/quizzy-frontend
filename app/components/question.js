@@ -76,10 +76,10 @@ class Question extends React.PureComponent {
           <ControlLabel>Hint:</ControlLabel>
           <InputGroup>
           <FormControl
-          type='text'
-          onChange={ this.changeHint }
-          value={ hint.text }
-          placeholder={ 'Question hint' }
+            type='text'
+            onChange={ this.changeHint }
+            value={ question.hint }
+            placeholder={ 'Question hint' }
           /> {' '}
           </InputGroup>
         </FormGroup>
