@@ -53,7 +53,7 @@ class Answer extends React.PureComponent {
               onChange={ this.handleChange }
             /> {' '}
             <InputGroup.Addon>
-            <input type="checkbox" aria-label="..."
+            <input type='checkbox' aria-label='...'
             name={ this.props.question }
             value={ this.props.id }
             checked={ this.props.correct }
