@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.row {
+  margin: 0 !important;
+}
+
 div [data-reactroot] {
   background-color: $white;
   min-height: 100%;

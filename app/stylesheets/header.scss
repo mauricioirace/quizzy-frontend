@@ -4,12 +4,24 @@
   margin-bottom: 0;
   border-bottom: none !important;
   text-transform: uppercase;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue';
   background-color: transparent !important;
+  padding: 10px 0;
+  border-bottom: none;
+  letter-spacing: 1px;
+  background: transparent;
+  -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+  -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+  transition: background .5s ease-in-out,padding .5s ease-in-out;
+  min-height: 70px;
 
     &.top-nav-collapse {
       background: $black !important;
       border-bottom: 1px solid rgba(white, 0.3);
+
+      a {
+        color: $white !important;
+      }
     }
   .navbar-toggle {
     padding: 4px 6px;
@@ -46,51 +58,48 @@
   }
 
   a {
-    color: $white !important;
+    color: $black !important;
   }
 
-  .nav {
-    li {
-      a {
-        -webkit-transition: background .3s ease-in-out;
-        -moz-transition: background .3s ease-in-out;
-        transition: background .3s ease-in-out;
+  .navbar-action {
+    float: right;
+    padding: 12px;
+    font-size: 20px;
 
-        &:hover {
-          color: rgba(white, 0.8);
-          outline: none;
-          background-color: transparent;
-        }
+    a {
+      -webkit-transition: background .3s ease-in-out;
+      -moz-transition: background .3s ease-in-out;
+      transition: background .3s ease-in-out;
+      margin-left: 15px;
+      text-decoration: none;
 
-        &:focus,
-        &:active {
-          outline: none;
-          background-color: transparent;
-        }
+      &:hover {
+        color: rgba(white, 0.8);
+        outline: none;
+        background-color: transparent;
       }
 
-      &.active {
+      &:focus,
+      &:active {
         outline: none;
+        background-color: transparent;
+      }
+    }
 
-        a {
-          background-color: rgba(white, 0.3);
+    &.active {
+      outline: none;
 
-          &:hover {
-            color: white;
-          }
+      a {
+        background-color: rgba(white, 0.3);
+
+        &:hover {
+          color: white;
         }
       }
     }
   }
 
   @media(min-width:768px) {
-    padding: 10px 0;
-    border-bottom: none;
-    letter-spacing: 1px;
-    background: transparent;
-    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    transition: background .5s ease-in-out,padding .5s ease-in-out;
 
   }
 }
