@@ -72,18 +72,18 @@ export const createGame = (game,onSuccess) => {
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
-      type: CHANGE_QUESTION_DIFFICULTY,
-      difficulty,
-      index
+    type: CHANGE_QUESTION_DIFFICULTY,
+    difficulty,
+    index
   }
 };
 
 // Acción que modifica el hint
 export const changeHintQuestion = (hint, index) => {
   return {
-      type: CHANGE_HINT_QUESTION,
-      hint,
-      index
+    type: CHANGE_HINT_QUESTION,
+    hint,
+    index
   }
 };
 
@@ -160,9 +160,9 @@ export const changeName = (name) => {
   }
 };
 
-  export const changeCategory = (category) => {
-    return {
-      type: CHANGE_CATEGORY,
-      category
-    }
+export const changeCategory = (category) => {
+  return {
+    type: CHANGE_CATEGORY,
+    category
+  }
 };
