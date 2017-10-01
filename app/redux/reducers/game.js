@@ -2,6 +2,7 @@ import {
   ADD_QUESTION,
   REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
+  CHANGE_HINT_QUESTION,
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
@@ -35,6 +36,11 @@ export default (state = initialState, action) => {
         ...state,
         questions: state.questions.concat([ action.question ])
       };
+    case CHANGE_HINT_QUESTION:
+        return {
+          ...state,
+          hint: action.hint
+        };
     case CHANGE_QUESTION_DIFFICULTY:
       return{
         ...state,
@@ -102,7 +108,7 @@ export default (state = initialState, action) => {
       return{
         ...state,
         category: action.category
-      }; 
+      };
     case CREATING_GAME:
       return {
         ...state,

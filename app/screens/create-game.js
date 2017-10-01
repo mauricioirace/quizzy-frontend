@@ -24,7 +24,8 @@ const mapStateToProps = (state) => {
     name: state.gameData.name,
     category: state.gameData.category,
     questions: state.gameData.questions,
-    error: state.gameData.error
+    error: state.gameData.error,
+    hint: state.gameData.hint
   };
 };
 
@@ -38,6 +39,7 @@ const mapDispatchToProps = (dispatch) => {
     changeName: (name) => dispatch(changeName(name)),
     changeCategory: (category) => dispatch(changeCategory(category)),
     createGame: (game,onSuccess) => dispatch(createGame(game,onSuccess)),
+    changeHint: (hint) => dispatch(changeHint(hint)),
   };
 };
 

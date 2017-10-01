@@ -73,8 +73,7 @@ export const createGame = (game,onSuccess) => {
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
       type: CHANGE_QUESTION_DIFFICULTY,
-      difficulty,
-      index
+      difficulty
   }
 };
 
