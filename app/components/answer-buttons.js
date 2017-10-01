@@ -6,6 +6,7 @@ import { ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { answerQuestion, nextQuestion } from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +23,9 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-
+@connect(mapStateToProps, mapDispatchToProps)
+@ReactTimeout
+@withRouter
 class AnswerButtons extends React.PureComponent {
 
   constructor(props) {
@@ -33,10 +36,18 @@ class AnswerButtons extends React.PureComponent {
     };
   }
 
-  onClickAnswer(correct,answer) {
+  onClickAnswer(correct, answer) {
     this.props.answerQuestion(correct,answer);
+
     this.props.setTimeout( () => {
-      this.props.nextQuestion();
+      const next = this.props.matchState.question + 1;
+      const total = this.props.matchData.game.questions.length;
+
+      if ( next >= total) {
+        this.props.history.push('/end-normal-game');
+      } else {
+        this.props.nextQuestion();
+      }
     },3000);
   }
 
@@ -63,4 +74,4 @@ class AnswerButtons extends React.PureComponent {
     )
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ReactTimeout(AnswerButtons));
+export default AnswerButtons;

@@ -56,6 +56,7 @@ const testMatch = {
     ranking: []
   }
 };
+
 const initialState = {
   currentMatch: '',
   match: testMatch,
