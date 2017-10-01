@@ -12,46 +12,23 @@ class EndNormalGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      showModalSignIn: false,
-      showModalSignUp: false
+      showModal: "hide"
     };
-    this.openModalSignIn = this.openModalSignIn.bind(this);
-    this.closeModalSignIn = this.closeModalSignIn.bind(this);
-    this.openModalSignUp = this.openModalSignUp.bind(this);
-    this.closeModalSignUp = this.closeModalSignUp.bind(this);
-    this.handleShowSignIn = this.handleShowSignIn.bind(this);
-    this.handleShowSignUp = this.handleShowSignUp.bind(this);
-    this.handleHideModals = this.handleHideModals.bind(this);
+    this.setModalSignIn = this.setModalSignIn.bind(this);
+    this.setModalSignUp = this.setModalSignUp.bind(this);
+    this.setModalHide = this.setModalHide.bind(this);
   }
 
-  openModalSignIn() {
-    this.setState({ showModalSignIn:true });    
+  setModalSignIn() {
+    this.setState({ showModal: "signIn" });    
   }
 
-  closeModalSignIn() {
-    this.setState({ showModalSignIn:false });
+  setModalSignUp() {
+    this.setState({ showModal: "signUp" });
   }
 
-  openModalSignUp() {
-    this.setState({ showModalSignUp:true });    
-  }
-
-  closeModalSignUp() {
-    this.setState({ showModalSignUp:false });
-  }
-
-  handleShowSignIn() {
-    this.openModalSignIn();
-  }
-
-  handleShowSignUp() {
-    this.closeModalSignIn();
-    this.openModalSignUp();
-  }
-
-  handleHideModals() {
-    this.closeModalSignIn();
-    this.closeModalSignUp();
+  setModalHide() {
+    this.setState({ showModal: "hide" });    
   }
 
   render() {
@@ -61,7 +38,7 @@ class EndNormalGame extends React.PureComponent {
           <h1>Your final score is 100!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
-            <Button bsStyle="success" onClick={() => this.handleShowSignIn()}>
+            <Button bsStyle="success" onClick={() => this.setModalSignIn()}>
               Save
             </Button>
             <Link to={'/'}>
@@ -72,11 +49,10 @@ class EndNormalGame extends React.PureComponent {
           </p>
         </Jumbotron>
 
-
         <div className="modal-container" style={{height: 20}}>
           <Modal
-            show={this.state.showModalSignIn}
-            onHide={this.handleHideModals()}
+            show={this.state.showModal == "signIn"}
+            onHide={this.setModalHide}
             container={this}
             aria-labelledby="contained-modal-title" 
           >
@@ -125,11 +101,11 @@ class EndNormalGame extends React.PureComponent {
             <Modal.Footer>
               <Col xs={12} lg={4} sm={10}>
                 <p>Don't have an account?</p>
-                <Button bsStyle="link" onClick={() => this.handleShowSignUp()}>
+                <Button bsStyle="link" onClick={() => this.setModalSignUp()}>
                   Sign up
                 </Button>
               </Col>
-              <Button onClick={() => this.handleHideModals()}>
+              <Button onClick={() => this.setModalHide()}>
                 Close
               </Button>
             </Modal.Footer>
@@ -138,8 +114,8 @@ class EndNormalGame extends React.PureComponent {
 
         <div className="modal-container" style={{height: 20}}>
           <Modal
-            show={this.state.showModalSignUp}
-            onHide={this.handleHideModals()}
+            show={this.state.showModal == "signUp"}
+            onHide={this.setModalHide}
             container={this}
             aria-labelledby="contained-modal-title" 
           >
@@ -153,7 +129,7 @@ class EndNormalGame extends React.PureComponent {
                     Username
                   </Col>
                   <Col sm={10}>
-                    <FormControl type="username" placeholder="Username" />
+                    <FormControl type="text" placeholder="Username" />
                   </Col>
                 </FormGroup>
 
@@ -187,13 +163,13 @@ class EndNormalGame extends React.PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={() => this.handleHideModals()}>
+              <Button onClick={() => this.setModalHide()}>
                 Close
               </Button>
             </Modal.Footer>
           </Modal>
         </div>
-        
+
         <h2>Leaderboard</h2>
         <Table responsive>
           <thead>
@@ -215,7 +191,7 @@ class EndNormalGame extends React.PureComponent {
               <td>seba_bolso</td>
               <td>103</td>
             </tr>
-            <tr style={ endNormalGameStyle.currentPlayer }>
+            <tr style={ endNormalGameStyle.currentPlayer } >
               <td>15</td>
               <td>pepito (You)</td>
               <td>100</td>
@@ -256,8 +232,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
 
 
-
-  /*CODIGO PARA ORDENAR LAS POSICIONES DEL RANKING
+  /*CODIGO PARA ORDENAR LAS POSICIONES DEL RANKING - SE VA A USAR
   renderRanking() {
     const obj = {
       game: {
