@@ -9,12 +9,50 @@ import { sortBy } from 'underscore';
 
 class EndNormalGame extends React.PureComponent {
     
-    constructor(props) {
-      super(props);
-      this.state = {
-        show: false
-      };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModalSignIn: false,
+      showModalSignUp: false
+    };
+    this.openModalSignIn = this.openModalSignIn.bind(this);
+    this.closeModalSignIn = this.closeModalSignIn.bind(this);
+    this.openModalSignUp = this.openModalSignUp.bind(this);
+    this.closeModalSignUp = this.closeModalSignUp.bind(this);
+    this.handleShowSignIn = this.handleShowSignIn.bind(this);
+    this.handleShowSignUp = this.handleShowSignUp.bind(this);
+    this.handleHideModals = this.handleHideModals.bind(this);
+  }
+
+  openModalSignIn() {
+    this.setState({ showModalSignIn:true });    
+  }
+
+  closeModalSignIn() {
+    this.setState({ showModalSignIn:false });
+  }
+
+  openModalSignUp() {
+    this.setState({ showModalSignUp:true });    
+  }
+
+  closeModalSignUp() {
+    this.setState({ showModalSignUp:false });
+  }
+
+  handleShowSignIn() {
+    this.openModalSignIn();
+  }
+
+  handleShowSignUp() {
+    this.closeModalSignIn();
+    this.openModalSignUp();
+  }
+
+  handleHideModals() {
+    this.closeModalSignIn();
+    this.closeModalSignUp();
+  }
 
   render() {
     return (
@@ -23,20 +61,27 @@ class EndNormalGame extends React.PureComponent {
           <h1>Your final score is 100!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
-            <Button bsStyle="success" onClick={() => this.setState({ show: true})}>Login for save</Button>
-            <Button bsStyle="success" onClick={() => this.setState({ show: true})}>Save with your nickname</Button>
+            <Button bsStyle="success" onClick={() => this.handleShowSignIn()}>
+              Save
+            </Button>
+            <Link to={'/'}>
+              <Button bsStyle="default">
+                Return Home
+              </Button>
+            </Link>  
           </p>
         </Jumbotron>
 
+
         <div className="modal-container" style={{height: 20}}>
           <Modal
-            show={this.state.show}
-            onHide={close}
+            show={this.state.showModalSignIn}
+            onHide={this.handleHideModals()}
             container={this}
             aria-labelledby="contained-modal-title" 
           >
             <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">Sign in to Quizzy</Modal.Title>
+              <Modal.Title id="contained-modal-title">Sign in to save your score</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form horizontal>
@@ -60,26 +105,95 @@ class EndNormalGame extends React.PureComponent {
 
                 <FormGroup>
                   <Col smOffset={2} sm={10}>
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>
+                      Remember me
+                    </Checkbox>
                   </Col>
                 </FormGroup>
 
                 <FormGroup>
                   <Col smOffset={2} sm={10}>
-                    <Button bsStyle="primary" type="submit">
-                      Sign in
-                    </Button> 
+                    <Link to={'/'}>
+                      <Button bsStyle="primary" type="submit">
+                        Sign in
+                      </Button>
+                    </Link>  
                   </Col>
                 </FormGroup>
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button bsStyle="link">Create account</Button>
-              <Button onClick={close}>Close</Button>
+              <Col xs={12} lg={4} sm={10}>
+                <p>Don't have an account?</p>
+                <Button bsStyle="link" onClick={() => this.handleShowSignUp()}>
+                  Sign up
+                </Button>
+              </Col>
+              <Button onClick={() => this.handleHideModals()}>
+                Close
+              </Button>
             </Modal.Footer>
           </Modal>
         </div>
 
+
+        <div className="modal-container" style={{height: 20}}>
+          <Modal
+            show={this.state.showModalSignUp}
+            onHide={this.handleHideModals()}
+            container={this}
+            aria-labelledby="contained-modal-title" 
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title">Sign up to save your score</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form horizontal>
+                <FormGroup controlId="formHorizontalUsername">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Username
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="username1" placeholder="Username" />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Email
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="email1" placeholder="Email" />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup controlId="formHorizontalPassword">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Password
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="password1" placeholder="Password" />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <Link to={'/'}>
+                      <Button bsStyle="primary" type="submit">
+                        Confirm
+                      </Button>
+                    </Link>  
+                  </Col>
+                </FormGroup>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => this.handleHideModals()}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
 
         <h2>Leaderboard</h2>
         <Table responsive>
@@ -102,7 +216,7 @@ class EndNormalGame extends React.PureComponent {
               <td>seba_bolso</td>
               <td>103</td>
             </tr>
-            <tr style={ endNormalGameStyle.currentPlayer } >
+            <tr style={ endNormalGameStyle.currentPlayer }>
               <td>15</td>
               <td>pepito (You)</td>
               <td>100</td>
@@ -122,9 +236,7 @@ class EndNormalGame extends React.PureComponent {
         <p>
           Share your score!
         </p>
-        <Link to={ "" }>
-          <Button bsStyle="primary" bsSize="small">f | Compartir</Button>
-        </Link>
+        <Button bsStyle="primary" bsSize="small">f | Compartir</Button>
       </div>
     )
   }
