@@ -1,7 +1,7 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty,changeHintQuestion } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion } from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Row, Col, Form, FormGroup, FormControl, Button,
   Glyphicon, FieldGroup, ControlLabel, InputGroup } from 'react-bootstrap';
@@ -88,7 +88,7 @@ class Question extends React.PureComponent {
         </FormGroup>
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
-          <FormControl componentClass="select" onChange={ this.changeDifficulty }
+          <FormControl componentClass='select' onChange={ this.changeDifficulty }
           value={ this.props.self.difficulty }>
             <option value='Easy'>Easy</option>
             <option value='Medium'>Medium</option>
@@ -99,7 +99,6 @@ class Question extends React.PureComponent {
           <ControlLabel>Answers:</ControlLabel>
             { answers }
         </FormGroup>
-
       </div>
     );
   }
