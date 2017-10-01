@@ -100,7 +100,7 @@ class EndNormalGame extends React.PureComponent {
             </Modal.Body>
             <Modal.Footer>
               <Col xs={12} lg={4} sm={10}>
-                <p>Don't have an account?</p>
+                <p>Do not have an account?</p>
                 <Button bsStyle="link" onClick={() => this.setModalSignUp()}>
                   Sign up
                 </Button>
