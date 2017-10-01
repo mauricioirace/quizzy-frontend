@@ -258,12 +258,6 @@ class CreateGame extends React.PureComponent {
                   </FormGroup>
 
                 </Form>
-                {/* <div className="didUKnow">
-                  <div id="contDUK">
-                    <h2>Did you know...?</h2>
-                    <p>Michael Jordan is the first athlete in history to become a billionaire.</p>
-                  </div>
-                </div> */}
             </Panel>
 
             <Panel header="QUESTIONS" eventKey="2" onClick={ this.scrollToBottom } >

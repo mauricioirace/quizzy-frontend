@@ -59,36 +59,5 @@
         color: white;
       }
     }
-
-    .didUKnow {
-
-      float: right;
-      right: 5%;
-      min-height: 500px;
-      width: 20%;
-      position: relative;
-      overflow: hidden;
-
-      #contDUK {
-
-        border-radius: 25px;
-        border: 2px solid $border-grey;
-        position: absolute;
-        right: 5%;
-        left: 5%;
-        width: 90%;
-        top: 20%;
-        color: $primary-color;
-
-        h2 {
-          text-align: center;
-        }
-
-        p {
-          text-align: center;
-          font-size: 18px;
-        }
-      }
-    }
   }
 }
