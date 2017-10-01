@@ -294,7 +294,7 @@ class CreateGame extends React.PureComponent {
           </PanelGroup>
 
           <div className='error-message'>{ this.props.error }</div>
-          <Button bsStyle='success pull-right' onClick={ this.onDone }> CREATE GAME! </Button>
+          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE GAME! </Button>
 
         </div>
       </div>
