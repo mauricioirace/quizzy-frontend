@@ -46,6 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 const question = () => {
   return {
     text: '',
+    hint: '',
     difficulty: 'Easy',
     answers: [ '','','','' ],
     correctAnswer: 0

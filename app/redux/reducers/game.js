@@ -20,6 +20,7 @@ import {
 
 const initialState = {
   name: '',
+  hint: '',
   description: '',
   image: null,
   questions: [],
@@ -38,8 +39,18 @@ export default (state = initialState, action) => {
       };
     case CHANGE_HINT_QUESTION:
         return {
+          // ...state,
+          // hint: action.hint
+
           ...state,
-          hint: action.hint
+          questions: state.questions.map( (question, index) => {
+            console.log("action", action)
+            console.log("question", question)
+            return {
+              ...question,
+              hint: index === action.index ? action.hint : question.hint
+              }
+          })
         };
     case CHANGE_QUESTION_DIFFICULTY:
       return{
