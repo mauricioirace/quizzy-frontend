@@ -148,18 +148,18 @@ class CreateGame extends React.PureComponent {
     questions.map( (question, index) => {
       let questionText = question.props.obj.text;
       let text = <FormControl disabled type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
-      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph="trash"/></Button>
+      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph='trash'/></Button>
       let editButton = <Button bsStyle='default pull-right' onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph='pencil'/> </Button>
 
       list.push(
-        <Col sm={3} md={2}>
+        <Col sm={ 3 } md={ 2 }>
           <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }} >
             <Thumbnail>
               <FormGroup>
-                  <InputGroup>
-                    {text}
-                  </InputGroup>
-                </FormGroup>
+                <InputGroup>
+                  {text}
+                </InputGroup>
+              </FormGroup>
             </Thumbnail>
           </a>
         </Col>
@@ -178,7 +178,7 @@ class CreateGame extends React.PureComponent {
 
   nextQuestion(index) {
     const next = index + 1;
-    if ((this.props.questions.length -1) < next) {
+    if ((this.props.questions.length - 1) < next) {
       this.onAddQuestion();
     }
     this.onEditQuestion(index + 1)
@@ -205,54 +205,54 @@ class CreateGame extends React.PureComponent {
     let displayQuestions = this.renderQuestions(questions);
 
     return (
-      <div className="createGame">
-        <div className="bigContainer">
-          <div id="title">
+      <div className='createGame'>
+        <div className='bigContainer'>
+          <div id='title'>
             <h1>Make up your own game</h1>
           </div>
 
-          <PanelGroup defaultActiveKey="1" accordion>
-            <Panel header="GENERAL INFO" eventKey="1">
+          <PanelGroup defaultActiveKey='1' accordion>
+            <Panel header='GENERAL INFO' eventKey='1'>
                 <Form horizontal>
 
-                  <FormGroup controlId="formName">
-                    <Col sm={1}>
+                  <FormGroup controlId='formName'>
+                    <Col sm={ 1 }>
                       <ControlLabel>Name</ControlLabel>
                     </Col>
-                    <Col sm={8}>
-                      <FormControl type="text" placeholder="90s music" onChange={ this.onChangeName } />
+                    <Col sm={ 8 }>
+                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName } />
                     </Col>
                   </FormGroup>
 
-                  <FormGroup controlId="formControlsTextarea">
-                    <Col sm={1}>
+                  <FormGroup controlId='formControlsTextarea'>
+                    <Col sm={ 1 }>
                       <ControlLabel>Description</ControlLabel>
                     </Col>
-                    <Col sm={8}>
-                      <FormControl componentClass="textarea" type="text" onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll" />
+                    <Col sm={ 8 }>
+                      <FormControl componentClass='textarea' type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
                     </Col>
                   </FormGroup>
 
-                  <FormGroup controlId="imageasd">
-                    <Col sm={1}>
+                  <FormGroup controlId='imageasd'>
+                    <Col sm={ 1 }>
                       <ControlLabel>Image</ControlLabel>
                     </Col>
-                    <Col sm={8}>
-                      <FormControl type="file" onChange={ this.onChangeImage }/>
+                    <Col sm={ 8 }>
+                      <FormControl type='file' onChange={ this.onChangeImage }/>
                     </Col>
                   </FormGroup>
 
-                  <FormGroup controlId="formCategory">
-                    <Col sm={1}>
+                  <FormGroup controlId='formCategory'>
+                    <Col sm={ 1 }>
                       <ControlLabel>Category</ControlLabel>
                     </Col>
-                    <Col sm={8}>
-                      <FormControl componentClass="select" placeholder="select" onChange={ this.onChangeCategory }>
-                        <option value="music">Music</option>
-                        <option value="sports">Sports</option>
-                        <option value="videogames">Videogames</option>
-                        <option value="history">History</option>
-                        <option value="other">Other</option>
+                    <Col sm={ 8 }>
+                      <FormControl componentClass='select' placeholder='select' onChange={ this.onChangeCategory }>
+                        <option value='music'>Music</option>
+                        <option value='sports'>Sports</option>
+                        <option value='videogames'>Videogames</option>
+                        <option value='history'>History</option>
+                        <option value='other'>Other</option>
                       </FormControl>
                     </Col>
                   </FormGroup>
@@ -260,9 +260,9 @@ class CreateGame extends React.PureComponent {
                 </Form>
             </Panel>
 
-            <Panel header="QUESTIONS" eventKey="2" onClick={ this.scrollToBottom } >
+            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom } >
               <Grid>
-                <Row className="show-grid">
+                <Row className='show-grid'>
                   { displayQuestions }
                 </Row>
               </Grid>
@@ -270,9 +270,9 @@ class CreateGame extends React.PureComponent {
                 <Button bsStyle='primary' onClick={ this.onAddQuestion }>
                   <Glyphicon glyph='plus'/> NEW QUESTION
                 </Button>
-              </div> <br/>
+              </div>
 
-              <Panel collapsible expanded={this.state.showPanel}  eventKey="1">
+              <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
                 <div>
                   <strong> { title } </strong>
                 </div>
@@ -283,11 +283,9 @@ class CreateGame extends React.PureComponent {
                 <hr/>
                 <div>
                   <Button bsStyle='default pull-right' onClick={ this.closePanel }>
-                    {/* <Glyphicon glyph='check'/>  */}
                     Save
                   </Button> {' '}
                   <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } >
-                      {/* <Glyphicon glyph="trash"/>  */}
                       Delete
                   </Button> {' '}
                 </div>
@@ -295,7 +293,7 @@ class CreateGame extends React.PureComponent {
             </Panel>
           </PanelGroup>
 
-          <div className="error-message">{ this.props.error }</div>
+          <div className='error-message'>{ this.props.error }</div>
           <Button bsStyle='success pull-right' onClick={ this.onDone }> CREATE GAME! </Button>
 
         </div>
