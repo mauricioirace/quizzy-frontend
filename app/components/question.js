@@ -90,9 +90,9 @@ class Question extends React.PureComponent {
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass="select" onChange={ this.changeDifficulty }
           value={ this.props.self.difficulty }>
-            <option value='easy'>Easy</option>
-            <option value='medium'>Medium</option>
-            <option value='challenging'>Challenging</option>
+            <option value='Easy'>Easy</option>
+            <option value='Medium'>Medium</option>
+            <option value='Hard'>Hard</option>
           </FormControl>
         </FormGroup>
         <FormGroup>
