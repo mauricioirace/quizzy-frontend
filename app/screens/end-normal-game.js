@@ -153,7 +153,7 @@ class EndNormalGame extends React.PureComponent {
                     Username
                   </Col>
                   <Col sm={10}>
-                    <FormControl type="username1" placeholder="Username" />
+                    <FormControl type="username" placeholder="Username" />
                   </Col>
                 </FormGroup>
 
@@ -162,7 +162,7 @@ class EndNormalGame extends React.PureComponent {
                     Email
                   </Col>
                   <Col sm={10}>
-                    <FormControl type="email1" placeholder="Email" />
+                    <FormControl type="email" placeholder="Email" />
                   </Col>
                 </FormGroup>
 
@@ -171,7 +171,7 @@ class EndNormalGame extends React.PureComponent {
                     Password
                   </Col>
                   <Col sm={10}>
-                    <FormControl type="password1" placeholder="Password" />
+                    <FormControl type="password" placeholder="Password" />
                   </Col>
                 </FormGroup>
 
