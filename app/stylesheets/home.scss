@@ -17,39 +17,197 @@
   }
 }
 
-.match-container {
-  float: right;
-  width: 450px;
-  min-width: 295px;
-  height: 180px;
-  border-radius: 5px;
-  padding: 25px 35px;
-  text-align: center;
-  background-color: $white;
-  color: $black;
-
-  button {
-    cursor: pointer;
-    width: 100%;
-    border: none;
-    border-radius: 3px;
-    height: 35px;
-    font-size: 14px;
-    background-color: transparent;
-    border: 1px solid $primary-color;
-    color: $primary-color;
-
-    &:hover {
-      background-color: $primary-color;
-      color: $white;
-    }
-
-    &:focus {
-      outline: none;
+.form-container .form-input {
+  &.long {
+    label {
+      width: 125px !important;
     }
   }
 }
 
+.match-container {
+  float: right;
+  width: 100%;
+  height: 80px;
+  text-align: left;
+  color: $white;
+  margin-top: 20px;
+}
+
+.slideInUp {
+  display: flex;
+  text-align: left;
+}
+
+.bounceInLeft {
+  width: 100%;
+}
+
 .play-button {
   height: 50px;
+}
+
+.intro {
+  width: 100%;
+  height: 715px;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  background: url(../../assets/images/landing.jpg) no-repeat bottom center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+  h1 {
+    color: $white;
+  }
+
+  .intro-body {
+    vertical-align: middle;
+    text-align: left;
+
+    .brand-heading {
+      font-size: 85px;
+    }
+    .intro-text {
+      font-size: 18px;
+    }
+  }
+
+  @media(max-width: 768px) {
+    .intro-body {
+      text-align: center !important;
+
+      label {
+        margin-top: 5px !important;
+        font-size: 15px !important;
+      }
+
+      .brand-heading {
+        display: inline-block;
+
+        .intro-text {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}
+
+.btn-circle {
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+  padding: 7px 16px;
+  border: 2px solid white;
+  color: white;
+  background: transparent;
+  -webkit-transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  transition: background .3s ease-in-out;
+  border-radius: 100% !important;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    color: white;
+    background: rgba(white, 0.1);
+
+    span.animated {
+      color: $primary-color;
+    }
+  }
+
+  span.animated {
+    font-size: 60px;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+  }
+}
+
+.arrow-title {
+  margin-top: 35px;
+  margin-left: 10px;
+}
+
+@-webkit-keyframes pulse {
+  form {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50%{-webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  100%{-webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@-moz-keyframes pulse {
+  form {
+    -moz-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50%{-moz-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+
+  100%{-moz-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+
+.go-button {
+  height: 45px;
+}
+
+.content-section {
+  padding-top: 150px;
+  padding-bottom: 50px;
+
+  .brand-heading {
+    font-size: 85px;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+}
+
+.modes-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: space-evenly;
+
+  .game-mode {
+    max-width: 300px;
+    padding: 0 30px;
+
+    h3 {
+      color: $secondary-color;
+    }
+  }
+}
+
+.about-section {
+  width: 100%;
+  float: left;
+  padding-bottom: 50px;
+  color: $black;
+  background: no-repeat center center scroll;
+  background-color: $white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+  .fadeIn {
+    margin: auto;
+  }
 }

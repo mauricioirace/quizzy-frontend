@@ -1,49 +1,105 @@
 @import '../../assets/styles/variables.scss';
 
-.header {
-  width: 100%;
-  height: $header-height;
-  z-index: 2;
+.navbar-default {
+  margin-bottom: 0;
+  border-bottom: none !important;
+  text-transform: uppercase;
+  font-family: 'Helvetica Neue';
+  background-color: transparent !important;
+  padding: 10px 0;
+  border-bottom: none;
+  letter-spacing: 1px;
   background: transparent;
-  box-sizing: border-box;
-  display: block;
-  font-size: 20px;
-  line-height: 30px;
-  position: relative;
-  border-bottom: 1px solid $primary-color;
+  -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+  -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+  transition: background .5s ease-in-out,padding .5s ease-in-out;
+  min-height: 70px;
 
-  .logo-img {
-    height: 100%;
-    display: inline-block;
-    position: absolute;
-    top: 8px;
-    left: -7px;
+    &.top-nav-collapse {
+      background: $black !important;
+      border-bottom: 1px solid rgba(white, 0.3);
 
-    img {
-      height: 60px;
+      a {
+        color: $white !important;
+      }
+    }
+  .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: white;
+
+    &:focus,
+    &:active {
+      outline: none;
     }
   }
 
-  .action-container {
-    display: flex;
-    cursor: pointer;
-    position: absolute;
-    top: 23px;
-    right: 0;
+  .navbar-right {
+    font-size: 18px;
+  }
 
-    a {
-      color: $primary-color;
-      text-decoration: none;
-      display: inline;
-      margin-left: 15px;
+  .navbar-brand {
+    font-weight: 700;
 
-      &:hover {
-        color: lighter($primary-color);
+    .logo-img {
+      height: 100%;
+      display: inline-block;
+      position: absolute;
+      top: 6px;
+
+      img {
+        height: 60px;
       }
     }
 
-    &:active {
-      color: $primary-color;
+    &:focus {
+      outline: none;
     }
+  }
+
+  a {
+    color: $black !important;
+  }
+
+  .navbar-action {
+    float: right;
+    padding: 12px;
+    font-size: 20px;
+
+    a {
+      -webkit-transition: background .3s ease-in-out;
+      -moz-transition: background .3s ease-in-out;
+      transition: background .3s ease-in-out;
+      margin-left: 15px;
+      text-decoration: none;
+
+      &:hover {
+        color: rgba(white, 0.8);
+        outline: none;
+        background-color: transparent;
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+        background-color: transparent;
+      }
+    }
+
+    &.active {
+      outline: none;
+
+      a {
+        background-color: rgba(white, 0.3);
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+
+  @media(min-width:768px) {
+
   }
 }

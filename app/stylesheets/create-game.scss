@@ -9,28 +9,56 @@
   }
 }
 
-.create-game {
-  margin: auto;
-  width: 850px;
+.createGame {
+  .bigContainer {
 
-  h2 {
-    text-align: center;
-    color: $primary-color;
-    margin-top: 0;
-  }
+    position: relative;
+    height: auto;
+    padding: 20px;
+    overflow: visible;
 
-  .flex-container {
-    display: flex;
-  }
+    #title {
+      color: $black;
+      
+      h1 {
+        text-align: center;
+        font-size: 50px;
+      }
+    }
 
-  .centered-container {
-    margin: 0 15px;
+    .formContainer {
+      right: 25%;
+      min-height: 500px;
+      width: 70%;
+      position: absolute;
+      padding: 10px;
+      overflow: visible;
+      form {
+        label {
+          color: $black;
+          font-size: 18px;
+        }
+      }
 
-    .form-container {
-      display: flex;
-      overflow: hidden;
-      overflow-y: auto;
-      height: 480px;
+      #formu {
+        padding-left: 50px;
+        padding-top: 50px;
+      }
+
+      textarea {
+        min-height: 120px;
+        max-height: 200px;
+        min-width: 100%;
+      }
+
+      #addQuestions {
+        position: absolute;
+        down: -20%;
+        right: 25%;
+        background-color: $primary-color;
+        border: 1.6px solid $primary-color;
+        color: $white;
+      }
     }
   }
 }

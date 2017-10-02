@@ -1,0 +1,9 @@
+.play-button {
+  &:after {
+    content: url(../../assets/images/play_button.png);
+  }
+
+  &:hover {
+    content: url(../../assets/images/play_button_fill.png);
+  }
+}

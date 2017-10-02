@@ -5,6 +5,7 @@ import EmptyFieldError from '../components/errors/emptyFieldError';
 import { foundError, removeError } from '../redux/actions/game';
 import EMPTY_FIELD_ERROR from '../constants/game';
 import '../stylesheets/question.scss';
+import { Form, FormControl, FormGroup, Radio, Checkbox, InputGroup } from 'react-bootstrap';
 
 const mapStateToProps = (state,props) => {
   return {
@@ -28,7 +29,6 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    
  }
 
 
@@ -40,56 +40,30 @@ class Answer extends React.PureComponent {
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
-
   render() {
-    if (this.props.correct) {
-      return (
-        <div className='form-container'>
-          <div className='row'>
-            <div className='form-input horizontal long'>
-              <input
-                type='radio'
-                name={ this.props.question }
-                value={ this.props.id }
-                checked={ this.props.correct }
-                onClick={ this.handleSelectionChange }
-              />
-              <input
-                className='answer correct'
-                type='text'
-                value={ this.props.text }
-                placeholder={ 'Answer #' + (this.props.id + 1) }
-                onChange={ this.handleChange }
-              />
-               </div>
-          </div>
-        </div>
-      )
-    }
-    else {
-      return (
-        <div className='form-container'>
-          <div className='row'>
-            <div className='form-input horizontal long'>
-              <input
-                type='radio'
-                name={ this.props.question }
-                value={ this.props.id }
-                checked={ this.props.correct }
-                onClick={ this.handleSelectionChange }
-              />
-              <input
-                className='answer'
-                type='text'
-                value={ this.props.text }
-                placeholder={ 'Answer #' + (this.props.id + 1) }
-                onChange={ this.handleChange }
-              />
-            </div>
-          </div>
-        </div>
-      )
-    }
+    return (
+      <div>
+        <FormGroup>
+          <InputGroup>
+            <FormControl
+              className='answer'
+              type='text'
+              value={ this.props.text }
+              placeholder={ 'Answer #' + (this.props.id + 1) }
+              onChange={ this.handleChange }
+            /> {' '}
+            <InputGroup.Addon>
+            <input type='checkbox' aria-label='...'
+            name={ this.props.question }
+            value={ this.props.id }
+            checked={ this.props.correct }
+            onClick={ this.handleSelectionChange }
+            />
+            </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+      </div>
+    )
   }
 }
 
