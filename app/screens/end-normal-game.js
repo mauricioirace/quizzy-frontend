@@ -191,7 +191,7 @@ class EndNormalGame extends React.PureComponent {
               <td>seba_bolso</td>
               <td>103</td>
             </tr>
-            <tr style={ endNormalGameStyle.currentPlayer } >
+            <tr style={ endNormalGameStyle.currentPlayer }>
               <td>15</td>
               <td>pepito (You)</td>
               <td>100</td>
