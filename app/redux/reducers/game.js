@@ -80,7 +80,7 @@ export default (state = initialState, action) => {
         questions: []
       };
     case CHANGE_ANSWER:
-      newAnswers = state.questions[action.question].answers.slice(0, 4);
+      newAnswers = state.questions[action.question].answers.slice(0, 6);
       newAnswers[action.index] = { 'answer': action.answer };
       newQuestions = state.questions.slice(0, state.questions.length);
       newQuestions[action.question].answers = newAnswers;
