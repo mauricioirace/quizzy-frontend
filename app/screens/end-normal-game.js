@@ -230,28 +230,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
-
-
-  /*CODIGO PARA ORDENAR LAS POSICIONES DEL RANKING - SE VA A USAR
-  renderRanking() {
-    const obj = {
-      game: {
-        image: '',
-        description: 'Juego de prueba',
-        name: 'Experto Fútbol',
-        ranking: [ {user: 'Tito', points: 40}, {user: 'Juan', points: 500}, {user: 'Pepito', points: 0} ]
-      }
-    }
-    const ranking = sortBy(obj.game.ranking, 'points').reverse();
-    const items = [];
-    ranking.forEach( (entry, index) => {
-      items.push(
-        <tr> ACA HAY QUE DISTINGUIR AL CURRENT PLAYER PARA PINTARLO DE OTRO COLOR COMO ABAJO
-          <td>{ index + 1 }</td>
-          <td>{ entry.user }</td>
-          <td>{ entry.points } pts</td>
-        </tr>
-      );
-    });
-    return (<tbody>{ items }</tbody>);
-  }*/
