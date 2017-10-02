@@ -1,12 +1,14 @@
 .main-view {
   position: relative;
-  padding: 30px 0;
+}
+
+.row {
+  margin: 0 !important;
 }
 
 div [data-reactroot] {
   background-color: $white;
   min-height: 100%;
-  padding: 0 70px;
 }
 
 html, body, #app {
