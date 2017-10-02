@@ -146,10 +146,7 @@ class CreateGame extends React.PureComponent {
     let list = [];
 
     questions.map( (question, index) => {
-      let questionText = question.props.obj.text;
-      let text = <FormControl disabled type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
-      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph='trash'/></Button>
-      let editButton = <Button bsStyle='default pull-right' onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph='pencil'/> </Button>
+      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) } />;
 
       list.push(
         <Col sm={ 3 } md={ 2 }>
@@ -266,12 +263,8 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } >
-                      Delete
-                  </Button> 
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>
-                    Save
-                  </Button> 
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }> Delete </Button> 
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }> Save </Button> 
                 </div>
               </Panel>
             </Panel>

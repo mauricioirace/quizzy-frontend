@@ -121,12 +121,10 @@ class Question extends React.PureComponent {
           <ControlLabel>Answers:</ControlLabel>
             { answers }
         </FormGroup>
-
         <div>
-          <a onClick={ this.addAnswer } > Add </a> 
-          <a onClick={ this.removeAnswer } > Remove </a> 
+          <a onClick={ this.addAnswer }> Add </a> 
+          <a onClick={ this.removeAnswer }> Remove </a> 
         </div>
-
       </div>
     );
   }
