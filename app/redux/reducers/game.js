@@ -69,7 +69,7 @@ export default (state = initialState, action) => {
       };
     case CHANGE_ANSWER:
       newAnswers = state.questions[action.question].answers.slice(0, 4);
-      newAnswers[action.index] = action.answer;
+      newAnswers[action.index] = { 'answer': action.answer };
       newQuestions = state.questions.slice(0, state.questions.length);
       newQuestions[action.question].answers = newAnswers;
       return {
@@ -102,7 +102,7 @@ export default (state = initialState, action) => {
       return{
         ...state,
         category: action.category
-      }; 
+      };
     case CREATING_GAME:
       return {
         ...state,

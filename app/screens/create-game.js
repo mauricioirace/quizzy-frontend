@@ -44,7 +44,7 @@ const question = () => {
   return {
     text: '',
     difficulty: 'Easy',
-    answers: [ '','','','' ],
+    answers: [ { 'answer': '' }, { 'answer': '' }, { 'answer': '' }, { 'answer': '' } ],
     correctAnswer: 0
   };
 };
@@ -78,7 +78,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onSuccess(){
-    this.props.history.push('/');
+    this.props.history.push('/create-match');
   }
 
   componentWillMount() {
@@ -90,7 +90,7 @@ class CreateGame extends React.PureComponent {
 
   componentWillUnmount() {
     // remove all questions
-    this.props.removeAllQuestions();
+    //this.props.removeAllQuestions();
   }
 
   onAddQuestion() {
@@ -116,7 +116,7 @@ class CreateGame extends React.PureComponent {
   }
 
   test() {}
-  
+
   render() {
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } test={ this.test.bind(this) } />);

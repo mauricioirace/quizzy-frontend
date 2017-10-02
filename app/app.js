@@ -22,8 +22,7 @@ export class App extends React.PureComponent {
       <BrowserRouter history={ history } >
         <div>
           <Header/>
-          <CreateMatch game={obj}/>
-          { /* <div className='main-view'>
+          <div className='main-view'>
             <Switch>
               <Route exact path='/' component={ Home }/>
               <Route exact path='/about' component={ About }/>
@@ -31,9 +30,9 @@ export class App extends React.PureComponent {
               <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/start-match' component={ StartMatch }/>
+              <Route exact path='/create-match' component={ CreateMatch }/>
             </Switch>
           </div>
-          */ }
         </div>
         {/*<Footer/>*/}
       </BrowserRouter>

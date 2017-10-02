@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import '../stylesheets/start-match.scss';
 import '../../node_modules/react-toggle-switch/dist/css/switch.min.css';
 import { Button, Col, Row, Table } from 'react-bootstrap';
+import empty from '../../assets/images/empty.svg';
 import { sortBy } from 'underscore';
 
 export default class StartMatch extends React.PureComponent {

@@ -6,6 +6,9 @@ import {
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
   MATCH_NAME_ERROR,
+  CREATING_MATCH,
+  CREATE_MATCH_SUCCESS,
+  CREATE_MATCH_FAILURE,
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -44,6 +47,39 @@ export const fetchMatch = (matchName) => {
       .catch((err) => {
         console.log(err);
         dispatch(loadMatchDataFailure())
+      });
+  }
+};
+
+export const creatingMatch = () => {
+  return {
+    type: CREATING_MATCH,
+  }
+};
+
+export const createMatchSuccess = (match) => {
+  return {
+    type: CREATE_MATCH_SUCCESS,
+    match
+  }
+};
+
+export const createMatchFailure = (error) => {
+  return {
+    type: CREATE_MATCH_FAILURE,
+    error
+  }
+};
+
+export const createMatch = (match, onSuccess) => {
+  return (dispatch) => {
+    dispatch(creatingMatch());
+    matchService.create(match)
+      .then(() => {
+        onSuccess();
+      })
+      .catch((error) => {
+        dispatch(createMatchFailure(error.response.data.error))
       });
   }
 };
