@@ -12,7 +12,7 @@ class EndNormalGame extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: "hide"
+      showModal: 'hide'
     };
     this.setModalSignIn = this.setModalSignIn.bind(this);
     this.setModalSignUp = this.setModalSignUp.bind(this);
@@ -20,15 +20,15 @@ class EndNormalGame extends React.PureComponent {
   }
 
   setModalSignIn() {
-    this.setState({ showModal: "signIn" });    
+    this.setState({ showModal: 'signIn' });    
   }
 
   setModalSignUp() {
-    this.setState({ showModal: "signUp" });
+    this.setState({ showModal: 'signUp' });
   }
 
   setModalHide() {
-    this.setState({ showModal: "hide" });    
+    this.setState({ showModal: 'hide' });    
   }
 
   render() {
@@ -38,49 +38,49 @@ class EndNormalGame extends React.PureComponent {
           <h1>Your final score is 100!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
-            <Button bsStyle="success" onClick={() => this.setModalSignIn()}>
+            <Button bsStyle='success' onClick={ () => this.setModalSignIn() }>
               Save
             </Button>
-            <Link to={'/'}>
-              <Button bsStyle="default">
+            <Link to={ '/' }>
+              <Button bsStyle='default'>
                 Return Home
               </Button>
             </Link>  
           </p>
         </Jumbotron>
 
-        <div className="modal-container" style={{height: 20}}>
+        <div className='modal-container' style={{ height: 20 }}>
           <Modal
-            show={this.state.showModal == "signIn"}
-            onHide={this.setModalHide}
-            container={this}
-            aria-labelledby="contained-modal-title" 
+            show={ this.state.showModal == 'signIn' }
+            onHide={ this.setModalHide }
+            container={ this }
+            aria-labelledby='contained-modal-title' 
           >
             <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">Sign in to save your score</Modal.Title>
+              <Modal.Title id='contained-modal-title'>Sign in to save your score</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form horizontal>
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
+                <FormGroup controlId='formHorizontalEmail'>
+                  <Col componentClass={ ControlLabel } sm={ 2 }>
                     Email
                   </Col>
-                  <Col sm={10}>
-                    <FormControl type="email" placeholder="Email" />
+                  <Col sm={ 10 }>
+                    <FormControl type='email' placeholder='Email' />
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalPassword">
-                  <Col componentClass={ControlLabel} sm={2}>
+                <FormGroup controlId='formHorizontalPassword'>
+                  <Col componentClass={ ControlLabel } sm={ 2 }>
                     Password
                   </Col>
-                  <Col sm={10}>
-                    <FormControl type="password" placeholder="Password" />
+                  <Col sm={ 10 }>
+                    <FormControl type='password' placeholder='Password' />
                   </Col>
                 </FormGroup>
 
                 <FormGroup>
-                  <Col smOffset={2} sm={10}>
+                  <Col smOffset={ 2 } sm={ 10 }>
                     <Checkbox>
                       Remember me
                     </Checkbox>
@@ -88,9 +88,9 @@ class EndNormalGame extends React.PureComponent {
                 </FormGroup>
 
                 <FormGroup>
-                  <Col smOffset={2} sm={10}>
+                  <Col smOffset={ 2 } sm={ 10 }>
                     <Link to={'/'}>
-                      <Button bsStyle="primary" type="submit">
+                      <Button bsStyle='primary' type='submit'>
                         Sign in
                       </Button>
                     </Link>  
@@ -99,62 +99,62 @@ class EndNormalGame extends React.PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Col xs={12} lg={4} sm={10}>
+              <Col xs={ 12 } lg={ 4 } sm={ 10 }>
                 <p>Do not have an account?</p>
-                <Button bsStyle="link" onClick={() => this.setModalSignUp()}>
+                <Button bsStyle='link' onClick={ () => this.setModalSignUp() }>
                   Sign up
                 </Button>
               </Col>
-              <Button onClick={() => this.setModalHide()}>
+              <Button onClick={ () => this.setModalHide() }>
                 Close
               </Button>
             </Modal.Footer>
           </Modal>
         </div>
 
-        <div className="modal-container" style={{height: 20}}>
+        <div className='modal-container' style={{ height: 20 }}>
           <Modal
-            show={this.state.showModal == "signUp"}
-            onHide={this.setModalHide}
-            container={this}
-            aria-labelledby="contained-modal-title" 
+            show={ this.state.showModal == 'signUp' }
+            onHide={ this.setModalHide }
+            container={ this }
+            aria-labelledby='contained-modal-title' 
           >
             <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title">Sign up to save your score</Modal.Title>
+              <Modal.Title id='contained-modal-title'>Sign up to save your score</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form horizontal>
-                <FormGroup controlId="formHorizontalUsername">
-                  <Col componentClass={ControlLabel} sm={2}>
+                <FormGroup controlId='formHorizontalUsername'>
+                  <Col componentClass={ ControlLabel } sm={ 2 }>
                     Username
                   </Col>
-                  <Col sm={10}>
-                    <FormControl type="text" placeholder="Username" />
+                  <Col sm={ 10 }>
+                    <FormControl type='text' placeholder='Username' />
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalEmail">
-                  <Col componentClass={ControlLabel} sm={2}>
+                <FormGroup controlId='formHorizontalEmail'>
+                  <Col componentClass={ ControlLabel } sm={ 2 }>
                     Email
                   </Col>
-                  <Col sm={10}>
-                    <FormControl type="email" placeholder="Email" />
+                  <Col sm={ 10 }>
+                    <FormControl type='email' placeholder='Email' />
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalPassword">
-                  <Col componentClass={ControlLabel} sm={2}>
+                <FormGroup controlId='formHorizontalPassword'>
+                  <Col componentClass={ ControlLabel } sm={ 2 }>
                     Password
                   </Col>
-                  <Col sm={10}>
-                    <FormControl type="password" placeholder="Password" />
+                  <Col sm={ 10 }>
+                    <FormControl type='password' placeholder='Password' />
                   </Col>
                 </FormGroup>
 
                 <FormGroup>
-                  <Col smOffset={2} sm={10}>
-                    <Link to={'/'}>
-                      <Button bsStyle="primary" type="submit">
+                  <Col smOffset={ 2 } sm={ 10 }>
+                    <Link to={ '/' }>
+                      <Button bsStyle='primary' type='submit'>
                         Confirm
                       </Button>
                     </Link>  
@@ -163,7 +163,7 @@ class EndNormalGame extends React.PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={() => this.setModalHide()}>
+              <Button onClick={ () => this.setModalHide() }>
                 Close
               </Button>
             </Modal.Footer>
@@ -211,7 +211,7 @@ class EndNormalGame extends React.PureComponent {
         <p>
           Share your score!
         </p>
-        <Button bsStyle="primary" bsSize="small">f | Compartir</Button>
+        <Button bsStyle='primary' bsSize='small'>f | Compartir</Button>
       </div>
     )
   }
