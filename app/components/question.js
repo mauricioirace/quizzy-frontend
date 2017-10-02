@@ -41,6 +41,26 @@ class Question extends React.PureComponent {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
+  addAnswer() {
+    if (this.props.obj.answers.length < 6) {
+      this.props.obj.answers.push( { 'answer': '' } );
+      this.forceUpdate()    
+    } else {
+      alert("The question must have less than six answers")
+    }
+  }
+
+  removeAnswer() {
+    console.log("rem")
+    let answerArray = this.props.obj.answers;
+    if (this.props.obj.answers.length > 2) {
+      this.props.obj.answers.splice(-1,1);    
+      this.forceUpdate()  
+    } else {
+      alert("The question must have at least two answers")
+    }
+  }
+
   render() {
     const question = this.props.self;
     const hint = this.props.id;
@@ -54,7 +74,8 @@ class Question extends React.PureComponent {
           text={ answer.answer }
           correct={ question.correctAnswer == index }
           question={ id }
-        />);
+        />
+      );
     });
 
     return (
@@ -73,7 +94,7 @@ class Question extends React.PureComponent {
           </InputGroup>
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Hint:</ControlLabel>
+          <ControlLabel>Hint (optional):</ControlLabel>
           <InputGroup>
             <FormControl
               type='text'
@@ -90,15 +111,21 @@ class Question extends React.PureComponent {
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass='select' onChange={ this.changeDifficulty }
           value={ this.props.self.difficulty }>
-            <option value='Easy'>Easy</option>
-            <option value='Medium'>Medium</option>
-            <option value='Hard'>Hard</option>
+            <option value='Easy'> Easy </option>
+            <option value='Medium'> Medium </option>
+            <option value='Hard'> Hard </option>
           </FormControl>
         </FormGroup>
         <FormGroup>
           <ControlLabel>Answers:</ControlLabel>
             { answers }
         </FormGroup>
+
+        <div>
+          <a onClick={ this.addAnswer.bind(this) } > Add </a> 
+          <a onClick={ this.removeAnswer.bind(this) } > Remove </a> 
+        </div>
+
       </div>
     );
   }

@@ -50,7 +50,7 @@ const question = () => {
     text: '',
     hint: '',
     difficulty: 'Easy',
-    answers: [ { 'answer': '' }, { 'answer': '' }, { 'answer': '' }, { 'answer': '' } ],
+    answers: [ { 'answer': '' }, { 'answer': '' } ],
     correctAnswer: 0
   };
 };
@@ -176,22 +176,6 @@ class CreateGame extends React.PureComponent {
     this.setState({ showPanel: false });
   }
 
-  nextQuestion(index) {
-    const next = index + 1;
-    if ((this.props.questions.length - 1) < next) {
-      this.onAddQuestion();
-    }
-    this.onEditQuestion(index + 1)
-  }
-
-  prevQuestion(index) {
-    if (index != 0) {
-      this.closePanel()
-      this.onEditQuestion(index - 1)
-      this.openPanel()
-    }
-  }
-
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
@@ -200,7 +184,7 @@ class CreateGame extends React.PureComponent {
     let currentItem = this.state.editIndex;
     let title = 'Question #' + (currentItem + 1);
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
+      <Question key={ index } id={ index } obj={ question } edit={ this.onEditQuestion.bind(this) } />
     );
     let displayQuestions = this.renderQuestions(questions);
 
@@ -270,7 +254,7 @@ class CreateGame extends React.PureComponent {
                 <Button bsStyle='primary' onClick={ this.onAddQuestion }>
                   <Glyphicon glyph='plus'/> NEW QUESTION
                 </Button>
-              </div>
+              </div> <br/>
 
               <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
                 <div>
@@ -282,12 +266,12 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>
-                    Save
-                  </Button> {' '}
                   <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } >
                       Delete
-                  </Button> {' '}
+                  </Button> 
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>
+                    Save
+                  </Button> 
                 </div>
               </Panel>
             </Panel>
