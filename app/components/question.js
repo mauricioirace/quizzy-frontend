@@ -26,6 +26,8 @@ class Question extends React.PureComponent {
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
     this.changeHint = this.changeHint.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.removeAnswer = this.removeAnswer.bind(this);
   }
 
   changeQuestion(event) {
@@ -51,7 +53,6 @@ class Question extends React.PureComponent {
   }
 
   removeAnswer() {
-    console.log("rem")
     let answerArray = this.props.obj.answers;
     if (this.props.obj.answers.length > 2) {
       this.props.obj.answers.splice(-1,1);    
@@ -122,8 +123,8 @@ class Question extends React.PureComponent {
         </FormGroup>
 
         <div>
-          <a onClick={ this.addAnswer.bind(this) } > Add </a> 
-          <a onClick={ this.removeAnswer.bind(this) } > Remove </a> 
+          <a onClick={ this.addAnswer } > Add </a> 
+          <a onClick={ this.removeAnswer } > Remove </a> 
         </div>
 
       </div>

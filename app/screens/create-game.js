@@ -184,7 +184,7 @@ class CreateGame extends React.PureComponent {
     let currentItem = this.state.editIndex;
     let title = 'Question #' + (currentItem + 1);
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ this.onEditQuestion.bind(this) } />
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
     );
     let displayQuestions = this.renderQuestions(questions);
 
