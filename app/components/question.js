@@ -48,7 +48,7 @@ class Question extends React.PureComponent {
       this.props.obj.answers.push( { 'answer': '' } );
       this.forceUpdate()    
     } else {
-      alert("The question must have less than six answers")
+      alert("The question can't have more than six answers")
     }
   }
 
