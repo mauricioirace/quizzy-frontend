@@ -4,7 +4,6 @@ import { Route, Link, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
-import { Link } from 'react-router';
 import {
   Button,
   Col,
@@ -18,6 +17,7 @@ import {
 import { sortBy } from 'underscore';
 import userService from '../services/user';
 import { withRouter } from 'react-router-dom';
+import Reveal from 'react-reveal';
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
@@ -45,25 +45,10 @@ class StartMatch extends React.PureComponent {
       error.innerHTML = 'Please, enter a nickname';
       error.style.color = 'red';
       error.style.fontWeight = 'bold';
-      // this.state.setState({ ..this.state, nicknameError = 'EMPTY'});
       return;
+    } else {
+      this.props.history.push('/answer-question')
     }
-    userService.findByName(this.state.nickname).then((res) => {
-      if (res.data.res) {
-        this.nicknameError = 'EXISTS';
-        let error = document.getElementById('error');
-        error.innerHTML = 'That nickname already exists';
-        error.style.color = 'red';
-        error.style.fontWeight = 'bold';
-      }
-      else {
-        this.props.history.push('/answer-question')
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      console.log('El servidor no responde');
-    });
   }
 
   renderRanking() {
@@ -87,54 +72,36 @@ class StartMatch extends React.PureComponent {
 
   render() {
     return (
-      <div className="main-view">
-        <Grid fluid>
-          <Row>
-            <Col xs={1} md={1} lg={1}>
-              <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
-            </Col>
-            <Col xs={9} md={9} lg={9}>
-              <Row>
-                <h1 id="game-name">{ this.props.currentMatch.game.name }</h1>
-              </Row>
-              <Row>
-                <h4>Mode: Normal</h4>
-              </Row>
-            </Col>
-            <Col xs={1} md={1} lg={1}></Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={4} lg={4}>
-              <h3>Best players</h3>
-              <Table striped bordered condensed hover>
-                { this.renderRanking() }
-              </Table>
-            </Col>
-            <Col xs={12} md={7} lg={7}>
-              <Row><h3 className='game-description'>Game description</h3></Row>
-              <Row><p className='game-description'>{ this.props.currentMatch.game.description }</p></Row>
-            </Col>
-          </Row>
-          <Row>
-              <Row>
-              <Col xs={4} md={3}>
-                <FormGroup controlId="nickname-input" className="input-box"  bsSize="large" >
-                <ControlLabel> Enter your nickname </ControlLabel>
-                <FormControl type="text" placeholder="eg: Pepu" onChange={ this.handleChange } />
-                <FormControl.Feedback />
-                </FormGroup>
-              </Col>
-              <Col xs={3} md={3}>
-                <Button id="done" bsStyle='primary' bsSize="large" onClick={ this.handleClick }>PLAY!</Button>
-              </Col>
-              </Row>
-              <Row>
-              <p id='error'>
-                </p>
-              </Row>
-            <Col xs={4}></Col>
-          </Row>
-        </Grid>
+      <div className='game-container'>
+        <Reveal effect='animated slideInDown'>
+          <div className='game-title'>
+            <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
+            <h1 id='game-name'>{ this.props.currentMatch.game.name }</h1>
+          </div>
+          <h4>Mode: Normal</h4>
+          <div className='form-container'>
+            <form>
+              <div className='form-input horizontal long'>
+                <label>Enter your nickname</label>
+                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange } />
+                <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
+              </div>
+            </form>
+          </div>
+        </Reveal>
+        <p id='error'></p>
+        <div className='description-container'>
+          <Reveal effect='animated slideInLeft'>
+            <h3 className='game-description'>Game description</h3>
+            { this.props.currentMatch.game.description }
+          </Reveal>
+        </div>
+        <Reveal effect='animated slideInRight'>
+          <h3>Best players</h3>
+          <table className='table'>
+            { this.renderRanking() }
+          </table>
+        </Reveal>
       </div>
     )
   }

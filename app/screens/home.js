@@ -93,17 +93,12 @@ export class Home extends React.Component {
         <Game data={ game } />
       );
     });
-    this.props.gamesData.games.forEach( game => {
-      items.push(
-        <Game data={ game } />
-      );
-    });
     return (<tbody> { items } </tbody>);
   }
 
   render() {
     return (
-      <div className='main-view' id='page-top'>
+      <div id='page-top'>
         <header className='intro'>
           <div className='intro-body'>
             <Row>
