@@ -83,12 +83,14 @@ export default (state = initialState, action) => {
     case REMOVE_ALL_DATA:
       return {
         ...state,
-        questions: [],
-        image: null,
         name: '',
-        description: '',
         hint: '',
-        category: 'music'
+        description: '',
+        image: null,
+        questions: [],
+        category: 'music',
+        error: false,
+
       };
     case CHANGE_ANSWER:
       newAnswers = state.questions[action.question].answers.slice(0, 6);
