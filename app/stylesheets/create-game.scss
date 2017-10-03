@@ -21,7 +21,7 @@
     border-style: none !important;
   }
 
-  .btn-primary:hover, .btn-primary:active  {
+  .btn-primary:hover, .btn-primary:active {
     background-color: $black !important;
     border-style: none !important;
   }
@@ -36,16 +36,32 @@
     background-color: none;
   }
 
+  .btn-default {
+    margin-right: 20px;
+  }
+
   .panel {
     margin-top: 30px;
     width: 100%;
     overflow: hidden;
     border-style: none;
 
+    #arAnswer {
+      cursor: pointer;
+      padding: 10px;
+      text-decoration: none;
+      color: $black;
+    }
+
+    #arAnswer:hover {
+      color: $primary-color;
+    }
+
     .panel-heading {
       background-image: none;
       background-color: $light-grey;
       color: $white;
+
       a {
         cursor: pointer;
         text-decoration: none;
@@ -53,9 +69,6 @@
 
       a:hover {
         color: $primary-color;
-      }
-
-      h4 {
       }
     }
   }
