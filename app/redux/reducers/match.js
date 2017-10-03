@@ -112,8 +112,8 @@ export default (state = initialState, action) => {
       const question = state.match.game.questions[state.state.question];
       let score = state.state.score;
 
-      if(action.correct) {
-        switch (question.difficulty){
+      if (action.correct) {
+        switch (question.difficulty) {
           case 'Easy':
             score += 300;
             break;

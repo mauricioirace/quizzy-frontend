@@ -56,10 +56,10 @@ export const matchNameError = (msg) => ({
 });
 
 export const answerQuestion = (correct,answer) => ({
-    type: ANSWER_QUESTION,
-    correct,
-    answer
+  type: ANSWER_QUESTION,
+  correct,
+  answer
 });
 export const nextQuestion = () => ({
-    type: NEXT_QUESTION,
+  type: NEXT_QUESTION,
 });

@@ -1,7 +1,6 @@
 const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
-
 module.exports = {
   context: path.join(__dirname, './app'),
   entry: [
@@ -14,36 +13,40 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader',
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
           {
-            test: /\.(js|jsx)$/,
-            exclude: /node_modules/,
-            use: [
-              'babel-loader',
-            ],
-          },
-          {
-            test: /\.css$/,
-            use: [
-              'style-loader',
-              'css-loader'
-            ]
-          },
-          {
-            test: /\.scss$/,
-            use: [
-              { loader: 'style-loader' },
-              { loader: 'css-loader' },
-              { loader: 'sass-loader' }
-            ]
-          },
-          {
-            test: /\.(jpe?g|png|gif|svg)$/i,
-            loader: 'file-loader'
-          },
-          {
-            test: /\.(eot|svg|ttf|woff|woff2)(\?.*$)?$/,
-            loader: 'file-loader?name=public/fonts/[name].[ext]'
+            loader: 'style-loader'
+          }, {
+            loader: 'css-loader'
+          }, {
+            loader: 'sass-loader'
           }
+        ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?.*$)?$/,
+        loader: 'file-loader?name=public/fonts/[name].[ext]'
+      }
     ],
   },
   resolve: {
@@ -52,10 +55,10 @@ module.exports = {
       path.join(__dirname, './node_modules'),
     ],
   },
-    plugins: [
-        new DotenvPlugin({
-            path: './config/.dev.env',
-            sample: './config/.dev.sample.env'
-        })
-    ]
+  plugins: [
+    new DotenvPlugin({
+      path: './config/.dev.env',
+      sample: './config/.dev.sample.env'
+    })
+  ]
 };

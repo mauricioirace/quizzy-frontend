@@ -1,9 +1,8 @@
 @import '../../assets/styles/variables.scss';
 @import '~bootstrap/dist/css/bootstrap.css';
 
-
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
-  color: #fff;
+  color: $white;
   background-color: $primary-color;
   border-color: $primary-color;
 }

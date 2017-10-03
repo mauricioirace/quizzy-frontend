@@ -25,14 +25,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class AnswerQuestion extends React.PureComponent {
 
-  componentWillMount() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
   render() {
     const questionIndex = this.props.matchState.question;
 
@@ -42,22 +34,22 @@ class AnswerQuestion extends React.PureComponent {
       <div>
         <Grid fluid>
           <Row>
-            <Col xs={4}>
-              <Timer total={60} remaining={37} />
+            <Col xs={ 4 }>
+              <Timer total={ 60 } remaining={ 37 } />
             </Col>
-            <Col xs={4} >
-              <PageHeader className='text-center'> { question.text} </PageHeader>
+            <Col xs={ 4 } >
+              <PageHeader className='text-center'>{ question.text }</PageHeader>
             </Col>
           </Row>
         </Grid>
         <Grid fluid>
           <Row>
-            <Col xs={12} mdOffset={3} md={6}>
+            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
               <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
             </Col>
           </Row>
           <Row>
-            <Col xs={12} mdOffset={3} md={6}>
+            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
             </Col>
           </Row>
         </Grid>
@@ -66,4 +58,4 @@ class AnswerQuestion extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps )(AnswerQuestion);
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerQuestion);

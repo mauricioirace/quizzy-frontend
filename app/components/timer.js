@@ -11,6 +11,7 @@ class Timer extends React.PureComponent {
   getPercentage() {
     return 100 * (this.props.remaining / this.props.total)
   }
+
   render() {
     return  (
       <CircularProgressbar
@@ -19,8 +20,6 @@ class Timer extends React.PureComponent {
         strokeWidth='4'
       />
     )
-
-
   }
 }
 
