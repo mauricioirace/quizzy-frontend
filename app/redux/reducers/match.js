@@ -4,6 +4,9 @@ import {
   LOAD_MATCH_DATA,
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
+  CREATING_MATCH,
+  CREATE_MATCH_SUCCESS,
+  CREATE_MATCH_FAILURE,
   MATCH_NAME_ERROR,
 } from '../constants/match';
 
@@ -20,8 +23,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.msg
-
-      }
+      };
     case LOAD_CURRENT_MATCH:
       return {
         ...state,
@@ -51,6 +53,16 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         error: true,
+      };
+    case CREATING_MATCH:
+      return {
+        ...state,
+        error: false
+      };
+    case CREATE_MATCH_FAILURE:
+      return {
+        ...state,
+        error: action.error
       };
     default:
       return state

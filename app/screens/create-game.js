@@ -92,7 +92,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onSuccess(){
-    this.props.history.push('/');
+    this.props.history.push('/create-match');
   }
 
   componentWillMount() {
@@ -102,7 +102,7 @@ class CreateGame extends React.PureComponent {
 
   componentWillUnmount() {
     // remove all questions
-    this.props.removeAllQuestions();
+    //this.props.removeAllQuestions();
   }
 
   onAddQuestion() {
@@ -130,6 +130,7 @@ class CreateGame extends React.PureComponent {
   onChangeCategory(event) {
     this.props.changeCategory(event.target.value);
   }
+
 
   onEditQuestion(index) {
     this.setState({ editIndex: index });
@@ -176,6 +177,7 @@ class CreateGame extends React.PureComponent {
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
+
 
   render() {
     let currentItem = this.state.editIndex;

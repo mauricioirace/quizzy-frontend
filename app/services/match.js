@@ -6,8 +6,13 @@ class MatchService extends CrudService{
   constructor() {
     super(REPOSITORY)
   }
+
   findByName(name) {
     return axios.get(`${ this.repository }/byName/${ name }`);
+  }
+
+  create(match) {
+    return super.create({ match: match });
   }
 }
 
