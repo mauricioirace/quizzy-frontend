@@ -189,11 +189,11 @@ class CreateGame extends React.PureComponent {
       <div className='createGame'>
         <div className='bigContainer'>
           <div id='title'>
-            <h1>Make up your own game</h1>
+            <h1>Create your own game</h1>
           </div>
 
           <PanelGroup defaultActiveKey='1' accordion>
-            <Panel header='GENERAL INFO' eventKey='1'>
+            <Panel header='GENERAL INFO' eventKey='1' >
                 <Form horizontal>
 
                   <FormGroup controlId='formName'>
@@ -263,15 +263,15 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button> 
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button> 
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
                 </div>
               </Panel>
             </Panel>
           </PanelGroup>
 
           <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE GAME!</Button>
+          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>DONE!</Button>
 
         </div>
       </div>
