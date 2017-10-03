@@ -7,7 +7,7 @@ import {
   changeName,
   createGame,
   removeAllQuestions,
-  removeAllDataGame,
+  removeAllData,
   removeQuestion
 } from '../redux/actions/game';
 import Questions from '../components/questions';
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     addQuestion: (question) => dispatch(addQuestion(question)),
     removeQuestion: (question) => dispatch(removeQuestion(question)),
     removeAllQuestions: () => dispatch(removeAllQuestions()),
-    removeAllDataGame: () => dispatch(removeAllDataGame()),
+    removeAllData: () => dispatch(removeAllData()),
     changeImage: (image) => dispatch(changeImage(image)),
     changeDescription: (name) => dispatch(changeDescription(name)),
     changeName: (name) => dispatch(changeName(name)),
@@ -100,13 +100,13 @@ class CreateGame extends React.PureComponent {
   componentWillMount() {
     // remove all questions
     this.props.removeAllQuestions();
-    this.props.removeAllDataGame();
+    this.props.removeAllData();
   }
 
   componentWillUnmount() {
     // remove all questions
     this.props.removeAllQuestions();
-    this.props.removeAllDataGame();
+    this.props.removeAllData();
   }
 
   onAddQuestion() {

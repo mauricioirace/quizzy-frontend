@@ -6,7 +6,7 @@ import {
   REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
-  REMOVE_ALL_DATA_GAME,
+  REMOVE_ALL_DATA,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
@@ -121,7 +121,7 @@ export const removeAllQuestions = () => {
 
 export const removeAllDataGame = () => {
   return {
-    type: REMOVE_ALL_DATA_GAME,
+    type: REMOVE_ALL_DATA,
   }
 };
 

@@ -5,7 +5,7 @@ import {
   CHANGE_HINT_QUESTION,
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
-  REMOVE_ALL_DATA_GAME,
+  REMOVE_ALL_DATA,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
@@ -80,7 +80,7 @@ export default (state = initialState, action) => {
         ...state,
         questions: []
       };
-    case REMOVE_ALL_DATA_GAME:
+    case REMOVE_ALL_DATA:
       return {
         ...state,
         questions: [],
