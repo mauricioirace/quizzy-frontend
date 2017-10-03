@@ -47,10 +47,10 @@ export class Home extends React.Component {
 
   switchRows() {
     setInterval(function() {
-      var theRow = $('table.table tr:last');
+      var theRow = $('#list tr:last');
       theRow.remove();
       theRow.insertBefore('table.table > tbody > tr:first');
-      $('table.table tr:first')
+      $('#list tr:first')
         .find('td')
         .wrapInner('<div style="display: none;" />')
         .parent()
@@ -78,7 +78,7 @@ export class Home extends React.Component {
       );
     } else if (gamesData.games) {
       return (
-        <table className='table'>
+        <table id='list' className='table'>
           { this.renderGames() }
         </table>
       );
