@@ -263,8 +263,8 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
                   <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
                 </div>
               </Panel>
             </Panel>

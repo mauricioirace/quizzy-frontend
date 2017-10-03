@@ -46,7 +46,7 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       this.props.obj.answers.push({ 'answer': '' });
-      this.forceUpdate()    
+      this.forceUpdate()
     } else {
       alert("The question can't have more than six answers")
     }
@@ -55,8 +55,8 @@ class Question extends React.PureComponent {
   removeAnswer() {
     let answerArray = this.props.obj.answers;
     if (this.props.obj.answers.length > 2) {
-      this.props.obj.answers.splice(-1,1);    
-      this.forceUpdate()  
+      this.props.obj.answers.splice(-1,1);
+      this.forceUpdate()
     } else {
       alert("The question must have at least two answers")
     }
@@ -122,8 +122,8 @@ class Question extends React.PureComponent {
             { answers }
         </FormGroup>
         <div>
-          <a onClick={ this.addAnswer }>Add</a> 
-          <a onClick={ this.removeAnswer }>Remove</a> 
+          <a id="arAnswer" onClick={ this.addAnswer }>Add</a>
+          <a id="arAnswer" onClick={ this.removeAnswer }>Remove</a>
         </div>
       </div>
     );
