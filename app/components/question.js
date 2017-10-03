@@ -26,6 +26,8 @@ class Question extends React.PureComponent {
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
     this.changeHint = this.changeHint.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.removeAnswer = this.removeAnswer.bind(this);
   }
 
   changeQuestion(event) {
@@ -41,6 +43,25 @@ class Question extends React.PureComponent {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
+  addAnswer() {
+    if (this.props.obj.answers.length < 6) {
+      this.props.obj.answers.push({ 'answer': '' });
+      this.forceUpdate()    
+    } else {
+      alert("The question can't have more than six answers")
+    }
+  }
+
+  removeAnswer() {
+    let answerArray = this.props.obj.answers;
+    if (this.props.obj.answers.length > 2) {
+      this.props.obj.answers.splice(-1,1);    
+      this.forceUpdate()  
+    } else {
+      alert("The question must have at least two answers")
+    }
+  }
+
   render() {
     const question = this.props.self;
     const hint = this.props.id;
@@ -54,7 +75,8 @@ class Question extends React.PureComponent {
           text={ answer.answer }
           correct={ question.correctAnswer == index }
           question={ id }
-        />);
+        />
+      );
     });
 
     return (
@@ -73,7 +95,7 @@ class Question extends React.PureComponent {
           </InputGroup>
         </FormGroup>
         <FormGroup>
-          <ControlLabel>Hint:</ControlLabel>
+          <ControlLabel>Hint (optional):</ControlLabel>
           <InputGroup>
             <FormControl
               type='text'
@@ -99,6 +121,10 @@ class Question extends React.PureComponent {
           <ControlLabel>Answers:</ControlLabel>
             { answers }
         </FormGroup>
+        <div>
+          <a onClick={ this.addAnswer }>Add</a> 
+          <a onClick={ this.removeAnswer }>Remove</a> 
+        </div>
       </div>
     );
   }

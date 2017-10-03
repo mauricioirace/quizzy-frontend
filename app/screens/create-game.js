@@ -50,7 +50,7 @@ const question = () => {
     text: '',
     hint: '',
     difficulty: 'Easy',
-    answers: [ { 'answer': '' }, { 'answer': '' }, { 'answer': '' }, { 'answer': '' } ],
+    answers: [{ 'answer': '' }, { 'answer': '' }],
     correctAnswer: 0
   };
 };
@@ -146,10 +146,7 @@ class CreateGame extends React.PureComponent {
     let list = [];
 
     questions.map( (question, index) => {
-      let questionText = question.props.obj.text;
-      let text = <FormControl disabled type='text' key={ index } value={ questionText } placeholder={ 'Question #' + (index + 1) } />;
-      let deleteButton = <Button onClick={ () => this.onRemoveQuestion(index) }> <Glyphicon glyph='trash'/></Button>
-      let editButton = <Button bsStyle='default pull-right' onClick={ () => this.onEditQuestion(index) }> <Glyphicon glyph='pencil'/> </Button>
+      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) } />;
 
       list.push(
         <Col sm={ 3 } md={ 2 }>
@@ -174,22 +171,6 @@ class CreateGame extends React.PureComponent {
 
   closePanel() {
     this.setState({ showPanel: false });
-  }
-
-  nextQuestion(index) {
-    const next = index + 1;
-    if ((this.props.questions.length - 1) < next) {
-      this.onAddQuestion();
-    }
-    this.onEditQuestion(index + 1)
-  }
-
-  prevQuestion(index) {
-    if (index != 0) {
-      this.closePanel()
-      this.onEditQuestion(index - 1)
-      this.openPanel()
-    }
   }
 
   scrollToBottom() {
@@ -274,7 +255,7 @@ class CreateGame extends React.PureComponent {
 
               <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
                 <div>
-                  <strong> { title } </strong>
+                  <strong>{ title }</strong>
                 </div>
                 <hr/>
                 <Questions>
@@ -282,19 +263,15 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>
-                    Save
-                  </Button> {' '}
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } >
-                      Delete
-                  </Button> {' '}
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button> 
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button> 
                 </div>
               </Panel>
             </Panel>
           </PanelGroup>
 
           <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE GAME! </Button>
+          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE GAME!</Button>
 
         </div>
       </div>
