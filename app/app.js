@@ -6,6 +6,7 @@ import Register from './screens/register';
 import Login from './screens/login';
 import Match from './screens/match';
 import StartMatch from './screens/start-match';
+import EndNormalGame from './screens/end-normal-game';
 import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
@@ -25,6 +26,7 @@ export class App extends React.PureComponent {
               <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/start-match' component={ StartMatch }/>
+              <Route exact path='/end-normal-game' component={ EndNormalGame }/>
             </Switch>
           </div>
         </div>
