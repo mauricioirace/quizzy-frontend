@@ -50,7 +50,7 @@ const question = () => {
     text: '',
     hint: '',
     difficulty: 'Easy',
-    answers: [ { 'answer': '' }, { 'answer': '' } ],
+    answers: [{ 'answer': '' }, { 'answer': '' }],
     correctAnswer: 0
   };
 };

@@ -45,7 +45,7 @@ class Question extends React.PureComponent {
 
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
-      this.props.obj.answers.push( { 'answer': '' } );
+      this.props.obj.answers.push({ 'answer': '' });
       this.forceUpdate()    
     } else {
       alert("The question can't have more than six answers")
@@ -112,9 +112,9 @@ class Question extends React.PureComponent {
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass='select' onChange={ this.changeDifficulty }
           value={ this.props.self.difficulty }>
-            <option value='Easy'> Easy </option>
-            <option value='Medium'> Medium </option>
-            <option value='Hard'> Hard </option>
+            <option value='Easy'>Easy</option>
+            <option value='Medium'>Medium</option>
+            <option value='Hard'>Hard</option>
           </FormControl>
         </FormGroup>
         <FormGroup>
@@ -122,8 +122,8 @@ class Question extends React.PureComponent {
             { answers }
         </FormGroup>
         <div>
-          <a onClick={ this.addAnswer }> Add </a> 
-          <a onClick={ this.removeAnswer }> Remove </a> 
+          <a onClick={ this.addAnswer }>Add</a> 
+          <a onClick={ this.removeAnswer }>Remove</a> 
         </div>
       </div>
     );
