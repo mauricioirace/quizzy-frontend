@@ -146,11 +146,11 @@ class CreateGame extends React.PureComponent {
     let list = [];
 
     questions.map( (question, index) => {
-      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) } />;
+      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
 
       list.push(
         <Col sm={ 3 } md={ 2 }>
-          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }} >
+          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }}>
             <Thumbnail>
               <FormGroup>
                 <InputGroup>
@@ -181,7 +181,7 @@ class CreateGame extends React.PureComponent {
     let currentItem = this.state.editIndex;
     let title = 'Question #' + (currentItem + 1);
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }/>
     );
     let displayQuestions = this.renderQuestions(questions);
 
@@ -193,7 +193,7 @@ class CreateGame extends React.PureComponent {
           </div>
 
           <PanelGroup defaultActiveKey='1' accordion>
-            <Panel header='GENERAL INFO' eventKey='1' >
+            <Panel header='GENERAL INFO' eventKey='1'>
                 <Form horizontal>
 
                   <FormGroup controlId='formName'>
@@ -201,7 +201,7 @@ class CreateGame extends React.PureComponent {
                       <ControlLabel>Name</ControlLabel>
                     </Col>
                     <Col sm={ 8 }>
-                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName } />
+                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
                     </Col>
                   </FormGroup>
 
@@ -241,7 +241,7 @@ class CreateGame extends React.PureComponent {
                 </Form>
             </Panel>
 
-            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom } >
+            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom }>
               <Grid>
                 <Row className='show-grid'>
                   { displayQuestions }
