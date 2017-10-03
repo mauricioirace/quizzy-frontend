@@ -146,11 +146,11 @@ class CreateGame extends React.PureComponent {
     let list = [];
 
     questions.map( (question, index) => {
-      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) } />;
+      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
 
       list.push(
         <Col sm={ 3 } md={ 2 }>
-          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }} >
+          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }}>
             <Thumbnail>
               <FormGroup>
                 <InputGroup>
@@ -181,7 +181,7 @@ class CreateGame extends React.PureComponent {
     let currentItem = this.state.editIndex;
     let title = 'Question #' + (currentItem + 1);
     let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } />
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }/>
     );
     let displayQuestions = this.renderQuestions(questions);
 
@@ -189,7 +189,7 @@ class CreateGame extends React.PureComponent {
       <div className='createGame'>
         <div className='bigContainer'>
           <div id='title'>
-            <h1>Make up your own game</h1>
+            <h1>Create your own game</h1>
           </div>
 
           <PanelGroup defaultActiveKey='1' accordion>
@@ -201,7 +201,7 @@ class CreateGame extends React.PureComponent {
                       <ControlLabel>Name</ControlLabel>
                     </Col>
                     <Col sm={ 8 }>
-                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName } />
+                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
                     </Col>
                   </FormGroup>
 
@@ -241,7 +241,7 @@ class CreateGame extends React.PureComponent {
                 </Form>
             </Panel>
 
-            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom } >
+            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom }>
               <Grid>
                 <Row className='show-grid'>
                   { displayQuestions }
@@ -263,15 +263,15 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button> 
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button> 
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
                 </div>
               </Panel>
             </Panel>
           </PanelGroup>
 
           <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE GAME!</Button>
+          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>DONE!</Button>
 
         </div>
       </div>

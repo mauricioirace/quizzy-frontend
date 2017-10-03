@@ -10,55 +10,80 @@
 }
 
 .createGame {
+  padding-top: 60px;
+
+  label {
+    font: normal 14px courier !important;
+  }
+
+  .btn-primary, .btn-primary:visited {
+    background-color: $primary-color !important;
+    border-style: none !important;
+  }
+
+  .btn-primary:hover, .btn-primary:active  {
+    background-color: $black !important;
+    border-style: none !important;
+  }
+
+  .btn-success {
+    margin-right: 10px;
+  }
+
   .bigContainer {
+    width: 80%;
+    margin-left: 10%;
+    background-color: none;
+  }
 
-    position: relative;
-    height: auto;
-    padding: 20px;
-    overflow: visible;
+  .panel {
+    margin-top: 30px;
+    width: 100%;
+    overflow: hidden;
+    border-style: none;
 
-    #title {
-      color: $black;
+    .panel-heading {
+      background-image: none;
+      background-color: $light-grey;
+      color: $white;
       
-      h1 {
-        text-align: center;
-        font-size: 50px;
+      a {
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: $primary-color;
+      }
+
+      h4 {
       }
     }
+  }
 
-    .formContainer {
-      right: 25%;
-      min-height: 500px;
-      width: 70%;
-      position: absolute;
-      padding: 10px;
-      overflow: visible;
-      form {
-        label {
-          color: $black;
-          font-size: 18px;
-        }
-      }
+  #formControlsTextarea {
+    height: 100px;
+    min-height: 100px;
+    max-height: 120px;
+    min-width: 100%;
+    max-width: 100;
+  }
 
-      #formu {
-        padding-left: 50px;
-        padding-top: 50px;
-      }
+  #title {
+    color: $black;
 
-      textarea {
-        min-height: 120px;
-        max-height: 200px;
-        min-width: 100%;
-      }
-
-      #addQuestions {
-        position: absolute;
-        down: -20%;
-        right: 25%;
-        background-color: $primary-color;
-        border: 1.6px solid $primary-color;
-        color: $white;
-      }
+    h1 {
+      text-align: center;
+      font-size: 50px;
     }
+  }
+
+  #addQuestions {
+    position: absolute;
+    down: -20%;
+    right: 25%;
+    background-color: $primary-color;
+    border: 1.6px solid $primary-color;
+    color: $white;
   }
 }
