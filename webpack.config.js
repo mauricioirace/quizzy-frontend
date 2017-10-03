@@ -1,6 +1,7 @@
 const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
+
 module.exports = {
   context: path.join(__dirname, './app'),
   entry: [
@@ -30,22 +31,18 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: 'style-loader'
-          }, {
-            loader: 'css-loader'
-          }, {
-            loader: 'sass-loader'
-          }
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
         ]
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=public/fonts/[name].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'file-loader'
-      },
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?.*$)?$/,
-        loader: 'file-loader?name=public/fonts/[name].[ext]'
       }
     ],
   },
