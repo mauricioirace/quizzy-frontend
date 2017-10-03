@@ -6,6 +6,7 @@ import {
   REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
+  REMOVE_ALL_DATA,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
@@ -115,6 +116,12 @@ export const removeQuestion = (question, index) => {
 export const removeAllQuestions = () => {
   return {
     type: REMOVE_ALL_QUESTIONS,
+  }
+};
+
+export const removeAllData = () => {
+  return {
+    type: REMOVE_ALL_DATA,
   }
 };
 

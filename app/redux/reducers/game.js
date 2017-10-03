@@ -5,6 +5,7 @@ import {
   CHANGE_HINT_QUESTION,
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
+  REMOVE_ALL_DATA,
   CHANGE_ANSWER,
   CHANGE_IMAGE,
   CHANGE_SELECTED_ANSWER,
@@ -78,6 +79,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         questions: []
+      };
+    case REMOVE_ALL_DATA:
+      return {
+        ...state,
+        name: '',
+        hint: '',
+        description: '',
+        image: null,
+        questions: [],
+        category: 'music',
+        error: false,
       };
     case CHANGE_ANSWER:
       newAnswers = state.questions[action.question].answers.slice(0, 6);
