@@ -1,1 +1,27 @@
 @import '../../assets/styles/variables.scss';
+
+.game-container {
+  padding: 100px 150px;
+
+  .game-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    img {
+      margin-right: 30px;
+    }
+  }
+
+  @media(max-width: 768px) {
+    padding: 100px 30px;
+
+    img {
+      display: none;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+  }
+}
