@@ -90,7 +90,6 @@ export default (state = initialState, action) => {
         questions: [],
         category: 'music',
         error: false,
-
       };
     case CHANGE_ANSWER:
       newAnswers = state.questions[action.question].answers.slice(0, 6);
