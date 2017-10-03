@@ -119,7 +119,7 @@ export const removeAllQuestions = () => {
   }
 };
 
-export const removeAllDataGame = () => {
+export const removeAllData = () => {
   return {
     type: REMOVE_ALL_DATA,
   }
