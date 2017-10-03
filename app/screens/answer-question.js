@@ -7,6 +7,7 @@ import Timer from '../components/timer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { removeCurrentMatch, fetchMatch} from '../redux/actions/match';
+import '../stylesheets/home.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,13 +32,10 @@ class AnswerQuestion extends React.PureComponent {
     const question = this.props.matchData.game.questions[questionIndex];
 
     return (
-      <div>
+      <div className='main-view'>
         <Grid fluid>
           <Row>
-            <Col xs={ 4 }>
-              <Timer total={ 60 } remaining={ 37 } />
-            </Col>
-            <Col xs={ 4 } >
+            <Col xsOffset={ 4 } xs={ 4 } >
               <PageHeader className='text-center'>{ question.text }</PageHeader>
             </Col>
           </Row>

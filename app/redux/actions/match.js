@@ -44,7 +44,6 @@ export const fetchMatch = (matchName) => {
         dispatch(loadMatchDataSuccess(res.data.match))
       })
       .catch((err) => {
-        console.log(err);
         dispatch(loadMatchDataFailure())
       });
   }
