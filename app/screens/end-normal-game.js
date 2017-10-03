@@ -179,7 +179,6 @@ class EndNormalGame extends React.PureComponent {
               <th>Points</th>
             </tr>
           </thead>
-          {/*{ this.renderRanking() */}
           <tbody>
             <tr>
               <td>13</td>
