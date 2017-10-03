@@ -1,1 +1,8 @@
 @import '../../assets/styles/variables.scss';
+
+#done {
+  margin-top: 20px;
+  color: white;
+  border: 1.6px solid $primary-color;
+  background-color: $primary-color;
+}

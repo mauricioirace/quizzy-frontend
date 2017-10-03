@@ -23,8 +23,8 @@ export class App extends React.PureComponent {
     const obj = {
       game: {
         image: 'http://media.supercheapauto.com.au/sports/images/thumbs/384463-thumb.jpg',
-        description: 'Juego de dhlkahgasg',
-        name: 'Juegooooo',
+        description: 'Un set de preguntas y respuestas tal que no importa cuanto estudies o creas que sepas, la probabilidad de acertar tiende a 0.',
+        name: 'Arquitectura de computadoras',
         ranking: [{ nickname: 'Tito', points: 40 }, { nickname: 'Juan', points: 500 }, { nickname: 'Sorete', points: 0 }]
       }
     }
