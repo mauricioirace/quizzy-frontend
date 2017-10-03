@@ -251,11 +251,11 @@ class CreateGame extends React.PureComponent {
                 <Button bsStyle='primary' onClick={ this.onAddQuestion }>
                   <Glyphicon glyph='plus'/> NEW QUESTION
                 </Button>
-              </div> <br/>
+              </div>
 
               <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
                 <div>
-                  <strong> { title } </strong>
+                  <strong>{ title }</strong>
                 </div>
                 <hr/>
                 <Questions>
@@ -263,15 +263,15 @@ class CreateGame extends React.PureComponent {
                 </Questions>
                 <hr/>
                 <div>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }> Delete </Button> 
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }> Save </Button> 
+                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button> 
+                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button> 
                 </div>
               </Panel>
             </Panel>
           </PanelGroup>
 
           <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE GAME! </Button>
+          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE GAME!</Button>
 
         </div>
       </div>
