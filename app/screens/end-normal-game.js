@@ -42,8 +42,8 @@ class EndNormalGame extends React.PureComponent {
               Save
             </Button>
             <Link to={ '/' }>
-              <Button bsStyle='default'>
-                Return Home
+              <Button bsStyle='link'>
+                Continue with your nickname
               </Button>
             </Link>  
           </p>
@@ -91,7 +91,7 @@ class EndNormalGame extends React.PureComponent {
                   <Col smOffset={ 2 } sm={ 10 }>
                     <Link to={'/'}>
                       <Button bsStyle='primary' type='submit'>
-                        Sign in
+                        Save and Continue
                       </Button>
                     </Link>  
                   </Col>
@@ -155,7 +155,7 @@ class EndNormalGame extends React.PureComponent {
                   <Col smOffset={ 2 } sm={ 10 }>
                     <Link to={ '/' }>
                       <Button bsStyle='primary' type='submit'>
-                        Confirm
+                        Save and Continue
                       </Button>
                     </Link>  
                   </Col>
@@ -163,6 +163,11 @@ class EndNormalGame extends React.PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
+              <Col xs={ 12 } lg={ 4 } sm={ 10 }>
+                <Button bsStyle='link' onClick={ () => this.setModalSignIn() }>
+                  Sign in
+                </Button>
+              </Col>
               <Button onClick={ () => this.setModalHide() }>
                 Close
               </Button>
