@@ -19,6 +19,8 @@ import Scroll from 'react-scroll';
 import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
   Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
 
+import GameGeneralInfo from '../components/game-general-info';
+
 const mapStateToProps = (state) => {
   return {
     description: state.gameData.description,
@@ -112,23 +114,21 @@ class CreateGame extends React.PureComponent {
     this.scrollToBottom();
   }
 
-  onChangeImage(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  onChangeImage(file, reader) {
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
 
-  onChangeDescription(event) {
-    this.props.changeDescription(event.target.value);
+  onChangeDescription(value) {
+    this.props.changeDescription(value);
   }
 
-  onChangeName(event) {
-    this.props.changeName(event.target.value);
+  onChangeName(value) {
+    this.props.changeName(value);
   }
 
-  onChangeCategory(event) {
-    this.props.changeCategory(event.target.value);
+  onChangeCategory(value) {
+    this.props.changeCategory(value);
   }
 
   onEditQuestion(index) {
@@ -192,54 +192,12 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
-          <PanelGroup defaultActiveKey='1' accordion>
-            <Panel header='GENERAL INFO' eventKey='1'>
-                <Form horizontal>
-
-                  <FormGroup controlId='formName'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Name</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='formControlsTextarea'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Description</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl componentClass='textarea' type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='imageasd'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Image</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl type='file' onChange={ this.onChangeImage }/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='formCategory'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Category</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl componentClass='select' placeholder='select' onChange={ this.onChangeCategory }>
-                        <option value='music'>Music</option>
-                        <option value='sports'>Sports</option>
-                        <option value='videogames'>Videogames</option>
-                        <option value='history'>History</option>
-                        <option value='other'>Other</option>
-                      </FormControl>
-                    </Col>
-                  </FormGroup>
-
-                </Form>
-            </Panel>
+            <GameGeneralInfo 
+              changeName={ this.onChangeName }
+              changeDescription={ this.onChangeDescription }
+              changeImage={ this.onChangeImage }
+              changeCategory={ this.onChangeCategory }
+            />
 
             <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom }>
               <Grid>
@@ -268,7 +226,7 @@ class CreateGame extends React.PureComponent {
                 </div>
               </Panel>
             </Panel>
-          </PanelGroup>
+
 
           <div className='error-message'>{ this.props.error }</div>
           <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>DONE!</Button>
