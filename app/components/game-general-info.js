@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
   Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
 
-
 class GameGeneralInfo extends React.PureComponent {
   
   constructor(props){
@@ -17,8 +16,6 @@ class GameGeneralInfo extends React.PureComponent {
     const file = event.target.files[0];
     const reader = new FileReader();
     this.props.changeImage(file, reader);
-    // reader.readAsDataURL(file);
-    // reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
 
   onChangeDescription(event) {
