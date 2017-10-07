@@ -35,7 +35,10 @@ class AnswerQuestion extends React.PureComponent {
       <div className='main-view'>
         <Grid fluid>
           <Row>
-            <Col xsOffset={ 4 } xs={ 4 } >
+            <Col xs={ 4 } >
+              <Timer seconds={ 69 }/>
+            </Col>
+            <Col xs={ 4 } >
               <PageHeader className='text-center'>{ question.text }</PageHeader>
             </Col>
           </Row>

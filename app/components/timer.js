@@ -2,22 +2,19 @@ import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import PropTypes from 'prop-types';
 import '../stylesheets/timer.scss';
-
+import ReactCountdownClock from 'react-countdown-clock';
+import { normal } from '../stylesheets/timer.scss';
 class Timer extends React.PureComponent {
   constructor(props) {
     super(props);
   }
 
-  getPercentage() {
-    return 100 * (this.props.remaining / this.props.total)
-  }
-
   render() {
+    console.log(normal);
     return  (
-      <CircularProgressbar
-        percentage={ this.getPercentage() }
-        textForPercentage={ () => this.props.remaining }
-        strokeWidth='4'
+      <ReactCountdownClock
+        seconds={ this.props.seconds }
+        color={ normal.color }
       />
     )
   }
