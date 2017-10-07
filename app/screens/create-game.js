@@ -69,6 +69,8 @@ class CreateGame extends React.PureComponent {
     this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
     this.onDone = this.onDone.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
+    this.prevStep = this.prevStep.bind(this);
+    this.nextStep = this.nextStep.bind(this);
   }
 
   onDone() {
@@ -138,23 +140,40 @@ class CreateGame extends React.PureComponent {
   showStep() {
     switch (this.state.step) {
       case 1:
-        return <GameGeneralInfo 
-                changeName={ this.onChangeName }
-                changeDescription={ this.onChangeDescription }
-                changeImage={ this.onChangeImage }
-                changeCategory={ this.onChangeCategory }
-              />
+        return (
+          <div>
+            <GameGeneralInfo 
+              changeName={ this.onChangeName }
+              changeDescription={ this.onChangeDescription }
+              changeImage={ this.onChangeImage }
+              changeCategory={ this.onChangeCategory }
+            />
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+          </div>
+        )
       case 2:
-        return <Questions 
-                  questions={ this.props.questions }
-                  editQuestion={ this.onEditQuestion }
-                  addQuestion={ this.onAddQuestion }
-                  scroll={ this.scrollToBottom }
-                  removeQuestion={ this.onRemoveQuestion }
-                />
+        return (
+          <div>
+            <Questions 
+              questions={ this.props.questions }
+              editQuestion={ this.onEditQuestion }
+              addQuestion={ this.onAddQuestion }
+              scroll={ this.scrollToBottom }
+              removeQuestion={ this.onRemoveQuestion }
+            />
+            <Button bsSize='large' bsStyle='success pull-left' onClick={ this.prevStep }>Prev</Button>
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+          </div>
+        )
       case 3:
-        return <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE! </Button>
-      
+        return (
+          <div>
+            <h2> ACA VA ALGO DE MATCH </h2>
+            <div className='error-message'>{ this.props.error }</div>     
+            <Button bsSize='large' bsStyle='success pull-left' onClick={ this.prevStep.bind(this) }>Prev</Button>                   
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE! </Button>
+          </div>
+        )
     }
   }
 
@@ -167,11 +186,7 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
-          {this.showStep()}
-
-          <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success' onClick={ this.prevStep.bind(this) }>Prev</Button>
-          <Button bsSize='large' bsStyle='success' onClick={ this.nextStep.bind(this) }>Next</Button>
+          { this.showStep() }
 
         </div>
       </div>
