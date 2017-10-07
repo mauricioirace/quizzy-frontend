@@ -34,7 +34,7 @@
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-circular-progressbar": "^0.2.1",
-    "react-countdown-clock": "^2.0.0",
+    "react-countdown-now": "^1.2.0",
     "react-dom": "^15.6.1",
     "react-fa": "^4.2.0",
     "react-foundation": "^0.9.0",

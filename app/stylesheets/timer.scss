@@ -1,8 +1,13 @@
 @import '../../assets/styles/variables.scss';
 
+.full {
+  color: $success-color
+}
+
 .normal {
   color: $primary-color
 }
-.warning {
+
+.timeout {
   color: $warning-color
 }
