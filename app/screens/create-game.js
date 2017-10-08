@@ -72,7 +72,6 @@ class CreateGame extends React.PureComponent {
     this.onSuccess = this.onSuccess.bind(this);
     this.prevStep = this.prevStep.bind(this);
     this.nextStep = this.nextStep.bind(this);
-    this.stepTitle = this.stepTitle.bind(this);
   }
 
   onDone() {
@@ -139,23 +138,6 @@ class CreateGame extends React.PureComponent {
     console.log("step", this.state.step)
   }
 
-  stepTitle() {
-    switch (this.state.step) {
-      case 1:
-        return (
-          <h3> GENERAL INFO </h3>
-        )
-      case 2:
-        return (
-          <h3> QUESTIONS </h3>
-        )
-      case 3:
-      return (
-        <h3> FINAL STEP </h3>
-      )
-    }
-  }
-
   showStep() {
     switch (this.state.step) {
       case 1:
@@ -171,17 +153,21 @@ class CreateGame extends React.PureComponent {
           </div>
         )
       case 2:
-        return (
+        return (    
           <div>
-            <Questions 
-              questions={ this.props.questions }
-              editQuestion={ this.onEditQuestion }
-              addQuestion={ this.onAddQuestion }
-              scroll={ this.scrollToBottom }
-              removeQuestion={ this.onRemoveQuestion }
-            />
-            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Prev</Button>
-            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+            <div className='question-panel'>
+              <Questions 
+                questions={ this.props.questions }
+                editQuestion={ this.onEditQuestion }
+                addQuestion={ this.onAddQuestion }
+                scroll={ this.scrollToBottom }
+                removeQuestion={ this.onRemoveQuestion }
+              />
+            </div>
+            <div>
+              <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Prev</Button>
+              <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+            </div>
           </div>
         )
       case 3:
@@ -197,8 +183,6 @@ class CreateGame extends React.PureComponent {
   }
 
   render() {
-    let progress = (this.state.step / 3 * 100)
-
     return (
       <div className='createGame'>
         <div className='bigContainer'>
@@ -206,13 +190,11 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
-          <div className='progress-step'>
-            <Steps current={ this.state.step - 1 }>
-              <Step title="General Info" />
-              <Step title="Questions" />
-              <Step title="Final step!" />
-            </Steps>
-          </div>
+          <Steps current={ this.state.step - 1 } className='progress-step'>
+            <Step title="General Info" />
+            <Step title="Questions" />
+            <Step title="Final step!" />
+          </Steps>
 
           { this.showStep() }
 

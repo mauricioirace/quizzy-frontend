@@ -3,7 +3,8 @@ import Question from './question';
 import Scroll from 'react-scroll';
 import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
   Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
-
+import { TileLayout, TileLayoutItem } from 'pivotal-ui/react/tile-layout'; 
+import { Panels, ClickableAltPanel } from 'pivotal-ui/react/panels';
 
 class Questions extends React.PureComponent {
   static propTypes = {
@@ -30,7 +31,7 @@ class Questions extends React.PureComponent {
   onEditQuestion(index) {
     this.setState({ editIndex: index });
     this.openPanel();
-    this.scrollToBottom;
+    this.scrollToBottom();
   }
 
   onRemoveQuestion(index) {
@@ -46,20 +47,12 @@ class Questions extends React.PureComponent {
     let list = [];
 
     questions.map( (question, index) => {
-      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
-
+      const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
+      const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
-        <Col sm={ 3 } md={ 2 }>
-          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }}>
-            <Thumbnail>
-              <FormGroup>
-                <InputGroup>
-                  {text}
-                </InputGroup>
-              </FormGroup>
-            </Thumbnail>
-          </a>
-        </Col>
+        <TileLayoutItem>
+          <ClickableAltPanel onClick={ () => this.onEditQuestion(index) }> { difficulty } { text } </ClickableAltPanel>
+        </TileLayoutItem>
       );
     });
     return list;
@@ -83,15 +76,13 @@ class Questions extends React.PureComponent {
 
     return (
       <Form>
-        <Grid>
-          <Row className='show-grid'>
-            { displayQuestions }
-          </Row>
-        </Grid>
         <div>
-          <Button bsStyle='primary' onClick={ this.onAddQuestion }>
-            <Glyphicon glyph='plus'/> NEW QUESTION
-          </Button>
+          <TileLayout columns={ 5 }>
+            { displayQuestions }
+            <TileLayoutItem>
+              <ClickableAltPanel onClick={ this.onAddQuestion }> NEW QUESTION </ClickableAltPanel>
+            </TileLayoutItem>
+          </TileLayout>
         </div>
 
         <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
