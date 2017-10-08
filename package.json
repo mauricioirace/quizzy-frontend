@@ -28,7 +28,6 @@
     "jquery.easing": "^1.4.1",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
-    "pivotal-ui": "^9.1.0",
     "prop-types": "^15.6.0",
     "rc-progress": "^2.2.2",
     "rc-steps": "^3.0.0",

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
-  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
   
@@ -33,7 +32,6 @@ class GameGeneralInfo extends React.PureComponent {
   render() {
     return (
       <Form>
-
         <FormGroup controlId='formName'>
             <ControlLabel>Name</ControlLabel>
             <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
@@ -59,7 +57,6 @@ class GameGeneralInfo extends React.PureComponent {
               <option value='other'>Other</option>
             </FormControl>
         </FormGroup>
-
       </Form>
     );
   }
