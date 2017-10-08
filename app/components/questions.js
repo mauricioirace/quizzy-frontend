@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
 import Scroll from 'react-scroll';
-import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
-  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
-import { TileLayout, TileLayoutItem } from 'pivotal-ui/react/tile-layout'; 
-import { Panels, ClickableAltPanel } from 'pivotal-ui/react/panels';
+import { Button, Col, Row, Form, ControlLabel,
+  FormControl, Panel, Thumbnail, Grid } from 'react-bootstrap';
 
 class Questions extends React.PureComponent {
   static propTypes = {
@@ -50,9 +48,12 @@ class Questions extends React.PureComponent {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
       const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
-        <TileLayoutItem>
-          <ClickableAltPanel onClick={ () => this.onEditQuestion(index) }> { difficulty } { text } </ClickableAltPanel>
-        </TileLayoutItem>
+        <Col xs={2} md={2}>
+          <Thumbnail onClick={ () => this.onEditQuestion(index) } className='thumbnail'>
+            <h3>{ difficulty }</h3>
+            <p>{ text }</p>
+          </Thumbnail>
+        </Col>
       );
     });
     return list;
@@ -76,14 +77,17 @@ class Questions extends React.PureComponent {
 
     return (
       <Form>
-        <div>
-          <TileLayout columns={ 5 }>
+
+        <Grid>
+          <Row>
             { displayQuestions }
-            <TileLayoutItem>
-              <ClickableAltPanel onClick={ this.onAddQuestion }> NEW QUESTION </ClickableAltPanel>
-            </TileLayoutItem>
-          </TileLayout>
-        </div>
+            <Col xs={2} md={2}>
+            <Thumbnail onClick={ this.onAddQuestion } className='thumbnail'>
+              <h3>ADD A NEW QUESTION</h3>
+            </Thumbnail>
+          </Col>
+          </Row>
+        </Grid>
 
         <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
           <div>

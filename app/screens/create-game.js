@@ -130,12 +130,10 @@ class CreateGame extends React.PureComponent {
 
   nextStep() {
     this.setState({ step: this.state.step + 1 });
-    console.log("step", this.state.step)
   }
 
   prevStep() {
     this.setState({ step: this.state.step - 1 });
-    console.log("step", this.state.step)
   }
 
   goToStep(index) {
@@ -169,7 +167,7 @@ class CreateGame extends React.PureComponent {
               />
             </div>
             <div>
-              <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Prev</Button>
+              <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Back</Button>
               <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
             </div>
           </div>
@@ -179,8 +177,8 @@ class CreateGame extends React.PureComponent {
           <div>
             <h2> ACA VA ALGO DE MATCH </h2>
             <div className='error-message'>{ this.props.error }</div>     
-            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Prev</Button>                   
-            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE! </Button>
+            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>                   
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
           </div>
         )
     }
