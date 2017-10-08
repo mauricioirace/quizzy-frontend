@@ -138,6 +138,10 @@ class CreateGame extends React.PureComponent {
     console.log("step", this.state.step)
   }
 
+  goToStep(index) {
+    this.setState({ step: index });
+  }
+
   showStep() {
     switch (this.state.step) {
       case 1:
@@ -191,9 +195,9 @@ class CreateGame extends React.PureComponent {
           </div>
 
           <Steps current={ this.state.step - 1 } className='progress-step'>
-            <Step title="General Info" />
-            <Step title="Questions" />
-            <Step title="Final step!" />
+            <Step title="General Information" onClick={ () => this.goToStep(1) } className='step'/>
+            <Step title="Questions" onClick={ () => this.goToStep(2) } className='step'/>
+            <Step title="Final step!" onClick={ () => this.goToStep(3) } className='step'/>
           </Steps>
 
           { this.showStep() }

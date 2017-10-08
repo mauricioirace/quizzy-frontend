@@ -31,6 +31,7 @@
     "pivotal-ui": "^9.1.0",
     "prop-types": "^15.6.0",
     "rc-progress": "^2.2.2",
+    "rc-steps": "^3.0.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-circular-progressbar": "^0.2.1",

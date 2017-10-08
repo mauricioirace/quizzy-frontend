@@ -115,6 +115,10 @@
   position: relative;
   // text-align: center;
   text-transform: uppercase;
+
+  .step {
+    cursor: pointer;
+  }
 }
 
 .question-panel {
