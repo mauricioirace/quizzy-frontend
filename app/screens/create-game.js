@@ -175,7 +175,6 @@ class CreateGame extends React.PureComponent {
       case 3:
         return (
           <div>
-            <h2> ACA VA ALGO DE MATCH </h2>
             <div className='error-message'>{ this.props.error }</div>     
             <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>                   
             <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
