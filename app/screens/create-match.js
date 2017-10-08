@@ -65,6 +65,8 @@ class CreateMatch extends React.PureComponent {
       misma pantalla.
     */
     const { name, description, image, category, questions } = this.props;
+    // TODO
+    // La url tiene que ser unica. De esta forma, esta quedando siempre con 'a_match'
     let url = this.props.currentMatch !== '' ? this.props.currentMatch : 'a_match';
     const match = {
       url,

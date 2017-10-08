@@ -14,10 +14,6 @@ import './styles.scss';
 
 export class App extends React.PureComponent {
   render() {
-    const obj = {
-      image: 'http://media.supercheapauto.com.au/sports/images/thumbs/384463-thumb.jpg',
-      name: 'Juegooooo',
-    }
     return (
       <BrowserRouter history={ history } >
         <div>
