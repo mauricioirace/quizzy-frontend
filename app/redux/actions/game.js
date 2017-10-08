@@ -2,6 +2,7 @@ import gameService from '../../services/game';
 import { push } from 'react-router-redux';
 import {
   ADD_QUESTION,
+  CHANGE_HINT_QUESTION,
   REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
   REMOVE_ALL_QUESTIONS,
@@ -71,11 +72,21 @@ export const createGame = (game,onSuccess) => {
 
 export const changeQuestionDifficulty = (difficulty, index) => {
   return {
-      type: CHANGE_QUESTION_DIFFICULTY,
-      difficulty,
-      index
+    type: CHANGE_QUESTION_DIFFICULTY,
+    difficulty,
+    index
   }
 };
+
+// Acción que modifica el hint
+export const changeHintQuestion = (hint, index) => {
+  return {
+    type: CHANGE_HINT_QUESTION,
+    hint,
+    index
+  }
+};
+
 
 export const changeQuestionName = (questionName, index) => {
   return {
@@ -84,6 +95,7 @@ export const changeQuestionName = (questionName, index) => {
     index
   }
 };
+
 
 export const addQuestion = (question) => {
   return {
@@ -148,9 +160,9 @@ export const changeName = (name) => {
   }
 };
 
-  export const changeCategory = (category) => {
-    return {
-      type: CHANGE_CATEGORY,
-      category
-    }
+export const changeCategory = (category) => {
+  return {
+    type: CHANGE_CATEGORY,
+    category
+  }
 };

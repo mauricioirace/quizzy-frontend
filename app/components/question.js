@@ -1,14 +1,16 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, removeQuestion } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion } from '../redux/actions/game';
 import '../stylesheets/question.scss';
+import { Row, Col, Form, FormGroup, FormControl, Button,
+  Glyphicon, FieldGroup, ControlLabel, InputGroup } from 'react-bootstrap';
 
 const mapDispatchToProps = (dispatch) => {
     return {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
       changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
-      removeQuestion: (question) => dispatch(removeQuestion(question)),
+      changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
     };
 };
 
@@ -23,23 +25,25 @@ class Question extends React.PureComponent {
     super(props);
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
-    this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
+    this.changeHint = this.changeHint.bind(this);
   }
 
   changeQuestion(event) {
     this.props.changeQuestionName(event.target.value, this.props.id);
   }
 
+  changeHint(event){
+    this.props.changeHintQuestion(event.target.value, this.props.id);
+  }
+
+
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
 
-  onRemoveQuestion(index) {
-    this.props.removeQuestion(this.props.id);
-  }
-
   render() {
     const question = this.props.self;
+    const hint = this.props.id;
     const id = this.props.id;
     const answers = [];
     question.answers.forEach( (answer, index) => {
@@ -55,35 +59,46 @@ class Question extends React.PureComponent {
 
     return (
       <div className='question'>
-        <div className='form-container'>
-          <div className='form-input vertical long'>
-            <div className='row'>
-              <div className='flex-container'>
-                <input
-                  type='text'
-                  onChange={ this.changeQuestion }
-                  value={ question.text }
-                  placeholder={ 'Question #' + (this.props.id + 1) }
-                />
-                <button onClick={ this.onRemoveQuestion }> X </button>
-              </div>
-            </div>
-            <div className='row'>
-              <label>Difficulty:</label>
-                <select onChange={ this.changeDifficulty } value={ this.props.self.difficulty } >
-                  <option value='easy'>Easy</option>
-                  <option value='medium'>Medium</option>
-                  <option value='challenging'>Challenging</option>
-                </select>
-            </div>
-            <div className='row'>
-              <label>Answers:</label>
-              <div className='answers-container'>
-                { answers }
-              </div>
-            </div>
-          </div>
-        </div>
+        <FormGroup>
+          <InputGroup>
+          <FormControl
+            type='text'
+            onChange={ this.changeQuestion }
+            value={ question.text }
+            placeholder={ 'Question text' }
+          /> {' '}
+          <InputGroup.Addon>
+            ?
+          </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Hint:</ControlLabel>
+          <InputGroup>
+            <FormControl
+              type='text'
+              onChange={ this.changeHint }
+              value={ question.hint }
+              placeholder={ 'Question hint' }
+            /> {' '}
+            <InputGroup.Addon>
+              !
+            </InputGroup.Addon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Difficulty:</ControlLabel>
+          <FormControl componentClass='select' onChange={ this.changeDifficulty }
+          value={ this.props.self.difficulty }>
+            <option value='Easy'>Easy</option>
+            <option value='Medium'>Medium</option>
+            <option value='Hard'>Hard</option>
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Answers:</ControlLabel>
+            { answers }
+        </FormGroup>
       </div>
     );
   }

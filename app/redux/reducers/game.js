@@ -2,6 +2,7 @@ import {
   ADD_QUESTION,
   REMOVE_QUESTION,
   CHANGE_QUESTION_NAME,
+  CHANGE_HINT_QUESTION,
   CHANGE_QUESTION_DIFFICULTY,
   REMOVE_ALL_QUESTIONS,
   CHANGE_ANSWER,
@@ -19,6 +20,7 @@ import {
 
 const initialState = {
   name: '',
+  hint: '',
   description: '',
   image: null,
   questions: [],
@@ -35,6 +37,16 @@ export default (state = initialState, action) => {
         ...state,
         questions: state.questions.concat([ action.question ])
       };
+    case CHANGE_HINT_QUESTION:
+        return {
+          ...state,
+          questions: state.questions.map( (question, index) => {
+            return {
+              ...question,
+              hint: index === action.index ? action.hint : question.hint
+              }
+          })
+        };
     case CHANGE_QUESTION_DIFFICULTY:
       return{
         ...state,
@@ -109,7 +121,6 @@ export default (state = initialState, action) => {
         error: false
       };
     case CREATE_GAME_FAILURE:
-      console.log(action);
       return {
         ...state,
         error: action.error
