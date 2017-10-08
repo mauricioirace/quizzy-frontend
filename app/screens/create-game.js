@@ -15,9 +15,11 @@ import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
-import Scroll from 'react-scroll';
-import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
-  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import GameGeneralInfo from '../components/game-general-info';
+import Steps, { Step } from 'rc-steps';
+import 'rc-steps/assets/index.css';
+import 'rc-steps/assets/iconfont.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -59,11 +61,7 @@ class CreateGame extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      show: false,
-      showPanel: false,
-      editIndex: 0
-    };
+    this.state = { step: 1 };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -72,9 +70,8 @@ class CreateGame extends React.PureComponent {
     this.onRemoveQuestion = this.onRemoveQuestion.bind(this);
     this.onDone = this.onDone.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
-    this.openPanel = this.openPanel.bind(this);
-    this.closePanel = this.closePanel.bind(this);
-    this.onEditQuestion = this.onEditQuestion.bind(this);
+    this.prevStep = this.prevStep.bind(this);
+    this.nextStep = this.nextStep.bind(this);
   }
 
   onDone() {
@@ -108,83 +105,85 @@ class CreateGame extends React.PureComponent {
   onAddQuestion() {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));
-    this.onEditQuestion(indexWhereAdd);
-    this.scrollToBottom();
   }
 
-  onChangeImage(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  onChangeImage(file, reader) {
     reader.readAsDataURL(file);
     reader.onloadend = (e) => this.props.changeImage(reader.result);
   }
 
-  onChangeDescription(event) {
-    this.props.changeDescription(event.target.value);
+  onChangeDescription(value) {
+    this.props.changeDescription(value);
   }
 
-  onChangeName(event) {
-    this.props.changeName(event.target.value);
+  onChangeName(value) {
+    this.props.changeName(value);
   }
 
-  onChangeCategory(event) {
-    this.props.changeCategory(event.target.value);
-  }
-
-  onEditQuestion(index) {
-    this.setState({ editIndex: index });
-    this.openPanel();
-    this.scrollToBottom();
+  onChangeCategory(value) {
+    this.props.changeCategory(value);
   }
 
   onRemoveQuestion(index) {
     this.props.removeQuestion(index);
-    this.closePanel();
   }
 
-  renderQuestions(questions) {
-    let list = [];
-
-    questions.map( (question, index) => {
-      let text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
-
-      list.push(
-        <Col sm={ 3 } md={ 2 }>
-          <a href='#' onClick={ () => this.onEditQuestion(index) } style={{ textDecoration: 'none' }}>
-            <Thumbnail>
-              <FormGroup>
-                <InputGroup>
-                  {text}
-                </InputGroup>
-              </FormGroup>
-            </Thumbnail>
-          </a>
-        </Col>
-      );
-    });
-    return list;
+  nextStep() {
+    this.setState({ step: this.state.step + 1 });
   }
 
-  openPanel() {
-    this.setState({ showPanel: true });
+  prevStep() {
+    this.setState({ step: this.state.step - 1 });
   }
 
-  closePanel() {
-    this.setState({ showPanel: false });
+  goToStep(index) {
+    this.setState({ step: index });
   }
 
-  scrollToBottom() {
-    Scroll.animateScroll.scrollToBottom();
+  showStep() {
+    switch (this.state.step) {
+      case 1:
+        return (
+          <div>
+            <GameGeneralInfo 
+              changeName={ this.onChangeName }
+              changeDescription={ this.onChangeDescription }
+              changeImage={ this.onChangeImage }
+              changeCategory={ this.onChangeCategory }
+            />
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+          </div>
+        )
+      case 2:
+        return (    
+          <div>
+            <div className='question-panel'>
+              <Questions 
+                questions={ this.props.questions }
+                editQuestion={ this.onEditQuestion }
+                addQuestion={ this.onAddQuestion }
+                scroll={ this.scrollToBottom }
+                removeQuestion={ this.onRemoveQuestion }
+              />
+            </div>
+            <div>
+              <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Back</Button>
+              <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+            </div>
+          </div>
+        )
+      case 3:
+        return (
+          <div>
+            <div className='error-message'>{ this.props.error }</div>     
+            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>                   
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
+          </div>
+        )
+    }
   }
 
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }/>
-    );
-    let displayQuestions = this.renderQuestions(questions);
-
     return (
       <div className='createGame'>
         <div className='bigContainer'>
@@ -192,86 +191,13 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
-          <PanelGroup defaultActiveKey='1' accordion>
-            <Panel header='GENERAL INFO' eventKey='1'>
-                <Form horizontal>
+          <Steps current={ this.state.step - 1 } className='progress-step'>
+            <Step title="General Information" onClick={ () => this.goToStep(1) } className='step'/>
+            <Step title="Questions" onClick={ () => this.goToStep(2) } className='step'/>
+            <Step title="Final step!" onClick={ () => this.goToStep(3) } className='step'/>
+          </Steps>
 
-                  <FormGroup controlId='formName'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Name</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='formControlsTextarea'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Description</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl componentClass='textarea' type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='imageasd'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Image</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl type='file' onChange={ this.onChangeImage }/>
-                    </Col>
-                  </FormGroup>
-
-                  <FormGroup controlId='formCategory'>
-                    <Col sm={ 1 }>
-                      <ControlLabel>Category</ControlLabel>
-                    </Col>
-                    <Col sm={ 8 }>
-                      <FormControl componentClass='select' placeholder='select' onChange={ this.onChangeCategory }>
-                        <option value='music'>Music</option>
-                        <option value='sports'>Sports</option>
-                        <option value='videogames'>Videogames</option>
-                        <option value='history'>History</option>
-                        <option value='other'>Other</option>
-                      </FormControl>
-                    </Col>
-                  </FormGroup>
-
-                </Form>
-            </Panel>
-
-            <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom }>
-              <Grid>
-                <Row className='show-grid'>
-                  { displayQuestions }
-                </Row>
-              </Grid>
-              <div>
-                <Button bsStyle='primary' onClick={ this.onAddQuestion }>
-                  <Glyphicon glyph='plus'/> NEW QUESTION
-                </Button>
-              </div>
-
-              <Panel collapsible expanded={ this.state.showPanel }  eventKey='1'>
-                <div>
-                  <strong>{ title }</strong>
-                </div>
-                <hr/>
-                <Questions>
-                  { questions[currentItem] }
-                </Questions>
-                <hr/>
-                <div>
-                  <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
-                  <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
-                </div>
-              </Panel>
-            </Panel>
-          </PanelGroup>
-
-          <div className='error-message'>{ this.props.error }</div>
-          <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>DONE!</Button>
+          { this.showStep() }
 
         </div>
       </div>

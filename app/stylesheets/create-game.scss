@@ -104,3 +104,26 @@
     color: $white;
   }
 }
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.progress-step {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  // text-align: center;
+  text-transform: uppercase;
+
+  .step {
+    cursor: pointer;
+  }
+}
+
+.question-panel {
+  margin-bottom: 20px;
+}
