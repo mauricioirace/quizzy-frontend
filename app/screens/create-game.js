@@ -15,10 +15,11 @@ import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
-import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
-  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup, ProgressBar } from 'react-bootstrap';
-
+import { Button } from 'react-bootstrap';
 import GameGeneralInfo from '../components/game-general-info';
+import Steps, { Step } from 'rc-steps';
+import 'rc-steps/assets/index.css';
+import 'rc-steps/assets/iconfont.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -197,7 +198,6 @@ class CreateGame extends React.PureComponent {
 
   render() {
     let progress = (this.state.step / 3 * 100)
-    const title = this.stepTitle()
 
     return (
       <div className='createGame'>
@@ -206,8 +206,14 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
-          <span className="progress-step">{ title }</span>
-          <ProgressBar bsStyle="success" now={ progress } />
+          <div className='progress-step'>
+            <Steps current={ this.state.step - 1 }>
+              <Step title="General Info" />
+              <Step title="Questions" />
+              <Step title="Final step!" />
+            </Steps>
+          </div>
+
           { this.showStep() }
 
         </div>
