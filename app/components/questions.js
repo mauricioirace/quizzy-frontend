@@ -82,7 +82,7 @@ class Questions extends React.PureComponent {
     let displayQuestions = this.renderQuestions(questions);
 
     return (
-      <Panel header='QUESTIONS' eventKey='2' onClick={ this.scrollToBottom }>
+      <Form>
         <Grid>
           <Row className='show-grid'>
             { displayQuestions }
@@ -106,7 +106,7 @@ class Questions extends React.PureComponent {
             <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
           </div>
         </Panel>
-      </Panel>
+      </Form>
     );
   }
 }

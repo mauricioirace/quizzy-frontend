@@ -16,7 +16,7 @@ import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
 import { Button, Col, Row, Form, FormGroup, ControlLabel, FormControl, PageHeader, Well, InputGroup,
-  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup } from 'react-bootstrap';
+  Glyphicon, Panel,  Thumbnail, Grid, Carousel, PanelGroup, ProgressBar } from 'react-bootstrap';
 
 import GameGeneralInfo from '../components/game-general-info';
 
@@ -71,6 +71,7 @@ class CreateGame extends React.PureComponent {
     this.onSuccess = this.onSuccess.bind(this);
     this.prevStep = this.prevStep.bind(this);
     this.nextStep = this.nextStep.bind(this);
+    this.stepTitle = this.stepTitle.bind(this);
   }
 
   onDone() {
@@ -137,6 +138,23 @@ class CreateGame extends React.PureComponent {
     console.log("step", this.state.step)
   }
 
+  stepTitle() {
+    switch (this.state.step) {
+      case 1:
+        return (
+          <h3> GENERAL INFO </h3>
+        )
+      case 2:
+        return (
+          <h3> QUESTIONS </h3>
+        )
+      case 3:
+      return (
+        <h3> FINAL STEP </h3>
+      )
+    }
+  }
+
   showStep() {
     switch (this.state.step) {
       case 1:
@@ -161,7 +179,7 @@ class CreateGame extends React.PureComponent {
               scroll={ this.scrollToBottom }
               removeQuestion={ this.onRemoveQuestion }
             />
-            <Button bsSize='large' bsStyle='success pull-left' onClick={ this.prevStep }>Prev</Button>
+            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Prev</Button>
             <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
           </div>
         )
@@ -170,7 +188,7 @@ class CreateGame extends React.PureComponent {
           <div>
             <h2> ACA VA ALGO DE MATCH </h2>
             <div className='error-message'>{ this.props.error }</div>     
-            <Button bsSize='large' bsStyle='success pull-left' onClick={ this.prevStep.bind(this) }>Prev</Button>                   
+            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Prev</Button>                   
             <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }> CREATE! </Button>
           </div>
         )
@@ -178,6 +196,8 @@ class CreateGame extends React.PureComponent {
   }
 
   render() {
+    let progress = (this.state.step / 3 * 100)
+    const title = this.stepTitle()
 
     return (
       <div className='createGame'>
@@ -186,6 +206,8 @@ class CreateGame extends React.PureComponent {
             <h1>Create your own game</h1>
           </div>
 
+          <span className="progress-step">{ title }</span>
+          <ProgressBar bsStyle="success" now={ progress } />
           { this.showStep() }
 
         </div>
