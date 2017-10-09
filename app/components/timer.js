@@ -3,7 +3,7 @@ import CircularProgressbar from 'react-circular-progressbar';
 import PropTypes from 'prop-types';
 import '../stylesheets/timer.scss';
 import Countdown from 'react-countdown-now';
-import { full, normal, timeout } from '../stylesheets/timer.scss';
+import '../stylesheets/timer.scss';
 
 export const FULL_LOWER_BOUND = 75;
 export const NORMAL_LOWER_BOUND = 25;
@@ -11,34 +11,35 @@ export const NORMAL_LOWER_BOUND = 25;
 class Timer extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.renderer = this.renderer.bind(this);
   }
 
   percentageColor(percentage) {
     if (percentage > FULL_LOWER_BOUND) {
-      return full;
-    } else if (percertage > NORMAL_LOWER_BOUND) {
-      return normal;
+      return 'full';
+    } else if (percentage > NORMAL_LOWER_BOUND) {
+      return 'normal';
     } else {
-      return timeout;
+      return 'timeout';
     }
   }
-  renderer(total, days, hours, minutes, seconds, milliseconds, completed ) {
-    const percentage = milliseconds/total *100;
-    const colorClass = this.percentageColor(percentage);
-
-    return (<CircularProgressbar
-        className={ colorClass }
+  renderer({ total, days, hours, minutes, seconds, milliseconds, completed } ) {
+    const percentage = total/this.props.seconds /10 ;
+    // const colorClass = 'normal';
+    console.log(percentage);
+    return (
+      <CircularProgressbar
         percentage={ percentage }
-        textForPercentage={ (pct) => `${ minutes }:${ seconds }` }
+        textForPercentage={ (pct) => `${ total/1000 }` }
       />);
   }
 
   render() {
-    console.log(normal);
     return  (
       <Countdown
         renderer={ this.renderer }
         date={ Date.now() + this.props.seconds * 1000 }
+        onComplete={ this.props.onTimeout }
       />
     )
   }
@@ -46,6 +47,7 @@ class Timer extends React.PureComponent {
 
 Timer.PropTypes = {
   total: PropTypes.number,
-  remaining: PropTypes.number
+  remaining: PropTypes.number,
+  onTimeout: PropTypes.func
 };
 export default Timer;

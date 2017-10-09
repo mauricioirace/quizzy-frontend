@@ -38,7 +38,9 @@ class AnswerButtons extends React.PureComponent {
 
   onClickAnswer(correct, answer) {
     this.props.answerQuestion(correct,answer);
+  }
 
+  waitForNextQuestion() {
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
       const total = this.props.matchData.game.questions.length;
@@ -53,7 +55,9 @@ class AnswerButtons extends React.PureComponent {
 
   render() {
     const answered = this.props.matchState.answer;
-
+    if(answered) {
+      this.waitForNextQuestion();
+    }
     const answers = this.props.answers.map((answer, index) => {
       const correct = index === this.props.correctAnswer;
       return (

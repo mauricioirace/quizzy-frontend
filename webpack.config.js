@@ -31,27 +31,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              camelCase: true,
-              modules: true,
-              sourceMap: true,
-              importLoaders: 2,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          },{
-            loader:'sass-loader',
-            options: {
-              camelCase: true,
-              modules: true,
-              sourceMap: true,
-              importLoaders: 2,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          }
-
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
         ]
       },
       {

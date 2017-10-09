@@ -1,13 +1,30 @@
 @import '../../assets/styles/variables.scss';
 
-.full {
-  color: $success-color
+
+.CircularProgressbar {
+  /*
+   * This fixes an is sue where the CircularProgressbar svg has
+   * 0 width inside a "display: flex" container, and thus not visible.
+   *
+   * If you're not using "display: flex", you can remove this style.
+   */
+  width: 90%;
+  transform: translateY(45%);
 }
 
-.normal {
-  color: $primary-color
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: $primary-color;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
 }
 
-.timeout {
-  color: $warning-color
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  stroke: $primary-color;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
 }

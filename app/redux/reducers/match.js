@@ -6,7 +6,8 @@ import {
   LOAD_MATCH_DATA_FAILURE,
   MATCH_NAME_ERROR,
   ANSWER_QUESTION,
-  NEXT_QUESTION
+  NEXT_QUESTION,
+  TIMEOUT
 } from '../constants/match';
 
 const testMatch = {
@@ -125,12 +126,12 @@ export default (state = initialState, action) => {
             break;
         }
       }
+    case TIMEOUT:
       return {
         ...state,
         state: {
           ...state.state,
-          score,
-          answer: action.answer
+          answer: true
         }
       };
     case NEXT_QUESTION:

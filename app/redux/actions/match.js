@@ -7,7 +7,8 @@ import {
   LOAD_MATCH_DATA_FAILURE,
   MATCH_NAME_ERROR,
   ANSWER_QUESTION,
-  NEXT_QUESTION
+  NEXT_QUESTION,
+  TIMEOUT
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -59,6 +60,11 @@ export const answerQuestion = (correct,answer) => ({
   correct,
   answer
 });
+
+export const timeout = () => ({
+  type: TIMEOUT
+});
+
 export const nextQuestion = () => ({
   type: NEXT_QUESTION,
 });
