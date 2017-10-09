@@ -61,7 +61,7 @@ class CreateGame extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       step: 1,
       disableButtons: false
     };
@@ -91,8 +91,9 @@ class CreateGame extends React.PureComponent {
     this.props.createGame(game,this.onSuccess);
   }
 
-  onSuccess(){
-    this.props.history.push('/start-match');
+  onSuccess() {
+    debugger;
+    this.props.history.push('/create-match');
   }
 
   componentWillMount() {
@@ -127,7 +128,7 @@ class CreateGame extends React.PureComponent {
     this.props.changeCategory(value);
   }
 
-  onRemoveQuestion(index) { 
+  onRemoveQuestion(index) {
     this.props.removeQuestion(index);
   }
 
@@ -156,7 +157,7 @@ class CreateGame extends React.PureComponent {
       case 1:
         return (
           <div>
-            <GameGeneralInfo 
+            <GameGeneralInfo
               gameData={ this.props }
               changeName={ this.onChangeName }
               changeDescription={ this.onChangeDescription }
@@ -167,10 +168,10 @@ class CreateGame extends React.PureComponent {
           </div>
         )
       case 2:
-        return (    
+        return (
           <div>
             <div className='question-panel'>
-              <Questions 
+              <Questions
                 questions={ this.props.questions }
                 editQuestion={ this.onEditQuestion }
                 addQuestion={ this.onAddQuestion }
@@ -188,8 +189,8 @@ class CreateGame extends React.PureComponent {
       case 3:
         return (
           <div>
-            <div className='error-message'>{ this.props.error }</div>     
-            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>                   
+            <div className='error-message'>{ this.props.error }</div>
+            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>
             <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
           </div>
         )

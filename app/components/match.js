@@ -1,33 +1,35 @@
 import React from 'react';
 import Header from '../components/header';
 import { Link } from 'react-router-dom';
-import StarRatingComponent from 'react-star-rating-component';
-import { withRouter } from 'react-router-dom';
-import '../stylesheets/match.scss';
+import { setCurrentMatch } from '../redux/actions/match';
+import { connect } from 'react-redux';
 
-class MatchRow extends React.PureComponent {
+class Match extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.props.history.push({
-      pathname: '/start-match',
-      state: { match: this.props.data }
-    });
+    this.props.setCurrentMatch(this.props.data);
   }
 
   render() {
     return (
       <tr>
-        <td><img className='match-image' src={ this.props.data.game.image }/></td>
-        <td>{ this.props.data.game.name }</td>
-        <td><StarRatingComponent editing={ false } starCount={ 5 } value={ this.props.data.game.rating } name={ 'rating' }/></td>
-        <td><img className='play-button animated pulse' onClick={ this.handleClick } src={ require('../../assets/images/play_button.png') }/></td>
+        <td> <img src={ this.props.data.game.image } height="80" /> </td>
+        <td> { this.props.data.game.name } </td>
+        <td> Rating: { this.props.data.game.rating } </td>
+        <td> <Link to={`/start-match/${this.props.data.url}`} onClick={ this.handleClick }><img className='play-button' src={ require('../../assets/images/play_button.png') }/></Link> </td>
       </tr>
     )
   }
 }
 
-export default withRouter(MatchRow);
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
+  };
+}
+
+export default connect(mapDispatchToProps)(Match)

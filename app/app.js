@@ -6,6 +6,7 @@ import Register from './screens/register';
 import Login from './screens/login';
 import Match from './screens/match';
 import StartMatch from './screens/start-match';
+import CreateMatch from './screens/create-match';
 import EndNormalGame from './screens/end-normal-game';
 import { connect } from 'react-redux'
 import history from './history';
@@ -46,6 +47,7 @@ export class App extends React.PureComponent {
               <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/end-normal-game' component={ EndNormalGame }/>
+              <Route exact path='/create-match' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
               <Route exact path='/start-match' render={ this.renderStartMatch }/>
             </Switch>
