@@ -125,6 +125,14 @@ export default (state = initialState, action) => {
             score += 800;
             break;
         }
+        return {
+          ...state,
+          state: {
+            ...state.state,
+            score,
+            answer: action.answer
+          }
+        }
       }
     case TIMEOUT:
       return {

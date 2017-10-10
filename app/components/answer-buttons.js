@@ -55,7 +55,7 @@ class AnswerButtons extends React.PureComponent {
 
   render() {
     const answered = this.props.matchState.answer;
-    if(answered) {
+    if(answered !== false) {
       this.waitForNextQuestion();
     }
     const answers = this.props.answers.map((answer, index) => {

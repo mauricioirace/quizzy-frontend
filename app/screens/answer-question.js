@@ -3,10 +3,13 @@ import AnswerButtons from '../components/answer-buttons';
 import { Col, Grid, PageHeader, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
-import Timer from '../components/timer';
+import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
+
+
+export const TIME_TO_ANSWER = 15;
 
 const mapStateToProps = (state) => {
   return {
@@ -38,26 +41,27 @@ class AnswerQuestion extends React.PureComponent {
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
 
+    const answered = this.props.matchState.answer;
     return (
-        <Grid fluid>
-          <Row>
-            <Col xs={ 4 } >
-              <Timer seconds={ 5 } onTimeout={ this.onTimeout }/>
-            </Col>
-            <Col xs={ 4 } >
-              <PageHeader className='text-center'>{ question.text }</PageHeader>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
-              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
-            </Col>
-          </Row>
-        </Grid>
+        <div>
+          <QuestionHeader
+            seconds={ TIME_TO_ANSWER }
+            onTimeout={ this.onTimeout }
+            text={ question.text }
+            stop={ answered }
+          />
+          <Grid fluid>
+            <Row>
+              <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
+                <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
       )
   }
 }
