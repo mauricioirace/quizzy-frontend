@@ -162,7 +162,6 @@ class CreateGame extends React.PureComponent {
                 questions={ this.props.questions }
                 editQuestion={ this.onEditQuestion }
                 addQuestion={ this.onAddQuestion }
-                scroll={ this.scrollToBottom }
                 removeQuestion={ this.onRemoveQuestion }
               />
             </div>

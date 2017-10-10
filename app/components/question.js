@@ -48,6 +48,7 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       this.props.obj.answers.push({ 'answer': '' });
+      this.props.scrollToBottom();
       this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);      
     } else {
       alert("The question can't have more than six answers");
