@@ -3,10 +3,8 @@ import Answer from './answer';
 import { connect } from 'react-redux';
 import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, addOrRemoveQuestionAnswer } from '../redux/actions/game';
 import '../stylesheets/question.scss';
-import { Row, Col, Form, FormGroup, FormControl, Button,
-  Glyphicon, FieldGroup, ControlLabel, InputGroup } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
-  
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -48,8 +46,8 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       this.props.obj.answers.push({ 'answer': '' });
-      this.props.scrollToBottom();
       this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);      
+      this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
     }

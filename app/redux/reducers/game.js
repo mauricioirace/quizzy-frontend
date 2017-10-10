@@ -46,9 +46,9 @@ export default (state = initialState, action) => {
             return {
               ...question,
               hint: index === action.index ? action.hint : question.hint
-              }
-          })
-        };
+            }
+        })
+      };
     case CHANGE_QUESTION_DIFFICULTY:
       return{
         ...state,
@@ -153,7 +153,7 @@ export default (state = initialState, action) => {
         error:  state.error.filter( (error) => {
           return !(error.answer == action.index && error.question === action.question && error.type === action.error);
         })
-    };
+      };
     case ADD_OR_REMOVE_QUESTION_ANSWER:
       newQuestions = state.questions.slice(0, state.questions.length);
       newQuestions[action.index].answers = action.answers;
