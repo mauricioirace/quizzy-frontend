@@ -127,8 +127,7 @@ class CreateGame extends React.PureComponent {
     this.props.changeCategory(value);
   }
 
-  onRemoveQuestion(index) {
-    // this.props.changeDescription("asdasd?");    
+  onRemoveQuestion(index) { 
     this.props.removeQuestion(index);
   }
 
@@ -151,7 +150,6 @@ class CreateGame extends React.PureComponent {
   disableStepButtons() {
     this.setState({ disableButtons: true })
   }
-
 
   showStep() {
     switch (this.state.step) {

@@ -52,7 +52,7 @@ class Questions extends React.PureComponent {
   }
 
   renderQuestions(questions) {
-    let list = [];
+    const list = [];
 
     questions.map( (question, index) => {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
@@ -70,18 +70,17 @@ class Questions extends React.PureComponent {
   }
 
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
+    const currentItem = this.state.editIndex;
+    const title = 'Question #' + (currentItem + 1);
+    const questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } scrollToBottom={ this.scrollToBottom } edit={ () => this.onEditQuestion }/>
     );
-    let displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>
         <Grid>
           <Row>
-            { displayQuestions }
+            { this.renderQuestions(questions) }
             <Col xs={2} md={2}>
               <Thumbnail onClick={ this.onAddQuestion } className='thumbnail'>
                 <h3>ADD A NEW QUESTION</h3>

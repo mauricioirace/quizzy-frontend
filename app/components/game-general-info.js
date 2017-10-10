@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
   
