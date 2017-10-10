@@ -12,33 +12,34 @@
 .createGame {
   padding-top: 60px;
 
-  label {
-    font: normal 14px courier !important;
-  }
-
-  .btn-primary, .btn-primary:visited {
-    background-color: $primary-color !important;
-    border-style: none !important;
-  }
-
-  .btn-primary:hover, .btn-primary:active {
-    background-color: $black !important;
-    border-style: none !important;
-  }
-
-  .btn-success {
-    margin-right: 10px;
-  }
-
   .bigContainer {
     width: 80%;
     margin-left: 10%;
     background-color: none;
+
+    label {
+      font: normal 14px courier !important;
+    }
+
+    .btn-primary, .btn-primary:visited {
+      background-color: $primary-color !important;
+      border-style: none !important;
+    }
+
+    .btn-primary:hover, .btn-primary:active {
+      background-color: $black !important;
+      border-style: none !important;
+    }
+
+    .btn-success {
+      margin-right: 10px;
+    }
+
+    #savedelete {
+      margin-right: 10px;
+    }
   }
 
-  .btn-default {
-    margin-right: 10px;
-  }
 
   .error-message {
     color: $error-color;
@@ -104,8 +105,15 @@
   }
 }
 
-.thumbnail {
+#addQuestion {
   cursor: pointer;
+}
+
+.thumbnail {
+
+  #bg-vertical-dropdown {
+    margin-top: 0;
+  }
 }
 
 .progress-step {

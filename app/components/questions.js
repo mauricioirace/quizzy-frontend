@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
 import Scroll from 'react-scroll';
-import { Col, Row, Form, ControlLabel,
-  FormControl, Panel, Thumbnail, Grid } from 'react-bootstrap';
+import { Button, Col, Row, Form, ControlLabel,
+  FormControl, Panel, Thumbnail, Grid, DropdownButton, MenuItem } from 'react-bootstrap';
 
 class Questions extends React.PureComponent {
   static propTypes = {
@@ -39,7 +39,7 @@ class Questions extends React.PureComponent {
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
-  
+
   openPanel() {
     this.props.disableStepButtons();
     this.setState({ showPanel: true });
@@ -58,7 +58,11 @@ class Questions extends React.PureComponent {
       const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
         <Col xs={2} md={2}>
-          <Thumbnail onClick={ () => this.onEditQuestion(index) } className='thumbnail'>
+          <Thumbnail  className='thumbnail'>
+            <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown'>
+              <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
+              <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(this.state.editIndex) } >Delete</MenuItem>
+            </DropdownButton>
             <h3> { difficulty } </h3>
             <p> { text } </p>
           </Thumbnail>
@@ -82,7 +86,7 @@ class Questions extends React.PureComponent {
           <Row>
             { this.renderQuestions(questions) }
             <Col xs={2} md={2}>
-              <Thumbnail onClick={ this.onAddQuestion } className='thumbnail'>
+              <Thumbnail onClick={ this.onAddQuestion } className='thumbnail' id='addQuestion'>
                 <h3>ADD A NEW QUESTION</h3>
               </Thumbnail>
             </Col>
@@ -95,6 +99,10 @@ class Questions extends React.PureComponent {
           </div>
           <hr/>
           { questions[currentItem] }
+          <div>
+            <Button bsStyle='default pull-right' onClick={ this.closePanel } id='savedelete'>Save</Button>
+            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } id='savedelete'>Cancel</Button>
+          </div>
         </Panel>
       </div>
     );
