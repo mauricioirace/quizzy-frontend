@@ -144,9 +144,14 @@ class CreateGame extends React.PureComponent {
     this.setState({ step: index });
   }
 
-  togleStepButtons() {
-    this.setState({ disableButtons: !this.state.disableButtons })
+  enableStepButtons() {
+    this.setState({ disableButtons: false })
   }
+
+  disableStepButtons() {
+    this.setState({ disableButtons: true })
+  }
+
 
   showStep() {
     switch (this.state.step) {
@@ -154,6 +159,7 @@ class CreateGame extends React.PureComponent {
         return (
           <div>
             <GameGeneralInfo 
+              gameData={ this.props }
               changeName={ this.onChangeName }
               changeDescription={ this.onChangeDescription }
               changeImage={ this.onChangeImage }
@@ -171,7 +177,8 @@ class CreateGame extends React.PureComponent {
                 editQuestion={ this.onEditQuestion }
                 addQuestion={ this.onAddQuestion }
                 removeQuestion={ this.onRemoveQuestion }
-                toggleStepButtons={ this.togleStepButtons.bind(this) }
+                enableStepButtons={ this.enableStepButtons.bind(this) }
+                disableStepButtons={ this.disableStepButtons.bind(this) }
               />
             </div>
             <div>

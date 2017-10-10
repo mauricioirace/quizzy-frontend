@@ -40,9 +40,15 @@ class Questions extends React.PureComponent {
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
+  
+  openPanel() {
+    this.props.disableStepButtons();
+    this.setState({ showPanel: true });
+  }
 
-  toggleButtons() {
-    this.props.toggleStepButtons();
+  closePanel() {
+    this.props.enableStepButtons();
+    this.setState({ showPanel: false });
   }
 
   renderQuestions(questions) {
@@ -61,16 +67,6 @@ class Questions extends React.PureComponent {
       );
     });
     return list;
-  }
-
-  openPanel() {
-    this.props.toggleStepButtons();
-    this.setState({ showPanel: true });
-  }
-
-  closePanel() {
-    this.props.toggleStepButtons();
-    this.setState({ showPanel: false });
   }
 
   render() {
