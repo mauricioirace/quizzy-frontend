@@ -19,6 +19,7 @@ import {
   CREATE_GAME_FAILURE,
   SHOW_ERROR,
   HIDE_ERROR,
+  ADD_OR_REMOVE_QUESTION_ANSWER,
 } from '../constants/game';
 
 
@@ -55,8 +56,6 @@ export const createGameFailure = (error) => {
   }
 };
 
-
-
 export const createGame = (game,onSuccess) => {
   return (dispatch) => {
     dispatch(creatingGame());
@@ -88,7 +87,6 @@ export const changeHintQuestion = (hint, index) => {
   }
 };
 
-
 export const changeQuestionName = (questionName, index) => {
   return {
     type: CHANGE_QUESTION_NAME,
@@ -96,7 +94,6 @@ export const changeQuestionName = (questionName, index) => {
     index
   }
 };
-
 
 export const addQuestion = (question) => {
   return {
@@ -130,6 +127,14 @@ export const changeAnswer = (question, answer, index) => {
     type: CHANGE_ANSWER,
     question,
     answer,
+    index
+  };
+};
+
+export const addOrRemoveQuestionAnswer = (answers, index) => {
+  return {
+    type: ADD_OR_REMOVE_QUESTION_ANSWER,
+    answers,
     index
   };
 };

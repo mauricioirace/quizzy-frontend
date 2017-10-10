@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeAnswer, changeSelectedAnswer } from '../redux/actions/game';
+import { changeAnswer, changeSelectedAnswer, foundError, removeError } from '../redux/actions/game';
 import EmptyFieldError from '../components/errors/emptyFieldError';
-import { foundError, removeError } from '../redux/actions/game';
 import EMPTY_FIELD_ERROR from '../constants/game';
 import '../stylesheets/question.scss';
 import { Form, FormControl, FormGroup, Radio, Checkbox, InputGroup } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 const mapStateToProps = (state,props) => {
   return {
@@ -29,6 +29,7 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
+    this.removeAnswer = this.removeAnswer.bind(this);
  }
 
 
@@ -40,11 +41,18 @@ class Answer extends React.PureComponent {
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
+  removeAnswer(index) {
+    this.props.removeAnswer(index);
+  }
+
   render() {
     return (
-      <div>
+      <div className='answer'>
         <FormGroup>
           <InputGroup>
+            <InputGroup.Addon>
+             <Icon name='close' id='arAnswer' onClick={ () => this.removeAnswer(this.props.id) }/> 
+            </InputGroup.Addon>
             <FormControl
               className='answer'
               type='text'
