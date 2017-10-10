@@ -17,6 +17,7 @@ import {
   CREATE_GAME_FAILURE,
   SHOW_ERROR,
   HIDE_ERROR,
+  ADD_OR_REMOVE_QUESTION_ANSWER,
 } from "../constants/game";
 
 const initialState = {
@@ -144,9 +145,8 @@ export default (state = initialState, action) => {
           type:action.error,
           question: action.question,
           answer: action.index,
-      }])
-    };
-
+        }])
+      };
     case HIDE_ERROR:
       return {
         ...state,
@@ -154,6 +154,13 @@ export default (state = initialState, action) => {
           return !(error.answer == action.index && error.question === action.question && error.type === action.error);
         })
     };
+    case ADD_OR_REMOVE_QUESTION_ANSWER:
+      newQuestions = state.questions.slice(0, state.questions.length);
+      newQuestions[action.index].answers = action.answers;
+      return {
+        ...state,
+        questions: newQuestions
+      };
 
     default:
       return state;

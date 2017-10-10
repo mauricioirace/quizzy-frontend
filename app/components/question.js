@@ -1,16 +1,19 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, addOrRemoveQuestionAnswer } from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Row, Col, Form, FormGroup, FormControl, Button,
   Glyphicon, FieldGroup, ControlLabel, InputGroup } from 'react-bootstrap';
+import { Icon } from 'react-fa';
+  
 
 const mapDispatchToProps = (dispatch) => {
     return {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
       changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
       changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
+      addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),      
     };
 };
 
@@ -38,7 +41,6 @@ class Question extends React.PureComponent {
     this.props.changeHintQuestion(event.target.value, this.props.id);
   }
 
-
   changeDifficulty (event) {
     this.props.changeQuestionDifficulty(event.target.value, this.props.id);
   }
@@ -46,19 +48,18 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       this.props.obj.answers.push({ 'answer': '' });
-      this.forceUpdate()
+      this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);      
     } else {
-      alert("The question can't have more than six answers")
+      alert("The question can't have more than six answers");
     }
   }
 
-  removeAnswer() {
-    let answerArray = this.props.obj.answers;
+  removeAnswer(index) {
     if (this.props.obj.answers.length > 2) {
-      this.props.obj.answers.splice(-1,1);
-      this.forceUpdate()
+      this.props.obj.answers.splice(index, 1);
+      this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);
     } else {
-      alert("The question must have at least two answers")
+      alert('The question must have at least two answers');
     }
   }
 
@@ -75,6 +76,7 @@ class Question extends React.PureComponent {
           text={ answer.answer }
           correct={ question.correctAnswer == index }
           question={ id }
+          removeAnswer={ this.removeAnswer }
         />
       );
     });
@@ -104,7 +106,7 @@ class Question extends React.PureComponent {
               placeholder={ 'Question hint' }
             /> {' '}
             <InputGroup.Addon>
-              !
+              <Icon name='lightbulb-o'/> 
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
@@ -122,8 +124,7 @@ class Question extends React.PureComponent {
             { answers }
         </FormGroup>
         <div>
-          <a id="arAnswer" onClick={ this.addAnswer }>Add</a>
-          <a id="arAnswer" onClick={ this.removeAnswer }>Remove</a>
+          <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
         </div>
       </div>
     );
