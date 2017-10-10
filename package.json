@@ -39,6 +39,7 @@
     "react-fa": "^4.2.0",
     "react-foundation": "^0.9.0",
     "react-hint": "^2.0.2",
+    "react-picker": "^1.2.11",
     "react-redux": "^5.0.6",
     "react-reveal": "^0.2.2",
     "react-router": "^4.1.2",
