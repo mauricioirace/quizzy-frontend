@@ -61,7 +61,10 @@ class CreateGame extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { step: 1 };
+    this.state = { 
+      step: 1,
+      disableButtons: false
+    };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -125,6 +128,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onRemoveQuestion(index) {
+    // this.props.changeDescription("asdasd?");    
     this.props.removeQuestion(index);
   }
 
@@ -138,6 +142,10 @@ class CreateGame extends React.PureComponent {
 
   goToStep(index) {
     this.setState({ step: index });
+  }
+
+  togleStepButtons() {
+    this.setState({ disableButtons: !this.state.disableButtons })
   }
 
   showStep() {
@@ -163,11 +171,12 @@ class CreateGame extends React.PureComponent {
                 editQuestion={ this.onEditQuestion }
                 addQuestion={ this.onAddQuestion }
                 removeQuestion={ this.onRemoveQuestion }
+                toggleStepButtons={ this.togleStepButtons.bind(this) }
               />
             </div>
             <div>
-              <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep }>Back</Button>
-              <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='default pull-left' onClick={ this.prevStep }>Back</Button>
+              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
             </div>
           </div>
         )

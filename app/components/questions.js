@@ -41,6 +41,10 @@ class Questions extends React.PureComponent {
     Scroll.animateScroll.scrollToBottom();
   }
 
+  toggleButtons() {
+    this.props.toggleStepButtons();
+  }
+
   renderQuestions(questions) {
     let list = [];
 
@@ -60,10 +64,12 @@ class Questions extends React.PureComponent {
   }
 
   openPanel() {
+    this.props.toggleStepButtons();
     this.setState({ showPanel: true });
   }
 
   closePanel() {
+    this.props.toggleStepButtons();
     this.setState({ showPanel: false });
   }
 
@@ -96,7 +102,7 @@ class Questions extends React.PureComponent {
           { questions[currentItem] }
           <div>
             <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
-            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
+            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Cancel</Button>
           </div>
         </Panel>
       </div>
