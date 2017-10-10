@@ -64,7 +64,6 @@ class Question extends React.PureComponent {
 
   render() {
     const question = this.props.self;
-    const hint = this.props.id;
     const id = this.props.id;
     const answers = [];
     question.answers.forEach( (answer, index) => {
@@ -89,7 +88,7 @@ class Question extends React.PureComponent {
             onChange={ this.changeQuestion }
             value={ question.text }
             placeholder={ 'Question text' }
-          /> {' '}
+          />
           <InputGroup.Addon>
             ?
           </InputGroup.Addon>
@@ -103,7 +102,7 @@ class Question extends React.PureComponent {
               onChange={ this.changeHint }
               value={ question.hint }
               placeholder={ 'Question hint' }
-            /> {' '}
+            />
             <InputGroup.Addon>
               <Icon name='lightbulb-o'/> 
             </InputGroup.Addon>
@@ -112,7 +111,7 @@ class Question extends React.PureComponent {
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass='select' onChange={ this.changeDifficulty }
-          value={ this.props.self.difficulty }>
+          value={ question.difficulty }>
             <option value='Easy'>Easy</option>
             <option value='Medium'>Medium</option>
             <option value='Hard'>Hard</option>

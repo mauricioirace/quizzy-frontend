@@ -30,8 +30,7 @@ class Answer extends React.PureComponent {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);
- }
-
+  }
 
   handleChange(event) {
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
@@ -42,6 +41,10 @@ class Answer extends React.PureComponent {
   }
 
   removeAnswer(index) {
+    const correctAnswerIndex = this.props.questions[this.props.question].correctAnswer;
+    if (index <= correctAnswerIndex) {
+      this.props.changeSelectedAnswer(this.props.question, correctAnswerIndex - 1);    
+    }
     this.props.removeAnswer(index);
   }
 
@@ -59,7 +62,7 @@ class Answer extends React.PureComponent {
               value={ this.props.text }
               placeholder={ 'Answer #' + (this.props.id + 1) }
               onChange={ this.handleChange }
-            /> {' '}
+            />
             <InputGroup.Addon>
             <input type='checkbox' aria-label='...'
             name={ this.props.question }

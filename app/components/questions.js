@@ -40,9 +40,19 @@ class Questions extends React.PureComponent {
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
+  
+  openPanel() {
+    this.props.disableStepButtons();
+    this.setState({ showPanel: true });
+  }
+
+  closePanel() {
+    this.props.enableStepButtons();
+    this.setState({ showPanel: false });
+  }
 
   renderQuestions(questions) {
-    let list = [];
+    const list = [];
 
     questions.map( (question, index) => {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
@@ -59,27 +69,18 @@ class Questions extends React.PureComponent {
     return list;
   }
 
-  openPanel() {
-    this.setState({ showPanel: true });
-  }
-
-  closePanel() {
-    this.setState({ showPanel: false });
-  }
-
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
+    const currentItem = this.state.editIndex;
+    const title = 'Question #' + (currentItem + 1);
+    const questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } scrollToBottom={ this.scrollToBottom } edit={ () => this.onEditQuestion }/>
     );
-    let displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>
         <Grid>
           <Row>
-            { displayQuestions }
+            { this.renderQuestions(questions) }
             <Col xs={2} md={2}>
               <Thumbnail onClick={ this.onAddQuestion } className='thumbnail'>
                 <h3>ADD A NEW QUESTION</h3>
@@ -96,7 +97,7 @@ class Questions extends React.PureComponent {
           { questions[currentItem] }
           <div>
             <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
-            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Delete</Button>
+            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Cancel</Button>
           </div>
         </Panel>
       </div>

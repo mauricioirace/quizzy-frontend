@@ -30,16 +30,17 @@ class GameGeneralInfo extends React.PureComponent {
   }
 
   render() {
+    const game = this.props.gameData;
     return (
       <Form>
         <FormGroup controlId='formName'>
             <ControlLabel>Name</ControlLabel>
-            <FormControl type='text' placeholder='90s music' onChange={ this.onChangeName }/>
+            <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
             <ControlLabel>Description</ControlLabel>
-            <FormControl componentClass='textarea' type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
+            <FormControl componentClass='textarea' value={ game.description } type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
         </FormGroup>
 
         <FormGroup controlId='imageasd'>
@@ -49,7 +50,7 @@ class GameGeneralInfo extends React.PureComponent {
 
         <FormGroup controlId='formCategory'>
             <ControlLabel>Category</ControlLabel>
-            <FormControl componentClass='select' placeholder='select' onChange={ this.onChangeCategory }>
+            <FormControl componentClass='select' value={ game.category } placeholder='select' onChange={ this.onChangeCategory }>
               <option value='music'>Music</option>
               <option value='sports'>Sports</option>
               <option value='videogames'>Videogames</option>
