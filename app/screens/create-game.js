@@ -92,7 +92,6 @@ class CreateGame extends React.PureComponent {
   }
 
   onSuccess() {
-    debugger;
     this.props.history.push('/create-match');
   }
 
@@ -103,7 +102,7 @@ class CreateGame extends React.PureComponent {
 
   componentWillUnmount() {
     // remove all data Game
-    this.props.removeAllData();
+    //this.props.removeAllData();
   }
 
   onAddQuestion() {

@@ -109,7 +109,23 @@ class StartMatch extends React.PureComponent {
 }
 
 StartMatch.propTypes = {
-  currentMatch: PropTypes.object,
+  //matchesData: PropTypes.object,
+  currentMatch: PropTypes.object
 }
 
-export default withRouter(StartMatch);
+const mapStateToProps = state => {
+  console.log('En el store:')
+  console.log(state.matchData)
+  return {
+    //matches: state.matchesData.matches,
+    currentMatch: state.matchData.match
+  }
+}
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     setCurrentMatch: (match) => dispatch(setCurrentMatch(match)),
+//   };
+// }
+
+export default connect(mapStateToProps)(withRouter(StartMatch));

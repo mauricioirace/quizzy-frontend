@@ -49,7 +49,7 @@ export class App extends React.PureComponent {
               <Route exact path='/end-normal-game' component={ EndNormalGame }/>
               <Route exact path='/create-match' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
-              <Route exact path='/start-match' render={ this.renderStartMatch }/>
+              <Route exact path='/start-match/:url' render={ this.renderStartMatch }/>
             </Switch>
           </div>
         </div>

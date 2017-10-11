@@ -7,6 +7,10 @@ import {
   MATCH_NAME_ERROR,
   ANSWER_QUESTION,
   NEXT_QUESTION,
+  SET_CURRENT_MATCH,
+  CREATING_MATCH,
+  CREATE_MATCH_SUCCESS,
+  CREATE_MATCH_FAILURE,
   TIMEOUT
 } from '../constants/match';
 
@@ -151,6 +155,26 @@ export default (state = initialState, action) => {
           answer:false
         }
       };
+    case SET_CURRENT_MATCH:
+      return {
+        ...state,
+        match: action.match
+      };
+    case CREATING_MATCH:
+      return {
+        ...state,
+        error: false
+      };
+    case CREATE_MATCH_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
+    case CREATE_MATCH_SUCCESS:
+      return {
+        ...state,
+        error: false
+      }
     default:
       return state
   }

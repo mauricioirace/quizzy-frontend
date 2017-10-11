@@ -8,6 +8,10 @@ import {
   MATCH_NAME_ERROR,
   ANSWER_QUESTION,
   NEXT_QUESTION,
+  SET_CURRENT_MATCH,
+  CREATING_MATCH,
+  CREATE_MATCH_SUCCESS,
+  CREATE_MATCH_FAILURE,
   TIMEOUT
 } from '../constants/match';
 
@@ -37,6 +41,11 @@ export const loadMatchDataFailure = () => ({
   type: LOAD_MATCH_DATA_FAILURE,
 });
 
+export const setCurrentMatch = (match) => ({
+  type: SET_CURRENT_MATCH,
+  match,
+});
+
 export const fetchMatch = (matchName) => {
   return (dispatch) => {
     dispatch(loadMatchData());
@@ -46,6 +55,39 @@ export const fetchMatch = (matchName) => {
       })
       .catch((err) => {
         dispatch(loadMatchDataFailure())
+      });
+  }
+};
+
+export const creatingMatch = () => {
+  return {
+    type: CREATING_MATCH,
+  }
+};
+
+export const createMatchSuccess = () => {
+  return {
+    type: CREATE_MATCH_SUCCESS,
+  }
+};
+
+export const createMatchFailure = (error) => {
+  return {
+    type: CREATE_MATCH_FAILURE,
+    error
+  }
+};
+
+export const createMatch = (match, onSuccess) => {
+  return (dispatch) => {
+    dispatch(creatingMatch());
+    matchService.create(match)
+      .then(() => {
+        dispatch(createMatchSuccess());
+        onSuccess();
+      })
+      .catch((error) => {
+        dispatch(createMatchFailure(error.response.data.error))
       });
   }
 };
