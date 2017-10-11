@@ -40,8 +40,8 @@ class AnswerQuestion extends React.PureComponent {
   render() {
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
-
     const answered = this.props.matchState.answer;
+
     return (
         <div>
           <QuestionHeader

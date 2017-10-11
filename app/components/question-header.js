@@ -14,8 +14,6 @@ class QuestionHeader extends React.PureComponent {
   }
   renderer({ total, days, hours, minutes, seconds, milliseconds, completed } ) {
     const percentage = total/this.props.seconds /10 ;
-    // bootstrapUtils.addStyle(ProgressBar, 'quizzy');
-
     return (
       <Grid fluid>
         <Row>
@@ -46,10 +44,7 @@ class QuestionHeader extends React.PureComponent {
           </Col>
         </Row>
       </Grid>
-
     );
-
-
   }
 
   render() {
