@@ -54,26 +54,7 @@ const testMatch = {
       ],
       correctAnswer:4
     },],
-    ranking: [{
-               user: "durant",
-               points: 3900,
-            },
-            {
-               user: "leonard",
-               points: 2000,
-            },
-            {
-               user: "curry",
-               points: 90,
-            },
-            {
-               user: "lebron",
-               points: 70,
-            },
-            {
-               user: "kyrie",
-               points: 65,
-            }]
+    ranking: []
   }
 };
 

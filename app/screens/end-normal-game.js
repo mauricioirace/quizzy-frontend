@@ -31,7 +31,7 @@ class EndNormalGame extends React.PureComponent {
     };
     this.setModalSignIn = this.setModalSignIn.bind(this);
     this.setModalSignUp = this.setModalSignUp.bind(this);
-    this.setModalHide = this.setModalHide.bind(this);  //si uso el this tengo que bindear
+    this.setModalHide = this.setModalHide.bind(this);
     this.renderLeaderBoard = this.renderLeaderBoard.bind(this);
     this.saveMatch = this.saveMatch.bind(this);
   }
@@ -59,17 +59,14 @@ class EndNormalGame extends React.PureComponent {
   }
 
   renderLeaderBoard() {
-    var init_leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
-    init_leaderboard.push({ user: this.props.matchData.state.player,
-                       points: this.props.matchData.state.score
-                    });
-
-    var leaderboard = sortBy(init_leaderboard, 'points').reverse();
-
-
-    var lastIndex = size(leaderboard) - 1;
-    var items = [];
-
+    const init_leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    init_leaderboard.push({
+      user: this.props.matchData.state.player,
+      points: this.props.matchData.state.score
+    });
+    const leaderboard = sortBy(init_leaderboard, 'points').reverse();
+    const lastIndex = size(leaderboard) - 1;
+    const items = [];
 
     var i = 0;
     var encontre = false;
@@ -77,8 +74,7 @@ class EndNormalGame extends React.PureComponent {
       if (this.props.matchData.state.player === leaderboard[i].user && 
         this.props.matchData.state.score === leaderboard[i].points) {
           encontre = true;
-      }
-      else {
+      } else {
         i = i + 1;
       }
     }
@@ -88,7 +84,8 @@ class EndNormalGame extends React.PureComponent {
       userPlace = i;
     } 
 
-    if (userPlace > -1) {  //check if player was found
+    //check if player was found
+    if (userPlace > -1) {
       
       if (lastIndex <= 4) {
 
@@ -111,9 +108,9 @@ class EndNormalGame extends React.PureComponent {
           )
         }
 
-      }
-      else {
-        if (userPlace === 0 || userPlace === 1) { //if current user is in first place or second one
+      } else {
+        //if current user is in first place or second one
+        if (userPlace === 0 || userPlace === 1) {
 
           //show 5 starting from 0
           for (i = 0; i <= 4; i++) {
@@ -134,9 +131,9 @@ class EndNormalGame extends React.PureComponent {
             )
           }
 
-        }
-        else {
-          if (userPlace === lastIndex || userPlace === lastIndex - 1) { //if current user is the last or previous than last 
+        } else {
+          //if current user is the last or previous than last 
+          if (userPlace === lastIndex || userPlace === lastIndex - 1) {
             
             //show 5 starting from lastIndex - 4
             leaderboard.forEach( (entry, i) => {
@@ -159,8 +156,7 @@ class EndNormalGame extends React.PureComponent {
               }
             });
 
-          }
-          else {
+          } else {
 
             //current user is in the middle
             leaderboard.forEach( (entry, i) => {
@@ -191,7 +187,6 @@ class EndNormalGame extends React.PureComponent {
   }
 
   render() {
-
     const score = this.props.matchData.state.score;
     return (
       <div className='container'>

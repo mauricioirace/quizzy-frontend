@@ -1,10 +1,10 @@
 @import '../../assets/styles/variables.scss';
 
 .table-responsive {
-	.table {
-		.current-player {
-			background-color: $primary-color;
-			font-weight: bold;
-		}
+  .table {
+    .current-player {
+	  background-color: $primary-color;
+	  font-weight: bold;
 	}
+  }
 }
