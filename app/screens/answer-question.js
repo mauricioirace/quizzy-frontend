@@ -7,9 +7,7 @@ import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
-
-
-export const TIME_TO_ANSWER = 15;
+import { TIME_TO_ANSWER } from '../constants/match';
 
 const mapStateToProps = (state) => {
   return {

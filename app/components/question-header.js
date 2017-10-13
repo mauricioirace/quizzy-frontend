@@ -2,16 +2,15 @@ import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
 import PropTypes from 'prop-types';
 import '../stylesheets/timer.scss';
-
 import Countdown from 'react-countdown-now';
 import { Col, Grid, PageHeader, Row } from 'react-bootstrap';
-
 
 class QuestionHeader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.renderer = this.renderer.bind(this);
   }
+
   renderer({ total, days, hours, minutes, seconds, milliseconds, completed } ) {
     const percentage = total/this.props.seconds /10 ;
     return (
@@ -66,5 +65,5 @@ QuestionHeader.PropTypes = {
   total: PropTypes.number,
   remaining: PropTypes.number,
   onTimeout: PropTypes.func
-};
+}
 export default QuestionHeader;
