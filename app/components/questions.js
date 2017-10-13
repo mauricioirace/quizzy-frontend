@@ -70,10 +70,17 @@ class Questions extends React.PureComponent {
   }
 
   render() {
-    const currentItem = this.state.editIndex;
-    const title = 'Question #' + (currentItem + 1);
-    const questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } scrollToBottom={ this.scrollToBottom } edit={ () => this.onEditQuestion }/>
+    let currentItem = this.state.editIndex;
+    let title = 'Question #' + (currentItem + 1);
+    let questions = this.props.questions.map( (question, index) =>
+      <Question 
+        key={ index } 
+        id={ index } 
+        obj={ question } 
+        scrollToBottom={ this.scrollToBottom } 
+        edit={ () => this.onEditQuestion }
+        closePanel={ this.closePanel }
+      />
     );
 
     return (
@@ -95,10 +102,6 @@ class Questions extends React.PureComponent {
           </div>
           <hr/>
           { questions[currentItem] }
-          <div>
-            <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
-            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Cancel</Button>
-          </div>
         </Panel>
       </div>
     );
