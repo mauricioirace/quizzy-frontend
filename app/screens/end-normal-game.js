@@ -105,16 +105,15 @@ class EndNormalGame extends React.PureComponent {
       } else {
         //if current user is in first place or second one
         if (userPlace === 0 || userPlace === 1) {
-
           //show 5 starting from 0
           for (i = 0; i <= 4; i++) {
             items.push(
               isEqual(leaderboard[i].user, this.props.matchData.state.player) ? ( 
-              <tr className='current-player'>
-                <td>{ i + 1 }</td>
-                <td>{ leaderboard[i].user }</td>
-                <td>{ leaderboard[i].points } pts</td>
-              </tr>
+                <tr className='current-player'>
+                  <td>{ i + 1 }</td>
+                  <td>{ leaderboard[i].user }</td>
+                  <td>{ leaderboard[i].points } pts</td>
+                </tr>
               ) : (
                 <tr>
                   <td>{ i + 1 }</td>
@@ -133,11 +132,11 @@ class EndNormalGame extends React.PureComponent {
               if (i >= lastIndex - 4) {
                 items.push(
                   isEqual(entry.user, this.props.matchData.state.player) ? ( 
-                  <tr className='current-player'>
-                    <td>{ i + 1 }</td>
-                    <td>{ entry.user }</td>
-                    <td>{ entry.points } pts</td>
-                  </tr>
+                    <tr className='current-player'>
+                      <td>{ i + 1 }</td>
+                      <td>{ entry.user }</td>
+                      <td>{ entry.points } pts</td>
+                    </tr>
                   ) : (
                     <tr>
                       <td>{ i + 1 }</td>
@@ -154,11 +153,11 @@ class EndNormalGame extends React.PureComponent {
               if ((i >= userPlace - 2) && (i <= userPlace + 2)) {
                 items.push(
                   isEqual(entry.user, this.props.matchData.state.player) ? ( 
-                  <tr className='current-player'>
-                    <td>{ i + 1 }</td>
-                    <td>{ entry.user }</td>
-                    <td>{ entry.points } pts</td>
-                  </tr>
+                    <tr className='current-player'>
+                      <td>{ i + 1 }</td>
+                      <td>{ entry.user }</td>
+                      <td>{ entry.points } pts</td>
+                    </tr>
                   ) : (
                     <tr>
                       <td>{ i + 1 }</td>
@@ -169,7 +168,6 @@ class EndNormalGame extends React.PureComponent {
                 )
               }
             });
-
           }
         }
       }
