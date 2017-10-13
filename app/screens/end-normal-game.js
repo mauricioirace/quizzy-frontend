@@ -16,11 +16,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
-  };
-}
+const mapDispatchToProps = dispatch => {}
 
 class EndNormalGame extends React.PureComponent {
     
@@ -68,18 +64,17 @@ class EndNormalGame extends React.PureComponent {
     const lastIndex = size(leaderboard) - 1;
     const items = [];
 
-    var i = 0;
-    var encontre = false;
+    let i = 0;
+    let encontre = false;
     while (!encontre && i <= lastIndex) {
-      if (this.props.matchData.state.player === leaderboard[i].user && 
-        this.props.matchData.state.score === leaderboard[i].points) {
+      if (this.props.matchData.state.player === leaderboard[i].user) {
           encontre = true;
       } else {
         i = i + 1;
       }
     }
 
-    var userPlace = -1;
+    let userPlace = -1;
     if (encontre) {
       userPlace = i;
     } 
@@ -107,7 +102,6 @@ class EndNormalGame extends React.PureComponent {
             )
           )
         }
-
       } else {
         //if current user is in first place or second one
         if (userPlace === 0 || userPlace === 1) {
@@ -130,7 +124,6 @@ class EndNormalGame extends React.PureComponent {
               )
             )
           }
-
         } else {
           //if current user is the last or previous than last 
           if (userPlace === lastIndex || userPlace === lastIndex - 1) {
@@ -155,9 +148,7 @@ class EndNormalGame extends React.PureComponent {
                 )
               }
             });
-
           } else {
-
             //current user is in the middle
             leaderboard.forEach( (entry, i) => {
               if ((i >= userPlace - 2) && (i <= userPlace + 2)) {
