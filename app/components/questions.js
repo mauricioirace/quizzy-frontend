@@ -70,9 +70,9 @@ class Questions extends React.PureComponent {
   }
 
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
+    const currentItem = this.state.editIndex;
+    const title = 'Question #' + (currentItem + 1);
+    const questions = this.props.questions.map( (question, index) =>
       <Question 
         key={ index } 
         id={ index } 
@@ -82,6 +82,7 @@ class Questions extends React.PureComponent {
         closePanel={ this.closePanel }
       />
     );
+    const displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>

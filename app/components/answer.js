@@ -27,6 +27,9 @@ const mapDispatchToProps = (dispatch) => {
 class Answer extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      text: '',
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);
@@ -48,6 +51,12 @@ class Answer extends React.PureComponent {
     this.props.removeAnswer(index);
   }
 
+  rollbackState(question) {
+    this.setState({
+
+    });
+  }
+
   render() {
     return (
       <div className='answer'>
@@ -64,12 +73,12 @@ class Answer extends React.PureComponent {
               onChange={ this.handleChange }
             />
             <InputGroup.Addon>
-            <input type='checkbox' aria-label='...'
-            name={ this.props.question }
-            value={ this.props.id }
-            checked={ this.props.correct }
-            onClick={ this.handleSelectionChange }
-            />
+              <input type='checkbox' aria-label='...'
+              name={ this.props.question }
+              value={ this.props.id }
+              checked={ this.props.correct }
+              onClick={ this.handleSelectionChange }
+              />
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
