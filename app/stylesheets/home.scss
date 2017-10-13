@@ -25,6 +25,10 @@
   }
 }
 
+.button.grey {
+  height: 100%;
+}
+
 .match-container {
   float: right;
   width: 100%;
@@ -84,12 +88,38 @@
         font-size: 15px !important;
       }
 
+      input {
+        max-width: 350px !important;
+      }
+
+      h2 {
+        font-size: 14px !important;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .play-link {
+        width: 100%;
+        margin-top: 10px;
+      }
+
       .brand-heading {
         display: inline-block;
+        font-size: 65px;
 
         .intro-text {
           font-size: 26px;
         }
+      }
+
+      .slideInDown {
+        margin: auto;
+      }
+
+      .slideInUp {
+        margin: 30px 20px;
       }
     }
   }
@@ -209,5 +239,14 @@
 
   .fadeIn {
     margin: auto;
+  }
+}
+
+@media(max-width: 768px) {
+  .content-section {
+
+    .brand-heading {
+      font-size: 65px;
+    }
   }
 }

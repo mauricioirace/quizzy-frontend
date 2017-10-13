@@ -5,13 +5,20 @@ import { Navbar } from 'react-bootstrap';
 import '../stylesheets/header.scss';
 
 class Header extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('click', this.animateScroll);
     window.addEventListener('load', this.animateScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('click', this.animateScroll);
+    window.removeEventListener('load', this.animateScroll);
   }
 
   handleScroll(event) {
@@ -33,17 +40,33 @@ class Header extends React.PureComponent {
   }
 
   render() {
+    var currentLocation = this.props.location.pathname;
+    var homeButton;
+    if (currentLocation == '/') {
+      var navbarAction = (
+        <div className='navbar-action'>
+          <a className='page-scroll' href='#matches'>Games</a>
+          <a className='page-scroll' href='#about'>About</a>
+        </div>
+      );
+      homeButton = (
+        <a className='navbar-brand page-scroll' href='#page-top'>
+          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
+        </a>
+      );
+    } else {
+      homeButton = (
+        <a className='navbar-brand page-scroll'>
+          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
+        </a>
+      );
+    }
     return (
       <Navbar fixedTop role='navigation'>
         <div className='container'>
-          <div className='navbar-action'>
-            <a className='page-scroll' href='#matches'>Games</a>
-            <a className='page-scroll' href='#about'>About</a>
-          </div>
+          { navbarAction }
           <div className='navbar-header'>
-            <a className='navbar-brand page-scroll' href='#page-top'>
-              <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
-            </a>
+          { homeButton }
           </div>
         </div>
       </Navbar>

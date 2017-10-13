@@ -7,3 +7,17 @@
     content: url(../../assets/images/play_button_fill.png);
   }
 }
+
+@media(max-width:768px) {
+  .game-image {
+    display: none;
+  }
+
+  td {
+    font-size: 13px !important;
+  }
+
+  .play_button {
+    height: 50px !important;
+  }
+}

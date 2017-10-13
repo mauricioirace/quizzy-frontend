@@ -14,14 +14,16 @@ import '../stylesheets/home.scss';
 
 export class Home extends React.Component {
   constructor(props) {
-    super(props);this.checkEmptyName
+    super(props);
+    this.checkEmptyName;
     this.handleChange = this.handleChange.bind(this);
     this.checkEmptyName = this.checkEmptyName.bind(this);
+    this.moveTable = this.moveTable.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchGames();
-    window.addEventListener('load', this.switchRows);
+    this.moveTable();
   }
 
   handleChange(event) {
@@ -35,30 +37,15 @@ export class Home extends React.Component {
     }
   }
 
-  animateScroll() {
-    $('a').bind('click', function(event) {
-      var $anchor = $(this);
-      $('html, body').stop().animate({
-        scrollTop: $($anchor.attr('href')).offset().top
-      }, 1500, 'easeInOutExpo');
-      event.preventDefault();
-    });
-  }
-
-  switchRows() {
-    setInterval(function() {
-      var theRow = $('#list tr:last');
-      theRow.remove();
-      theRow.insertBefore('table.table > tbody > tr:first');
-      $('#list tr:first')
-        .find('td')
-        .wrapInner('<div style="display: none;" />')
-        .parent()
-        .find('td > div')
-        .fadeIn(900, function() {
-          var $set = $(this);
-          $set.replaceWith($set.contents());
-        });
+  moveTable() {
+    setInterval(() => {
+      let length = this.props.gamesData.games.length;
+      let last = this.props.gamesData.games[length - 1];
+      this.props.gamesData.games.pop();
+      this.props.gamesData.games.unshift(last);
+      this.setState((state) => {
+        { games: this.props.gamesData.games }
+      });
     }, 4000);
   }
 
@@ -88,10 +75,12 @@ export class Home extends React.Component {
 
   renderGames() {
     const items = [];
-    this.props.gamesData.games.forEach( game => {
-      items.push(
-        <Game data={ game } />
-      );
+    this.props.gamesData.games.forEach((game, index) => {
+      if(index < 5) {
+        items.push(
+          <Game data={ game }/>
+        );
+      }
     });
     return (<tbody> { items } </tbody>);
   }
@@ -119,8 +108,8 @@ export class Home extends React.Component {
                         <input className='fs-16' type='text'
                          name='game' placeholder='Game name' onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
-                          onClick={ this.checkEmptyName } >
-                          <img className='go-button' src={ require('../../assets/images/play_button_fill_shadow.png') }/>
+                          onClick={ this.checkEmptyName } className='play-link' >
+                          <button className='button grey medium'>PLAY!</button>
                         </Link>
                       </div>
                       <div className='form-input horizontal medium'>

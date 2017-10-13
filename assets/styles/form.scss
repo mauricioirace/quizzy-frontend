@@ -22,6 +22,7 @@
 
     &.horizontal {
       display: flex;
+      flex-wrap: wrap;
 
       label {
         padding: 5px 0;

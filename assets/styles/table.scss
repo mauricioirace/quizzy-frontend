@@ -20,6 +20,12 @@
   }
 
   tbody {
+    tr {
+      img {
+        height: 70px;
+      }
+    }
+
     tr:nth-child(even) {
       background-color: $border-grey;
     }
