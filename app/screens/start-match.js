@@ -18,6 +18,18 @@ import { sortBy } from 'underscore';
 import userService from '../services/user';
 import { withRouter } from 'react-router-dom';
 import Reveal from 'react-reveal';
+import {
+  ShareButtons,
+  ShareCounts,
+  generateShareIcon
+} from 'react-share';
+
+
+const {
+  FacebookShareButton,
+} = ShareButtons;
+
+const FacebookIcon = generateShareIcon('facebook');
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
@@ -71,6 +83,13 @@ class StartMatch extends React.PureComponent {
     return (this.state.nicknameError ?  'error' : null)
   }
 
+  copyURL() {
+      const urlInput = document.getElementById('matchURL');
+      urlInput.focus();
+      urlInput.select();
+      document.execCommand('copy', null, null);
+  }
+
   render() {
     return (
       <div className='game-container'>
@@ -88,6 +107,13 @@ class StartMatch extends React.PureComponent {
                 <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
               </div>
             </form>
+            <form>
+             <div className='form-input horizontal long'>
+               <input id='matchURL' type='url' readOnly value={ this.props.currentMatch.url } />
+               <Button className='share' onClick={ this.copyURL }>Copy</Button>
+               <FacebookShareButton url={ this.props.currentMatch.url }><FacebookIcon size='37px'/></FacebookShareButton>
+             </div>
+           </form>
           </div>
         </Reveal>
         <p id='error'></p>
@@ -115,7 +141,7 @@ StartMatch.propTypes = {
 
 const mapStateToProps = state => {
   console.log('En el store:')
-  console.log(state.matchData)
+  console.log(state.matchData.match)
   return {
     //matches: state.matchesData.matches,
     currentMatch: state.matchData.match

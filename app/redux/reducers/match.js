@@ -15,7 +15,7 @@ import {
 } from '../constants/match';
 
 const testMatch = {
-  url: 'food',
+  url: 'foodURL',
   isRealTime: false,
   owner: 'Marcelo Ripoll',
   endingDate: new Date(),
