@@ -45,8 +45,8 @@ class CrudService {
    * @param elem
    * @returns {AxiosPromise}
    */
-  update(elem) {
-    return axios.put(this.repository, elem);
+  update(elem, id) {
+    return axios.put(`${ this.repository }/${ id }`, elem);
   }
 
   /**

@@ -1,11 +1,26 @@
 import React from 'react';
 import Header from '../components/header';
+import LoginModal from '../components/login-modal';
+import RegisterModal from '../components/register-modal';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
         FormControl, Checkbox, Form, ControlLabel } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import endNormalGameStyle from '../../assets/js/end-normal-game.js';
-import { sortBy } from 'underscore';
+import '../stylesheets/end-normal-game.scss';
+import { findIndex, isEqual, size, sortBy } from 'underscore';
+import MatchService from '../services/match.js';
+
+const mapStateToProps = state => {
+  return {
+    matchData: state.matchData,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
+  };
+}
 
 class EndNormalGame extends React.PureComponent {
     
@@ -16,11 +31,13 @@ class EndNormalGame extends React.PureComponent {
     };
     this.setModalSignIn = this.setModalSignIn.bind(this);
     this.setModalSignUp = this.setModalSignUp.bind(this);
-    this.setModalHide = this.setModalHide.bind(this);
+    this.setModalHide = this.setModalHide.bind(this);  //si uso el this tengo que bindear
+    this.renderLeaderBoard = this.renderLeaderBoard.bind(this);
+    this.saveMatch = this.saveMatch.bind(this);
   }
 
   setModalSignIn() {
-    this.setState({ showModal: 'signIn' });    
+    this.setState({ showModal: 'signIn' });
   }
 
   setModalSignUp() {
@@ -28,152 +45,182 @@ class EndNormalGame extends React.PureComponent {
   }
 
   setModalHide() {
-    this.setState({ showModal: 'hide' });    
+    this.setState({ showModal: 'hide' });  
+  }
+
+  saveMatch() {
+    matchService.update(this.props.matchData.match)
+      .then((res) => {
+        this.props.history.push('/');
+      })
+      .catch((err) => {
+        alert(err.error);
+      });
+  }
+
+  renderLeaderBoard() {
+    var init_leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    init_leaderboard.push({ user: this.props.matchData.state.player,
+                       points: this.props.matchData.state.score
+                    });
+
+    var leaderboard = sortBy(init_leaderboard, 'points').reverse();
+
+
+    var lastIndex = size(leaderboard) - 1;
+    var items = [];
+
+
+    var i = 0;
+    var encontre = false;
+    while (!encontre && i <= lastIndex) {
+      if (this.props.matchData.state.player === leaderboard[i].user && 
+        this.props.matchData.state.score === leaderboard[i].points) {
+          encontre = true;
+      }
+      else {
+        i = i + 1;
+      }
+    }
+
+    var userPlace = -1;
+    if (encontre) {
+      userPlace = i;
+    } 
+
+    if (userPlace > -1) {  //check if player was found
+      
+      if (lastIndex <= 4) {
+
+        //show until 5 users starting from 0  
+        for (i = 0; i <= lastIndex; i++) {
+          items.push(
+            isEqual(leaderboard[i].user, this.props.matchData.state.player) ? ( 
+            <tr className='current-player'>
+              <td>{ i + 1 }</td>
+              <td>{ leaderboard[i].user }</td>
+              <td>{ leaderboard[i].points } pts</td>
+            </tr>
+            ) : (
+              <tr>
+                <td>{ i + 1 }</td>
+                <td>{ leaderboard[i].user }</td>
+                <td>{ leaderboard[i].points } pts</td>
+              </tr>
+            )
+          )
+        }
+
+      }
+      else {
+        if (userPlace === 0 || userPlace === 1) { //if current user is in first place or second one
+
+          //show 5 starting from 0
+          for (i = 0; i <= 4; i++) {
+            items.push(
+              isEqual(leaderboard[i].user, this.props.matchData.state.player) ? ( 
+              <tr className='current-player'>
+                <td>{ i + 1 }</td>
+                <td>{ leaderboard[i].user }</td>
+                <td>{ leaderboard[i].points } pts</td>
+              </tr>
+              ) : (
+                <tr>
+                  <td>{ i + 1 }</td>
+                  <td>{ leaderboard[i].user }</td>
+                  <td>{ leaderboard[i].points } pts</td>
+                </tr>
+              )
+            )
+          }
+
+        }
+        else {
+          if (userPlace === lastIndex || userPlace === lastIndex - 1) { //if current user is the last or previous than last 
+            
+            //show 5 starting from lastIndex - 4
+            leaderboard.forEach( (entry, i) => {
+              if (i >= lastIndex - 4) {
+                items.push(
+                  isEqual(entry.user, this.props.matchData.state.player) ? ( 
+                  <tr className='current-player'>
+                    <td>{ i + 1 }</td>
+                    <td>{ entry.user }</td>
+                    <td>{ entry.points } pts</td>
+                  </tr>
+                  ) : (
+                    <tr>
+                      <td>{ i + 1 }</td>
+                      <td>{ entry.user }</td>
+                      <td>{ entry.points } pts</td>
+                    </tr>
+                  )
+                )
+              }
+            });
+
+          }
+          else {
+
+            //current user is in the middle
+            leaderboard.forEach( (entry, i) => {
+              if ((i >= userPlace - 2) && (i <= userPlace + 2)) {
+                items.push(
+                  isEqual(entry.user, this.props.matchData.state.player) ? ( 
+                  <tr className='current-player'>
+                    <td>{ i + 1 }</td>
+                    <td>{ entry.user }</td>
+                    <td>{ entry.points } pts</td>
+                  </tr>
+                  ) : (
+                    <tr>
+                      <td>{ i + 1 }</td>
+                      <td>{ entry.user }</td>
+                      <td>{ entry.points } pts</td>
+                    </tr>
+                  )
+                )
+              }
+            });
+
+          }
+        }
+      }
+    }
+    return (<tbody>{ items }</tbody>);
   }
 
   render() {
+
+    const score = this.props.matchData.state.score;
     return (
       <div className='container'>
-         <Jumbotron>
-          <h1>Your final score is 100!</h1>
+        <Jumbotron>
+          <h1>Your final score is { score }!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
             <Button bsStyle='success' onClick={ () => this.setModalSignIn() }>
               Save
             </Button>
             <Link to={ '/' }>
-              <Button bsStyle='link'>
+              <Button bsStyle='link' onClick={ () => this.saveMatch() }>
                 Continue with your nickname
               </Button>
             </Link>  
           </p>
         </Jumbotron>
 
-        <div className='modal-container' style={{ height: 20 }}>
-          <Modal
-            show={ this.state.showModal == 'signIn' }
-            onHide={ this.setModalHide }
-            container={ this }
-            aria-labelledby='contained-modal-title' 
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id='contained-modal-title'>Sign in to save your score</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form horizontal>
-                <FormGroup controlId='formHorizontalEmail'>
-                  <Col componentClass={ ControlLabel } sm={ 2 }>
-                    Email
-                  </Col>
-                  <Col sm={ 10 }>
-                    <FormControl type='email' placeholder='Email' />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup controlId='formHorizontalPassword'>
-                  <Col componentClass={ ControlLabel } sm={ 2 }>
-                    Password
-                  </Col>
-                  <Col sm={ 10 }>
-                    <FormControl type='password' placeholder='Password' />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup>
-                  <Col smOffset={ 2 } sm={ 10 }>
-                    <Checkbox>
-                      Remember me
-                    </Checkbox>
-                  </Col>
-                </FormGroup>
-
-                <FormGroup>
-                  <Col smOffset={ 2 } sm={ 10 }>
-                    <Link to={'/'}>
-                      <Button bsStyle='primary' type='submit'>
-                        Save and Continue
-                      </Button>
-                    </Link>  
-                  </Col>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Col xs={ 12 } lg={ 4 } sm={ 10 }>
-                <p>Do not have an account?</p>
-                <Button bsStyle='link' onClick={ () => this.setModalSignUp() }>
-                  Sign up
-                </Button>
-              </Col>
-              <Button onClick={ () => this.setModalHide() }>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-
-        <div className='modal-container' style={{ height: 20 }}>
-          <Modal
-            show={ this.state.showModal == 'signUp' }
-            onHide={ this.setModalHide }
-            container={ this }
-            aria-labelledby='contained-modal-title' 
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id='contained-modal-title'>Sign up to save your score</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form horizontal>
-                <FormGroup controlId='formHorizontalUsername'>
-                  <Col componentClass={ ControlLabel } sm={ 2 }>
-                    Username
-                  </Col>
-                  <Col sm={ 10 }>
-                    <FormControl type='text' placeholder='Username' />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup controlId='formHorizontalEmail'>
-                  <Col componentClass={ ControlLabel } sm={ 2 }>
-                    Email
-                  </Col>
-                  <Col sm={ 10 }>
-                    <FormControl type='email' placeholder='Email' />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup controlId='formHorizontalPassword'>
-                  <Col componentClass={ ControlLabel } sm={ 2 }>
-                    Password
-                  </Col>
-                  <Col sm={ 10 }>
-                    <FormControl type='password' placeholder='Password' />
-                  </Col>
-                </FormGroup>
-
-                <FormGroup>
-                  <Col smOffset={ 2 } sm={ 10 }>
-                    <Link to={ '/' }>
-                      <Button bsStyle='primary' type='submit'>
-                        Save and Continue
-                      </Button>
-                    </Link>  
-                  </Col>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Col xs={ 12 } lg={ 4 } sm={ 10 }>
-                <Button bsStyle='link' onClick={ () => this.setModalSignIn() }>
-                  Sign in
-                </Button>
-              </Col>
-              <Button onClick={ () => this.setModalHide() }>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
+        <LoginModal
+          show={ this.state.showModal }
+          setSignUp={ this.setModalSignUp }
+          setHide={ this.setModalHide } 
+        />
+      
+        <RegisterModal 
+          show={ this.state.showModal }
+          setSignIn={ this.setModalSignIn }
+          setHide={ this.setModalHide }
+        />
 
         <h2>Leaderboard</h2>
         <Table responsive>
@@ -184,33 +231,7 @@ class EndNormalGame extends React.PureComponent {
               <th>Points</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>13</td>
-              <td>guille</td>
-              <td>105</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>seba_bolso</td>
-              <td>103</td>
-            </tr>
-            <tr style={ endNormalGameStyle.currentPlayer }>
-              <td>15</td>
-              <td>pepito (You)</td>
-              <td>100</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>mauricap</td>
-              <td>97</td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>voiras</td>
-              <td>95</td>
-            </tr>
-          </tbody>
+          { this.renderLeaderBoard() }
         </Table>
         <p>
           Share your score!
@@ -219,18 +240,6 @@ class EndNormalGame extends React.PureComponent {
       </div>
     )
   }
-}
-
-const mapStateToProps = state => {
-  return {
-    matchData: state.matchData,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
-  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
