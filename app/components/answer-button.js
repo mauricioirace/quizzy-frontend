@@ -1,7 +1,7 @@
 import React from 'react';
 import '../stylesheets/answer-question.scss';
 import { Button } from 'react-bootstrap';
-
+import { bootstrapUtils } from 'react-bootstrap/lib/utils';
 class AnswerButton extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -22,9 +22,12 @@ class AnswerButton extends React.PureComponent {
     }
   }
   render() {
+    bootstrapUtils.addStyle(Button, 'custom');
+
     return (
       <Button
         onClick={ this.props.onClick }
+        bsStyle='custom'
         style={ this.revealStyle(this.props.answered, this.props.correct) }
         disabled={ this.props.answered !== false }
       >
