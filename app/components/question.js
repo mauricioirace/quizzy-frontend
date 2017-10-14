@@ -1,7 +1,8 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, addOrRemoveQuestionAnswer } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, 
+  addOrRemoveQuestionAnswer, changeSelectedAnswer } from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
@@ -11,7 +12,8 @@ const mapDispatchToProps = (dispatch) => {
       changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
       changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
       changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
-      addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),      
+      addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),    
+      changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),      
     };
 };
 
@@ -28,7 +30,8 @@ class Question extends React.PureComponent {
       text: '',
       hint: '',
       difficulty: 'Easy',
-      answers: this.props.obj.answers.slice(0, 6)
+      answers: this.props.obj.answers,
+      correctAnswer: this.props.obj.correctAnswer
     };
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
@@ -80,13 +83,15 @@ class Question extends React.PureComponent {
   
   cancelChanges() {
     this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
+    this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);    
     const question = this.props.obj;    
     this.rollbackState(question)
     this.props.closePanel();
   }
 
   saveChanges() {
-    this.setState({ answers: this.props.obj.answers.slice(0, 6) })
+    this.setState({ correctAnswer: this.props.obj.correctAnswer });
+    this.setState({ answers: this.props.obj.answers });
     this.props.changeQuestionName(this.state.text, this.props.id);   
     this.props.changeHintQuestion(this.state.hint, this.props.id);    
     this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);    

@@ -27,9 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 class Answer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);
@@ -38,23 +35,19 @@ class Answer extends React.PureComponent {
   handleChange(event) {
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
   }
-
+  
   handleSelectionChange(event) {
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
   removeAnswer(index) {
     const correctAnswerIndex = this.props.questions[this.props.question].correctAnswer;
-    if (index <= correctAnswerIndex) {
-      this.props.changeSelectedAnswer(this.props.question, correctAnswerIndex - 1);    
+    if (correctAnswerIndex != 0) {
+      if (index <= correctAnswerIndex) {
+        this.props.changeSelectedAnswer(this.props.question, correctAnswerIndex - 1);
+      }
     }
     this.props.removeAnswer(index);
-  }
-
-  rollbackState(question) {
-    this.setState({
-
-    });
   }
 
   render() {
