@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
 import Scroll from 'react-scroll';
-import { Button, Col, Row, Form, ControlLabel,
+import { Col, Row, Form, ControlLabel,
   FormControl, Panel, Thumbnail, Grid } from 'react-bootstrap';
 
 class Questions extends React.PureComponent {
@@ -73,8 +73,16 @@ class Questions extends React.PureComponent {
     const currentItem = this.state.editIndex;
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } scrollToBottom={ this.scrollToBottom } edit={ () => this.onEditQuestion }/>
+      <Question 
+        key={ index } 
+        id={ index } 
+        obj={ question } 
+        scrollToBottom={ this.scrollToBottom } 
+        edit={ () => this.onEditQuestion }
+        closePanel={ this.closePanel }
+      />
     );
+    const displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>
@@ -95,10 +103,6 @@ class Questions extends React.PureComponent {
           </div>
           <hr/>
           { questions[currentItem] }
-          <div>
-            <Button bsStyle='default pull-right' onClick={ this.closePanel }>Save</Button>
-            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) }>Cancel</Button>
-          </div>
         </Panel>
       </div>
     );

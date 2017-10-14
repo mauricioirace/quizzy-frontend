@@ -35,15 +35,17 @@ class Answer extends React.PureComponent {
   handleChange(event) {
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
   }
-
+  
   handleSelectionChange(event) {
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
   removeAnswer(index) {
     const correctAnswerIndex = this.props.questions[this.props.question].correctAnswer;
-    if (index <= correctAnswerIndex) {
-      this.props.changeSelectedAnswer(this.props.question, correctAnswerIndex - 1);    
+    if (correctAnswerIndex != 0) {
+      if (index <= correctAnswerIndex) {
+        this.props.changeSelectedAnswer(this.props.question, correctAnswerIndex - 1);
+      }
     }
     this.props.removeAnswer(index);
   }
@@ -64,12 +66,12 @@ class Answer extends React.PureComponent {
               onChange={ this.handleChange }
             />
             <InputGroup.Addon>
-            <input type='checkbox' aria-label='...'
-            name={ this.props.question }
-            value={ this.props.id }
-            checked={ this.props.correct }
-            onClick={ this.handleSelectionChange }
-            />
+              <input type='checkbox' aria-label='...'
+              name={ this.props.question }
+              value={ this.props.id }
+              checked={ this.props.correct }
+              onClick={ this.handleSelectionChange }
+              />
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>

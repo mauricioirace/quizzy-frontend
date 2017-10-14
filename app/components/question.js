@@ -1,29 +1,38 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, addOrRemoveQuestionAnswer } from '../redux/actions/game';
+import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, 
+  addOrRemoveQuestionAnswer, changeSelectedAnswer } from '../redux/actions/game';
 import '../stylesheets/question.scss';
-import { Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-      changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
-      changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
-      changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
-      addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),      
-    };
+  return {
+    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
+    changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
+    changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
+    addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),    
+    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),      
+  };
 };
 
 const mapStateToProps = (state,props) => {
-    return {
-      self: state.gameData.questions[props.id]
-    };
+  return {
+    self: state.gameData.questions[props.id]
+  };
 };
 
 class Question extends React.PureComponent {
   constructor(props){
     super(props);
+    this.state = {
+      text: '',
+      hint: '',
+      difficulty: 'Easy',
+      answers: this.props.obj.answers,
+      correctAnswer: this.props.obj.correctAnswer
+    };
     this.changeQuestion = this.changeQuestion.bind(this);
     this.changeDifficulty = this.changeDifficulty.bind(this);
     this.changeHint = this.changeHint.bind(this);
@@ -32,21 +41,22 @@ class Question extends React.PureComponent {
   }
 
   changeQuestion(event) {
-    this.props.changeQuestionName(event.target.value, this.props.id);
+    this.setState({ text: event.target.value });
   }
 
   changeHint(event){
-    this.props.changeHintQuestion(event.target.value, this.props.id);
+    this.setState({ hint: event.target.value });    
   }
 
   changeDifficulty (event) {
-    this.props.changeQuestionDifficulty(event.target.value, this.props.id);
+    this.setState({ difficulty: event.target.value });
   }
 
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
-      this.props.obj.answers.push({ 'answer': '' });
-      this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);      
+      const newAnswers = this.props.obj.answers.slice(0, 6);
+      newAnswers.push({ 'answer': '' });
+      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);      
       this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
@@ -55,11 +65,36 @@ class Question extends React.PureComponent {
 
   removeAnswer(index) {
     if (this.props.obj.answers.length > 2) {
-      this.props.obj.answers.splice(index, 1);
-      this.props.addOrRemoveQuestionAnswer(this.props.obj.answers, this.props.id);
+      const newAnswers = this.props.obj.answers.slice(0, 6);
+      newAnswers.splice(index, 1);
+      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
     } else {
       alert('The question must have at least two answers');
     }
+  }
+
+  rollbackState(question) {
+    this.setState({
+      text: question.text,
+      hint: question.hint,
+      difficulty: question.difficulty
+    });
+  }
+  
+  cancelChanges() {  
+    this.rollbackState(this.props.obj);
+    this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
+    this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);    
+    this.props.closePanel();
+  }
+
+  saveChanges() {
+    this.setState({ answers: this.props.obj.answers });
+    this.setState({ correctAnswer: this.props.obj.correctAnswer });
+    this.props.changeQuestionName(this.state.text, this.props.id);   
+    this.props.changeHintQuestion(this.state.hint, this.props.id);    
+    this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);    
+    this.props.closePanel();
   }
 
   render() {
@@ -86,12 +121,10 @@ class Question extends React.PureComponent {
           <FormControl
             type='text'
             onChange={ this.changeQuestion }
-            value={ question.text }
+            value={ this.state.text }
             placeholder={ 'Question text' }
           />
-          <InputGroup.Addon>
-            ?
-          </InputGroup.Addon>
+          <InputGroup.Addon>?</InputGroup.Addon>
           </InputGroup>
         </FormGroup>
         <FormGroup>
@@ -100,7 +133,7 @@ class Question extends React.PureComponent {
             <FormControl
               type='text'
               onChange={ this.changeHint }
-              value={ question.hint }
+              value={ this.state.hint }
               placeholder={ 'Question hint' }
             />
             <InputGroup.Addon>
@@ -111,7 +144,7 @@ class Question extends React.PureComponent {
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
           <FormControl componentClass='select' onChange={ this.changeDifficulty }
-          value={ question.difficulty }>
+          value={ this.state.difficulty }>
             <option value='Easy'>Easy</option>
             <option value='Medium'>Medium</option>
             <option value='Hard'>Hard</option>
@@ -123,6 +156,10 @@ class Question extends React.PureComponent {
         </FormGroup>
         <div>
           <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
+        </div>
+        <div>
+          <Button bsStyle='default pull-right' onClick={ this.saveChanges.bind(this) }>Save</Button>
+          <Button bsStyle='default pull-right' onClick={ this.cancelChanges.bind(this) }>Cancel</Button>
         </div>
       </div>
     );
