@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
 import Scroll from 'react-scroll';
-import { Button, Col, Row, Form, ControlLabel,
+import { Col, Row, Form, ControlLabel,
   FormControl, Panel, Thumbnail, Grid } from 'react-bootstrap';
 
 class Questions extends React.PureComponent {

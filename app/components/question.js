@@ -8,19 +8,19 @@ import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from '
 import { Icon } from 'react-fa';
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-      changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
-      changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
-      changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
-      addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),    
-      changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),      
-    };
+  return {
+    changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
+    changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
+    changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
+    addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),    
+    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),      
+  };
 };
 
 const mapStateToProps = (state,props) => {
-    return {
-      self: state.gameData.questions[props.id]
-    };
+  return {
+    self: state.gameData.questions[props.id]
+  };
 };
 
 class Question extends React.PureComponent {
@@ -55,8 +55,7 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       const newAnswers = this.props.obj.answers.slice(0, 6);
-      newAnswers.push({ 'answer': '' });
-      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);      
+      this.props.addOrRemoveQuestionAnswer(newAnswers.push({ 'answer': '' }), this.props.id);      
       this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
@@ -66,8 +65,7 @@ class Question extends React.PureComponent {
   removeAnswer(index) {
     if (this.props.obj.answers.length > 2) {
       const newAnswers = this.props.obj.answers.slice(0, 6);
-      newAnswers.splice(index, 1);
-      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
+      this.props.addOrRemoveQuestionAnswer(newAnswers.splice(index, 1), this.props.id);
     } else {
       alert('The question must have at least two answers');
     }
@@ -81,17 +79,16 @@ class Question extends React.PureComponent {
     });
   }
   
-  cancelChanges() {
+  cancelChanges() {  
+    this.rollbackState(this.props.obj);
     this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
     this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);    
-    const question = this.props.obj;    
-    this.rollbackState(question)
     this.props.closePanel();
   }
 
   saveChanges() {
-    this.setState({ correctAnswer: this.props.obj.correctAnswer });
     this.setState({ answers: this.props.obj.answers });
+    this.setState({ correctAnswer: this.props.obj.correctAnswer });
     this.props.changeQuestionName(this.state.text, this.props.id);   
     this.props.changeHintQuestion(this.state.hint, this.props.id);    
     this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);    
