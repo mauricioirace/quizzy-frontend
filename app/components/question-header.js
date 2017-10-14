@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import '../stylesheets/timer.scss';
 import Countdown from 'react-countdown-now';
 import { Col, Grid, PageHeader, Row } from 'react-bootstrap';
+import { SlideFade } from '../components/transitions';
 
 class QuestionHeader extends React.PureComponent {
   constructor(props) {
@@ -11,16 +12,17 @@ class QuestionHeader extends React.PureComponent {
     this.renderer = this.renderer.bind(this);
   }
 
-  renderer({ total, days, hours, minutes, seconds, milliseconds, completed } ) {
+  renderer({ total }) {
     const percentage = total/this.props.seconds /10 ;
+
     return (
-      <Grid fluid>
+      <div>
         <Row>
           <Col sm={ 4 } xsHidden>
-            <CircularProgressbar
-              percentage={ percentage }
-              textForPercentage={ (pct) => `${ total  ? total / 1000 : 'TIMEOUT' }` }
-            />
+              <CircularProgressbar
+                percentage={ percentage }
+                textForPercentage={ (pct) => `${ total  ? total / 1000 : '' }` }
+              />
           </Col>
           <Col sm={ 4 } xs={ 12 }>
             <PageHeader className='text-center'>{ this.props.text }</PageHeader>
@@ -42,7 +44,7 @@ class QuestionHeader extends React.PureComponent {
             </h1>
           </Col>
         </Row>
-      </Grid>
+      </div>
     );
   }
 
@@ -56,7 +58,7 @@ class QuestionHeader extends React.PureComponent {
         />
       )
     } else {
-      return this.renderer({ total:0 });
+      return this.renderer({ total: 0 });
     }
   }
 }

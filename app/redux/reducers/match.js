@@ -47,7 +47,7 @@ const testMatch = {
       correctAnswer:3
     },{
       text:'What is the main ingredient of chocolate cake?',
-      difficulty: 'medium',
+      difficulty: 'Medium',
       answers: [
         'Meringue',
         'Dulce de leche',
@@ -72,6 +72,7 @@ const initialState = {
     player: 'Sergio Puglia',
     score: 0,
     answer: false
+
   }
 };
 

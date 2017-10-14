@@ -25,14 +25,14 @@ class AnswerButton extends React.PureComponent {
     bootstrapUtils.addStyle(Button, 'custom');
 
     return (
-      <Button
-        onClick={ this.props.onClick }
-        bsStyle='custom'
-        style={ this.revealStyle(this.props.answered, this.props.correct) }
-        disabled={ this.props.answered !== false }
-      >
-        { this.props.text }
-      </Button>
+        <Button
+          onClick={ this.props.onClick }
+          bsStyle='custom'
+          style={ this.revealStyle(this.props.answered, this.props.correct) }
+          disabled={ this.props.answered !== false }
+        >
+          { this.props.text }
+        </Button>
     )
   }
 }
