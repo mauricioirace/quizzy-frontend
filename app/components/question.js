@@ -55,7 +55,8 @@ class Question extends React.PureComponent {
   addAnswer() {
     if (this.props.obj.answers.length < 6) {
       const newAnswers = this.props.obj.answers.slice(0, 6);
-      this.props.addOrRemoveQuestionAnswer(newAnswers.push({ 'answer': '' }), this.props.id);      
+      newAnswers.push({ 'answer': '' });
+      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);      
       this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
@@ -65,7 +66,8 @@ class Question extends React.PureComponent {
   removeAnswer(index) {
     if (this.props.obj.answers.length > 2) {
       const newAnswers = this.props.obj.answers.slice(0, 6);
-      this.props.addOrRemoveQuestionAnswer(newAnswers.splice(index, 1), this.props.id);
+      newAnswers.splice(index, 1);
+      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
     } else {
       alert('The question must have at least two answers');
     }
