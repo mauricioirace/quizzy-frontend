@@ -49,9 +49,11 @@ export class Home extends React.Component {
       let last = matchesData.matches[length - 1];
       matchesData.matches.pop();
       matchesData.matches.unshift(last);
-      this.setState((state) => {
-        { matches: matchesData.matches }
-      });
+      if(this.refs.root) {
+        this.setState((state) => {
+          { matches: matchesData.matches }
+        });
+      }
     }, 4000);
   }
 
@@ -71,7 +73,7 @@ export class Home extends React.Component {
       );
     } else if (matchesData.matches) {
       return (
-        <table id='list' className='table'>
+        <table ref="root" id='list' className='table'>
           { this.renderMatches() }
         </table>
       );
@@ -114,7 +116,7 @@ export class Home extends React.Component {
                         <input className='fs-16' type='text'
                          name='game' placeholder='Game name' onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
-                          onClick={ this.checkEmptyName } className='play-link' >
+                          onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button grey medium'>PLAY!</button>
                         </Link>
                       </div>

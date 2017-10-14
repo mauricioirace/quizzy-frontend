@@ -40,7 +40,7 @@ class Header extends React.PureComponent {
   }
 
   render() {
-    var currentLocation = this.props.location.pathname;
+    let currentLocation = this.props.location.pathname;
     var homeButton;
     if (currentLocation == '/') {
       var navbarAction = (
