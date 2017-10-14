@@ -100,14 +100,9 @@
         width: 100%;
       }
 
-      .play-link {
-        width: 100%;
-        margin-top: 10px;
-      }
-
       .brand-heading {
         display: inline-block;
-        font-size: 65px;
+        font-size: 85px;
 
         .intro-text {
           font-size: 26px;
@@ -119,8 +114,16 @@
       }
 
       .slideInUp {
-        margin: 30px 20px;
+        margin: 65px auto;
       }
+    }
+  }
+
+  @media(max-width: 426px) {
+    .play-link {
+      width: 100%;
+      margin-top: 10px !important;
+      margin-left: 0 !important;
     }
   }
 }

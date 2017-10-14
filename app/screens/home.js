@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
-import Game from '../components/game';
+import MatchRow from '../components/match';
 import { connect } from 'react-redux';
 import { loadCurrentMatch, matchNameError } from '../redux/actions/match';
-import { fetchGames } from '../redux/actions/games';
+import { fetchMatches } from '../redux/actions/matches';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { EMPTY_MATCH_NAME } from '../constants/home';
@@ -19,10 +19,15 @@ export class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.checkEmptyName = this.checkEmptyName.bind(this);
     this.moveTable = this.moveTable.bind(this);
+    this.renderMatches = this.renderMatches.bind(this);
+    this.renderTable = this.renderTable.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchGames();
+    this.props.fetchMatches();
+  }
+
+  componentDidMount() {
     this.moveTable();
   }
 
@@ -39,46 +44,47 @@ export class Home extends React.Component {
 
   moveTable() {
     setInterval(() => {
-      let length = this.props.gamesData.games.length;
-      let last = this.props.gamesData.games[length - 1];
-      this.props.gamesData.games.pop();
-      this.props.gamesData.games.unshift(last);
+      const { matchesData } = this.props;
+      let length = matchesData.matches.length;
+      let last = matchesData.matches[length - 1];
+      matchesData.matches.pop();
+      matchesData.matches.unshift(last);
       this.setState((state) => {
-        { games: this.props.gamesData.games }
+        { matches: matchesData.matches }
       });
     }, 4000);
   }
 
   renderTable() {
-    const { gamesData } = this.props;
-    if (gamesData.isFetching) {
+    const { matchesData } = this.props;
+    if (matchesData.isFetching) {
       return (
         <div>
           Loading...
         </div>
       );
-    } else if (gamesData.error) {
+    } else if (matchesData.error != '') {
       return (
         <div>
           Error!
         </div>
       );
-    } else if (gamesData.games) {
+    } else if (matchesData.matches) {
       return (
         <table id='list' className='table'>
-          { this.renderGames() }
+          { this.renderMatches() }
         </table>
       );
     }
     return (<div></div>);
   }
 
-  renderGames() {
+  renderMatches() {
     const items = [];
-    this.props.gamesData.games.forEach((game, index) => {
+    this.props.matchesData.matches.forEach((match, index) => {
       if(index < 5) {
         items.push(
-          <Game data={ game }/>
+          <MatchRow data={ match }/>
         );
       }
     });
@@ -188,22 +194,22 @@ export class Home extends React.Component {
 
 Home.propTypes = {
   matchData: PropTypes.object,
-  gamesData: PropTypes.object,
+  matchesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
-  fetchGames: PropTypes.func,
+  fetchMatches: PropTypes.func,
 }
 
 const mapStateToProps = state => {
   return {
     matchData: state.matchData,
-    gamesData: state.gamesData,
+    matchesData: state.matchesData,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
-    fetchGames: () => dispatch(fetchGames()),
+    fetchMatches: () => dispatch(fetchMatches()),
     matchNameError: (msg) => dispatch(matchNameError(msg))
   };
 }
