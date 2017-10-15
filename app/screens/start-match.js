@@ -28,6 +28,7 @@ class StartMatch extends React.PureComponent {
       nickname: '',
       nicknameError : null,
     };
+    this.match = this.props.location.state.match;
   }
 
   handleChange(event) {
@@ -52,7 +53,7 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
+    const ranking = sortBy(this.match.game.ranking, 'points').reverse();
     const items = [];
     ranking.forEach( (entry, index) => {
       items.push(
@@ -75,10 +76,10 @@ class StartMatch extends React.PureComponent {
       <div className='game-container'>
         <Reveal effect='animated slideInDown'>
           <div className='game-title'>
-            <img src={ this.props.currentMatch.game.image === null ? empty : this.props.currentMatch.game.image } height='100' id='previewImage'/>
-            <h1 id='game-name'>{ this.props.currentMatch.game.name }</h1>
+            <img src={ this.match.game.image } height='100' id='previewImage'/>
+            <h1 id='game-name'>{ this.match.game.name }</h1>
           </div>
-          <h4>Mode: Normal</h4>
+          <h4>Mode: { this.match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
           <div className='form-container'>
             <form>
               <div className='form-input horizontal long'>
@@ -93,7 +94,7 @@ class StartMatch extends React.PureComponent {
         <div className='description-container'>
           <Reveal effect='animated slideInLeft'>
             <h3 className='game-description'>Game description</h3>
-            { this.props.currentMatch.game.description }
+            { this.match.game.description }
           </Reveal>
         </div>
         <Reveal effect='animated slideInRight'>

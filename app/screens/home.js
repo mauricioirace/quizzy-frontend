@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
-import Game from '../components/game';
+import MatchRow from '../components/match';
 import { connect } from 'react-redux';
 import { loadCurrentMatch, matchNameError } from '../redux/actions/match';
-import { fetchGames } from '../redux/actions/games';
+import { fetchMatches } from '../redux/actions/matches';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { EMPTY_MATCH_NAME } from '../constants/home';
@@ -14,14 +14,21 @@ import '../stylesheets/home.scss';
 
 export class Home extends React.Component {
   constructor(props) {
-    super(props);this.checkEmptyName
+    super(props);
+    this.checkEmptyName;
     this.handleChange = this.handleChange.bind(this);
     this.checkEmptyName = this.checkEmptyName.bind(this);
+    this.moveTable = this.moveTable.bind(this);
+    this.renderMatches = this.renderMatches.bind(this);
+    this.renderTable = this.renderTable.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchGames();
-    window.addEventListener('load', this.switchRows);
+    this.props.fetchMatches();
+  }
+
+  componentDidMount() {
+    this.moveTable();
   }
 
   handleChange(event) {
@@ -35,63 +42,53 @@ export class Home extends React.Component {
     }
   }
 
-  animateScroll() {
-    $('a').bind('click', function(event) {
-      var $anchor = $(this);
-      $('html, body').stop().animate({
-        scrollTop: $($anchor.attr('href')).offset().top
-      }, 1500, 'easeInOutExpo');
-      event.preventDefault();
-    });
-  }
-
-  switchRows() {
-    setInterval(function() {
-      var theRow = $('#list tr:last');
-      theRow.remove();
-      theRow.insertBefore('table.table > tbody > tr:first');
-      $('#list tr:first')
-        .find('td')
-        .wrapInner('<div style="display: none;" />')
-        .parent()
-        .find('td > div')
-        .fadeIn(900, function() {
-          var $set = $(this);
-          $set.replaceWith($set.contents());
+  moveTable() {
+    setInterval(() => {
+      const { matchesData } = this.props;
+      let length = matchesData.matches.length;
+      let last = matchesData.matches[length - 1];
+      matchesData.matches.pop();
+      matchesData.matches.unshift(last);
+      if(this.refs.root) {
+        this.setState((state) => {
+          { matches: matchesData.matches }
         });
+      }
     }, 4000);
   }
 
   renderTable() {
-    const { gamesData } = this.props;
-    if (gamesData.isFetching) {
+    const { matchesData } = this.props;
+    if (matchesData.isFetching) {
       return (
         <div>
           Loading...
         </div>
       );
-    } else if (gamesData.error) {
+    } else if (matchesData.error != '') {
       return (
         <div>
           Error!
         </div>
       );
-    } else if (gamesData.games) {
+    } else if (matchesData.matches) {
       return (
-        <table id='list' className='table'>
-          { this.renderGames() }
+        <table ref="root" id='list' className='table'>
+          { this.renderMatches() }
         </table>
       );
     }
     return (<div></div>);
   }
 
-  renderGames() {
+  renderMatches() {
     const items = [];
-    this.props.gamesData.games.forEach( game => {
-      items.push(
-        <Game data={ game } />
-      );
+    this.props.matchesData.matches.forEach((match, index) => {
+      if(index < 5) {
+        items.push(
+          <MatchRow data={ match }/>
+        );
+      }
     });
     return (<tbody> { items } </tbody>);
   }
@@ -119,8 +116,8 @@ export class Home extends React.Component {
                         <input className='fs-16' type='text'
                          name='game' placeholder='Game name' onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
-                          onClick={ this.checkEmptyName } >
-                          <img className='go-button' src={ require('../../assets/images/play_button_fill_shadow.png') }/>
+                          onClick={ this.checkEmptyName } className='play-link'>
+                          <button className='button grey medium'>PLAY!</button>
                         </Link>
                       </div>
                       <div className='form-input horizontal medium'>
@@ -199,22 +196,22 @@ export class Home extends React.Component {
 
 Home.propTypes = {
   matchData: PropTypes.object,
-  gamesData: PropTypes.object,
+  matchesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
-  fetchGames: PropTypes.func,
+  fetchMatches: PropTypes.func,
 }
 
 const mapStateToProps = state => {
   return {
     matchData: state.matchData,
-    gamesData: state.gamesData,
+    matchesData: state.matchesData,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
-    fetchGames: () => dispatch(fetchGames()),
+    fetchMatches: () => dispatch(fetchMatches()),
     matchNameError: (msg) => dispatch(matchNameError(msg))
   };
 }

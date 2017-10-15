@@ -5,11 +5,12 @@
 
   &:hover {
     content: url(../../assets/images/play_button_fill.png);
+    cursor: pointer;
   }
 }
 
 @media(max-width:768px) {
-  .game-image {
+  .match-image {
     display: none;
   }
 

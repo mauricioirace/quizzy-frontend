@@ -15,14 +15,15 @@
   transition: background .5s ease-in-out,padding .5s ease-in-out;
   min-height: 70px;
 
-    &.top-nav-collapse {
-      background: $black !important;
-      border-bottom: 1px solid rgba(white, 0.3);
+  &.top-nav-collapse {
+    background: $black !important;
+    border-bottom: 1px solid rgba(white, 0.3);
 
-      a {
-        color: $white !important;
-      }
+    a {
+      color: $white !important;
     }
+  }
+
   .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
@@ -38,27 +39,19 @@
     font-size: 18px;
   }
 
-  .navbar-brand {
-    font-weight: 700;
+  .logo-img {
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
 
-    .logo-img {
-      height: 100%;
-      display: inline-block;
-      position: absolute;
-      top: 6px;
-
-      img {
-        height: 60px;
-      }
-    }
-
-    &:focus {
-      outline: none;
+    img {
+      height: 60px;
     }
   }
 
   a {
-    color: $black !important;
+    color: $white !important;
   }
 
   .navbar-action {
@@ -99,7 +92,7 @@
     }
   }
 
-  @media(min-width:768px) {
+  @media(max-width:768px) {
 
   }
 }
