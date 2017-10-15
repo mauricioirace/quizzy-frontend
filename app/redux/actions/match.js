@@ -84,7 +84,7 @@ export const createMatch = (match, onSuccess) => {
     matchService.create(match)
       .then(() => {
         dispatch(createMatchSuccess());
-        onSuccess();
+        onSuccess(match);
       })
       .catch((error) => {
         dispatch(createMatchFailure(error.response.data.error))

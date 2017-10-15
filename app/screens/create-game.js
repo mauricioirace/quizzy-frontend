@@ -100,11 +100,6 @@ class CreateGame extends React.PureComponent {
     this.props.removeAllData();
   }
 
-  componentWillUnmount() {
-    // remove all data Game
-    //this.props.removeAllData();
-  }
-
   onAddQuestion() {
     let indexWhereAdd = this.props.questions.length;
     this.props.addQuestion(question(indexWhereAdd));

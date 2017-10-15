@@ -10,10 +10,6 @@ export class Match extends React.PureComponent {
     this.props.fetchMatch(this.props.match.params.match);
   }
 
-  componentWillUnmount() {
-    this.props.removeCurrentMatch();
-  }
-
   showMatch() {
     const { matchData } = this.props;
     if (matchData.isFetching) {
