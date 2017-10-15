@@ -8,7 +8,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
 import { findIndex, isEqual, size, sortBy } from 'underscore';
-import MatchService from '../services/match.js';
+import matchService from '../services/match';
 
 const mapStateToProps = state => {
   return {
@@ -16,7 +16,10 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {}
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+}
 
 class EndNormalGame extends React.PureComponent {
     
@@ -55,8 +58,9 @@ class EndNormalGame extends React.PureComponent {
   }
 
   saveMatch() {
-    //actualizar ranking con el leaderboard del state
-    matchService.update(this.props.matchData.match)
+    const current_match = this.props.matchData.match;
+    current_match.game.ranking = this.state.leaderboard;
+    matchService.update(current_match)
       .then((res) => {
         this.props.history.push('/');
       })
@@ -193,7 +197,7 @@ class EndNormalGame extends React.PureComponent {
         }
       }
     }
-    return (<tbody>{ items }</tbody>);
+    return (<tbody>{items}</tbody>);
   }
 
   renderHeaderLeaderBoard() {
