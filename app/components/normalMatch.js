@@ -11,29 +11,6 @@ class NormalMatch extends React.PureComponent {
             <Button>Customize</Button>
           </Col>
         </Row>
-        <Row>
-          <Table striped bordered condensed hover>
-            <thead>
-              <tr>
-                <th>Position</th>
-                <th>Nickname</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Pepe</td>
-                <td>500</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Tito</td>
-                <td>245</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
       </div>
     )
   }

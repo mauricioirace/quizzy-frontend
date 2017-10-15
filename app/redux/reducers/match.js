@@ -64,7 +64,7 @@ const testMatch = {
 
 const initialState = {
   currentMatch: '',
-  match: testMatch,
+  match: false,
   isFetching: false,
   error: false,
   state: {
@@ -81,7 +81,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.msg
-
       };
     case LOAD_CURRENT_MATCH:
       return {
@@ -116,7 +115,6 @@ export default (state = initialState, action) => {
     case ANSWER_QUESTION:
       const question = state.match.game.questions[state.state.question];
       let score = state.state.score;
-
       if (action.correct) {
         switch (question.difficulty) {
           case 'Easy':

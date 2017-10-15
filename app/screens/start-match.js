@@ -40,7 +40,6 @@ class StartMatch extends React.PureComponent {
       nickname: '',
       nicknameError : null,
     };
-    this.match = this.props.location.state.match;
   }
 
   handleChange(event) {
@@ -65,7 +64,7 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = sortBy(this.match.game.ranking, 'points').reverse();
+    const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
     const items = [];
     ranking.forEach( (entry, index) => {
       items.push(
@@ -84,34 +83,35 @@ class StartMatch extends React.PureComponent {
   }
 
   copyURL() {
-      const urlInput = document.getElementById('matchURL');
-      urlInput.focus();
-      urlInput.select();
-      document.execCommand('copy', null, null);
+    const urlInput = document.getElementById('matchURL');
+    urlInput.focus();
+    urlInput.select();
+    document.execCommand('copy', null, null);
   }
 
   render() {
+    const match = this.props.currentMatch;
     return (
       <div className='game-container'>
         <Reveal effect='animated slideInDown'>
           <div className='game-title'>
-            <img src={ this.match.game.image } height='100' id='previewImage'/>
-            <h1 id='game-name'>{ this.match.game.name }</h1>
+            <img src={ match.game.image } height='100' id='previewImage'/>
+            <h1 id='game-name'>{ match.game.name }</h1>
           </div>
-          <h4>Mode: { this.match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
+          <h4>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
           <div className='form-container'>
             <form>
               <div className='form-input horizontal long'>
                 <label>Enter your nickname</label>
-                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange } />
+                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange }/>
                 <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
               </div>
             </form>
             <form>
              <div className='form-input horizontal long'>
-               <input id='matchURL' type='url' readOnly value={ this.props.currentMatch.url } />
+               <input id='matchURL' type='url' readOnly value={ match.url }/>
                <Button className='share' onClick={ this.copyURL }>Copy</Button>
-               <FacebookShareButton url={ this.props.currentMatch.url }><FacebookIcon size='37px'/></FacebookShareButton>
+               <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
              </div>
            </form>
           </div>
@@ -120,7 +120,7 @@ class StartMatch extends React.PureComponent {
         <div className='description-container'>
           <Reveal effect='animated slideInLeft'>
             <h3 className='game-description'>Game description</h3>
-            { this.match.game.description }
+            { match.game.description }
           </Reveal>
         </div>
         <Reveal effect='animated slideInRight'>
@@ -135,23 +135,13 @@ class StartMatch extends React.PureComponent {
 }
 
 StartMatch.propTypes = {
-  //matchesData: PropTypes.object,
   currentMatch: PropTypes.object
 }
 
 const mapStateToProps = state => {
-  console.log('En el store:')
-  console.log(state.matchData.match)
   return {
-    //matches: state.matchesData.matches,
     currentMatch: state.matchData.match
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     setCurrentMatch: (match) => dispatch(setCurrentMatch(match)),
-//   };
-// }
 
 export default connect(mapStateToProps)(withRouter(StartMatch));

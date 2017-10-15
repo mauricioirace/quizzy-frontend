@@ -15,25 +15,6 @@ import './styles.scss';
 import AnswerQuestion from './screens/answer-question';
 
 export class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.renderStartMatch = this.renderStartMatch.bind(this);
-  }
-
-  renderStartMatch() {
-    const obj = {
-      game: {
-        image: 'http://media.supercheapauto.com.au/sports/images/thumbs/384463-thumb.jpg',
-        description: 'Un set de preguntas y respuestas tal que no importa cuanto estudies o creas que sepas, la probabilidad de acertar tiende a 0.',
-        name: 'Arquitectura de computadoras',
-        ranking: [{ nickname: 'Tito', points: 40 }, { nickname: 'Juan', points: 500 }, { nickname: 'Mauri', points: 0 }]
-      }
-    }
-    return (
-      <StartMatch currentMatch={obj}/>
-    );
-  }
-
   render() {
     return (
       <BrowserRouter history={ history }>
@@ -49,7 +30,7 @@ export class App extends React.PureComponent {
               <Route exact path='/end-normal-game' component={ EndNormalGame }/>
               <Route exact path='/create-match' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
-              <Route exact path='/start-match/:url' render={ this.renderStartMatch }/>
+              <Route exact path='/start-match/:url' component={ StartMatch }/>
             </Switch>
           </div>
         </div>

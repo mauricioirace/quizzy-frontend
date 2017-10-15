@@ -86,7 +86,7 @@ export class Home extends React.Component {
     this.props.matchesData.matches.forEach((match, index) => {
       if (index < 5) {
         items.push(
-          <MatchRow data={ match }/>
+          <MatchRow key={ index } data={ match }/>
         );
       }
     });

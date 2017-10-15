@@ -38,10 +38,10 @@ export class CreateMatch extends React.PureComponent {
     });
   }
 
-  handleClick(event) {
-    const { name, description, image, category, questions } = this.props;
+  getMatch() {
+    const { name, description, image, category, questions, currentMatch } = this.props;
     const match = {
-      url: this.props.currentMatch,
+      url: currentMatch,
       owner: 'Fulane of such',
       isRealTime: this.state.switched,
       players: [],
@@ -54,6 +54,11 @@ export class CreateMatch extends React.PureComponent {
         image
       }
     };
+    return match;
+  }
+
+  handleClick(event) {
+    const match = this.getMatch();
     this.props.createMatch(match, this.onSuccess);
   }
 
@@ -63,16 +68,17 @@ export class CreateMatch extends React.PureComponent {
   }
 
   render() {
+    const { name, image } = this.props;
     return (
       <div>
         <Grid>
           <Row>
             <Col lg={4}>
-              <img src={ this.props.image === null ? empty : this.props.image } height='100' id='previewImage'/>
+              <img src={ image === null ? empty : image } height='100' id='previewImage'/>
             </Col>
             <Col lg={8} >
               <Row>
-                <h1>{ this.props.name }</h1>
+                <h1>{ name }</h1>
               </Row>
               <Row>
                 <Row>Mode: { this.state.switched ? 'Real-Time' : 'Normal' }</Row>
@@ -81,7 +87,7 @@ export class CreateMatch extends React.PureComponent {
             </Col>
           </Row>
           <Row>
-            <h2> CREATE A NEW MATCH FOR THIS GAME </h2>
+            <h2>CREATE A NEW MATCH FOR THIS GAME</h2>
           </Row>
           <Row>
             { !this.state.switched ? <NormalMatch/> : <RealTimeMatch/> }
