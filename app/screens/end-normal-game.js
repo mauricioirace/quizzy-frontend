@@ -109,6 +109,7 @@ class EndNormalGame extends React.PureComponent {
     let userPlace = this.findUserPlace(lastIndex);
     let items = [];
     let i;
+
     //check if player was found
     if (userPlace > -1) {
       
@@ -119,74 +120,24 @@ class EndNormalGame extends React.PureComponent {
           this.addItemtoLeaderBoard(items, i);
         }
       } else {
+        
         //if current user is in first place or second one
         if (userPlace === 0 || userPlace === 1) {
+          
           //show 5 starting from 0
           for (i = 0; i <= 4; i++) {
-            items.push(
-              isEqual(leaderboard[i].user, this.props.matchData.state.player) ? ( 
-                <tr className='current-player'>
-                  <td>{ i + 1 }</td>
-                  <td>{ leaderboard[i].user }</td>
-                  <td>{ leaderboard[i].points } pts</td>
-                </tr>
-              ) : (
-                <tr>
-                  <td>{ i + 1 }</td>
-                  <td>{ leaderboard[i].user }</td>
-                  <td>{ leaderboard[i].points } pts</td>
-                </tr>
-              )
-            )
             this.addItemtoLeaderBoard(items, i);
           }
         } else {
+
           //if current user is the last or previous than last 
           if (userPlace === lastIndex || userPlace === lastIndex - 1) {
+            
             //show 5 starting from lastIndex - 4
-            leaderboard.forEach( (entry, i) => {
-              if (i >= lastIndex - 4) {
-                items.push(
-                  isEqual(entry.user, this.props.matchData.state.player) ? ( 
-                    <tr className='current-player'>
-                      <td>{ i + 1 }</td>
-                      <td>{ entry.user }</td>
-                      <td>{ entry.points } pts</td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>{ i + 1 }</td>
-                      <td>{ entry.user }</td>
-                      <td>{ entry.points } pts</td>
-                    </tr>
-                  )
-                )
-              }
-            });
-          } else {
-            //current user is in the middle
-            leaderboard.forEach( (entry, i) => {
-              if ((i >= userPlace - 2) && (i <= userPlace + 2)) {
-                items.push(
-                  isEqual(entry.user, this.props.matchData.state.player) ? ( 
-                    <tr className='current-player'>
-                      <td>{ i + 1 }</td>
-                      <td>{ entry.user }</td>
-                      <td>{ entry.points } pts</td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>{ i + 1 }</td>
-                      <td>{ entry.user }</td>
-                      <td>{ entry.points } pts</td>
-                    </tr>
-                  )
-                )
-              }
-            });
-            for (i = lastIndex - 4; i <= lastIndex; i++) {  
+            for (i = lastIndex - 4; i <= lastIndex; i++) {
               this.addItemtoLeaderBoard(items, i);
             }
+      
           } else {
 
             //current user is in the middle
