@@ -38,8 +38,13 @@
   text-anchor: middle;
 }
 
-.quizzy-text {
-  color: $primary-color;
+.text-correct {
+  color: $font-correct;
+  text-anchor: middle;
+}
+
+.text-wrong {
+  color: $font-wrong;
   text-anchor: middle;
 }
 

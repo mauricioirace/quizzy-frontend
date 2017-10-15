@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { answerQuestion, nextQuestion } from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
 import { withRouter } from 'react-router-dom';
-import { SlideFade } from '../components/transitions';
+import { SlideFadeLeft } from '../components/transitions';
+import { TransitionGroup } from 'react-transition-group';
 
 const mapStateToProps = state => {
   return {
@@ -38,8 +39,8 @@ class AnswerButtons extends React.PureComponent {
     this.props.answerQuestion(correct,answer);
   }
 
-  // view between questions
   waitForNextQuestion() {
+    // view between questions
 
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
@@ -50,11 +51,12 @@ class AnswerButtons extends React.PureComponent {
       } else {
         this.props.nextQuestion();
       }
-    },3000);
+    },4000);
   }
 
   render() {
     const answered = this.props.matchState.answer;
+    console.log(answered);
     if(answered !== false) {
       this.waitForNextQuestion();
     }
@@ -62,18 +64,17 @@ class AnswerButtons extends React.PureComponent {
     const answers = this.props.answers.map((answer, index) => {
       const correct = index === this.props.correctAnswer;
       return (
-
-        <SlideFade in={ answered === false || correct }>
+        <SlideFadeLeft key={ answer } in={ answered === false || correct || answered === index }>
           <AnswerButton
-            key={ index }
-            id={ index }
-            text={ answer }
-            correct={ correct }
-            onClick={ () => this.onClickAnswer(correct,index) }
-            answered={ answered }
-          />
-        </SlideFade>
-      )
+              key={ index }
+              id={ index }
+              text={ answer }
+              correct={ correct }
+              onClick={ () => this.onClickAnswer(correct, index) }
+              answered={ answered }
+            />
+        </SlideFadeLeft>
+        )
     });
     return (
       <ButtonGroup vertical block>

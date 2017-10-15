@@ -1,70 +1,138 @@
 @import '../../assets/styles/variables.scss';
 
 
-// slide-fade
-
-.slide-fade-appear {
+// slide-fade left
+.slide-fade-left-appear {
   left: 50%;
   opacity: 0;
 }
 
-.slide-fade-appear.slide-fade-appear-active {
+.slide-fade-left-appear.slide-fade-left-appear-active {
   left: 0;
   opacity: 1;
-  transition: left 1000ms, opacity 200ms;
+  transition: left 1000ms, opacity 400ms;
 }
-.slide-fade-enter {
+.slide-fade-left-enter {
   left: 50%;
   opacity: 0;
 }
 
-.slide-fade-enter.slide-fade-enter-active {
+.slide-fade-left-enter.slide-fade-left-enter-active {
   left: 0;
   opacity: 1;
-  transition: left 1000ms, opacity 200ms;
+  transition: left 1000ms , opacity 400ms;
 }
 
-.slide-fade-exit {
+.slide-fade-left-exit {
   left: 0;
   opacity: 1;
 }
 
-.slide-fade-exit.slide-fade-exit-active {
+.slide-fade-left-exit.slide-fade-left-exit-active {
   left: -50%;
   opacity: 0;
+  transition: left 1000ms, opacity 400ms;
+}
+
+// slide-fade right
+.slide-fade-right-appear {
+  left: -50%;
+  opacity: 0;
+}
+
+.slide-fade-right-appear.slide-fade-right-appear-active {
+  left: 0;
+  opacity: 1;
   transition: left 1000ms, opacity 200ms;
 }
-
-// zoom in fade
-
-.zoom-in-fade-enter {
-  transform: scale(0.5);
-  opacity: 0.1;
-}
-
-.zoom-in-fade-enter.zoom-in-fade-enter-active {
-  transform: scale(1);
-  opacity: 1;
-  transition: transform 1000ms, opacity 200ms;
-}
-.zoom-in-fade-appear {
-  transform: scale(0.5);
-  opacity: 0.1;
-}
-
-.zoom-in-fade-appear.zoom-in-fade-appear-active {
-  transform: scale(1);
-  opacity: 1;
-  transition: transform 1000ms, opacity 200ms;
-}
-
-.zoom-in-fade-exit {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.zoom-in-fade-exit.zoom-in-fade-exit-active {
-  transform: scale(1.5);
+.slide-fade-right-enter {
+  left: -50%;
   opacity: 0;
-  transition: transform 1000ms, opacity 200ms;
+}
+
+.slide-fade-right-enter.slide-fade-right-enter-active {
+  left: 0;
+  opacity: 1;
+  transition: left 1000ms , opacity 1000ms;
+}
+
+.slide-fade-right-exit {
+  left: 0;
+  opacity: 1;
+}
+
+.slide-fade-right-exit.slide-fade-right-exit-active {
+  left: -50%;
+  opacity: 0;
+  transition: left 1000ms, opacity 1000ms;
+  transition-delay: 3000ms, 3000ms;
+}
+// slide-fade top
+.slide-fade-top-appear {
+  top: -50%;
+  opacity: 0;
+}
+
+.slide-fade-top-appear.slide-fade-top-appear-active {
+  top: 0;
+  opacity: 1;
+  transition: top 1000ms, opacity 200ms;
+}
+.slide-fade-top-enter {
+  top: -50%;
+  opacity: 0;
+}
+
+.slide-fade-top-enter.slide-fade-top-enter-active {
+  top: 0;
+  opacity: 1;
+  transition: top 1000ms , opacity 1000ms;
+}
+
+.slide-fade-top-exit {
+  top: 0;
+  opacity: 1;
+}
+
+.slide-fade-top-exit.slide-fade-top-exit-active {
+  top: -50%;
+  opacity: 0;
+  transition: top 1000ms, opacity 1000ms;
+  transition-delay: 3000ms, 3000ms;
+
+}
+
+// slide fade delayed
+
+.slide-fade-delayed-appear {
+  left: 50%;
+  opacity: 0;
+}
+
+.slide-fade-delayed-appear.slide-fade-delayed-appear-active {
+  left: 0;
+  opacity: 1;
+  transition: left 1000ms, opacity 200ms;
+}
+.slide-fade-delayed-enter {
+  left: 50%;
+  opacity: 0;
+}
+
+.slide-fade-delayed-enter.slide-fade-delayed-enter-active {
+  left: 0;
+  opacity: 1;
+  transition: left 1000ms , opacity 1000ms;
+}
+
+.slide-fade-delayed-exit {
+  left: 0;
+  opacity: 1;
+}
+
+.slide-fade-delayed-exit.slide-fade-delayed-exit-active {
+  left: -50%;
+  opacity: 0;
+  transition: left 1000ms, opacity 1000ms;
+  transition-delay: 3000ms, 3000ms;
 }

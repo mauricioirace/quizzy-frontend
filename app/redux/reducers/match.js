@@ -142,7 +142,7 @@ export default (state = initialState, action) => {
         ...state,
         state: {
           ...state.state,
-          answer: true
+          answer: state.state.answer !== false ? state.state.answer : true
         }
       };
     case NEXT_QUESTION:
