@@ -11,20 +11,26 @@ class QuestionHeader extends React.PureComponent {
     super(props);
     this.renderer = this.renderer.bind(this);
   }
-  renderCorrectnes() {
+  renderCorrectnes(total) {
     const correctness = this.props.correct ? 'YOU ARE\nRIGHT!' : 'WRONG!';
     const correctnesColor = this.props.correct ? 'text-correct text-center': 'text-wrong text-center';
 
     if (!this.props.stop) {
-      return null;
+      return (
+      <h1 className='text-center'>
+        <small className='quizzy-text'>
+          { total / 1000 }
+        </small>
+      </h1>
+      );
     }
     return (
-      <PageHeader className='text-center'>
+      <h1 className='text-center'>
         <small className={ correctnesColor }>
           { correctness }
         </small>
-      </PageHeader>
-    );
+      </h1>
+     );
   }
   renderer({ total }) {
     const percentage = total/this.props.seconds /10 ;
@@ -55,11 +61,7 @@ class QuestionHeader extends React.PureComponent {
         </Row>
         <Row>
           <Col smHidden mdHidden lgHidden>
-            <h1 className='text-center'>
-              <small className='quizzy-text'>
-                { total / 1000 }
-              </small>
-            </h1>
+            { this.renderCorrectnes(total) }
           </Col>
         </Row>
       </div>

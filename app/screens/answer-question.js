@@ -43,27 +43,27 @@ class AnswerQuestion extends React.PureComponent {
     const answered = this.props.matchState.answer;
 
     return (
-          <Grid>
-            <QuestionHeader
-              seconds={ TIME_TO_ANSWER }
-              onTimeout={ this.onTimeout }
-              text={ question.text }
-              stop={ answered }
-              correct={ question.correctAnswer === answered }
-            />
-            <Row>
-              <SlideFadeDelayed in={ answered === false  }>
-                <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
-                  <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
-                </Col>
-              </SlideFadeDelayed>
-            </Row>
-            <Row>
-              <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
-              </Col>
-            </Row>
-          </Grid>
-        )
+      <Grid>
+        <QuestionHeader
+          seconds={ TIME_TO_ANSWER }
+          onTimeout={ this.onTimeout }
+          text={ question.text }
+          stop={ answered }
+          correct={ question.correctAnswer === answered }
+        />
+        <Row>
+          <SlideFadeDelayed in={ answered === false  }>
+            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
+              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
+            </Col>
+          </SlideFadeDelayed>
+        </Row>
+        <Row>
+          <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
+          </Col>
+        </Row>
+      </Grid>
+    )
   }
 }
 
