@@ -21,25 +21,10 @@
       font: normal 14px courier !important;
     }
 
-    .btn-primary, .btn-primary:visited {
-      background-color: $primary-color !important;
-      border-style: none !important;
-    }
-
-    .btn-primary:hover, .btn-primary:active {
-      background-color: $black !important;
-      border-style: none !important;
-    }
-
-    .btn-success {
-      margin-right: 10px;
-    }
-
     #savedelete {
       margin-right: 10px;
     }
   }
-
 
   .error-message {
     color: $error-color;
@@ -50,16 +35,6 @@
     width: 100%;
     overflow: hidden;
     border-style: none;
-
-    #arAnswer {
-      cursor: pointer;
-      text-decoration: none;
-      color: $black;
-    }
-
-    #arAnswer:hover {
-      color: $primary-color;
-    }
 
     .panel-heading {
       background-image: none;
@@ -105,16 +80,6 @@
   }
 }
 
-#addQuestion {
-  cursor: pointer;
-}
-
-.thumbnail {
-
-  #bg-vertical-dropdown {
-    margin-top: 0;
-  }
-}
 
 .progress-step {
   display: block;
