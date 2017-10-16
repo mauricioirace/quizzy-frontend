@@ -1,8 +1,13 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { changeQuestionName, changeQuestionDifficulty, changeHintQuestion, 
-  addOrRemoveQuestionAnswer, changeSelectedAnswer } from '../redux/actions/game';
+import { 
+  changeQuestionName,
+  changeQuestionDifficulty, 
+  changeHintQuestion, 
+  addOrRemoveQuestionAnswer, 
+  changeSelectedAnswer 
+} from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
@@ -27,9 +32,9 @@ class Question extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
-      text: '',
-      hint: '',
-      difficulty: 'Easy',
+      text: this.props.obj.text,
+      hint: this.props.obj.hint,
+      difficulty: this.props.obj.difficulty,
       answers: this.props.obj.answers,
       correctAnswer: this.props.obj.correctAnswer
     };
