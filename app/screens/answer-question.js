@@ -58,7 +58,7 @@ class AnswerQuestion extends React.PureComponent {
         />
         <Row>
           <SlideFadeDelayed in={ answered === false  }>
-            <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
+            <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
               <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
             </Col>
           </SlideFadeDelayed>
