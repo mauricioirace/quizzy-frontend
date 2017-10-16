@@ -57,16 +57,18 @@ class Questions extends React.PureComponent {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
       const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
-        <Col xs={2} md={2}>
-          <Thumbnail  className='thumbnail'>
-            <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown'>
-              <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
-              <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(this.state.editIndex) } >Delete</MenuItem>
-            </DropdownButton>
-            <h3> { difficulty } </h3>
-            <p> { text } </p>
-          </Thumbnail>
-        </Col>
+        <div id='questionSquare' >
+          <Col xs={2} md={2}>
+            <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
+              <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown'>
+                <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
+                <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
+              </DropdownButton>
+              <h3> { difficulty } </h3>
+              <p> { text } </p>
+            </Thumbnail>
+          </Col>
+        </div>
       );
     });
     return list;
@@ -87,7 +89,7 @@ class Questions extends React.PureComponent {
             { this.renderQuestions(questions) }
             <Col xs={2} md={2}>
               <Thumbnail onClick={ this.onAddQuestion } className='thumbnail' id='addQuestion'>
-                <h3>ADD A NEW QUESTION</h3>
+                <h3>Add+</h3>
               </Thumbnail>
             </Col>
           </Row>

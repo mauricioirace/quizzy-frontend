@@ -14,3 +14,48 @@
     height: 100% !important;
   }
 }
+
+#addQuestion {
+  cursor: pointer;
+  h3 {
+    font-size: 60px;
+    color: $black;
+  }
+}
+
+#questionSquare {
+  position: relative;
+
+  #Easy {
+    background-color: darkgreen;
+    h3 {
+      color: $white;
+    }
+  }
+
+  #Medium {
+    background-color: orange;
+    h3 {
+      color: $black;
+    }
+  }
+
+  #Hard {
+    background-color: maroon;
+    h3 {
+      color: $white;
+    }
+  }
+
+  #bg-vertical-dropdown {
+    position: relative;
+    margin-left: 560%;
+  }
+
+  #bg-vertical-dropdown:hover {
+    background-color: none !important;
+  }
+}
+
+
+
