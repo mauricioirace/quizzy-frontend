@@ -16,21 +16,6 @@
   stroke: $background-grey;
 }
 
-.linear {
-  width: 100%;
-  background-color: $background-grey;
-  border-radius: 5px;
-}
-
-.linear-bar {
-  width: 20%;
-  height: 10px;
-  border-radius: 5px;
-  background-color: $primary-color;
-  transition: width 0.5s ease 0s;
-}
-
-
 .CircularProgressbar .CircularProgressbar-text {
   fill: $primary-color;
   font-size: 20px;
@@ -38,8 +23,31 @@
   text-anchor: middle;
 }
 
+.text-correct .CircularProgressbar-text {
+  fill: $font-correct;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.text-wrong .CircularProgressbar-text {
+  fill: $font-wrong;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.text-correct {
+  color: $font-correct;
+  text-anchor: middle;
+}
+
+.text-wrong {
+  color: $font-wrong;
+  text-anchor: middle;
+}
+
 .quizzy-text {
   color: $primary-color;
   text-anchor: middle;
 }
-

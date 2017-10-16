@@ -1,4 +1,5 @@
 import {
+  CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
   LOAD_MATCH_DATA,
@@ -13,54 +14,6 @@ import {
   CREATE_MATCH_FAILURE,
   TIMEOUT
 } from '../constants/match';
-
-const testMatch = {
-  url: 'foodURL',
-  isRealTime: false,
-  owner: 'Marcelo Ripoll',
-  endingDate: new Date(),
-  game: {
-    name: 'food',
-    rating:4,
-    timesPlayed:42,
-    creator: 'Fernando',
-    questions: [{
-      text:'Which of the following is a sauce that is eaten with pasta?',
-      difficulty: 'Hard',
-      answers: [
-        'Century champion',
-        'Braulio Lopez',
-        'Fried egg',
-        'Carusso',
-        'Capusotto'
-      ],
-      correctAnswer:3
-    },{
-      text:"What is sweeter than 'Dulce de leche'?",
-      difficulty: 'Easy',
-      answers: [
-        'You',
-        'Revenge',
-        'Bolognese sauce',
-        'All of the above'
-      ],
-      correctAnswer:3
-    },{
-      text:'What is the main ingredient of chocolate cake?',
-      difficulty: 'medium',
-      answers: [
-        'Meringue',
-        'Dulce de leche',
-        'Fried egg',
-        'Carusso',
-        'Love',
-        'None of the above'
-      ],
-      correctAnswer:4
-    },],
-    ranking: []
-  }
-};
 
 const initialState = {
   currentMatch: '',
@@ -141,7 +94,7 @@ export default (state = initialState, action) => {
         ...state,
         state: {
           ...state.state,
-          answer: true
+          answer: state.state.answer !== false ? state.state.answer : true
         }
       };
     case NEXT_QUESTION:
@@ -172,6 +125,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: false
+      }
+    case CLEAR_MATCH_STATE:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          question: 0,
+          score: 0,
+          answer: false
+        }
       }
     default:
       return state

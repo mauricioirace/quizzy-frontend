@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { answerQuestion, nextQuestion } from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
 import { withRouter } from 'react-router-dom';
+import { SlideFadeLeft } from '../components/transitions';
+import { TransitionGroup } from 'react-transition-group';
 
 const mapStateToProps = state => {
   return {
@@ -31,9 +33,6 @@ class AnswerButtons extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onClickAnswer = this.onClickAnswer.bind(this);
-    this.state= {
-      reveal: false
-    };
   }
 
   onClickAnswer(correct, answer) {
@@ -41,16 +40,17 @@ class AnswerButtons extends React.PureComponent {
   }
 
   waitForNextQuestion() {
+    // view between questions
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
       const total = this.props.matchData.game.questions.length;
 
-      if ( next >= total) {
+      if (next >= total) {
         this.props.history.push('/end-normal-game');
       } else {
         this.props.nextQuestion();
       }
-    },3000);
+    }, 4000);
   }
 
   render() {
@@ -58,17 +58,24 @@ class AnswerButtons extends React.PureComponent {
     if(answered !== false) {
       this.waitForNextQuestion();
     }
+
     const answers = this.props.answers.map((answer, index) => {
       const correct = index === this.props.correctAnswer;
+
       return (
-        <AnswerButton
-          key={ index }
-          id={ index }
-          text={ answer }
-          correct={ index === this.props.correctAnswer }
-          onClick={ () => this.onClickAnswer(correct,index) }
-          answered={ answered }
-        />
+        <SlideFadeLeft
+          key={ `${ index } ${ this.props.matchState.question }` }
+          in={ answered === false || correct || answered === index }
+        >
+          <AnswerButton
+            key={ index }
+            id={ index }
+            text={ answer.answer }
+            correct={ correct }
+            onClick={ () => this.onClickAnswer(correct, index) }
+            answered={ answered }
+          />
+        </SlideFadeLeft>
       )
     });
     return (

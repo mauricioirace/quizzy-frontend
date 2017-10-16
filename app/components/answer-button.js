@@ -12,15 +12,18 @@ class AnswerButton extends React.PureComponent {
     if (answered !== false) { // 'if (answered)' is false for answered === 0, what is not desired
       if (correct) {
         return {
+          color: '#FFFFFF',
           backgroundColor: '#2ECC40'
         };
       } else if (answered === this.props.id) {
         return {
+          color: '#FFFFFF',
           backgroundColor: '#A90000'
         };
       }
     }
   }
+  
   render() {
     bootstrapUtils.addStyle(Button, 'custom');
 
@@ -36,7 +39,6 @@ class AnswerButton extends React.PureComponent {
     )
   }
 }
-
 
 AnswerButton.defaultProps = {
   correct: false

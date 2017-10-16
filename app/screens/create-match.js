@@ -47,6 +47,7 @@ export class CreateMatch extends React.PureComponent {
       players: [],
       game: {
         name,
+        ranking: [],
         description,
         creator: 'Fulane of such',
         tags: [ category ],

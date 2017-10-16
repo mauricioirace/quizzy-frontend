@@ -95,7 +95,7 @@ class CreateGame extends React.PureComponent {
     this.props.history.push('/create-match');
   }
 
-  componentWillUnmount() {
+  componentWillMount() {
     this.props.removeAllData();
   }
 
