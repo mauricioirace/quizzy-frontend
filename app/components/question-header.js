@@ -1,19 +1,30 @@
 import React from 'react';
 import CircularProgressbar from 'react-circular-progressbar';
-import PropTypes from 'prop-types';
 import '../stylesheets/timer.scss';
-import Countdown from 'react-countdown-now';
 import { Col, PageHeader, Row } from 'react-bootstrap';
-import { SlideFadeDelayed, SlideFadeLeft, SlideFadeRight, SlideFadeTop } from './transitions';
+import { SlideFadeDelayed, SlideFadeRight } from './transitions';
+import LinearBar from '../components/linear-bar';
+import PropTypes from 'prop-types';
+import Countdown from 'react-countdown-now';
 
 class QuestionHeader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.renderer = this.renderer.bind(this);
   }
-  renderCorrectnes(total) {
+
+  getCorrectness() {
     const correctness = this.props.correct ? 'YOU ARE\nRIGHT!' : 'WRONG!';
-    const correctnesColor = this.props.correct ? 'text-correct text-center': 'text-wrong text-center';
+    const correctnessColor = this.props.correct ? 'text-correct': 'text-wrong';
+
+    return {
+      correctness,
+      correctnessColor
+    }
+  }
+
+  renderCorrectnes(total) {
+    const { correctness, correctnessColor } = this.getCorrectness();
 
     if (!this.props.stop) {
       return (
@@ -26,14 +37,15 @@ class QuestionHeader extends React.PureComponent {
     }
     return (
       <h1 className='text-center'>
-        <small className={ correctnesColor }>
+        <small className={ correctnessColor }>
           { correctness }
         </small>
       </h1>
      );
   }
   renderer({ total }) {
-    const percentage = total/this.props.seconds /10 ;
+    const percentage = total / this.props.seconds / 10;
+    const { correctness, correctnessColor } = this.getCorrectness();
 
     return (
       <div>
@@ -42,7 +54,8 @@ class QuestionHeader extends React.PureComponent {
             <Col sm={ 4 } xsHidden>
                 <CircularProgressbar
                   percentage={ percentage }
-                  textForPercentage={ (pct) => `${ total  ? total / 1000 : '' }` }
+                  textForPercentage={ (pct) => `${ total  ? total / 1000 : correctness }` }
+                  className={ total ? null : correctnessColor }
                 />
             </Col>
           </SlideFadeRight>
@@ -54,10 +67,8 @@ class QuestionHeader extends React.PureComponent {
         </Row>
         <Row>
           <Col smHidden mdHidden lgHidden>
-            <div className='linear'>
-              <div className='linear-bar' style={{width: `${percentage}%`}}/>
-            </div>
-          </Col>
+            <LinearBar percentage={ percentage }/>
+            </Col>
         </Row>
         <Row>
           <Col smHidden mdHidden lgHidden>

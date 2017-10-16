@@ -1,6 +1,6 @@
 import React from 'react';
 import AnswerButtons from '../components/answer-buttons';
-import { Col, Grid, PageHeader, Row } from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
@@ -8,8 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
 import { TIME_TO_ANSWER } from '../constants/match';
-import { SlideFadeDelayed, SlideFadeLeft } from '../components/transitions';
-import { TransitionGroup } from 'react-transition-group';
+import { SlideFadeDelayed } from '../components/transitions';
+import Progress from 'react-progress';
 
 const mapStateToProps = (state) => {
   return {
@@ -38,12 +38,17 @@ class AnswerQuestion extends React.PureComponent {
   }
 
   render() {
+    const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
     const answered = this.props.matchState.answer;
 
     return (
       <Grid>
+        <Progress
+          percent={ 100 * (questionIndex) / totalQuestions }
+          color='#ff8d40'
+        />
         <QuestionHeader
           seconds={ TIME_TO_ANSWER }
           onTimeout={ this.onTimeout }
@@ -57,10 +62,6 @@ class AnswerQuestion extends React.PureComponent {
               <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
             </Col>
           </SlideFadeDelayed>
-        </Row>
-        <Row>
-          <Col xs={ 12 } mdOffset={ 3 } md={ 6 }>
-          </Col>
         </Row>
       </Grid>
     )

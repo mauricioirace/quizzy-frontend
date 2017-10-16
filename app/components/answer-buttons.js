@@ -65,7 +65,7 @@ class AnswerButtons extends React.PureComponent {
 
       return (
         <SlideFadeLeft
-          key={ `${ answer.answer } ${ this.props.matchData.state.question }` }
+          key={ `${ index } ${ this.props.matchState.question }` }
           in={ answered === false || correct || answered === index }
         >
           <AnswerButton
@@ -75,7 +75,7 @@ class AnswerButtons extends React.PureComponent {
               correct={ correct }
               onClick={ () => this.onClickAnswer(correct, index) }
               answered={ answered }
-            />
+          />
         </SlideFadeLeft>
         )
     });

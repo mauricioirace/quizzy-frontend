@@ -14,54 +14,6 @@ import {
   TIMEOUT
 } from '../constants/match';
 
-const testMatch = {
-  url: 'foodURL',
-  isRealTime: false,
-  owner: 'Marcelo Ripoll',
-  endingDate: new Date(),
-  game: {
-    name: 'food',
-    rating:4,
-    timesPlayed:42,
-    creator: 'Fernando',
-    questions: [{
-      text:'Which of the following is a sauce that is eaten with pasta?',
-      difficulty: 'Hard',
-      answers: [
-        'Century champion',
-        'Braulio Lopez',
-        'Fried egg',
-        'Carusso',
-        'Capusotto'
-      ],
-      correctAnswer:3
-    },{
-      text:"What is sweeter than 'Dulce de leche'?",
-      difficulty: 'Easy',
-      answers: [
-        'You',
-        'Revenge',
-        'Bolognese sauce',
-        'All of the above'
-      ],
-      correctAnswer:3
-    },{
-      text:'What is the main ingredient of chocolate cake?',
-      difficulty: 'Medium',
-      answers: [
-        'Meringue',
-        'Dulce de leche',
-        'Fried egg',
-        'Carusso',
-        'Love',
-        'None of the above'
-      ],
-      correctAnswer:4
-    },],
-    ranking: []
-  }
-};
-
 const initialState = {
   currentMatch: '',
   match: false,
