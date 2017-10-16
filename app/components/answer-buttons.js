@@ -41,17 +41,16 @@ class AnswerButtons extends React.PureComponent {
 
   waitForNextQuestion() {
     // view between questions
-
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
       const total = this.props.matchData.game.questions.length;
 
-      if ( next >= total ) {
+      if (next >= total) {
         this.props.history.push('/end-normal-game');
       } else {
         this.props.nextQuestion();
       }
-    },4000);
+    }, 4000);
   }
 
   render() {
@@ -69,19 +68,19 @@ class AnswerButtons extends React.PureComponent {
           in={ answered === false || correct || answered === index }
         >
           <AnswerButton
-              key={ index }
-              id={ index }
-              text={ answer.answer }
-              correct={ correct }
-              onClick={ () => this.onClickAnswer(correct, index) }
-              answered={ answered }
+            key={ index }
+            id={ index }
+            text={ answer.answer }
+            correct={ correct }
+            onClick={ () => this.onClickAnswer(correct, index) }
+            answered={ answered }
           />
         </SlideFadeLeft>
-        )
+      )
     });
     return (
       <ButtonGroup vertical block>
-          { answers }
+        { answers }
       </ButtonGroup>
     )
   }

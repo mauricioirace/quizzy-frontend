@@ -24,7 +24,6 @@ export const SlideFadeRight = ({ children, ...props }) => (
   </CSSTransition>
 );
 
-
 export const SlideFadeTop = ({ children, ...props }) => (
   <CSSTransition
     { ...props }

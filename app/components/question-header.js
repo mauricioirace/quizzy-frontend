@@ -28,11 +28,11 @@ class QuestionHeader extends React.PureComponent {
 
     if (!this.props.stop) {
       return (
-      <h1 className='text-center'>
-        <small className='quizzy-text'>
-          { total / 1000 }
-        </small>
-      </h1>
+        <h1 className='text-center'>
+          <small className='quizzy-text'>
+            { total / 1000 }
+          </small>
+        </h1>
       );
     }
     return (
@@ -52,11 +52,11 @@ class QuestionHeader extends React.PureComponent {
         <Row>
           <SlideFadeRight in={ this.props.stop === false}>
             <Col sm={ 4 } xsHidden>
-                <CircularProgressbar
-                  percentage={ percentage }
-                  textForPercentage={ (pct) => `${ total  ? total / 1000 : correctness }` }
-                  className={ total ? null : correctnessColor }
-                />
+              <CircularProgressbar
+                percentage={ percentage }
+                textForPercentage={ (pct) => `${ total  ? total / 1000 : correctness }` }
+                className={ total ? null : correctnessColor }
+              />
             </Col>
           </SlideFadeRight>
           <SlideFadeDelayed in={ this.props.stop === false }>
@@ -68,7 +68,7 @@ class QuestionHeader extends React.PureComponent {
         <Row>
           <Col smHidden mdHidden lgHidden>
             <LinearBar percentage={ percentage }/>
-            </Col>
+          </Col>
         </Row>
         <Row>
           <Col smHidden mdHidden lgHidden>

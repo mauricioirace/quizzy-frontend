@@ -24,7 +24,6 @@ const initialState = {
     player: 'Sergio Puglia',
     score: 0,
     answer: false
-
   }
 };
 

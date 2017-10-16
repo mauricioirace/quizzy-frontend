@@ -1,7 +1,6 @@
 import React from 'react';
 import '../stylesheets/linear-bar.scss';
 
-
 class LinearBar extends React.PureComponent {
 
   constructor(props) {

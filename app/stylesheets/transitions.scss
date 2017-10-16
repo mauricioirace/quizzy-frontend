@@ -1,6 +1,5 @@
 @import '../../assets/styles/variables.scss';
 
-
 // slide-fade left
 .slide-fade-left-appear {
   left: 50%;
@@ -12,6 +11,7 @@
   opacity: 1;
   transition: left 1000ms, opacity 400ms;
 }
+
 .slide-fade-left-enter {
   left: 50%;
   opacity: 0;
@@ -45,6 +45,7 @@
   opacity: 1;
   transition: left 1000ms, opacity 200ms;
 }
+
 .slide-fade-right-enter {
   left: -50%;
   opacity: 0;
@@ -67,6 +68,7 @@
   transition: left 1000ms, opacity 1000ms;
   transition-delay: 3000ms, 3000ms;
 }
+
 // slide-fade top
 .slide-fade-top-appear {
   top: -50%;
@@ -78,6 +80,7 @@
   opacity: 1;
   transition: top 1000ms, opacity 200ms;
 }
+
 .slide-fade-top-enter {
   top: -50%;
   opacity: 0;
@@ -103,7 +106,6 @@
 }
 
 // slide fade delayed
-
 .slide-fade-delayed-appear {
   left: 50%;
   opacity: 0;
@@ -114,6 +116,7 @@
   opacity: 1;
   transition: left 1000ms, opacity 200ms;
 }
+
 .slide-fade-delayed-enter {
   left: 50%;
   opacity: 0;
