@@ -82,7 +82,6 @@ export const createMatchFailure = (error) => {
 export const clearMatchState = (error) => {
   return {
     type: CLEAR_MATCH_STATE,
-
   }
 };
 
