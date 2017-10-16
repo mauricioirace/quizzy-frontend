@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
 import { findIndex, isEqual, size, sortBy } from 'underscore';
 import matchService from '../services/match';
+import { removeMatch } from '../redux/actions/match';
 
 const mapStateToProps = state => {
   return {
@@ -18,6 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    removeMatch: () => dispatch(removeMatch()),
   }
 }
 
@@ -57,7 +59,13 @@ class EndNormalGame extends React.PureComponent {
     this.setState({ showModal: 'hide' });
   }
 
+  componentWillUnmount() {
+    // remove the_match from state
+    this.props.removeMatch();
+  }
+
   saveMatch() {
+
     const current_match = this.props.matchData.match;
     current_match.game.ranking = this.state.leaderboard;
     matchService.update(current_match)
@@ -89,13 +97,13 @@ class EndNormalGame extends React.PureComponent {
   addItemtoLeaderBoard(items, i) {
     items.push(
       isEqual(this.state.leaderboard[i].user, this.props.matchData.state.player) ? ( 
-      <tr className='current-player'>
+      <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
         <td>{ this.state.leaderboard[i].user }</td>
         <td>{ this.state.leaderboard[i].points }</td>
       </tr>
       ) : (
-        <tr>
+        <tr key={ i }>
           <td>{ i + 1 }</td>
           <td>{ this.state.leaderboard[i].user }</td>
           <td>{ this.state.leaderboard[i].points }</td>
@@ -167,7 +175,7 @@ class EndNormalGame extends React.PureComponent {
     const score = this.props.matchData.state.score;
     return (
       <div className='container'>
-        <Jumbotron>
+        <Jumbotron className='margin-jumbotron'>
           <h1>Your final score is { score }!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
