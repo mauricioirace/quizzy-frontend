@@ -15,4 +15,5 @@ class LinearBar extends React.PureComponent {
     )
   }
 }
+
 export default LinearBar;
