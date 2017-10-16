@@ -7,11 +7,15 @@ import {
   MATCH_NAME_ERROR,
   ANSWER_QUESTION,
   NEXT_QUESTION,
+  SET_CURRENT_MATCH,
+  CREATING_MATCH,
+  CREATE_MATCH_SUCCESS,
+  CREATE_MATCH_FAILURE,
   TIMEOUT
 } from '../constants/match';
 
 const testMatch = {
-  url: 'food',
+  url: 'foodURL',
   isRealTime: false,
   owner: 'Marcelo Ripoll',
   endingDate: new Date(),
@@ -60,7 +64,7 @@ const testMatch = {
 
 const initialState = {
   currentMatch: '',
-  match: testMatch,
+  match: false,
   isFetching: false,
   error: false,
   state: {
@@ -77,7 +81,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.msg
-
       };
     case LOAD_CURRENT_MATCH:
       return {
@@ -112,7 +115,6 @@ export default (state = initialState, action) => {
     case ANSWER_QUESTION:
       const question = state.match.game.questions[state.state.question];
       let score = state.state.score;
-
       if (action.correct) {
         switch (question.difficulty) {
           case 'Easy':
@@ -151,6 +153,26 @@ export default (state = initialState, action) => {
           answer:false
         }
       };
+    case SET_CURRENT_MATCH:
+      return {
+        ...state,
+        match: action.match
+      };
+    case CREATING_MATCH:
+      return {
+        ...state,
+        error: false
+      };
+    case CREATE_MATCH_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      };
+    case CREATE_MATCH_SUCCESS:
+      return {
+        ...state,
+        error: false
+      }
     default:
       return state
   }

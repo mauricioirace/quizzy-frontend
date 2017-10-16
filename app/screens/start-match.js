@@ -18,6 +18,18 @@ import { sortBy } from 'underscore';
 import userService from '../services/user';
 import { withRouter } from 'react-router-dom';
 import Reveal from 'react-reveal';
+import {
+  ShareButtons,
+  ShareCounts,
+  generateShareIcon
+} from 'react-share';
+
+
+const {
+  FacebookShareButton,
+} = ShareButtons;
+
+const FacebookIcon = generateShareIcon('facebook');
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
@@ -28,7 +40,6 @@ class StartMatch extends React.PureComponent {
       nickname: '',
       nicknameError : null,
     };
-    this.match = this.props.location.state.match;
   }
 
   handleChange(event) {
@@ -53,7 +64,7 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = sortBy(this.match.game.ranking, 'points').reverse();
+    const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
     const items = [];
     ranking.forEach( (entry, index) => {
       items.push(
@@ -71,30 +82,45 @@ class StartMatch extends React.PureComponent {
     return (this.state.nicknameError ?  'error' : null)
   }
 
+  copyURL() {
+    const urlInput = document.getElementById('matchURL');
+    urlInput.focus();
+    urlInput.select();
+    document.execCommand('copy', null, null);
+  }
+
   render() {
+    const match = this.props.currentMatch;
     return (
       <div className='game-container'>
         <Reveal effect='animated slideInDown'>
           <div className='game-title'>
-            <img src={ this.match.game.image } height='100' id='previewImage'/>
-            <h1 id='game-name'>{ this.match.game.name }</h1>
+            <img src={ match.game.image } height='100' id='previewImage'/>
+            <h1 id='game-name'>{ match.game.name }</h1>
           </div>
-          <h4>Mode: { this.match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
+          <h4>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
           <div className='form-container'>
             <form>
               <div className='form-input horizontal long'>
                 <label>Enter your nickname</label>
-                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange } />
+                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange }/>
                 <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
               </div>
             </form>
+            <form>
+             <div className='form-input horizontal long'>
+               <input id='matchURL' type='url' readOnly value={ match.url }/>
+               <Button className='share' onClick={ this.copyURL }>Copy</Button>
+               <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
+             </div>
+           </form>
           </div>
         </Reveal>
         <p id='error'></p>
         <div className='description-container'>
           <Reveal effect='animated slideInLeft'>
             <h3 className='game-description'>Game description</h3>
-            { this.match.game.description }
+            { match.game.description }
           </Reveal>
         </div>
         <Reveal effect='animated slideInRight'>
@@ -109,7 +135,13 @@ class StartMatch extends React.PureComponent {
 }
 
 StartMatch.propTypes = {
-  currentMatch: PropTypes.object,
+  currentMatch: PropTypes.object
 }
 
-export default withRouter(StartMatch);
+const mapStateToProps = state => {
+  return {
+    currentMatch: state.matchData.match
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(StartMatch));

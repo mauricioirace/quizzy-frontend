@@ -65,7 +65,7 @@ export class Home extends React.Component {
           Loading...
         </div>
       );
-    } else if (matchesData.error != '') {
+    } else if (matchesData.error) {
       return (
         <div>
           Error!
@@ -84,9 +84,9 @@ export class Home extends React.Component {
   renderMatches() {
     const items = [];
     this.props.matchesData.matches.forEach((match, index) => {
-      if(index < 5) {
+      if (index < 5) {
         items.push(
-          <MatchRow data={ match }/>
+          <MatchRow key={ index } data={ match }/>
         );
       }
     });

@@ -15,6 +15,10 @@ class MatchService extends CrudService {
   update(match) {
     return super.update({ match: match }, match.id);
   }
+
+  create(match) {
+    return super.create({ match: match });
+  }
 }
 
 const matchService = new MatchService();
