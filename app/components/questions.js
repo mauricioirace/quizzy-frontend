@@ -55,7 +55,7 @@ class Questions extends React.PureComponent {
 
     questions.map( (question, index) => {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
-      const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
+      let difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
         <div id='questionSquare' >
           <Col xs={2} md={2}>
