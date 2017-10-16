@@ -43,6 +43,7 @@ class QuestionHeader extends React.PureComponent {
       </h1>
      );
   }
+  
   renderer({ total }) {
     const percentage = total / this.props.seconds / 10;
     const { correctness, correctnessColor } = this.getCorrectness();
