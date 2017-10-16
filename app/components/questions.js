@@ -1,13 +1,8 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
 import Scroll from 'react-scroll';
-<<<<<<< c79b1c00ac4471aa75de18667c90aea69d7ce213
-import { Col, Row, Form, ControlLabel,
-  FormControl, Panel, Thumbnail, Grid } from 'react-bootstrap';
-=======
 import { Button, Col, Row, Form, ControlLabel,
   FormControl, Panel, Thumbnail, Grid, DropdownButton, MenuItem } from 'react-bootstrap';
->>>>>>> Add edit delete button
 
 class Questions extends React.PureComponent {
   static propTypes = {
@@ -60,7 +55,7 @@ class Questions extends React.PureComponent {
 
     questions.map( (question, index) => {
       const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
-      const difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
+      let difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
         <div id='questionSquare' >
           <Col xs={2} md={2}>
