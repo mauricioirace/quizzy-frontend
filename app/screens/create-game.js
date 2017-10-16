@@ -128,6 +128,18 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
+    if ((this.props.name == "") && (this.props.description == "")) {
+        alert ('You must fill in the empty fields');
+        return
+    }
+    else if (this.props.name == ""){
+        alert ('the Name field can not be empty');
+        return
+    }
+    else if (this.props.description == "") {
+        alert ('the Description field can not be empty');
+        return
+    }
     this.setState({ step: this.state.step + 1 });
   }
 
