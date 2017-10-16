@@ -39,7 +39,6 @@ export class CreateMatch extends React.PureComponent {
   }
 
   getMatch() {
-
     const { name, description, image, category, questions, currentMatch } = this.props;
     const match = {
       url: currentMatch,
