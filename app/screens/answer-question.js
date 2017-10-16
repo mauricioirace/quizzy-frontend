@@ -5,7 +5,7 @@ import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
+import { fetchMatch, removeCurrentMatch, timeout, clearMatchState } from '../redux/actions/match';
 import '../stylesheets/home.scss';
 import { TIME_TO_ANSWER } from '../constants/match';
 import { SlideFadeDelayed } from '../components/transitions';
@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removeCurrentMatch: () => dispatch(removeCurrentMatch()),
     fetchMatch: matchName => dispatch(fetchMatch(matchName)),
-    timeout: () => dispatch(timeout())
+    timeout: () => dispatch(timeout()),
+    clearMatchState: () => dispatch(clearMatchState)
   };
 };
 
@@ -31,6 +32,10 @@ class AnswerQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onTimeout = this.onTimeout.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.clearMatchState();
   }
 
   onTimeout() {

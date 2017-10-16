@@ -39,6 +39,7 @@ export class CreateMatch extends React.PureComponent {
   }
 
   getMatch() {
+
     const { name, description, image, category, questions, currentMatch } = this.props;
     const match = {
       url: currentMatch,
@@ -47,6 +48,7 @@ export class CreateMatch extends React.PureComponent {
       players: [],
       game: {
         name,
+        ranking: [],
         description,
         creator: 'Fulane of such',
         tags: [ category ],

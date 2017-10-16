@@ -81,7 +81,7 @@ class QuestionHeader extends React.PureComponent {
   }
 
   render() {
-    if (!this.props.stop) {
+    if (this.props.stop === false) {
       return  (
         <Countdown
           renderer={ this.renderer }

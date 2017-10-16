@@ -1,5 +1,6 @@
 import matchService from '../../services/match'
 import {
+  CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
   LOAD_MATCH_DATA,
@@ -75,6 +76,13 @@ export const createMatchFailure = (error) => {
   return {
     type: CREATE_MATCH_FAILURE,
     error
+  }
+};
+
+export const clearMatchState = (error) => {
+  return {
+    type: CLEAR_MATCH_STATE,
+
   }
 };
 

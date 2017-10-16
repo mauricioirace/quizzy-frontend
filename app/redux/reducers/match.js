@@ -1,4 +1,5 @@
 import {
+  CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
   LOAD_MATCH_DATA,
@@ -124,6 +125,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: false
+      }
+    case CLEAR_MATCH_STATE:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          question: 0,
+          score: 0,
+          answer: false
+        }
       }
     default:
       return state
