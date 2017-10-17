@@ -75,24 +75,10 @@ class Questions extends React.PureComponent {
   }
 
   render() {
-<<<<<<< f95e917da7fefe3e50c593395c42321cdf817a6e
     let currentItem = this.state.editIndex;
     let title = 'Question #' + (currentItem + 1);
     let questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } closePanel={ this.closePanel } />
-=======
-    const currentItem = this.state.editIndex;
-    const title = 'Question #' + (currentItem + 1);
-    const questions = this.props.questions.map( (question, index) =>
-      <Question
-        key={ index }
-        id={ index }
-        obj={ question }
-        scrollToBottom={ this.scrollToBottom }
-        edit={ () => this.onEditQuestion }
-        closePanel={ this.closePanel }
-      />
->>>>>>> fix validation fields on create game
     );
     const displayQuestions = this.renderQuestions(questions);
 

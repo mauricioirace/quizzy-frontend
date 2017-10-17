@@ -36,7 +36,7 @@ class Question extends React.PureComponent {
       hint: this.props.obj.hint,
       difficulty: this.props.obj.difficulty,
       validText: '',
-      textMessage: ''
+      textMessage: '',
       answers: this.props.obj.answers,
       correctAnswer: this.props.obj.correctAnswer
     };
