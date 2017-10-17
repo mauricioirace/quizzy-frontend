@@ -13,6 +13,9 @@ import {
   CREATING_MATCH,
   CREATE_MATCH_SUCCESS,
   CREATE_MATCH_FAILURE,
+  UPDATE_MATCH,
+  SET_PLAYER,
+  SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
@@ -91,6 +94,8 @@ export const createMatch = (match, onSuccess) => {
     matchService.create(match)
       .then(() => {
         dispatch(createMatchSuccess());
+        dispatch(setMatchId(res.data.match.id));
+        // const newMatch = Object.assign({}, match, { id: res.data.match.id });
         onSuccess(match);
       })
       .catch((error) => {
@@ -98,6 +103,16 @@ export const createMatch = (match, onSuccess) => {
       });
   }
 };
+
+export const updateMatch = (match) => ({
+  type: UPDATE_MATCH,
+  match
+});
+
+export const setPlayer = (nickname) => ({
+  type: SET_PLAYER,
+  player: nickname
+});
 
 export const matchNameError = (msg) => ({
   type: MATCH_NAME_ERROR,
@@ -116,4 +131,9 @@ export const timeout = () => ({
 
 export const nextQuestion = () => ({
   type: NEXT_QUESTION,
+});
+
+export const setMatchId = (id) => ({
+  type: SET_MATCH_ID,
+  id
 });
