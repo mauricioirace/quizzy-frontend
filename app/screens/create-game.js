@@ -79,7 +79,7 @@ class CreateGame extends React.PureComponent {
 
   onDone() {
     const { name, description,
-      category, questions , image} = this.props;
+      category, questions , image } = this.props;
     const game = {
       creator: 'Fulane of such',
       name,
@@ -88,7 +88,7 @@ class CreateGame extends React.PureComponent {
       questions,
       image
     };
-    this.props.createGame(game,this.onSuccess);
+    this.props.createGame(game, this.onSuccess);
   }
 
   onSuccess() {

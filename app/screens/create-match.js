@@ -9,7 +9,10 @@ import NormalMatch from '../components/normalMatch';
 import RealTimeMatch from '../components/realTimeMatch';
 import { withRouter } from 'react-router-dom';
 import empty from '../../assets/images/empty.svg';
+import '../stylesheets/start-match.scss';
+import '../stylesheets/create-match.scss';
 import { connect } from 'react-redux';
+import Reveal from 'react-reveal';
 
 export class CreateMatch extends React.PureComponent {
   constructor(props) {
@@ -17,9 +20,11 @@ export class CreateMatch extends React.PureComponent {
     this.handleClick = this.handleClick.bind(this);
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
+    this.renderDescription = this.renderDescription.bind(this);
     this.state = {
       switched: false
     };
+    this.match = this.getMatch();
   }
 
   toggleSwitch = () => {
@@ -50,8 +55,7 @@ export class CreateMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    const match = this.getMatch();
-    this.props.createMatch(match, this.onSuccess);
+    this.props.createMatch(this.match, this.onSuccess);
   }
 
   onSuccess(currentMatch) {
@@ -59,35 +63,70 @@ export class CreateMatch extends React.PureComponent {
     this.props.history.push(`/start-match/${this.props.currentMatch}`);
   }
 
+  renderDescription() {
+    if(this.match.game.description) {
+      return(
+        <div className='description-container'>
+          <h2 className='game-description'>Game description</h2>
+          <h4>{ this.match.game.description }</h4>
+        </div>
+      );
+    }
+  }
+
+  renderGameMode() {
+    return !this.state.switched ? "In this game mode you have to answer all the questions in the given time period. It's single player." : "In this game mode you have to answer all the questions in the given time period, but you have a bonus the earlier you answer it. You will be competing in real-time with other players.";
+  }
+
+  renderMatchMode() {
+    if(!this.state.switched) {
+      return(
+        <Row>
+          <NormalMatch data={ this.game }/>
+          <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
+        </Row>
+      );
+    } else {
+      return(
+        <Row>
+          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
+          <RealTimeMatch/>
+        </Row>
+      );
+    }
+  }
+
   render() {
-    const { name, image } = this.props;
     return (
       <div>
-        <Grid>
+        <div className='page-match'>
           <Row>
-            <Col lg={4}>
-              <img src={ image === null ? empty : image } height='100' id='previewImage'/>
-            </Col>
-            <Col lg={8} >
+            <h1>CREATE A NEW MATCH FOR THIS GAME</h1>
+            <h4>Select between the 2 game modes, normal or real-time and get playing!</h4>
+          </Row>
+          <div className='game-container'>
+            <Row>
+              <div className='game-title'>
+                { this.match.game.image ? <img src={ this.match.game.image } id='previewImage'/> : false }
+                <h1 className='game-name'>{ this.match.game.name }</h1>
+              </div>
+            </Row>
+            <Row>
               <Row>
-                <h1>{ name }</h1>
+                <h3>Mode: { this.state.switched ? 'Real-Time' : 'Normal' }</h3><Switch onClick={ this.toggleSwitch } on={ this.state.switched }/>
               </Row>
               <Row>
-                <Row>Mode: { this.state.switched ? 'Real-Time' : 'Normal' }</Row>
-                <Row><Switch onClick={ this.toggleSwitch } on={ this.state.switched }/></Row>
+                <div className='mode-explanation'>
+                  <h4>{ this.renderGameMode() }</h4>
+                </div>
               </Row>
-            </Col>
-          </Row>
-          <Row>
-            <h2>CREATE A NEW MATCH FOR THIS GAME</h2>
-          </Row>
-          <Row>
-            { !this.state.switched ? <NormalMatch/> : <RealTimeMatch/> }
-          </Row>
-          <Row>
-            <Button onClick={ this.handleClick }>DONE</Button>
-          </Row>
-        </Grid>
+            </Row>
+            <Row>
+              { this.renderDescription() }
+            </Row>
+            { this.renderMatchMode() }
+          </div>
+        </div>
       </div>
     )
   }
