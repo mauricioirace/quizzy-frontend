@@ -5,6 +5,7 @@ import { setCurrentMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import '../stylesheets/match.scss';
+import StarRatingComponent from 'react-star-rating-component';
 
 @withRouter
 class Match extends React.PureComponent {
@@ -23,7 +24,7 @@ class Match extends React.PureComponent {
       <tr>
         <td><img className='match-image' src={ this.props.data.game.image } height='80'/></td>
         <td>{ this.props.data.game.name }</td>
-        <td>Rating: { this.props.data.game.rating }</td>
+        <td><StarRatingComponent editing={ false } starCount={ 5 } value={ this.props.data.game.rating } name={ 'rating' }/></td>
         <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
       </tr>
     )
