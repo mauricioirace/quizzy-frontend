@@ -10,7 +10,7 @@ class RealTimeMatch extends React.PureComponent {
           <div className='form-input horizontal long'>
             <label className='fs-22'>quizzy.com/</label>
             <input className='fs-16' type='text'
-             name='game' placeholder='Game name' />
+             name='game' placeholder='Game name'/>
             <Link to='/' className='play-link'>
               <button className='button primary medium'>SHARE!</button>
             </Link>

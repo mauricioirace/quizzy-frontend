@@ -70,7 +70,6 @@ class StartMatch extends React.PureComponent {
 
   renderRanking() {
     const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
-    console.log(ranking);
     if(ranking.length != 0) {
       const items = [];
       ranking.forEach( (entry, index) => {

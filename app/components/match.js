@@ -21,7 +21,7 @@ class Match extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td><img className='match-image' src={ this.props.data.game.image } height="80" /></td>
+        <td><img className='match-image' src={ this.props.data.game.image } height='80'/></td>
         <td>{ this.props.data.game.name }</td>
         <td>Rating: { this.props.data.game.rating }</td>
         <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
