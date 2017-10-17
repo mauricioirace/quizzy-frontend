@@ -182,6 +182,11 @@ class CreateGame extends React.PureComponent {
       case 3:
         return (
           <div>
+            <div className='final-step'>
+              <h3>All set!</h3>
+              <h3>You can click <i><b>CREATE!</b></i> to save your game and advance to the match creation</h3>
+              <h4>or <i>Back</i> if you want to review your game</h4>
+            </div>
             <div className='error-message'>{ this.props.error }</div>
             <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>
             <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
