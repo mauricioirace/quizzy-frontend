@@ -44,7 +44,6 @@ export class CreateMatch extends React.PureComponent {
       url: currentMatch,
       owner: 'Fulane of such',
       isRealTime: this.state.switched,
-      result: [],
       game: {
         name,
         ranking: [],

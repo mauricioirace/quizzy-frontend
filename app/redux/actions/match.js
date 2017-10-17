@@ -92,7 +92,7 @@ export const createMatch = (match, onSuccess) => {
   return (dispatch) => {
     dispatch(creatingMatch());
     matchService.create(match)
-      .then(() => {
+      .then((res) => {
         dispatch(createMatchSuccess());
         dispatch(setMatchId(res.data.match.id));
         // const newMatch = Object.assign({}, match, { id: res.data.match.id });
