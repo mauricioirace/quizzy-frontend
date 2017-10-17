@@ -129,7 +129,6 @@ class Question extends React.PureComponent {
     }
   }
 
-
   render() {
     const question = this.props.self;
     const id = this.props.id;
