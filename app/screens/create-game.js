@@ -63,7 +63,9 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.state = {
       step: 1,
-      disableButtons: false
+      disableButtons: false,
+      validName: '',
+      nameMessage: ''
     };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
@@ -126,12 +128,9 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
-    if (this.props.name == '') {
-        alert ('The Name field can not be empty');
-        return
-      }
     this.setState({ step: this.state.step + 1 });
-}
+  }
+
 
   prevStep() {
     this.setState({ step: this.state.step - 1 });
@@ -149,6 +148,23 @@ class CreateGame extends React.PureComponent {
     this.setState({ disableButtons: true })
   }
 
+  validateName() {
+    if (this.props.name == ''){
+      this.setState({
+        validName: 'error',
+        nameMessage: 'The name of the game can\'t be empty'
+      })
+    } else {
+      this.setState({
+        validName: 'success',
+        nameMessage: ''
+      })
+      this.nextStep()
+    }
+  }
+
+
+
   showStep() {
     switch (this.state.step) {
       case 1:
@@ -160,8 +176,10 @@ class CreateGame extends React.PureComponent {
               changeDescription={ this.onChangeDescription }
               changeImage={ this.onChangeImage }
               changeCategory={ this.onChangeCategory }
+              validName={this.state.validName}
+              nameMessage={this.state.nameMessage}
             />
-            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.validateName.bind(this) }>Next</Button>
           </div>
         )
       case 2:
