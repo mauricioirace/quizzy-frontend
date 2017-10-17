@@ -131,7 +131,6 @@ class CreateGame extends React.PureComponent {
     this.setState({ step: this.state.step + 1 });
   }
 
-
   prevStep() {
     this.setState({ step: this.state.step - 1 });
   }
