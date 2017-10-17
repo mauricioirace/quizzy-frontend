@@ -33,10 +33,10 @@ class GameGeneralInfo extends React.PureComponent {
     const game = this.props.gameData;
     return (
       <Form>
-        <FormGroup controlId='formName' validationState={this.props.validName}>
+        <FormGroup controlId='formName' validationState={ this.props.validName }>
             <ControlLabel>Name</ControlLabel>
             <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
-            <span className="help-block">{this.props.nameMessage}</span>
+            <span className="help-block">{ this.props.nameMessage }</span>
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
