@@ -37,6 +37,7 @@ class StartMatch extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
       nickname: '',
       nicknameError : null,
@@ -50,6 +51,13 @@ class StartMatch extends React.PureComponent {
     this.setState({
       nickname: event.target.value
     });
+  }
+
+  handleKeyPress(target) {
+    if(target.charCode == 13) {
+      target.preventDefault();
+      this.handleClick();
+    }
   }
 
   handleClick(event) {
@@ -137,7 +145,7 @@ class StartMatch extends React.PureComponent {
             <form>
               <div className='form-input horizontal long'>
                 <label className='fs-22'>Enter your nickname</label>
-                <input className='fs-16' type='text' placeholder='eg: Pepu' onChange={ this.handleChange }/>
+                <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                 <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
               </div>
               <p id='error'></p>
