@@ -110,7 +110,6 @@ class Questions extends React.PureComponent {
       <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }
       closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }/>
     );
-
     return (
       <div>
         <Grid>
