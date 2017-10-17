@@ -103,7 +103,7 @@ class Question extends React.PureComponent {
     if (this.state.text == '') {
       this.setState({
         validText: 'error',
-        textMessage: 'This field can\'t be empty'
+        textMessage: "This field can't be empty"
       })
       return;
     } else {
