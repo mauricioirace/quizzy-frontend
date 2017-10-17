@@ -63,8 +63,6 @@ class StartMatch extends React.PureComponent {
       const match = this.props.currentMatch;
       match.players.push(this.state.nickname);
       this.props.updateMatch(match);
-      console.log("Nuevo match: ");
-      console.log(this.props.currentMatch);
       this.props.history.push('/answer-question')
     }
   }
