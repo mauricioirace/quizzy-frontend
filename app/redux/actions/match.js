@@ -13,6 +13,7 @@ import {
   CREATING_MATCH,
   CREATE_MATCH_SUCCESS,
   CREATE_MATCH_FAILURE,
+  UPDATE_MATCH,
   TIMEOUT
 } from '../constants/match';
 
@@ -89,15 +90,21 @@ export const createMatch = (match, onSuccess) => {
   return (dispatch) => {
     dispatch(creatingMatch());
     matchService.create(match)
-      .then(() => {
+      .then((res) => {
         dispatch(createMatchSuccess());
-        onSuccess(match);
+        const newMatch = Object.assign({}, match, { id: res.data.match.id });
+        onSuccess(newMatch);
       })
       .catch((error) => {
         dispatch(createMatchFailure(error.response.data.error))
       });
   }
 };
+
+export const updateMatch = (match) => ({
+  type: UPDATE_MATCH,
+  match
+});
 
 export const matchNameError = (msg) => ({
   type: MATCH_NAME_ERROR,
