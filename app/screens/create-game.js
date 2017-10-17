@@ -152,7 +152,7 @@ class CreateGame extends React.PureComponent {
     if (this.props.name == ''){
       this.setState({
         validName: 'error',
-        nameMessage: 'The name of the game can\'t be empty'
+        nameMessage: "The name of the game can't be empty"
       })
     } else {
       this.setState({
