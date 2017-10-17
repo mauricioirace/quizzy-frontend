@@ -40,7 +40,7 @@ class Questions extends React.PureComponent {
   scrollToBottom() {
     Scroll.animateScroll.scrollToBottom();
   }
-  
+
   openPanel() {
     this.props.disableStepButtons();
     this.setState({ showPanel: true });
@@ -73,11 +73,11 @@ class Questions extends React.PureComponent {
     const currentItem = this.state.editIndex;
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
-      <Question 
-        key={ index } 
-        id={ index } 
-        obj={ question } 
-        scrollToBottom={ this.scrollToBottom } 
+      <Question
+        key={ index }
+        id={ index }
+        obj={ question }
+        scrollToBottom={ this.scrollToBottom }
         edit={ () => this.onEditQuestion }
         closePanel={ this.closePanel }
       />
