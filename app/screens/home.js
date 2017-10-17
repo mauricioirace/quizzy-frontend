@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
 import MatchRow from '../components/match';
 import { connect } from 'react-redux';
-import { loadCurrentMatch, matchNameError } from '../redux/actions/match';
+import { loadCurrentMatch, matchNameError, removeCurrentMatch, removeMatch } from '../redux/actions/match';
 import { fetchMatches } from '../redux/actions/matches';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -25,6 +25,8 @@ export class Home extends React.Component {
   }
 
   componentWillMount() {
+    this.props.removeCurrentMatch();
+    this.props.removeMatch();
     this.props.fetchMatches();
   }
 
@@ -126,9 +128,9 @@ export class Home extends React.Component {
                       <div className='form-input horizontal long'>
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
-                         name='game' placeholder='game-name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+                               name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
-                          onClick={ this.checkEmptyName } className='play-link'>
+                              onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button grey medium'>PLAY!</button>
                         </Link>
                       </div>
@@ -142,12 +144,12 @@ export class Home extends React.Component {
             </Row>
             <Row>
               <Col md={ 7 } mdOffset={ 2 } xs={ 12 }>
-              <Reveal effect='animated slideInUp'>
-                <a href='#matches' className='btn btn-circle page-scroll'>
-                  <Icon name='angle-double-down' className='animated'></Icon>
-                </a>
-                <h2 className='arrow-title'>Or join a live one!</h2>
-              </Reveal>
+                <Reveal effect='animated slideInUp'>
+                  <a href='#matches' className='btn btn-circle page-scroll'>
+                    <Icon name='angle-double-down' className='animated'></Icon>
+                  </a>
+                  <h2 className='arrow-title'>Or join a live one!</h2>
+                </Reveal>
               </Col>
             </Row>
           </div>
@@ -175,27 +177,27 @@ export class Home extends React.Component {
             </Row>
             <Row>
               <Col md={ 12 } xs={ 12 }>
-               <Reveal effect='animated fadeIn'>
-                <h5>Choose a game, answer the questions and prove your knowledge.
-                There are two modes you can play, normal & real-time.</h5>
-               </Reveal>
+                <Reveal effect='animated fadeIn'>
+                  <h5>Choose a game, answer the questions and prove your knowledge.
+                    There are two modes you can play, normal & real-time.</h5>
+                </Reveal>
               </Col>
             </Row>
             <Row>
               <Col md={ 12 } xs={ 12 }>
                 <div className='modes-container'>
-                   <Reveal effect='animated slideInLeft'>
+                  <Reveal effect='animated slideInLeft'>
                     <div className='game-mode'>
                       <h3>Normal</h3>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </div>
-                   </Reveal>
-                    <Reveal effect='animated slideInRight'>
+                  </Reveal>
+                  <Reveal effect='animated slideInRight'>
                     <div className='game-mode'>
                       <h3>Real-Time</h3>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </div>
-                   </Reveal>
+                  </Reveal>
                 </div>
               </Col>
             </Row>
@@ -223,6 +225,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
+    removeCurrentMatch: (input) => dispatch(removeCurrentMatch()),
+    removeMatch: (input) => dispatch(removeMatch()),
     fetchMatches: () => dispatch(fetchMatches()),
     matchNameError: (msg) => dispatch(matchNameError(msg))
   };
