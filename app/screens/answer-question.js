@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     removeCurrentMatch: () => dispatch(removeCurrentMatch()),
     fetchMatch: matchName => dispatch(fetchMatch(matchName)),
     timeout: () => dispatch(timeout()),
-    clearMatchState: () => dispatch(clearMatchState)
+    clearMatchState: () => dispatch(clearMatchState())
   };
 };
 
