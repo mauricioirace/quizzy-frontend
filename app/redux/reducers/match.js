@@ -12,17 +12,21 @@ import {
   CREATING_MATCH,
   CREATE_MATCH_SUCCESS,
   CREATE_MATCH_FAILURE,
+  UPDATE_MATCH,
+  SET_PLAYER,
+  SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
 const initialState = {
+  id: '',
   currentMatch: '',
   match: false,
   isFetching: false,
   error: false,
   state: {
     question: 0,
-    player: 'Sergio Puglia',
+    player: '',
     score: 0,
     answer: false
   }
@@ -135,6 +139,24 @@ export default (state = initialState, action) => {
           score: 0,
           answer: false
         }
+      }
+    case UPDATE_MATCH:
+      return {
+        ...state,
+        match: action.match
+      }
+    case SET_PLAYER:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          player: action.player
+        }
+      }
+    case SET_MATCH_ID:
+      return {
+        ...state,
+        id: action.id
       }
     default:
       return state
