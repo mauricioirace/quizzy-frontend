@@ -74,12 +74,30 @@ class StartMatch extends React.PureComponent {
       items.push(
         <tr>
           <td>{ index + 1 }</td>
-          <td>{ entry.nickname }</td>
+          <td>{ entry.user }</td>
           <td>{ entry.points } pts</td>
         </tr>
       );
     });
     return (<tbody>{ items }</tbody>);
+  }
+
+  ranking(match) {
+    if (match.game.ranking.length > 0) {
+      return (
+        <Reveal effect='animated slideInRight'>
+          <h3>Best players</h3>
+          <table className='table'>
+            { this.renderRanking() }
+          </table>
+        </Reveal>
+      )
+    }
+    else {
+      return (
+        <p>Be the first to play!</p>
+      )
+    };
   }
 
   getValidationState() {
@@ -127,12 +145,7 @@ class StartMatch extends React.PureComponent {
             { match.game.description }
           </Reveal>
         </div>
-        <Reveal effect='animated slideInRight'>
-          <h3>Best players</h3>
-          <table className='table'>
-            { this.renderRanking() }
-          </table>
-        </Reveal>
+        { this.ranking(match) }
       </div>
     )
   }
