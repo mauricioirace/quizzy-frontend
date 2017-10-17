@@ -92,8 +92,7 @@ class StartMatch extends React.PureComponent {
           </table>
         </Reveal>
       )
-    }
-    else {
+    } else {
       return (
         <p>Be the first to play!</p>
       )
