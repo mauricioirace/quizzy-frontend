@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeMatch: () => dispatch(removeMatch()),
+    removeMatch: () => dispatch(removeMatch())
   }
 }
 
