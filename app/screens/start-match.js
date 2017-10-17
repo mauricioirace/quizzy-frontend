@@ -84,7 +84,7 @@ class StartMatch extends React.PureComponent {
   }
 
   ranking(match) {
-    if (match.game.ranking.length > 0) {
+    if (this.props.currentMatch.game.ranking.length > 0) {
       return (
         <Reveal effect='animated slideInRight'>
           <h3>Best players</h3>
