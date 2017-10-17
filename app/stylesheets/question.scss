@@ -23,6 +23,17 @@
   }
 }
 
+#addQuestion:hover {
+  cursor: pointer;
+  background-color: $black;
+  color: $primary-color;
+  h3 {
+    font-size: 60px;
+    color: $primary-color;
+  }
+}
+
+
 #questionSquare {
   position: relative;
 
@@ -36,7 +47,7 @@
   #Medium {
     background-color: orange;
     h3 {
-      color: $black;
+      color: $white;
     }
   }
 
@@ -53,9 +64,23 @@
   }
 
   #bg-vertical-dropdown:hover {
-    background-color: none !important;
+    .caret {
+      color: $primary-color;
+    }
+  }
+
+  a:hover {
+    color: $primary-color;
   }
 }
 
+#arAnswer:hover {
+  cursor: pointer;
+  color: $primary-color;
+}
 
-
+#savedelete:hover {
+  background-color: $primary-color;
+  color: white;
+  border-color: $primary-color;
+}
