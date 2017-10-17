@@ -14,10 +14,12 @@ import { connect } from 'react-redux';
 export class CreateMatch extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.state = {
+      nickname: '',
       switched: false
     };
   }
@@ -29,6 +31,12 @@ export class CreateMatch extends React.PureComponent {
       };
     });
   };
+
+  handleChange(event) {
+    this.setState({
+      nickname: event.target.value
+    });
+  }
 
   getMatch() {
     const { name, description, image, category, questions, currentMatch } = this.props;

@@ -12,7 +12,6 @@ import {
   CREATING_MATCH,
   CREATE_MATCH_SUCCESS,
   CREATE_MATCH_FAILURE,
-  UPDATE_MATCH,
   TIMEOUT
 } from '../constants/match';
 
@@ -136,11 +135,6 @@ export default (state = initialState, action) => {
           score: 0,
           answer: false
         }
-      }
-    case UPDATE_MATCH:
-      return {
-        ...state,
-        match: action.match
       }
     default:
       return state
