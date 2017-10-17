@@ -54,13 +54,13 @@ class Questions extends React.PureComponent {
     const list = [];
 
     questions.map( (question, index) => {
-      const text = <FormControl disabled type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
+      const text = <FormControl readOnly type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
       let difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
       list.push(
         <div id='questionSquare' >
           <Col xs={2} md={2}>
             <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
-              <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown'>
+              <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
                 <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
                 <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
               </DropdownButton>
@@ -101,10 +101,6 @@ class Questions extends React.PureComponent {
           </div>
           <hr/>
           { questions[currentItem] }
-          <div>
-            <Button bsStyle='default pull-right' onClick={ this.closePanel } id='savedelete'>Save</Button>
-            <Button bsStyle='default pull-right' onClick={ () => this.onRemoveQuestion(currentItem) } id='savedelete'>Cancel</Button>
-          </div>
         </Panel>
       </div>
     );
