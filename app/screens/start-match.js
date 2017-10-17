@@ -25,7 +25,6 @@ import {
   generateShareIcon
 } from 'react-share';
 
-
 const {
   FacebookShareButton,
 } = ShareButtons;
@@ -93,8 +92,7 @@ class StartMatch extends React.PureComponent {
           </table>
         </Reveal>
       )
-    }
-    else {
+    } else {
       return (
         <p>Be the first to play!</p>
       )
