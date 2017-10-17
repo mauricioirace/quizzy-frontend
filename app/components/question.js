@@ -126,7 +126,10 @@ class Question extends React.PureComponent {
       })
       return;
     } else {
-      this.setState({ validText: 'success' })
+      this.setState({
+        validText: 'success',
+        textMessage: ''
+      })
       this.saveChanges();
     }
   }
