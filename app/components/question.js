@@ -142,7 +142,7 @@ class Question extends React.PureComponent {
           />
           <InputGroup.Addon>?</InputGroup.Addon>
           </InputGroup>
-          <span className="help-block">{this.state.textMessage}</span>
+          <span className="help-block">{ this.state.textMessage }</span>
         </FormGroup>
         <FormGroup>
           <ControlLabel>Hint (optional):</ControlLabel>
