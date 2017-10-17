@@ -22,6 +22,10 @@ $font-correct: #2ECC40;
 $font-wrong: #A90000;
 $fa-grey: #757575;
 
+$question-easy: rgba(14, 207, 104, 0.774);
+$question-medium: rgba(216, 248, 56, 0.849);
+$question-hard: rgba(235, 50, 50, 0.76);
+
 $header-height: 75px;
 
 @function lighter($color) {
