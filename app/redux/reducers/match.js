@@ -2,6 +2,7 @@ import {
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
+  REMOVE_MATCH,
   LOAD_MATCH_DATA,
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
@@ -48,6 +49,11 @@ export default (state = initialState, action) => {
     return {
       ...state,
       currentMatch: '',
+    };
+    case REMOVE_MATCH:
+    return {
+      ...state,
+      match: false,
     };
     case LOAD_MATCH_DATA:
       return {

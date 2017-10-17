@@ -3,6 +3,7 @@ import {
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
+  REMOVE_MATCH,
   LOAD_MATCH_DATA,
   LOAD_MATCH_DATA_SUCCESS,
   LOAD_MATCH_DATA_FAILURE,
@@ -29,6 +30,12 @@ export const loadCurrentMatch = (input) => {
 export const removeCurrentMatch = () => {
   return {
     type: REMOVE_CURRENT_MATCH,
+  }
+}
+
+export const removeMatch = () => {
+  return {
+    type: REMOVE_MATCH,
   }
 }
 
