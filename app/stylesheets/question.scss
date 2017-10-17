@@ -16,9 +16,10 @@
 }
 
 #addQuestion {
+  margin-top: 14%;
   cursor: pointer;
   h3 {
-    font-size: 60px;
+    font-size: 50px;
     color: $black;
   }
 }
@@ -28,7 +29,7 @@
   background-color: $black;
   color: $primary-color;
   h3 {
-    font-size: 60px;
+    font-size: 50px;
     color: $primary-color;
   }
 }
