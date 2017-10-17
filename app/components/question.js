@@ -1,12 +1,12 @@
 import React from 'react';
 import Answer from './answer';
 import { connect } from 'react-redux';
-import { 
+import {
   changeQuestionName,
-  changeQuestionDifficulty, 
-  changeHintQuestion, 
-  addOrRemoveQuestionAnswer, 
-  changeSelectedAnswer 
+  changeQuestionDifficulty,
+  changeHintQuestion,
+  addOrRemoveQuestionAnswer,
+  changeSelectedAnswer
 } from '../redux/actions/game';
 import '../stylesheets/question.scss';
 import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch) => {
     changeQuestionName: (newQuestion, index) => dispatch(changeQuestionName(newQuestion, index)),
     changeQuestionDifficulty: (newDifficulty, index) => dispatch(changeQuestionDifficulty(newDifficulty, index)),
     changeHintQuestion: (newHint, index) => dispatch(changeHintQuestion(newHint, index)),
-    addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),    
-    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),      
+    addOrRemoveQuestionAnswer: (answers, index) => dispatch(addOrRemoveQuestionAnswer(answers, index)),
+    changeSelectedAnswer: (question, answer) => dispatch(changeSelectedAnswer(question, answer)),
   };
 };
 
@@ -50,7 +50,7 @@ class Question extends React.PureComponent {
   }
 
   changeHint(event){
-    this.setState({ hint: event.target.value });    
+    this.setState({ hint: event.target.value });
   }
 
   changeDifficulty (event) {
@@ -61,7 +61,7 @@ class Question extends React.PureComponent {
     if (this.props.obj.answers.length < 6) {
       const newAnswers = this.props.obj.answers.slice(0, 6);
       newAnswers.push({ 'answer': '' });
-      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);      
+      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
       this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
@@ -85,20 +85,20 @@ class Question extends React.PureComponent {
       difficulty: question.difficulty
     });
   }
-  
-  cancelChanges() {  
+
+  cancelChanges() {
     this.rollbackState(this.props.obj);
     this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
-    this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);    
+    this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);
     this.props.closePanel();
   }
 
   saveChanges() {
     this.setState({ answers: this.props.obj.answers });
     this.setState({ correctAnswer: this.props.obj.correctAnswer });
-    this.props.changeQuestionName(this.state.text, this.props.id);   
-    this.props.changeHintQuestion(this.state.hint, this.props.id);    
-    this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);    
+    this.props.changeQuestionName(this.state.text, this.props.id);
+    this.props.changeHintQuestion(this.state.hint, this.props.id);
+    this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
     this.props.closePanel();
   }
 
@@ -142,7 +142,7 @@ class Question extends React.PureComponent {
               placeholder={ 'Question hint' }
             />
             <InputGroup.Addon>
-              <Icon name='lightbulb-o'/> 
+              <Icon name='lightbulb-o'/>
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>
@@ -163,8 +163,8 @@ class Question extends React.PureComponent {
           <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
         </div>
         <div>
-          <Button bsStyle='default pull-right' onClick={ this.saveChanges.bind(this) }>Save</Button>
-          <Button bsStyle='default pull-right' onClick={ this.cancelChanges.bind(this) }>Cancel</Button>
+          <Button bsStyle='default pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
+          <Button bsStyle='default pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
         </div>
       </div>
     );

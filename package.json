@@ -40,6 +40,7 @@
     "react-foundation": "^0.9.0",
     "react-hint": "^2.0.2",
     "react-progress": "0.0.12",
+    "react-picker": "^1.2.11",
     "react-redux": "^5.0.6",
     "react-redux-loading-bar": "^2.9.3",
     "react-reveal": "^0.2.2",
