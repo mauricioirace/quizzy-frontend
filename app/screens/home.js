@@ -21,6 +21,7 @@ export class Home extends React.Component {
     this.moveTable = this.moveTable.bind(this);
     this.renderMatches = this.renderMatches.bind(this);
     this.renderTable = this.renderTable.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   componentWillMount() {
@@ -57,6 +58,17 @@ export class Home extends React.Component {
     }, 4000);
   }
 
+  handleKeyPress(target) {
+    if(target.charCode == 13) {
+      if (!this.props.matchData.currentMatch) {
+        target.preventDefault();
+        this.props.matchNameError(EMPTY_MATCH_NAME);
+      } else {
+        this.props.history.push(`/match/${ this.props.matchData.currentMatch }`);
+      }
+    }
+  }
+
   renderTable() {
     const { matchesData } = this.props;
     if (matchesData.isFetching) {
@@ -73,7 +85,7 @@ export class Home extends React.Component {
       );
     } else if (matchesData.matches) {
       return (
-        <table ref="root" id='list' className='table'>
+        <table ref='root' id='list' className='table'>
           { this.renderMatches() }
         </table>
       );
@@ -114,7 +126,7 @@ export class Home extends React.Component {
                       <div className='form-input horizontal long'>
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
-                         name='game' placeholder='game-name' onChange={ this.handleChange }/>
+                         name='game' placeholder='game-name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
                           onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button grey medium'>PLAY!</button>

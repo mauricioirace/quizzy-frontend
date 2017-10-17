@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { setCurrentMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import '../stylesheets/match.scss';
 
 @withRouter
 class Match extends React.PureComponent {
@@ -20,10 +21,10 @@ class Match extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td><img src={ this.props.data.game.image } height="80" /></td>
+        <td><img className='match-image' src={ this.props.data.game.image } height='80'/></td>
         <td>{ this.props.data.game.name }</td>
         <td>Rating: { this.props.data.game.rating }</td>
-        <td><Button onClick={ this.handleClick }><img className='play-button' src={ require('../../assets/images/play_button.png') }/></Button></td>
+        <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
       </tr>
     )
   }

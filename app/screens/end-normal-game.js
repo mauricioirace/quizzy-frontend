@@ -69,7 +69,7 @@ class EndNormalGame extends React.PureComponent {
         this.props.history.push('/');
       })
       .catch((err) => {
-        alert(err.error);
+
       });
   }
 
@@ -92,7 +92,7 @@ class EndNormalGame extends React.PureComponent {
 
   addItemtoLeaderBoard(items, i) {
     items.push(
-      isEqual(this.state.leaderboard[i].user, this.props.matchData.state.player) ? ( 
+      isEqual(this.state.leaderboard[i].user, this.props.matchData.state.player) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
         <td>{ this.state.leaderboard[i].user }</td>
@@ -106,7 +106,7 @@ class EndNormalGame extends React.PureComponent {
         </tr>
       )
     )
-  }  
+  }
 
   renderLeaderBoard() {
     const lastIndex = size(this.state.leaderboard) - 1;
@@ -117,7 +117,7 @@ class EndNormalGame extends React.PureComponent {
     //check if player was found
     if (userPlace > -1) {
       if (lastIndex <= 4) {
-        //show until 5 users starting from 0  
+        //show until 5 users starting from 0
         for (i = 0; i <= lastIndex; i++) {
           this.addItemtoLeaderBoard(items, i);
         }
@@ -129,7 +129,7 @@ class EndNormalGame extends React.PureComponent {
             this.addItemtoLeaderBoard(items, i);
           }
         } else {
-          //if current user is the last or previous than last 
+          //if current user is the last or previous than last
           if (userPlace === lastIndex || userPlace === lastIndex - 1) {
             //show 5 starting from lastIndex - 4
             for (i = lastIndex - 4; i <= lastIndex; i++) {
@@ -174,17 +174,17 @@ class EndNormalGame extends React.PureComponent {
               <Button bsStyle='link' onClick={ () => this.saveMatch() }>
                 Continue with your nickname
               </Button>
-            </Link>  
+            </Link>
           </p>
         </Jumbotron>
 
         <LoginModal
           show={ this.state.showModal }
           setSignUp={ this.setModalSignUp }
-          setHide={ this.setModalHide } 
+          setHide={ this.setModalHide }
         />
-      
-        <RegisterModal 
+
+        <RegisterModal
           show={ this.state.showModal }
           setSignIn={ this.setModalSignIn }
           setHide={ this.setModalHide }

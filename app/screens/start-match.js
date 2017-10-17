@@ -5,6 +5,7 @@ import { updateMatch, setPlayer } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
+import '../stylesheets/create-match.scss';
 import {
   Button,
   Col,
@@ -69,17 +70,28 @@ class StartMatch extends React.PureComponent {
 
   renderRanking() {
     const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
-    const items = [];
-    ranking.forEach( (entry, index) => {
-      items.push(
-        <tr>
-          <td>{ index + 1 }</td>
-          <td>{ entry.user }</td>
-          <td>{ entry.points } pts</td>
-        </tr>
+    if(ranking.length != 0) {
+      const items = [];
+      ranking.forEach( (entry, index) => {
+        items.push(
+          <tr>
+            <td>{ index + 1 }</td>
+            <td>{ entry.user }</td>
+            <td>{ entry.points } pts</td>
+          </tr>
+        );
+      });
+      return (
+        <Reveal effect='animated slideInRight'>
+          <h3>Best players</h3>
+          <table className='table'>
+            <tbody>{ items }</tbody>
+          </table>
+        </Reveal>
       );
-    });
-    return (<tbody>{ items }</tbody>);
+    } else {
+      return;
+    }
   }
 
   ranking(match) {
@@ -113,38 +125,41 @@ class StartMatch extends React.PureComponent {
   render() {
     const match = this.props.currentMatch;
     return (
+      <div className='page-match'>
       <div className='game-container'>
         <Reveal effect='animated slideInDown'>
           <div className='game-title'>
-            <img src={ match.game.image } height='100' id='previewImage'/>
-            <h1 id='game-name'>{ match.game.name }</h1>
+            { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
+            <h1 className='game-name'>{ match.game.name }</h1>
           </div>
-          <h4>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h4>
+          <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
           <div className='form-container'>
             <form>
               <div className='form-input horizontal long'>
-                <label>Enter your nickname</label>
-                <input type='text' placeholder='eg: Pepu' onChange={ this.handleChange }/>
+                <label className='fs-22'>Enter your nickname</label>
+                <input className='fs-16' type='text' placeholder='eg: Pepu' onChange={ this.handleChange }/>
                 <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
               </div>
+              <p id='error'></p>
             </form>
             <form>
              <div className='form-input horizontal long'>
-               <input id='matchURL' type='url' readOnly value={ match.url }/>
+               <label className='fs-22'>Share it</label>
+               <input className='fs-16' id='matchURL' type='url' readOnly value={ window.location.href }/>
                <Button className='share' onClick={ this.copyURL }>Copy</Button>
                <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
              </div>
            </form>
           </div>
         </Reveal>
-        <p id='error'></p>
         <div className='description-container'>
           <Reveal effect='animated slideInLeft'>
-            <h3 className='game-description'>Game description</h3>
-            { match.game.description }
+            <h2 className='game-description'>Game description</h2>
+            <h4>{ match.game.description }</h4>
           </Reveal>
         </div>
-        { this.ranking() }
+        { this.renderRanking() }
+      </div>
       </div>
     )
   }
