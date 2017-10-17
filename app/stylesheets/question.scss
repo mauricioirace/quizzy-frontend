@@ -39,23 +39,24 @@
   position: relative;
 
   #Easy {
-    background-color: darkgreen;
+    background-color: $question-easy;
     h3 {
-      color: $white;
+      color: $black;
+      font-weight: bold
     }
   }
 
   #Medium {
-    background-color: orange;
+    background-color: $question-medium;
     h3 {
-      color: $white;
+      color: $black;
     }
   }
 
   #Hard {
-    background-color: maroon;
+    background-color: $question-hard;
     h3 {
-      color: $white;
+      color: $black;
     }
   }
 
