@@ -69,12 +69,6 @@ class EndNormalGame extends React.PureComponent {
     const current_match = this.props.matchData.match;
     current_match.game.ranking = this.state.leaderboard;
     matchService.update(current_match)
-      .then((res) => {
-
-      })
-      .catch((err) => {
-
-      });
   }
 
   findUserPlace(lastIndex) {
