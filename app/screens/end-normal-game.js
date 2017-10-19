@@ -56,6 +56,10 @@ class EndNormalGame extends React.PureComponent {
     this.setState({ showModal: 'hide' });
   }
 
+  componentWillMount() {
+    this.saveMatch();
+  }
+
   componentWillUnmount() {
     // remove the_match from state
     this.props.removeMatch();
@@ -65,12 +69,6 @@ class EndNormalGame extends React.PureComponent {
     const current_match = this.props.matchData.match;
     current_match.game.ranking = this.state.leaderboard;
     matchService.update(current_match)
-      .then((res) => {
-        this.props.history.push('/');
-      })
-      .catch((err) => {
-
-      });
   }
 
   findUserPlace(lastIndex) {
@@ -171,34 +169,27 @@ class EndNormalGame extends React.PureComponent {
               Save
             </Button>
             <Link to={ '/' }>
-              <Button bsStyle='link' onClick={ () => this.saveMatch() }>
+              <Button bsStyle='link'>
                 Continue with your nickname
               </Button>
             </Link>
           </p>
         </Jumbotron>
-
         <LoginModal
           show={ this.state.showModal }
           setSignUp={ this.setModalSignUp }
           setHide={ this.setModalHide }
         />
-
         <RegisterModal
           show={ this.state.showModal }
           setSignIn={ this.setModalSignIn }
           setHide={ this.setModalHide }
         />
-
         <h2>Leaderboard</h2>
         <Table responsive>
           { this.renderHeaderLeaderBoard() }
           { this.renderLeaderBoard() }
         </Table>
-        <p>
-          Share your score!
-        </p>
-        <Button bsStyle='primary' bsSize='small'>f | Compartir</Button>
       </div>
     )
   }
