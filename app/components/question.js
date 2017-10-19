@@ -35,6 +35,8 @@ class Question extends React.PureComponent {
       text: this.props.obj.text,
       hint: this.props.obj.hint,
       difficulty: this.props.obj.difficulty,
+      validText: '',
+      textMessage: '',
       answers: this.props.obj.answers,
       correctAnswer: this.props.obj.correctAnswer
     };
@@ -102,6 +104,22 @@ class Question extends React.PureComponent {
     this.props.closePanel();
   }
 
+  validateQuestion() {
+    if (this.state.text == '') {
+      this.setState({
+        validText: 'error',
+        textMessage: "This field can't be empty"
+      })
+      return;
+    } else {
+      this.setState({
+        validText: 'success',
+        textMessage: ''
+      })
+      this.saveChanges();
+    }
+  }
+
   render() {
     const question = this.props.self;
     const id = this.props.id;
@@ -121,7 +139,8 @@ class Question extends React.PureComponent {
 
     return (
       <div className='question'>
-        <FormGroup>
+        <FormGroup
+          validationState = { this.state.validText }>
           <InputGroup>
           <FormControl
             type='text'
@@ -131,6 +150,7 @@ class Question extends React.PureComponent {
           />
           <InputGroup.Addon>?</InputGroup.Addon>
           </InputGroup>
+          <span className="help-block">{ this.state.textMessage }</span>
         </FormGroup>
         <FormGroup>
           <ControlLabel>Hint (optional):</ControlLabel>
@@ -163,7 +183,7 @@ class Question extends React.PureComponent {
           <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
         </div>
         <div>
-          <Button bsStyle='default pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
+          <Button bsStyle='default pull-right' onClick={ this.validateQuestion.bind(this) } id='savedelete'>Save</Button>
           <Button bsStyle='default pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
         </div>
       </div>

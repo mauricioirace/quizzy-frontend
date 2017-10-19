@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
-  
+
   constructor(props){
     super(props);
     this.onChangeImage = this.onChangeImage.bind(this);
@@ -33,9 +33,10 @@ class GameGeneralInfo extends React.PureComponent {
     const game = this.props.gameData;
     return (
       <Form>
-        <FormGroup controlId='formName'>
+        <FormGroup controlId='formName' validationState={ this.props.validName }>
             <ControlLabel>Name</ControlLabel>
             <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
+            <span className="help-block">{ this.props.nameMessage }</span>
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
