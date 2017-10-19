@@ -64,7 +64,7 @@ export class CreateMatch extends React.PureComponent {
   }
 
   renderDescription() {
-    if(this.match.game.description) {
+    if (this.match.game.description) {
       return(
         <div className='description-container'>
           <h2 className='game-description'>Game description</h2>
