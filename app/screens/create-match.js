@@ -101,8 +101,8 @@ export class CreateMatch extends React.PureComponent {
       <div>
         <div className='page-match'>
           <Row>
-            <h1>CREATE A NEW MATCH FOR THIS GAME</h1>
-            <h4>Select between the 2 game modes, normal or real-time and get playing!</h4>
+            <h1>Create a new match for this game</h1>
+            <h4>Select between the 2 game modes, normal or real-time, and start playing!</h4>
           </Row>
           <div className='game-container'>
             <Row>

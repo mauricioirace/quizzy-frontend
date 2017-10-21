@@ -77,8 +77,8 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = sortBy(this.props.currentMatch.game.ranking, 'points').reverse();
-    if(ranking.length != 0) {
+    const ranking = this.props.currentMatch.game.ranking;
+    if (ranking.length > 0) {
       const items = [];
       ranking.forEach( (entry, index) => {
         items.push(
@@ -98,25 +98,12 @@ class StartMatch extends React.PureComponent {
         </Reveal>
       );
     } else {
-      return;
-    }
-  }
-
-  ranking(match) {
-    if (this.props.currentMatch.game.ranking.length > 0) {
-      return (
+      return(
         <Reveal effect='animated slideInRight'>
-          <h3>Best players</h3>
-          <table className='table'>
-            { this.renderRanking() }
-          </table>
+          <h2 id='first-player'>Be the first to play!</h2>
         </Reveal>
       )
-    } else {
-      return (
-        <p>Be the first to play!</p>
-      )
-    };
+    }
   }
 
   getValidationState() {
@@ -134,40 +121,40 @@ class StartMatch extends React.PureComponent {
     const match = this.props.currentMatch;
     return (
       <div className='page-match'>
-      <div className='game-container'>
-        <Reveal effect='animated slideInDown'>
-          <div className='game-title'>
-            { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
-            <h1 className='game-name'>{ match.game.name }</h1>
-          </div>
-          <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
-          <div className='form-container'>
-            <form>
-              <div className='form-input horizontal long'>
-                <label className='fs-22'>Enter your nickname</label>
-                <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
-                <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
-              </div>
-              <p id='error'></p>
-            </form>
-            <form>
-             <div className='form-input horizontal long'>
-               <label className='fs-22'>Share it</label>
-               <input className='fs-16' id='matchURL' type='url' readOnly value={ window.location.href }/>
-               <Button className='share' onClick={ this.copyURL }>Copy</Button>
-               <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
-             </div>
-           </form>
-          </div>
-        </Reveal>
-        <div className='description-container'>
-          <Reveal effect='animated slideInLeft'>
-            <h2 className='game-description'>Game description</h2>
-            <h4>{ match.game.description }</h4>
+        <div className='game-container'>
+          <Reveal effect='animated slideInDown'>
+            <div className='game-title'>
+              { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
+              <h1 className='game-name'>{ match.game.name }</h1>
+            </div>
+            <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
+            <div className='form-container'>
+              <form>
+                <div className='form-input horizontal long'>
+                  <label className='fs-22'>Enter your nickname</label>
+                  <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+                  <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
+                </div>
+                <p id='error'></p>
+              </form>
+              <form>
+               <div className='form-input horizontal long'>
+                 <label className='fs-22'>Share it</label>
+                 <input className='fs-16' id='matchURL' type='url' readOnly value={ window.location.href }/>
+                 <Button className='share' onClick={ this.copyURL }>Copy</Button>
+                 <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
+               </div>
+             </form>
+            </div>
           </Reveal>
+          <div className='description-container'>
+            <Reveal effect='animated slideInLeft'>
+              <h2 className='game-description'>Game description</h2>
+              <h4>{ match.game.description }</h4>
+            </Reveal>
+          </div>
+          { this.renderRanking() }
         </div>
-        { this.renderRanking() }
-      </div>
       </div>
     )
   }

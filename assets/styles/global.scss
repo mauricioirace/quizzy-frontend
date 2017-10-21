@@ -17,10 +17,11 @@ html, body, #app {
 }
 
 body {
-  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Open Sans,sans-serif !important;;
   font-size: 14px;
   line-height: 1.5;
   color: $font-black;
   background-color: $white;
   margin: 0;
+  -webkit-font-smoothing: antialiased;
 }
