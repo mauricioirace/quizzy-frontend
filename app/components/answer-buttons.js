@@ -8,7 +8,8 @@ import { answerQuestion, nextQuestion } from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
 import { withRouter } from 'react-router-dom';
 import { SlideFadeLeft } from '../components/transitions';
-import { TransitionGroup } from 'react-transition-group';
+import shuffle from 'shuffle-array';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = state => {
   return {
@@ -59,7 +60,13 @@ class AnswerButtons extends React.PureComponent {
       this.waitForNextQuestion();
     }
 
-    const answers = this.props.answers.map((answer, index) => {
+    const lenAnswers = this.props.answers.length;
+    let mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
+    shuffle(mapping);
+
+    const answers = this.props.answers.map((_, oldIndex) => {
+      const index = mapping[oldIndex];
+      const answer = this.props.answers[index];
       const correct = index === this.props.correctAnswer;
 
       return (
@@ -85,4 +92,10 @@ class AnswerButtons extends React.PureComponent {
     )
   }
 }
+
+AnswerButtons.propTypes = {
+  answers: PropTypes.arrayOf(PropTypes.object),
+  correctAnswer: PropTypes.number
+};
+
 export default AnswerButtons;
