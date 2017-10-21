@@ -15,7 +15,6 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  // SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
@@ -158,11 +157,6 @@ export default (state = initialState, action) => {
           player: action.player
         }
       }
-    // case SET_MATCH_ID:
-    //   return {
-    //     ...state,
-    //     id: action.id
-    //   }
     default:
       return state
   }

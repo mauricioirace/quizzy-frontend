@@ -16,7 +16,6 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  // SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
@@ -138,8 +137,3 @@ export const timeout = () => ({
 export const nextQuestion = () => ({
   type: NEXT_QUESTION,
 });
-
-// export const setMatchId = (id) => ({
-//   type: SET_MATCH_ID,
-//   id
-// });
