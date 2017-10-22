@@ -30,6 +30,7 @@ const mapDispatchToProps = dispatch => {
 @ReactTimeout
 @withRouter
 class AnswerButtons extends React.PureComponent {
+  mapping;
 
   constructor(props) {
     super(props);
@@ -58,14 +59,14 @@ class AnswerButtons extends React.PureComponent {
     const answered = this.props.matchState.answer;
     if(answered !== false) {
       this.waitForNextQuestion();
+    } else {
+      const lenAnswers = this.props.answers.length;
+      this.mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
+      shuffle(this.mapping);
     }
 
-    const lenAnswers = this.props.answers.length;
-    let mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
-    shuffle(mapping);
-
     const answers = this.props.answers.map((_, oldIndex) => {
-      const index = mapping[oldIndex];
+      const index = this.mapping[oldIndex];
       const answer = this.props.answers[index];
       const correct = index === this.props.correctAnswer;
 
