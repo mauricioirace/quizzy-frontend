@@ -19,6 +19,7 @@ class Questions extends React.PureComponent {
     this.onEditQuestion = this.onEditQuestion.bind(this);
     this.openPanel = this.openPanel.bind(this);
     this.closePanel = this.closePanel.bind(this);
+    this.onRemoveQuestion = this.onRemoveQuestion.bind(this)
   }
 
   onAddQuestion() {
@@ -75,12 +76,12 @@ class Questions extends React.PureComponent {
   }
 
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } closePanel={ this.closePanel } />
+    const currentItem = this.state.editIndex;
+    const title = 'Question #' + (currentItem + 1);
+    const questions = this.props.questions.map( (question, index) =>
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } 
+      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }/>
     );
-    const displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>
