@@ -76,8 +76,8 @@ class EndNormalGame extends React.PureComponent {
     let i = 0;
     let encontre = false;
     while (!encontre && i <= lastIndex) {
-      if (this.props.matchData.state.player === this.state.leaderboard[i].user) &&
-      (this.props.matchData.state.score === this.state.leaderboard[i].points) {
+      if (this.props.matchData.state.player === this.state.leaderboard[i].user &&
+      this.props.matchData.state.score === this.state.leaderboard[i].points) {
         encontre = true;
       } else {
         i = i + 1;
