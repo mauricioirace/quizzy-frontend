@@ -2,6 +2,8 @@ import React from 'react';
 import '../stylesheets/answer-question.scss';
 import { Button } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
+import PropTypes from 'prop-types';
+
 class AnswerButton extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -42,6 +44,10 @@ class AnswerButton extends React.PureComponent {
 
 AnswerButton.defaultProps = {
   correct: false
+};
+
+AnswerButton.propTypes = {
+  answered: PropTypes.object
 };
 
 export default AnswerButton;
