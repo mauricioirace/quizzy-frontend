@@ -43,8 +43,7 @@ class AnswerButton extends React.PureComponent {
 }
 
 AnswerButton.defaultProps = {
-  correct: false,
-
+  correct: false
 };
 
 AnswerButton.propTypes = {
