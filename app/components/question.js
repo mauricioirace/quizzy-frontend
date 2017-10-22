@@ -43,6 +43,9 @@ class Question extends React.PureComponent {
     this.changeHint = this.changeHint.bind(this);
     this.addAnswer = this.addAnswer.bind(this);
     this.removeAnswer = this.removeAnswer.bind(this);
+    this.cancelChanges = this.cancelChanges.bind(this);
+    this.saveChanges = this.saveChanges.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   changeQuestion(event) {
@@ -105,6 +108,12 @@ class Question extends React.PureComponent {
     this.props.closePanel();
   }
 
+  handleKeyPress(index) {
+    if (index == this.props.obj.answers.length - 1) {
+      this.addAnswer();  
+    }
+  }
+
   render() {
     const question = this.props.self;
     const id = this.props.id;
@@ -117,7 +126,9 @@ class Question extends React.PureComponent {
           text={ answer.answer }
           correct={ question.correctAnswer == index }
           question={ id }
+          addAnswer={ this.addAnswer }
           removeAnswer={ this.removeAnswer }
+          handleKeyPress={ this.handleKeyPress }
         />
       );
     });
