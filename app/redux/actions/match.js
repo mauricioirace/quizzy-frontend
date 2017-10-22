@@ -16,7 +16,6 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
@@ -101,9 +100,8 @@ export const createMatch = (match, onSuccess) => {
     matchService.create(match)
       .then((res) => {
         dispatch(createMatchSuccess());
-        dispatch(setMatchId(res.data.match.id));
-        // const newMatch = Object.assign({}, match, { id: res.data.match.id });
-        onSuccess(match);
+        const newMatch = Object.assign({}, match, { id: res.data.match.id });
+        onSuccess(newMatch);
       })
       .catch((error) => {
         dispatch(createMatchFailure(error.response.data.error))
@@ -138,9 +136,4 @@ export const timeout = () => ({
 
 export const nextQuestion = () => ({
   type: NEXT_QUESTION,
-});
-
-export const setMatchId = (id) => ({
-  type: SET_MATCH_ID,
-  id
 });

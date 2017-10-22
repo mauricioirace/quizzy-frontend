@@ -15,12 +15,10 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  SET_MATCH_ID,
   TIMEOUT
 } from '../constants/match';
 
 const initialState = {
-  id: '',
   currentMatch: '',
   match: false,
   isFetching: false,
@@ -158,11 +156,6 @@ export default (state = initialState, action) => {
           ...state.state,
           player: action.player
         }
-      }
-    case SET_MATCH_ID:
-      return {
-        ...state,
-        id: action.id
       }
     default:
       return state
