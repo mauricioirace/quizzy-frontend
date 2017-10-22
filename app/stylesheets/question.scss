@@ -15,11 +15,25 @@
   }
 }
 
-#addQuestion {
-  margin-top: 14%;
+#addQuestion {  
+  text-align: center;
   cursor: pointer;
   h3 {
-    font-size: 23px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 25px;
+    color: $black;
+  }
+}
+
+#addQuestionDisabled {
+  opacity:0.7;  
+  text-align: center;
+  cursor: not-allowed;
+  h3 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 25px;
     color: $black;
   }
 }
@@ -29,7 +43,7 @@
   background-color: $black;
   color: $primary-color;
   h3 {
-    font-size: 23px;
+    font-size: 25px;
     color: $primary-color;
   }
 }
