@@ -76,8 +76,9 @@ class EndNormalGame extends React.PureComponent {
     let i = 0;
     let encontre = false;
     while (!encontre && i <= lastIndex) {
-      if (this.props.matchData.state.player === this.state.leaderboard[i].user) {
-          encontre = true;
+      if (this.props.matchData.state.player === this.state.leaderboard[i].user) &&
+      (this.props.matchData.state.score === this.state.leaderboard[i].points) {
+        encontre = true;
       } else {
         i = i + 1;
       }
@@ -123,7 +124,7 @@ class EndNormalGame extends React.PureComponent {
             this.addItemtoLeaderBoard(items, i, true);
             highlight = false;
           } else {
-              this.addItemtoLeaderBoard(items, i, false);
+            this.addItemtoLeaderBoard(items, i, false);
           }
         }
       } else {
@@ -136,7 +137,7 @@ class EndNormalGame extends React.PureComponent {
               this.addItemtoLeaderBoard(items, i, true);
               highlight = false;
             } else {
-                this.addItemtoLeaderBoard(items, i, false);
+              this.addItemtoLeaderBoard(items, i, false);
             }
           }
         } else {
@@ -149,7 +150,7 @@ class EndNormalGame extends React.PureComponent {
                 this.addItemtoLeaderBoard(items, i, true);
                 highlight = false;
               } else {
-                  this.addItemtoLeaderBoard(items, i, false);
+                this.addItemtoLeaderBoard(items, i, false);
               }
             }
           } else {
@@ -160,7 +161,7 @@ class EndNormalGame extends React.PureComponent {
                 this.addItemtoLeaderBoard(items, i, true);
                 highlight = false;
               } else {
-                  this.addItemtoLeaderBoard(items, i, false);
+                this.addItemtoLeaderBoard(items, i, false);
               }
             }
           }
