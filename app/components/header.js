@@ -2,11 +2,17 @@ import React from 'react';
 import { Router, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Navbar } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import '../stylesheets/header.scss';
 
 class Header extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      darkenHeader: false
+    };
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -22,11 +28,10 @@ class Header extends React.PureComponent {
   }
 
   handleScroll(event) {
-    if ($('.navbar').offset().top > 20) {
-      $('.navbar-fixed-top').addClass('top-nav-collapse');
-    } else {
-      $('.navbar-fixed-top').removeClass('top-nav-collapse');
-    }
+    // console.log(ReactDOM.findDOMNode(this.navbar).offsetTop);
+    this.setState({
+        darkenHeader: window.pageYOffset > 20 ? true : false
+    });
   }
 
   animateScroll() {
@@ -61,8 +66,14 @@ class Header extends React.PureComponent {
         </a>
       );
     }
+    var navbarClass = classNames({
+      'navbar': true,
+      'navbar-default': true,
+      'navbar-fixed-top': true,
+      'top-nav-collapse': this.state.darkenHeader
+    });
     return (
-      <Navbar fixedTop role='navigation'>
+      <Navbar fixedTop className={ navbarClass } ref={ el => this.navbar = el } role='navigation'>
         <div className='container'>
           { navbarAction }
           <div className='navbar-header'>
