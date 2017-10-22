@@ -115,8 +115,7 @@ export class Home extends React.Component {
             <Row>
               <Col md={ 7 } mdOffset={ 2 } xs={ 12 }>
                 <Reveal effect='animated slideInDown'>
-                  <h1 className='brand-heading'>Quizzy</h1>
-                  <h2>Create a game and start playing!</h2>
+                  <h2 className='brand-heading'>Create a game and start playing!</h2>
                 </Reveal>
               </Col>
             </Row>
@@ -131,7 +130,7 @@ export class Home extends React.Component {
                                name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch }` }
                               onClick={ this.checkEmptyName } className='play-link'>
-                          <button className='button grey medium'>PLAY!</button>
+                          <button className='button primary medium'>PLAY!</button>
                         </Link>
                       </div>
                       <div className='form-input horizontal medium'>
@@ -179,7 +178,7 @@ export class Home extends React.Component {
               <Col md={ 12 } xs={ 12 }>
                 <Reveal effect='animated fadeIn'>
                   <h5>Choose a game, answer the questions and prove your knowledge.
-                    There are two modes you can play, normal & real-time.</h5>
+                    There are two modes you can play: normal & real-time.</h5>
                 </Reveal>
               </Col>
             </Row>
@@ -189,13 +188,13 @@ export class Home extends React.Component {
                   <Reveal effect='animated slideInLeft'>
                     <div className='game-mode'>
                       <h3>Normal</h3>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      Start the match whenever you want and answer the questions while the time is running.
                     </div>
                   </Reveal>
                   <Reveal effect='animated slideInRight'>
                     <div className='game-mode'>
                       <h3>Real-Time</h3>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      Compete at the same time with others players. Be the first to answer the questions!
                     </div>
                   </Reveal>
                 </div>

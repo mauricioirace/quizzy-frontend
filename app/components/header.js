@@ -66,7 +66,7 @@ class Header extends React.PureComponent {
         <div className='container'>
           { navbarAction }
           <div className='navbar-header'>
-          { homeButton }
+            { homeButton }
           </div>
         </div>
       </Navbar>

@@ -89,7 +89,7 @@ class Questions extends React.PureComponent {
             { this.renderQuestions(questions) }
             <Col xs={2} md={2}>
               <Thumbnail onClick={ this.onAddQuestion } className='thumbnail' id='addQuestion'>
-                <h3>Add+</h3>
+                <h3>Add a new question</h3>
               </Thumbnail>
             </Col>
           </Row>

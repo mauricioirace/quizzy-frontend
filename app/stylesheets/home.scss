@@ -57,7 +57,7 @@
   height: 715px;
   padding: 100px 0;
   text-align: center;
-  color: white;
+  color: $white;
   background: url(../../assets/images/landing.jpg) no-repeat bottom center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -73,7 +73,7 @@
     text-align: left;
 
     .brand-heading {
-      font-size: 85px;
+      font-size: 50px;
     }
     .intro-text {
       font-size: 18px;
@@ -94,7 +94,7 @@
       }
 
       h2 {
-        font-size: 14px !important;
+        font-size: 50px !important;
       }
 
       button {
@@ -103,7 +103,7 @@
 
       .brand-heading {
         display: inline-block;
-        font-size: 85px;
+        font-size: 50px;
 
         .intro-text {
           font-size: 26px;
@@ -207,7 +207,7 @@
   padding-bottom: 50px;
 
   .brand-heading {
-    font-size: 85px;
+    font-size: 50px;
     margin: auto;
     margin-bottom: 30px;
   }
@@ -250,7 +250,7 @@
   .content-section {
 
     .brand-heading {
-      font-size: 65px;
+      font-size: 50px;
     }
   }
 }
