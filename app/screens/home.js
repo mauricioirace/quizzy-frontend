@@ -16,12 +16,15 @@ export class Home extends React.Component {
   constructor(props) {
     super(props);
     this.checkEmptyName;
+    this.isMouseOn = false;
     this.handleChange = this.handleChange.bind(this);
     this.checkEmptyName = this.checkEmptyName.bind(this);
     this.moveTable = this.moveTable.bind(this);
     this.renderMatches = this.renderMatches.bind(this);
     this.renderTable = this.renderTable.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   componentWillMount() {
@@ -46,18 +49,20 @@ export class Home extends React.Component {
   }
 
   moveTable() {
-    setInterval(() => {
-      const { matchesData } = this.props;
-      let length = matchesData.matches.length;
-      let last = matchesData.matches[length - 1];
-      matchesData.matches.pop();
-      matchesData.matches.unshift(last);
-      if(this.refs.root) {
-        this.setState((state) => {
-          { matches: matchesData.matches }
-        });
-      }
-    }, 4000);
+      setInterval(() => {
+        if(!this.isMouseOn) {
+          const { matchesData } = this.props;
+          let length = matchesData.matches.length;
+          let last = matchesData.matches[length - 1];
+          matchesData.matches.pop();
+          matchesData.matches.unshift(last);
+          if(this.refs.root) {
+            this.setState((state) => {
+              { matches: matchesData.matches }
+            });
+          }
+        }
+      }, 4000);
   }
 
   handleKeyPress(target) {
@@ -69,6 +74,14 @@ export class Home extends React.Component {
         this.props.history.push(`/match/${ this.props.matchData.currentMatch }`);
       }
     }
+  }
+
+  handleMouseOver() {
+    this.isMouseOn = true;
+  }
+
+  handleMouseLeave() {
+    this.isMouseOn = false;
   }
 
   renderTable() {
@@ -87,7 +100,7 @@ export class Home extends React.Component {
       );
     } else if (matchesData.matches) {
       return (
-        <table ref='root' id='list' className='table'>
+        <table onMouseOver={ this.handleMouseOver } onMouseLeave={ this.handleMouseLeave } ref='root' id='list' className='table'>
           { this.renderMatches() }
         </table>
       );
