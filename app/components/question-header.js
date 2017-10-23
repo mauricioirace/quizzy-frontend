@@ -14,7 +14,7 @@ class QuestionHeader extends React.PureComponent {
   }
 
   getCorrectness() {
-    const correctness = this.props.correct ? 'YOU ARE\nRIGHT!' : 'WRONG!';
+    const correctness = this.props.correct ? 'RIGHT!' : 'WRONG!';
     const correctnessColor = this.props.correct ? 'text-correct': 'text-wrong';
 
     return {
@@ -26,7 +26,7 @@ class QuestionHeader extends React.PureComponent {
   renderCorrectnes(total) {
     const { correctness, correctnessColor } = this.getCorrectness();
 
-    if (!this.props.stop) {
+    if (this.props.stop === true) {
       return (
         <h1 className='text-center'>
           <small className='quizzy-text'>

@@ -5,6 +5,20 @@
   background-color: $primary-color;
   border-color: $primary-color;
 }
+
+.btn-correct:disabled, .btn-correct:focus, .btn-correct:active, .btn-correct.active, .open>.dropdown-toggle.btn-correct {
+  color: $white;
+  background-color: $font-correct;
+  border-color: $font-correct;
+}
+
+.btn-wrong:disabled, .btn-wrong:focus, .btn-wrong:active, .btn-wrong.active, .open>.dropdown-toggle.btn-wrong {
+  color: $white;
+  background-color: $font-wrong;
+  border-color: $font-wrong;
+}
+
+
 .btn-custom {
   color: $primary-color;
   background-color: $white;

@@ -124,7 +124,7 @@ export const matchNameError = (msg) => ({
   msg
 });
 
-export const answerQuestion = (correct,answer) => ({
+export const answerQuestion = (correct, answer) => ({
   type: ANSWER_QUESTION,
   correct,
   answer
