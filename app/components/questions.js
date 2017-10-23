@@ -12,13 +12,15 @@ class Questions extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
+      editIndex: 0,
       showPanel: false,
-      editIndex: 0
+      showAddButton: true
     };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onEditQuestion = this.onEditQuestion.bind(this);
     this.openPanel = this.openPanel.bind(this);
     this.closePanel = this.closePanel.bind(this);
+    this.onRemoveQuestion = this.onRemoveQuestion.bind(this)
   }
 
   onAddQuestion() {
@@ -42,17 +44,22 @@ class Questions extends React.PureComponent {
 
   openPanel() {
     this.props.disableStepButtons();
-    this.setState({ showPanel: true });
+    this.setState({ 
+      showAddButton: false,      
+      showPanel: true
+     });
   }
 
   closePanel() {
     this.props.enableStepButtons();
-    this.setState({ showPanel: false });
+    this.setState({ 
+      showAddButton: true,      
+      showPanel: false
+     });
   }
 
   renderQuestions(questions) {
     const list = [];
-
     questions.map( (question, index) => {
       const text = <FormControl readOnly type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
       let difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
@@ -60,11 +67,13 @@ class Questions extends React.PureComponent {
         <div id='questionSquare' >
           <Col xs={2} md={2}>
             <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
-              <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
-                <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
-                <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
-              </DropdownButton>
-              <h3> { difficulty } </h3>
+              <h3>
+                <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
+                  <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
+                  <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
+                </DropdownButton>
+                { difficulty } 
+              </h3>
               <p> { text } </p>
             </Thumbnail>
           </Col>
@@ -74,24 +83,40 @@ class Questions extends React.PureComponent {
     return list;
   }
 
+  renderAddButton() {
+    if (this.state.showAddButton) {
+      return (
+        <Col xs={2} md={2}>
+          <Thumbnail onClick={ this.onAddQuestion } className='thumbnail' id='addQuestion'>
+            <h3>Add a new question</h3>
+          </Thumbnail>
+        </Col>
+      )
+    } else {
+      return (
+        <Col xs={2} md={2}>
+          <Thumbnail className='thumbnail' id='addQuestionDisabled'>
+            <h3>Add a new question</h3>
+          </Thumbnail>
+        </Col>
+      )
+    }
+  }
+
   render() {
-    let currentItem = this.state.editIndex;
-    let title = 'Question #' + (currentItem + 1);
-    let questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } closePanel={ this.closePanel } />
+    const currentItem = this.state.editIndex;
+    const title = 'Question #' + (currentItem + 1);
+    const questions = this.props.questions.map( (question, index) =>
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } 
+      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }/>
     );
-    const displayQuestions = this.renderQuestions(questions);
 
     return (
       <div>
         <Grid>
           <Row>
             { this.renderQuestions(questions) }
-            <Col xs={2} md={2}>
-              <Thumbnail onClick={ this.onAddQuestion } className='thumbnail' id='addQuestion'>
-                <h3>Add a new question</h3>
-              </Thumbnail>
-            </Col>
+            { this.renderAddButton() }
           </Row>
         </Grid>
 

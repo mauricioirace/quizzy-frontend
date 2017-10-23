@@ -62,7 +62,6 @@ class Question extends React.PureComponent {
       const newAnswers = this.props.obj.answers.slice(0, 6);
       newAnswers.push({ 'answer': '' });
       this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
-      this.props.scrollToBottom();
     } else {
       alert("The question can't have more than six answers");
     }
@@ -87,10 +86,14 @@ class Question extends React.PureComponent {
   }
 
   cancelChanges() {
-    this.rollbackState(this.props.obj);
-    this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
-    this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);
-    this.props.closePanel();
+    if (this.props.obj.text == '') {
+      this.props.removeQuestion(this.props.id)
+    } else {
+      this.rollbackState(this.props.obj);
+      this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
+      this.props.changeSelectedAnswer(this.props.id, this.state.correctAnswer);
+      this.props.closePanel();
+    }
   }
 
   saveChanges() {
