@@ -26,15 +26,16 @@ const mapDispatchToProps = dispatch => {
 class EndNormalGame extends React.PureComponent {
   constructor(props) {
     super(props);
-    const init_leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
-    init_leaderboard.push({
+    let leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    const user_position = this.findUserPlace(leaderboard);
+    leaderboard.splice(user_position, 0, {
       user: this.props.matchData.state.player,
       points: this.props.matchData.state.score
     });
-    let leaderboard = sortBy(init_leaderboard, 'points').reverse();
     this.state = {
       showModal: 'hide',
       leaderboard: leaderboard,
+      userPosition: user_position
     };
     this.setModalSignIn = this.setModalSignIn.bind(this);
     this.setModalSignUp = this.setModalSignUp.bind(this);
@@ -71,13 +72,14 @@ class EndNormalGame extends React.PureComponent {
     matchService.update(current_match)
   }
 
-  findUserPlace(lastIndex) {
-    let userPlace = -1;
+  findUserPlace(leaderboard) {
+    //find which will be the position of the user in the leaderboard
+    const lastIndex = size(leaderboard) - 1;
+    let userPlace = 0;
     let i = 0;
     let encontre = false;
     while (!encontre && i <= lastIndex) {
-      if (this.props.matchData.state.player === this.state.leaderboard[i].user &&
-      this.props.matchData.state.score === this.state.leaderboard[i].points) {
+      if (this.props.matchData.state.score >= leaderboard[i].points) {
         encontre = true;
       } else {
         i = i + 1;
@@ -85,13 +87,16 @@ class EndNormalGame extends React.PureComponent {
     }
     if (encontre) {
       userPlace = i;
+    } else {
+      //add user at the end of the leaderboard
+      userPlace = lastIndex + 1;
     }
     return userPlace
   }
 
-  addItemtoLeaderBoard(items, i, highlight) {
+  addItemtoLeaderBoard(items, i) {
     items.push(
-      (highlight) ? (
+      (i === this.state.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
         <td>{ this.state.leaderboard[i].user }</td>
@@ -109,61 +114,32 @@ class EndNormalGame extends React.PureComponent {
 
   renderLeaderBoard() {
     const lastIndex = size(this.state.leaderboard) - 1;
-    let userPlace = this.findUserPlace(lastIndex);
+    let userPlace = this.state.userPosition;
     let items = [];
     let i;
-    let highlight = true;
-
-    //check if player was found
-    if (userPlace > -1) {
-      if (lastIndex <= 4) {
-        //show until 5 users starting from 0
-        for (i = 0; i <= lastIndex; i++) {
-          if (this.state.leaderboard[i].user === this.props.matchData.state.player &&
-          this.state.leaderboard[i].points === this.props.matchData.state.score && highlight === true) {
-            this.addItemtoLeaderBoard(items, i, true);
-            highlight = false;
-          } else {
-            this.addItemtoLeaderBoard(items, i, false);
-          }
+    if (lastIndex <= 4) {
+      //show until 5 users starting from 0
+      for (i = 0; i <= lastIndex; i++) {
+        this.addItemtoLeaderBoard(items, i);
+      }
+    } else {
+      //if current user is in first place or second one
+      if (userPlace === 0 || userPlace === 1) {
+        //show 5 starting from 0
+        for (i = 0; i <= 4; i++) {
+          this.addItemtoLeaderBoard(items, i, true);
         }
       } else {
-        //if current user is in first place or second one
-        if (userPlace === 0 || userPlace === 1) {
-          //show 5 starting from 0
-          for (i = 0; i <= 4; i++) {
-            if (this.state.leaderboard[i].user === this.props.matchData.state.player &&
-            this.state.leaderboard[i].points === this.props.matchData.state.score && highlight === true) {
-              this.addItemtoLeaderBoard(items, i, true);
-              highlight = false;
-            } else {
-              this.addItemtoLeaderBoard(items, i, false);
-            }
+        //if current user is the last or previous than last
+        if (userPlace === lastIndex || userPlace === lastIndex - 1) {
+          //show 5 starting from lastIndex - 4
+          for (i = lastIndex - 4; i <= lastIndex; i++) {
+            this.addItemtoLeaderBoard(items, i, true);
           }
         } else {
-          //if current user is the last or previous than last
-          if (userPlace === lastIndex || userPlace === lastIndex - 1) {
-            //show 5 starting from lastIndex - 4
-            for (i = lastIndex - 4; i <= lastIndex; i++) {
-              if (this.state.leaderboard[i].user === this.props.matchData.state.player &&
-              this.state.leaderboard[i].points === this.props.matchData.state.score && highlight === true) {
-                this.addItemtoLeaderBoard(items, i, true);
-                highlight = false;
-              } else {
-                this.addItemtoLeaderBoard(items, i, false);
-              }
-            }
-          } else {
-            //current user is in the middle
-            for (i = userPlace - 2; i <= userPlace + 2; i++) {
-              if (this.state.leaderboard[i].user === this.props.matchData.state.player &&
-              this.state.leaderboard[i].points === this.props.matchData.state.score && highlight === true) {
-                this.addItemtoLeaderBoard(items, i, true);
-                highlight = false;
-              } else {
-                this.addItemtoLeaderBoard(items, i, false);
-              }
-            }
+          //current user is in the middle
+          for (i = userPlace - 2; i <= userPlace + 2; i++) {
+            this.addItemtoLeaderBoard(items, i, true);
           }
         }
       }
