@@ -26,23 +26,20 @@ const mapDispatchToProps = dispatch => {
 class EndNormalGame extends React.PureComponent {
   constructor(props) {
     super(props);
-    let leaderboard = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
-    const user_position = this.findUserPlace(leaderboard);
-    leaderboard.splice(user_position, 0, {
-      user: this.props.matchData.state.player,
-      points: this.props.matchData.state.score
-    });
     this.state = {
       showModal: 'hide',
-      leaderboard: leaderboard,
-      userPosition: user_position
+      ranking: [],
+      userPosition: 0
     };
     this.setModalSignIn = this.setModalSignIn.bind(this);
     this.setModalSignUp = this.setModalSignUp.bind(this);
     this.setModalHide = this.setModalHide.bind(this);
-    this.renderLeaderBoard = this.renderLeaderBoard.bind(this);
+    this.renderRanking = this.renderRanking.bind(this);
     this.saveMatch = this.saveMatch.bind(this);
-    this.renderHeaderLeaderBoard = this.renderHeaderLeaderBoard.bind(this);
+    this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
+    this.greaterOrEqual = this.greaterOrEqual.bind(this);
+    this.setRanking = this.setRanking.bind(this);
+    this.setUserPosition = this.setUserPosition.bind(this);
   }
 
   setModalSignIn() {
@@ -57,7 +54,32 @@ class EndNormalGame extends React.PureComponent {
     this.setState({ showModal: 'hide' });
   }
 
+  setRanking(ranking) {
+    this.setState({ ranking: ranking });
+  }
+
+  setUserPosition(userPosition) {
+    this.setState({ userPosition: userPosition });
+  }
+  
   componentWillMount() {
+
+    let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    
+    //const userPosition = this.findUserPlace(ranking);
+    let userPosition = ranking.findIndex(this.greaterOrEqual);
+    if (userPosition === -1) {
+      //add user at the end of the ranking
+      userPosition = size(ranking);
+    }
+
+    ranking.splice(userPosition, 0, {
+      user: this.props.matchData.state.player,
+      points: this.props.matchData.state.score
+    });
+
+    this.setRanking(ranking);
+    this.setUserPosition(userPosition);
     this.saveMatch();
   }
 
@@ -67,87 +89,92 @@ class EndNormalGame extends React.PureComponent {
   }
 
   saveMatch() {
-    const current_match = this.props.matchData.match;
-    current_match.game.ranking = this.state.leaderboard;
-    matchService.update(current_match)
+    const currentMatch = this.props.matchData.match;
+    currentMatch.game.ranking = this.state.ranking;
+    matchService.update(currentMatch)
   }
 
-  findUserPlace(leaderboard) {
-    //find which will be the position of the user in the leaderboard
-    const lastIndex = size(leaderboard) - 1;
-    let userPlace = 0;
-    let i = 0;
-    let encontre = false;
-    while (!encontre && i <= lastIndex) {
-      if (this.props.matchData.state.score >= leaderboard[i].points) {
-        encontre = true;
-      } else {
-        i = i + 1;
-      }
-    }
-    if (encontre) {
-      userPlace = i;
-    } else {
-      //add user at the end of the leaderboard
-      userPlace = lastIndex + 1;
-    }
-    return userPlace
+  greaterOrEqual(item) {
+    return this.props.matchData.state.score >= item.points;
   }
 
-  addItemtoLeaderBoard(items, i) {
+  // findUserPlace(ranking) {
+  //   //find which will be the position of the user in the ranking
+  //   const lastIndex = size(ranking) - 1;
+  //   let userPlace = 0;
+  //   let i = 0;
+  //   let found = false;
+  //   while (!found && i <= lastIndex) {
+  //     if (this.props.matchData.state.score >= ranking[i].points) {
+  //       found = true;
+  //     } else {
+  //       i = i + 1;
+  //     }
+  //   }
+  //   if (found) {
+  //     userPlace = i;
+  //   } else {
+  //     //add user at the end of the ranking
+  //     userPlace = lastIndex + 1;
+  //   }
+  //   return userPlace
+  // }
+
+  addItemtoRanking(items, i) {
     items.push(
       (i === this.state.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
-        <td>{ this.state.leaderboard[i].user }</td>
-        <td>{ this.state.leaderboard[i].points }</td>
+        <td>{ this.state.ranking[i].user }</td>
+        <td>{ this.state.ranking[i].points }</td>
       </tr>
       ) : (
         <tr key={ i }>
           <td>{ i + 1 }</td>
-          <td>{ this.state.leaderboard[i].user }</td>
-          <td>{ this.state.leaderboard[i].points }</td>
+          <td>{ this.state.ranking[i].user }</td>
+          <td>{ this.state.ranking[i].points }</td>
         </tr>
       )
     )
   }
 
-  renderLeaderBoard() {
-    const lastIndex = size(this.state.leaderboard) - 1;
-    let userPlace = this.state.userPosition;
-    let items = [];
-    let i;
+  renderRanking() {
+    const lastIndex = size(this.state.ranking) - 1;
+    const userPosition = this.state.userPosition;
+    let first;
+    let until;
     if (lastIndex <= 4) {
       //show until 5 users starting from 0
-      for (i = 0; i <= lastIndex; i++) {
-        this.addItemtoLeaderBoard(items, i);
-      }
+      first = 0;
+      until = lastIndex;
     } else {
       //if current user is in first place or second one
-      if (userPlace === 0 || userPlace === 1) {
+      if (userPosition === 0 || userPosition === 1) {
         //show 5 starting from 0
-        for (i = 0; i <= 4; i++) {
-          this.addItemtoLeaderBoard(items, i, true);
-        }
+        first = 0;
+        until = 4;
       } else {
         //if current user is the last or previous than last
-        if (userPlace === lastIndex || userPlace === lastIndex - 1) {
+        if (userPosition === lastIndex || userPosition === lastIndex - 1) {
           //show 5 starting from lastIndex - 4
-          for (i = lastIndex - 4; i <= lastIndex; i++) {
-            this.addItemtoLeaderBoard(items, i, true);
-          }
+          first = lastIndex - 4;
+          until = lastIndex;
         } else {
           //current user is in the middle
-          for (i = userPlace - 2; i <= userPlace + 2; i++) {
-            this.addItemtoLeaderBoard(items, i, true);
-          }
+          first = userPosition - 2;
+          until = userPosition + 2;
         }
       }
+    }
+    let i;
+    let items = [];
+    for (i = first; i <= until; i++) {
+      this.addItemtoRanking(items, i);
     }
     return (<tbody>{items}</tbody>);
   }
 
-  renderHeaderLeaderBoard() {
+  renderHeaderRanking() {
     return (
       <thead>
         <tr>
@@ -189,8 +216,8 @@ class EndNormalGame extends React.PureComponent {
         />
         <h2>Leaderboard</h2>
         <Table responsive>
-          { this.renderHeaderLeaderBoard() }
-          { this.renderLeaderBoard() }
+          { this.renderHeaderRanking() }
+          { this.renderRanking() }
         </Table>
       </div>
     )
