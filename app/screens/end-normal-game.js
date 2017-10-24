@@ -33,8 +33,13 @@ class EndNormalGame extends React.PureComponent {
     this.saveMatch = this.saveMatch.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
+    this.getMatch = this.getMatch.bind(this); 
 
-    let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+
+    let ranking = this.getMatch();
+    // let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    
+
     let userPosition = ranking.findIndex(this.greaterOrEqual);
     if (userPosition === -1) {
       //add user at the end of the ranking
@@ -72,6 +77,10 @@ class EndNormalGame extends React.PureComponent {
   componentWillUnmount() {
     // remove the_match from state
     this.props.removeMatch();
+  }
+
+  getMatch() {
+    matchService.findByName()
   }
 
   saveMatch() {
