@@ -13,7 +13,8 @@
   -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
   transition: background .5s ease-in-out,padding .5s ease-in-out;
   min-height: 70px;
-
+  position: absolute;
+  
   &.top-nav-collapse {
     background: $black !important;
     border-bottom: 1px solid rgba(white, 0.3);
