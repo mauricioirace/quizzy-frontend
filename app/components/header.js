@@ -62,7 +62,7 @@ class Header extends React.PureComponent {
       );
     }
     return (
-      <Navbar fixedTop role='navigation'>
+      <Navbar role='navigation'>
         <div className='container'>
           { navbarAction }
           <div className='navbar-header'>

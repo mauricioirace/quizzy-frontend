@@ -25,6 +25,8 @@ export class Home extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.fixHeader = this.fixHeader.bind(this);
+    this.loosenHeader = this.loosenHeader.bind(this);
   }
 
   componentWillMount() {
@@ -35,6 +37,11 @@ export class Home extends React.Component {
 
   componentDidMount() {
     this.moveTable();
+    this.fixHeader();
+  }
+
+  componentWillUnmount() {
+    this.loosenHeader();
   }
 
   handleChange(event) {
@@ -46,6 +53,14 @@ export class Home extends React.Component {
       event.preventDefault();
       this.props.matchNameError(EMPTY_MATCH_NAME);
     }
+  }
+
+  fixHeader() {
+    document.getElementsByClassName('navbar')[0].setAttribute('class','navbar navbar-default navbar-fixed-top');
+  }
+
+  loosenHeader() {
+    document.getElementsByClassName('navbar')[0].setAttribute('class','navbar navbar-default');
   }
 
   moveTable() {
