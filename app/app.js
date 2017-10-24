@@ -8,6 +8,7 @@ import Match from './screens/match';
 import StartMatch from './screens/start-match';
 import CreateMatch from './screens/create-match';
 import EndNormalGame from './screens/end-normal-game';
+import WsClient from './screens/ws-client'
 import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
@@ -31,6 +32,7 @@ export class App extends React.PureComponent {
               <Route exact path='/create-match' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
               <Route exact path='/start-match/:url' component={ StartMatch }/>
+              <Route exact path='/ws-client' component={ WsClient }/>
             </Switch>
           </div>
         </div>
