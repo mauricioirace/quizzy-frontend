@@ -72,7 +72,11 @@ class StartMatch extends React.PureComponent {
       this.props.setPlayer(this.state.nickname);
       // match.players.push(this.state.nickname);
       // this.props.updateMatch(match);
-      this.props.history.push('/answer-question')
+      if (!this.props.currentMatch.isRealTime) {
+        this.props.history.push('/answer-question')
+      } else {
+        this.props.history.push('/ws-client')
+      }
     }
   }
 
