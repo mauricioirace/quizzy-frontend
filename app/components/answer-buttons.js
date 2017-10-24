@@ -38,7 +38,7 @@ class AnswerButtons extends React.PureComponent {
   }
 
   onClickAnswer(correct, answer) {
-    this.props.answerQuestion(correct,answer);
+    this.props.answerQuestion(correct, answer);
   }
 
   waitForNextQuestion() {
@@ -71,10 +71,6 @@ class AnswerButtons extends React.PureComponent {
       const correct = index === this.props.correctAnswer;
 
       return (
-        <SlideFadeLeft
-          key={ `${ index } ${ this.props.matchState.question }` }
-          in={ answered === false || correct || answered === index }
-        >
           <AnswerButton
             key={ index }
             id={ index }
@@ -83,7 +79,6 @@ class AnswerButtons extends React.PureComponent {
             onClick={ () => this.onClickAnswer(correct, index) }
             answered={ answered }
           />
-        </SlideFadeLeft>
       )
     });
     return (

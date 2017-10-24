@@ -13,27 +13,24 @@ class AnswerButton extends React.PureComponent {
   revealStyle(answered, correct) {
     if (answered !== false) { // 'if (answered)' is false for answered === 0, what is not desired
       if (correct) {
-        return {
-          color: '#FFFFFF',
-          backgroundColor: '#2ECC40'
-        };
+        return 'correct'
       } else if (answered === this.props.id) {
-        return {
-          color: '#FFFFFF',
-          backgroundColor: '#A90000'
-        };
+        return 'wrong';
       }
+    } else {
+      return 'custom';
     }
   }
   
   render() {
     bootstrapUtils.addStyle(Button, 'custom');
+    bootstrapUtils.addStyle(Button, 'correct');
+    bootstrapUtils.addStyle(Button, 'wrong');
 
     return (
       <Button
         onClick={ this.props.onClick }
-        bsStyle='custom'
-        style={ this.revealStyle(this.props.answered, this.props.correct) }
+        bsStyle={ this.revealStyle(this.props.answered, this.props.correct) }
         disabled={ this.props.answered !== false }
       >
         { this.props.text }
@@ -47,7 +44,10 @@ AnswerButton.defaultProps = {
 };
 
 AnswerButton.propTypes = {
-  answered: PropTypes.object
+  answered: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool
+  ])
 };
 
 export default AnswerButton;
