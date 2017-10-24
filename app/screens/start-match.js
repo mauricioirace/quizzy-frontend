@@ -75,7 +75,7 @@ class StartMatch extends React.PureComponent {
       if (!this.props.currentMatch.isRealTime) {
         this.props.history.push('/answer-question')
       } else {
-        this.props.history.push('/ws-client')
+        this.props.history.push(`/lobby`)
       }
     }
   }
