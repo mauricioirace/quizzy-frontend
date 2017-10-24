@@ -47,7 +47,7 @@ class WsClient extends React.PureComponent {
     return (
       <Row>
         <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
-          <div class='client'>
+          <div class='Container' id='client'>
             <PageHeader className='text-center'>Waiting for users...</PageHeader>
             <h3>Actualmente en este room: {this.state.users.length}</h3>
             <h2>{this._buildList()}</h2>
