@@ -153,7 +153,6 @@ class Question extends React.PureComponent {
   }
 
 //Valido las respuestas
-
 validateAnswer() {
   var valid = true;
   for (var i = 0; i < this.props.obj.answers.length; i++) {
