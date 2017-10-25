@@ -47,7 +47,7 @@ class Lobby extends React.PureComponent {
     this.ws.close();
   }
 
-  _buildList = () => {
+  renderUsers = () => {
     return this.state.users.map(u => <li key={ Math.random() }>{ u }</li>);
   }
 
@@ -59,7 +59,7 @@ class Lobby extends React.PureComponent {
             <PageHeader className='text-center'>Lobby { this.props.matchData.currentMatch }</PageHeader>
             <h4>Waiting for players...</h4>
             <h3>Actualmente en este room: { this.state.users.length }</h3>
-            <h3>{ this._buildList() }</h3>
+            <h3>{ this.renderUsers() }</h3>
           </div>
         </Col>
       </Row>
