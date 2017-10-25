@@ -33,8 +33,6 @@ class Question extends React.PureComponent {
     super(props);
     this.state = {
       text: this.props.obj.text,
-      validText: '',
-      textMessage: '',
       hint: this.props.obj.hint,
       difficulty: this.props.obj.difficulty,
       validText: '',
