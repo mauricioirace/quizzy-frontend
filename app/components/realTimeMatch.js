@@ -20,7 +20,7 @@ class RealTimeMatch extends React.PureComponent {
             </Link>
           </div>
           Choose the number of players (between 2 and 10):
-          <input style={ style } type='number' name='total-players' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.props.setTotalPlayers }/>
+          <input style={ style } type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.props.setTotalPlayers }/>
         </div>
       </div>
     )
