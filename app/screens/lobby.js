@@ -23,7 +23,10 @@ class Lobby extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.ws = new WebSocket('ws://localhost:3000/realusers');
+    const HOST = process.env.API_HOST;
+    const PORT = process.env.API_PORT;
+
+    this.ws = new WebSocket(`ws://${HOST}:${PORT}/realusers`);
     this.ws.onmessage = e => {
       const users = [];
       if (e.data === 'hola') {
@@ -58,7 +61,7 @@ class Lobby extends React.PureComponent {
           <div className='Container' id='client'>
             <PageHeader className='text-center'>Lobby { this.props.matchData.currentMatch }</PageHeader>
             <h4>Waiting for players...</h4>
-            <h3>Actualmente en este room: { this.state.users.length }</h3>
+            <h3>In this room: { this.state.users.length }</h3>
             <h3>{ this.renderUsers() }</h3>
           </div>
         </Col>
