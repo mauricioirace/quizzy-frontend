@@ -128,7 +128,11 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
-    this.setState({ step: this.state.step + 1 });
+    if ((this.state.step == 2) && (this.props.questions.length == 0 ))
+          alert('You must create at least one question')
+    else {
+        this.setState({ step: this.state.step + 1 });
+    }
   }
 
   prevStep() {

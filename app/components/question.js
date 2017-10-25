@@ -136,7 +136,7 @@ class Question extends React.PureComponent {
       } else {
         this.setState({
           validAnswer: 'error',
-          answerMessage: "This fields can't be empty",
+          answerMessage: "These fields can't be empty",
         })
         return
       }
@@ -158,7 +158,7 @@ validateAnswer() {
   } else {
     this.setState({
       validAnswer: 'error',
-      answerMessage: "This fields can't be empty",
+      answerMessage: "These fields can't be empty",
     })
     return
   }
