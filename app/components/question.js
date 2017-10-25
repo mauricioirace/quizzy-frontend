@@ -111,8 +111,7 @@ class Question extends React.PureComponent {
     this.props.closePanel();
   }
 
-  //Valido las preguntas
-
+  //Valido preguntas y controlo todos los campos de respuestas
   validateQuestion() {
     if (this.state.text == '') {
       this.setState({
@@ -146,7 +145,6 @@ class Question extends React.PureComponent {
   }
 
 //Valido las respuestas
-
 validateAnswer() {
   var valid = true;
   for (var i = 0; i < this.props.obj.answers.length; i++) {
