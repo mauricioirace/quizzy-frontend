@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/header';
+// import Header from '../components/header';
 import LoginModal from '../components/login-modal';
 import RegisterModal from '../components/register-modal';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
@@ -35,11 +35,16 @@ class EndNormalGame extends React.PureComponent {
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
     this.getMatch = this.getMatch.bind(this); 
 
+    let match = this.getMatch();
 
-    let ranking = this.getMatch();
-    // let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
+    console.log(match); 
+
+    let ranking = match.game.ranking.slice();
+
+    console.log("size(ranking)");
+    console.log(size(ranking));
+    //let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
     
-
     let userPosition = ranking.findIndex(this.greaterOrEqual);
     if (userPosition === -1) {
       //add user at the end of the ranking
@@ -80,7 +85,9 @@ class EndNormalGame extends React.PureComponent {
   }
 
   getMatch() {
-    matchService.findByName()
+    console.log("this.props.matchData.match.url");
+    console.log(this.props.matchData.match.url);
+    return matchService.findByUrl(this.props.matchData.match.url);
   }
 
   saveMatch() {

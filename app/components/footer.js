@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Navbar } from 'react-bootstrap';
+import '../stylesheets/footer.scss';
 
 class Footer extends React.PureComponent {
   constructor(props) {
@@ -9,21 +10,27 @@ class Footer extends React.PureComponent {
   }
 
   render() {
-    <div className='navbar-action'>
-      <a className='page-scroll' href='#matches'>Quizzy</a>
-      <a className='page-scroll' href='#about'>CopyRight 2017</a>
-    </div>
-    
-    
     return (
-      <Navbar fixedBottom role='navigation'>
-        <div className='container'>
-          
-          <div className='navbar-header'>
-            
-          </div>
-        </div>
-      </Navbar>
+
+      /*<div className='display-flex'>
+        <img className='logo-img' src={ require('../../assets/images/quizzy_logo.svg') }/>
+        <h1>
+          COPYRIGHT 2017            
+        </h1>
+      </div>*/
+
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a className='logo-img' >
+              <img src={ require('../../assets/images/quizzy_logo.svg') }/>
+            </a>
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Navbar.Text pullRight>
+          CopyRight 2017
+        </Navbar.Text>
+      </Navbar>  
     )
   }
 }
