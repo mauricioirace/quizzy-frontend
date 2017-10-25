@@ -39,6 +39,8 @@ class Question extends React.PureComponent {
       difficulty: this.props.obj.difficulty,
       validText: '',
       textMessage: '',
+      validAnswer: '',
+      answerMessage: '',
       answers: this.props.obj.answers,
       correctAnswer: this.props.obj.correctAnswer
     };
@@ -109,6 +111,8 @@ class Question extends React.PureComponent {
     this.props.closePanel();
   }
 
+  //Valido las preguntas
+
   validateQuestion() {
     if (this.state.text == '') {
       this.setState({
@@ -121,9 +125,47 @@ class Question extends React.PureComponent {
         validText: 'success',
         textMessage: ''
       })
+      var valid = true;
+      for (var i = 0; i < this.props.obj.answers.length; i++) {
+        valid = valid && ((this.props.obj.answers[i].answer != ''));
+      }
+      if (valid) {
+        this.setState({
+          validAnswer: 'success',
+          answerMessage: '',
+        });
+      } else {
+        this.setState({
+          validAnswer: 'error',
+          answerMessage: "This fields can't be empty",
+        })
+        return
+      }
       this.saveChanges();
     }
   }
+
+//Valido las respuestas
+
+validateAnswer() {
+  var valid = true;
+  for (var i = 0; i < this.props.obj.answers.length; i++) {
+    valid = valid && ((this.props.obj.answers[i].answer != ''));
+  }
+  if (valid) {
+    this.setState({
+      validAnswer: '',
+      answerMessage: '',
+    });
+  } else {
+    this.setState({
+      validAnswer: 'error',
+      answerMessage: "This fields can't be empty",
+    })
+    return
+  }
+  this.addAnswer()
+}
 
   render() {
     const question = this.props.self;
@@ -180,12 +222,14 @@ class Question extends React.PureComponent {
             <option value='Hard'>Hard</option>
           </FormControl>
         </FormGroup>
-        <FormGroup>
+        <FormGroup
+          validationState = { this.state.validAnswer }>
           <ControlLabel>Answers:</ControlLabel>
             { answers }
+         <span className="help-block">{ this.state.answerMessage }</span>
         </FormGroup>
         <div>
-          <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
+          <a id="arAnswer" onClick={ this.validateAnswer.bind(this)}>Add answer</a>
         </div>
         <div>
           <Button bsStyle='default pull-right' onClick={ this.validateQuestion.bind(this) }>Save</Button>
