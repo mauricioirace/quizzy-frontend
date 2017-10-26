@@ -80,16 +80,16 @@ class EndNormalGame extends React.PureComponent {
   }
 
   getMatch() {
-    return (dispatch) => {
-      dispatch(loadMatchData());
-      matchService.findByUrl(this.props.matchData.match.url)
-        .then((res) => {
-          dispatch(loadMatchDataSuccess(res.data.match))
-        })
-        .catch((err) => {
-          dispatch(loadMatchDataFailure())
-        });
-    }
+    // return (dispatch) => {
+    //   dispatch(loadMatchData());
+    //   matchService.findByUrl(this.props.matchData.match.url)
+    //     .then((res) => {
+    //       dispatch(loadMatchDataSuccess(res.data.match))
+    //     })
+    //     .catch((err) => {
+    //       dispatch(loadMatchDataFailure())
+    //     });
+    // }
     //return matchService.findByUrl(this.props.matchData.match.url);
   }
 
