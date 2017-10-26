@@ -34,9 +34,9 @@ class Lobby extends React.PureComponent {
       } else {
         const ms = JSON.parse(e.data);
         for (var i=0; i < ms.length; i++) {
-          const each = JSON.parse(ms[i]);
-          if (each[0] === this.props.matchData.currentMatch) {
-            users.push(each[1]);
+          //const each = JSON.parse(ms[i]);
+          if (ms[i][0] === this.props.matchData.currentMatch) {
+            users.push(ms[i][1]);
           }
         }
          this.setState({
