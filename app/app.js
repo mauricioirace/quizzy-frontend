@@ -12,7 +12,6 @@ import Lobby from './screens/lobby'
 import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
-import Footer from './components/footer';
 import './styles.scss';
 import AnswerQuestion from './screens/answer-question';
 
