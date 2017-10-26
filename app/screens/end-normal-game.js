@@ -1,5 +1,4 @@
 import React from 'react';
-// import Header from '../components/header';
 import LoginModal from '../components/login-modal';
 import RegisterModal from '../components/register-modal';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
@@ -30,14 +29,15 @@ class EndNormalGame extends React.PureComponent {
     this.setModalSignUp = this.setModalSignUp.bind(this);
     this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
-    this.saveMatch = this.saveMatch.bind(this);
+    // this.saveMatch = this.saveMatch.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
-    this.getMatch = this.getMatch.bind(this); 
+    this.updateRanking = this.updateRanking.bind(this); 
 
-    let match = this.getMatch();
+    const ranking = this.updateRanking(this.props.matchData.match.url,this.props.matchData.state.player,this.props.matchData.state.score);
+    //let match = this.updateRanking();
 
-    let ranking = match.game.ranking.slice();
+    //let ranking = match.game.ranking.slice();
     //let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
     
     let userPosition = ranking.findIndex(this.greaterOrEqual);
@@ -46,15 +46,15 @@ class EndNormalGame extends React.PureComponent {
       userPosition = size(ranking);
     }
 
-    ranking.splice(userPosition, 0, {
-      user: this.props.matchData.state.player,
-      points: this.props.matchData.state.score
-    });
+    // ranking.splice(userPosition, 0, {
+    //   user: this.props.matchData.state.player,
+    //   points: this.props.matchData.state.score
+    // });
 
+    this.ranking: ranking;
+    this.userPosition: userPosition;
     this.state = {
-      showModal: 'hide',
-      ranking: ranking,
-      userPosition: userPosition
+      showModal: 'hide'
     };
   }
 
@@ -70,60 +70,60 @@ class EndNormalGame extends React.PureComponent {
     this.setState({ showModal: 'hide' });
   }
   
-  componentWillMount() {
-    this.saveMatch();
-  }
+  // componentWillMount() {
+  //   this.saveMatch();
+  // }
 
   componentWillUnmount() {
     // remove the_match from state
     this.props.removeMatch();
   }
 
-  getMatch() {
-    // return (dispatch) => {
-    //   dispatch(loadMatchData());
-    //   matchService.findByUrl(this.props.matchData.match.url)
-    //     .then((res) => {
-    //       dispatch(loadMatchDataSuccess(res.data.match))
-    //     })
-    //     .catch((err) => {
-    //       dispatch(loadMatchDataFailure())
-    //     });
-    // }
+  updateRanking() {
+    return (dispatch) => {
+      dispatch(loadMatchData());
+      matchService.update(this.props.matchData.match.url)
+        .then((res) => {
+          dispatch(loadMatchDataSuccess(res.data.match))
+        })
+        .catch((err) => {
+          dispatch(loadMatchDataFailure())
+        });
+    }
     //return matchService.findByUrl(this.props.matchData.match.url);
   }
 
-  saveMatch() {
-    const currentMatch = this.props.matchData.match;
-    currentMatch.game.ranking = this.state.ranking;
-    matchService.update(currentMatch)
-  }
+  // saveMatch() {
+  //   const currentMatch = this.props.matchData.match;
+  //   currentMatch.game.ranking = this.state.ranking;
+  //   matchService.update(currentMatch)
+  // }
 
-  greaterOrEqual(item) {
-    return this.props.matchData.state.score >= item.points;
-  }
+  // greaterOrEqual(item) {
+  //   return this.props.matchData.state.score >= item.points;
+  // }
 
   addItemtoRanking(items, i) {
     items.push(
-      (i === this.state.userPosition) ? (
+      (i === this.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
-        <td>{ this.state.ranking[i].user }</td>
-        <td>{ this.state.ranking[i].points }</td>
+        <td>{ this.ranking[i].user }</td>
+        <td>{ this.ranking[i].points }</td>
       </tr>
       ) : (
         <tr key={ i }>
           <td>{ i + 1 }</td>
-          <td>{ this.state.ranking[i].user }</td>
-          <td>{ this.state.ranking[i].points }</td>
+          <td>{ this.ranking[i].user }</td>
+          <td>{ this.ranking[i].points }</td>
         </tr>
       )
     )
   }
 
   renderRanking() {
-    const lastIndex = size(this.state.ranking) - 1;
-    const userPosition = this.state.userPosition;
+    const lastIndex = size(this.ranking) - 1;
+    const userPosition = this.userPosition;
     let first;
     let until;
     if (lastIndex <= 4) {
