@@ -1,0 +1,9 @@
+@import '../../assets/styles/variables.scss';
+
+.display-flex {
+  flex-wrap: nowrap;
+
+  .image {
+	height: 60px;
+  }
+}
