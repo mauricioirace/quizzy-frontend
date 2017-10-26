@@ -37,12 +37,7 @@ class EndNormalGame extends React.PureComponent {
 
     let match = this.getMatch();
 
-    console.log(match); 
-
     let ranking = match.game.ranking.slice();
-
-    console.log("size(ranking)");
-    console.log(size(ranking));
     //let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
     
     let userPosition = ranking.findIndex(this.greaterOrEqual);
@@ -85,9 +80,17 @@ class EndNormalGame extends React.PureComponent {
   }
 
   getMatch() {
-    console.log("this.props.matchData.match.url");
-    console.log(this.props.matchData.match.url);
-    return matchService.findByUrl(this.props.matchData.match.url);
+    return (dispatch) => {
+      dispatch(loadMatchData());
+      matchService.findByUrl(this.props.matchData.match.url)
+        .then((res) => {
+          dispatch(loadMatchDataSuccess(res.data.match))
+        })
+        .catch((err) => {
+          dispatch(loadMatchDataFailure())
+        });
+    }
+    //return matchService.findByUrl(this.props.matchData.match.url);
   }
 
   saveMatch() {
