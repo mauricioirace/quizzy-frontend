@@ -12,10 +12,6 @@ class MatchService extends CrudService {
     return axios.get(`${ this.repository }/byName/${ name }`);
   }
 
-  findByUrl(name) {
-    return axios.get(`${ this.repository }/${ name }`);
-  }
-
   update(match) {
     return super.update({ match: match }, match.id);
   }
