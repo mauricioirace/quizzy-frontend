@@ -21,21 +21,16 @@ export class CreateMatch extends React.PureComponent {
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
-    this.setTotalPlayers = this.setTotalPlayers.bind(this);
+    // this.setTotalPlayers = this.setTotalPlayers.bind(this);
     this.state = {
       switched: false,
       totalPlayers: 3
     };
   }
 
-  setTotalPlayers(event) {
-    const num = event.target.value;
-    if (num < 2 || num > 10) {
-      event.target.value = 3;
-      return;
-    };
+  setTotalPlayers = (input) => {
     this.setState({
-      totalPlayers: num
+      totalPlayers: input
     });
   }
 
@@ -68,7 +63,7 @@ export class CreateMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    this.props.createMatch(this.getMatch(), this.onSuccess);
+    let prom = this.props.createMatch(this.getMatch(), this.onSuccess);
   }
 
   onSuccess(currentMatch) {
@@ -121,7 +116,7 @@ export class CreateMatch extends React.PureComponent {
           <div className='game-container'>
             <Row>
               <div className='game-title'>
-                { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
+                { match.game.image ? <img src={ match.game.image } id='previewImage'/> : null }
                 <h1 className='game-name'>{ match.game.name }</h1>
               </div>
             </Row>
