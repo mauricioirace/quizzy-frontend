@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'react-bootstrap';
 
 class RealTimeMatch extends React.PureComponent {
+  handleChange = (event) => {
+    const num = event.target.value;
+    // if (num < 2 || num > 10) {
+    //   event.target.value = 3;
+    //   return;
+    // };
+    this.props.setTotalPlayers(num);
+  }
+
   render() {
     const style = {
       color: 'black',
@@ -20,7 +29,7 @@ class RealTimeMatch extends React.PureComponent {
             </Link>
           </div>
           Choose the number of players (between 2 and 10):
-          <input style={ style } type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.props.setTotalPlayers }/>
+          <input style={ style } type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.handleChange }/>
         </div>
       </div>
     )
