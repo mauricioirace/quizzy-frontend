@@ -50,6 +50,7 @@ class Question extends React.PureComponent {
     this.cancelChanges = this.cancelChanges.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.handleEnterOnAnswer = this.handleEnterOnAnswer.bind(this);
+    this.validateQuestion = this.validateQuestion.bind(this);
   }
 
   changeQuestion(event) {
@@ -65,12 +66,14 @@ class Question extends React.PureComponent {
   }
 
   addAnswer() {
-    if (this.props.obj.answers.length < 6) {
-      const newAnswers = this.props.obj.answers.slice(0, 6);
-      newAnswers.push({ 'answer': '' });
-      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
-    } else {
-      alert("The question can't have more than six answers");
+    if (this.validateAnswers()){
+      if (this.props.obj.answers.length < 6) {
+        const newAnswers = this.props.obj.answers.slice(0, 6);
+        newAnswers.push({ 'answer': '' });
+        this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
+      } else {
+        alert("The question can't have more than six answers");
+      }
     }
   }
 
@@ -104,12 +107,14 @@ class Question extends React.PureComponent {
   }
 
   saveChanges() {
-    this.setState({ answers: this.props.obj.answers });
-    this.setState({ correctAnswer: this.props.obj.correctAnswer });
-    this.props.changeQuestionName(this.state.text, this.props.id);
-    this.props.changeHintQuestion(this.state.hint, this.props.id);
-    this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
-    this.props.closePanel();
+    if ((this.validateQuestion()) && (this.validateAnswers())){
+      this.setState({ answers: this.props.obj.answers });
+      this.setState({ correctAnswer: this.props.obj.correctAnswer });
+      this.props.changeQuestionName(this.state.text, this.props.id);
+      this.props.changeHintQuestion(this.state.hint, this.props.id);
+      this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
+      this.props.closePanel();
+    }
   }
 
   handleEnterOnAnswer(index) {
@@ -119,42 +124,26 @@ class Question extends React.PureComponent {
   }
 
   validateQuestion() {
-    if (this.state.text == '') {
+    if (this.state.text === '') {
       this.setState({
         validText: 'error',
         textMessage: "This field can't be empty"
       })
-      return;
+      return false;
     } else {
       this.setState({
-        validText: 'success',
+        validText: '',
         textMessage: ''
       })
-      var valid = true;
-      for (var i = 0; i < this.props.obj.answers.length; i++) {
-        valid = valid && ((this.props.obj.answers[i].answer != ''));
-      }
-      if (valid) {
-        this.setState({
-          validAnswer: 'success',
-          answerMessage: '',
-        });
-      } else {
-        this.setState({
-          validAnswer: 'error',
-          answerMessage: "These fields can't be empty",
-        })
-        return
-      }
-      this.saveChanges();
     }
-  }
+    return true;
+}
 
-//Valido las respuestas
-validateAnswer() {
-  var valid = true;
-  for (var i = 0; i < this.props.obj.answers.length; i++) {
-    valid = valid && ((this.props.obj.answers[i].answer != ''));
+validateAnswers() {
+  let valid = true;
+  let answers = this.props.obj.answers;
+  for (let ans of answers) {
+    valid = (valid && (ans.answer !== ''));
   }
   if (valid) {
     this.setState({
@@ -166,10 +155,11 @@ validateAnswer() {
       validAnswer: 'error',
       answerMessage: "These fields can't be empty",
     })
-    return
+    return false;
   }
-  this.addAnswer()
+  return true;
 }
+
 
   render() {
     const question = this.props.self;
@@ -235,7 +225,7 @@ validateAnswer() {
          <span className="help-block">{ this.state.answerMessage }</span>
         </FormGroup>
         <div>
-          <a id="arAnswer" onClick={ this.validateAnswer.bind(this)}>Add answer</a>
+          <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
         </div>
         <div>
           <Button className='default pull-right' onClick={ this.validateQuestion.bind(this) } id='savedelete'>Save</Button>
