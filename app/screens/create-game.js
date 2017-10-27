@@ -77,6 +77,7 @@ class CreateGame extends React.PureComponent {
     this.onSuccess = this.onSuccess.bind(this);
     this.prevStep = this.prevStep.bind(this);
     this.nextStep = this.nextStep.bind(this);
+    this.validateName = this.validateName.bind(this);
   }
 
   onDone() {
@@ -159,7 +160,7 @@ class CreateGame extends React.PureComponent {
       })
     } else {
       this.setState({
-        validName: 'success',
+        validName: '',
         nameMessage: ''
       })
       this.nextStep()
@@ -179,10 +180,10 @@ class CreateGame extends React.PureComponent {
               changeDescription={ this.onChangeDescription }
               changeImage={ this.onChangeImage }
               changeCategory={ this.onChangeCategory }
-              validName={this.state.validName}
-              nameMessage={this.state.nameMessage}
+              validName={ this.state.validName }
+              nameMessage={ this.state.nameMessage }
             />
-            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.validateName.bind(this) }>Next</Button>
+            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.validateName }>Next</Button>
           </div>
         )
       case 2:
