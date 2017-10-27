@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import LoginModal from '../components/login-modal';
 import RegisterModal from '../components/register-modal';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
@@ -31,20 +31,33 @@ class EndNormalGame extends React.PureComponent {
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
-    this.updateRanking = this.updateRanking.bind(this); 
+    // this.updateRanking = this.updateRanking.bind(this);
+    //
+    // const ranking = this.updateRanking();
+    // console.log(ranking);
+    // let userPosition = findIndex(ranking,this.greaterOrEqual);
+    // if (userPosition === -1) {
+    //   //add user at the end of the ranking
+    //   userPosition = size(ranking);
+    // }
+    //
+    // this.ranking = ranking;
+    // this.userPosition = userPosition;
+    this.state = {
+      showModal: 'hide',
+      ranking: []
+    };
+  }
 
-    const ranking = this.updateRanking();
-    let userPosition = findIndex(ranking,this.greaterOrEqual);
+  componentWillMount() {
+    debugger;
+    this.updateRanking();
+    console.log("ranking: ", this.state.ranking);
+    let userPosition = findIndex(this.state.ranking,this.greaterOrEqual);
     if (userPosition === -1) {
       //add user at the end of the ranking
-      userPosition = size(ranking);
+      userPosition = size(this.state.ranking);
     }
-
-    this.ranking = ranking;
-    this.userPosition = userPosition;
-    this.state = {
-      showModal: 'hide'
-    };
   }
 
   setModalSignIn() {
@@ -64,13 +77,14 @@ class EndNormalGame extends React.PureComponent {
     this.props.removeMatch();
   }
 
-  updateRanking() {
+  updateRanking = () => {
     matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
       .then((res) => {
-        return res.data
+        console.log("res: ",res)
+        this.setState({ ranking: res.data })
       })
       .catch((err) => {
-
+        console.log(err);
       });
   }
 
@@ -180,6 +194,11 @@ class EndNormalGame extends React.PureComponent {
       </div>
     )
   }
+}
+
+EndNormalGame.propTypes = {
+  matchData: PropTypes.object,
+  removeMatch: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
