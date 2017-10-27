@@ -29,30 +29,19 @@ class EndNormalGame extends React.PureComponent {
     this.setModalSignUp = this.setModalSignUp.bind(this);
     this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
-    // this.saveMatch = this.saveMatch.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
     this.updateRanking = this.updateRanking.bind(this); 
 
-    const ranking = this.updateRanking(this.props.matchData.match.url,this.props.matchData.state.player,this.props.matchData.state.score);
-    //let match = this.updateRanking();
-
-    //let ranking = match.game.ranking.slice();
-    //let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
-    
-    let userPosition = ranking.findIndex(this.greaterOrEqual);
+    const ranking = this.updateRanking();
+    let userPosition = findIndex(ranking,this.greaterOrEqual);
     if (userPosition === -1) {
       //add user at the end of the ranking
       userPosition = size(ranking);
     }
 
-    // ranking.splice(userPosition, 0, {
-    //   user: this.props.matchData.state.player,
-    //   points: this.props.matchData.state.score
-    // });
-
-    this.ranking: ranking;
-    this.userPosition: userPosition;
+    this.ranking = ranking;
+    this.userPosition = userPosition;
     this.state = {
       showModal: 'hide'
     };
@@ -69,10 +58,6 @@ class EndNormalGame extends React.PureComponent {
   setModalHide() {
     this.setState({ showModal: 'hide' });
   }
-  
-  // componentWillMount() {
-  //   this.saveMatch();
-  // }
 
   componentWillUnmount() {
     // remove the_match from state
@@ -80,28 +65,19 @@ class EndNormalGame extends React.PureComponent {
   }
 
   updateRanking() {
-    return (dispatch) => {
-      dispatch(loadMatchData());
-      matchService.update(this.props.matchData.match.url)
-        .then((res) => {
-          dispatch(loadMatchDataSuccess(res.data.match))
-        })
-        .catch((err) => {
-          dispatch(loadMatchDataFailure())
-        });
-    }
-    //return matchService.findByUrl(this.props.matchData.match.url);
+    debugger;
+    matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
+      .then((res) => {
+        return res.data
+      })
+      .catch((err) => {
+
+      });
   }
 
-  // saveMatch() {
-  //   const currentMatch = this.props.matchData.match;
-  //   currentMatch.game.ranking = this.state.ranking;
-  //   matchService.update(currentMatch)
-  // }
-
-  // greaterOrEqual(item) {
-  //   return this.props.matchData.state.score >= item.points;
-  // }
+  greaterOrEqual(item) {
+    return this.props.matchData.state.score >= item.points;
+  }
 
   addItemtoRanking(items, i) {
     items.push(
