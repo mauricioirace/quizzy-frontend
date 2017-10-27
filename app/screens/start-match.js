@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { updateMatch, setPlayer } from '../redux/actions/match';
+import { updateMatch, setPlayer, fetchMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -44,6 +44,12 @@ class StartMatch extends React.PureComponent {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.matchData.match) {
+      this.props.fetchMatch(this.props.match.params.url)
+    }
+  }
+
   handleChange(event) {
     if (event.target.value !== ''){
       document.getElementById('error').innerHTML = '';
@@ -68,7 +74,7 @@ class StartMatch extends React.PureComponent {
       error.style.fontWeight = 'bold';
       return;
     } else {
-      // const match = this.props.currentMatch;
+      // const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
       // match.players.push(this.state.nickname);
       // this.props.updateMatch(match);
@@ -77,7 +83,7 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = this.props.currentMatch.game.ranking;
+    const ranking = this.props.matchData.match.game.ranking;
     if (ranking.length > 0) {
       const items = [];
       ranking.forEach( (entry, index) => {
@@ -118,13 +124,20 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
-    const match = this.props.currentMatch;
-    return (
+    let component = null;
+    if (this.props.matchData.error) {
+      component = <div>Error!</div>
+    } else if (this.props.matchData.isFetching) {
+      // TODO Usar un spinner para estas partes de Loading...
+      component = <div>Loading...</div>
+    } else if (this.props.matchData.match) {
+      const match = this.props.matchData.match;
+      component =
       <div className='page-match'>
         <div className='game-container'>
           <Reveal effect='animated slideInDown'>
             <div className='game-title'>
-              { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
+              { match.game.image ? <img src={ match.game.image } id='previewImage'/> : null }
               <h1 className='game-name'>{ match.game.name }</h1>
             </div>
             <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
@@ -156,24 +169,29 @@ class StartMatch extends React.PureComponent {
           { this.renderRanking() }
         </div>
       </div>
-    )
+    }
+    return component;
   }
 }
 
 StartMatch.propTypes = {
-  currentMatch: PropTypes.object
+  matchData: PropTypes.object,
+  updateMatch: PropTypes.func,
+  setPlayer: PropTypes.func,
+  fetchMatch: PropTypes.func
 }
 
 const mapStateToProps = state => {
   return {
-    currentMatch: state.matchData.match
+    matchData: state.matchData
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateMatch: (match) => dispatch(updateMatch(match)),
-    setPlayer: (nickname) => dispatch(setPlayer(nickname))
+    setPlayer: (nickname) => dispatch(setPlayer(nickname)),
+    fetchMatch: (match) => dispatch(fetchMatch(match))
   };
 };
 
