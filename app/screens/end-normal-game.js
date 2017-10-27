@@ -8,17 +8,10 @@ import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
 import { findIndex, isEqual, size, sortBy } from 'underscore';
 import matchService from '../services/match';
-import { removeMatch } from '../redux/actions/match';
 
 const mapStateToProps = state => {
   return {
     matchData: state.matchData
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    removeMatch: () => dispatch(removeMatch())
   }
 }
 
@@ -30,34 +23,23 @@ class EndNormalGame extends React.PureComponent {
     this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
-    this.greaterOrEqual = this.greaterOrEqual.bind(this);
-    // this.updateRanking = this.updateRanking.bind(this);
-    //
-    // const ranking = this.updateRanking();
-    // console.log(ranking);
-    // let userPosition = findIndex(ranking,this.greaterOrEqual);
-    // if (userPosition === -1) {
-    //   //add user at the end of the ranking
-    //   userPosition = size(ranking);
-    // }
-    //
-    // this.ranking = ranking;
-    // this.userPosition = userPosition;
     this.state = {
       showModal: 'hide',
-      ranking: []
+      ranking: [],
+      userPosition: 0
     };
   }
 
   componentWillMount() {
     debugger;
     this.updateRanking();
-    console.log("ranking: ", this.state.ranking);
     let userPosition = findIndex(this.state.ranking,this.greaterOrEqual);
     if (userPosition === -1) {
-      //add user at the end of the ranking
       userPosition = size(this.state.ranking);
     }
+    this.setState({
+      userPosition,
+    });
   }
 
   setModalSignIn() {
@@ -72,15 +54,9 @@ class EndNormalGame extends React.PureComponent {
     this.setState({ showModal: 'hide' });
   }
 
-  componentWillUnmount() {
-    // remove the_match from state
-    this.props.removeMatch();
-  }
-
   updateRanking = () => {
     matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
       .then((res) => {
-        console.log("res: ",res)
         this.setState({ ranking: res.data })
       })
       .catch((err) => {
@@ -94,25 +70,25 @@ class EndNormalGame extends React.PureComponent {
 
   addItemtoRanking(items, i) {
     items.push(
-      (i === this.userPosition) ? (
+      (i === this.state.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
-        <td>{ this.ranking[i].user }</td>
-        <td>{ this.ranking[i].points }</td>
+        <td>{ this.state.ranking[i].user }</td>
+        <td>{ this.state.ranking[i].points }</td>
       </tr>
       ) : (
         <tr key={ i }>
           <td>{ i + 1 }</td>
-          <td>{ this.ranking[i].user }</td>
-          <td>{ this.ranking[i].points }</td>
+          <td>{ this.state.ranking[i].user }</td>
+          <td>{ this.state.ranking[i].points }</td>
         </tr>
       )
     )
   }
 
   renderRanking() {
-    const lastIndex = size(this.ranking) - 1;
-    const userPosition = this.userPosition;
+    const lastIndex = size(this.state.ranking) - 1;
+    const userPosition = this.state.userPosition;
     let first;
     let until;
     if (lastIndex <= 4) {
@@ -198,7 +174,6 @@ class EndNormalGame extends React.PureComponent {
 
 EndNormalGame.propTypes = {
   matchData: PropTypes.object,
-  removeMatch: PropTypes.func,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
+export default connect(mapStateToProps)(EndNormalGame)
