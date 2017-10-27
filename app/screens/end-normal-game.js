@@ -65,7 +65,6 @@ class EndNormalGame extends React.PureComponent {
   }
 
   updateRanking() {
-    debugger;
     matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
       .then((res) => {
         return res.data
