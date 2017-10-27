@@ -45,7 +45,7 @@ class Question extends React.PureComponent {
     this.removeAnswer = this.removeAnswer.bind(this);
     this.cancelChanges = this.cancelChanges.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleEnterOnAnswer = this.handleEnterOnAnswer.bind(this);
   }
 
   changeQuestion(event) {
@@ -108,8 +108,8 @@ class Question extends React.PureComponent {
     this.props.closePanel();
   }
 
-  handleKeyPress(index) {
-    if (index == this.props.obj.answers.length - 1) {
+  handleEnterOnAnswer(index) {
+    if (index === this.props.obj.answers.length - 1) {
       this.addAnswer();  
     }
   }
@@ -128,7 +128,7 @@ class Question extends React.PureComponent {
           question={ id }
           addAnswer={ this.addAnswer }
           removeAnswer={ this.removeAnswer }
-          handleKeyPress={ this.handleKeyPress }
+          handleEnter={ this.handleEnterOnAnswer }
         />
       );
     });
@@ -137,13 +137,13 @@ class Question extends React.PureComponent {
       <div className='question'>
         <FormGroup>
           <InputGroup>
-          <FormControl
-            type='text'
-            onChange={ this.changeQuestion }
-            value={ this.state.text }
-            placeholder={ 'Question text' }
-          />
-          <InputGroup.Addon>?</InputGroup.Addon>
+            <FormControl
+              type='text'
+              onChange={ this.changeQuestion }
+              value={ this.state.text }
+              placeholder={ 'Question text' }
+            />
+            <InputGroup.Addon>?</InputGroup.Addon>
           </InputGroup>
         </FormGroup>
         <FormGroup>
@@ -177,8 +177,8 @@ class Question extends React.PureComponent {
           <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
         </div>
         <div>
-          <Button bsStyle='default pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
-          <Button bsStyle='default pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
+          <Button className='pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
+          <Button className='pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
         </div>
       </div>
     );

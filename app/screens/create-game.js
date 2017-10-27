@@ -174,8 +174,8 @@ class CreateGame extends React.PureComponent {
               />
             </div>
             <div>
-              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='default pull-left' onClick={ this.prevStep }>Back</Button>
-              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='success pull-right' onClick={ this.nextStep }>Next</Button>
+              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='default' className='pull-left' onClick={ this.prevStep }>Back</Button>
+              <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='success' className='pull-right' onClick={ this.nextStep }>Next</Button>
             </div>
           </div>
         )
@@ -188,8 +188,8 @@ class CreateGame extends React.PureComponent {
               <h4>or <i>Back</i> if you want to review your game</h4>
             </div>
             <div className='error-message'>{ this.props.error }</div>
-            <Button bsSize='large' bsStyle='default pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>
-            <Button bsSize='large' bsStyle='success pull-right' onClick={ this.onDone }>CREATE!</Button>
+            <Button bsSize='large' bsStyle='default' className='pull-left' onClick={ this.prevStep.bind(this) }>Back</Button>
+            <Button bsSize='large' bsStyle='success' className='pull-right' onClick={ this.onDone }>CREATE!</Button>
           </div>
         )
     }

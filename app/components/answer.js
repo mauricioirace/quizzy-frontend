@@ -29,8 +29,7 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.removeAnswer = this.removeAnswer.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);    
+    this.removeAnswer = this.removeAnswer.bind(this);    
   }
 
   handleChange(event) {
@@ -52,8 +51,8 @@ class Answer extends React.PureComponent {
   }
 
   handleKeyPress(target, index) {
-    if(target.charCode == 13) {
-      this.props.handleKeyPress(index);
+    if(target.charCode === 13) {
+      this.props.handleEnter(index);
     }      
   }
 
