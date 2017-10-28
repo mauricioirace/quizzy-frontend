@@ -54,6 +54,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       match: false,
+      error: false
     };
     case LOAD_MATCH_DATA:
       return {

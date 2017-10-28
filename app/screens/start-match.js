@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { updateMatch, setPlayer } from '../redux/actions/match';
+import { setPlayer, fetchMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -44,6 +44,12 @@ class StartMatch extends React.PureComponent {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.matchData.match) {
+      this.props.fetchMatch(this.props.match.params.url)
+    }
+  }
+
   handleChange(event) {
     if (event.target.value !== ''){
       document.getElementById('error').innerHTML = '';
@@ -82,15 +88,18 @@ class StartMatch extends React.PureComponent {
     const ranking = this.props.matchData.match.game.ranking;
     if (ranking.length > 0) {
       const items = [];
-      ranking.forEach( (entry, index) => {
+      let index = 0;
+      const stop = ranking.length < 5 ? ranking.length : 5;
+      while (index < stop) {
         items.push(
-          <tr>
+          <tr key={index}>
             <td>{ index + 1 }</td>
-            <td>{ entry.user }</td>
-            <td>{ entry.points } pts</td>
+            <td>{ ranking[index].user }</td>
+            <td>{ ranking[index].points } pts</td>
           </tr>
         );
-      });
+        index = index + 1;
+      }
       return (
         <Reveal effect='animated slideInRight'>
           <h3>Best players</h3>
@@ -120,13 +129,20 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
-    const match = this.props.matchData.match;
-    return (
+    let component = null;
+    if (this.props.matchData.error) {
+      component = <div>Error!</div>
+    } else if (this.props.matchData.isFetching) {
+      // TODO Usar un spinner para estas partes de Loading...
+      component = <div>Loading...</div>
+    } else if (this.props.matchData.match) {
+      const match = this.props.matchData.match;
+      component =
       <div className='page-match'>
         <div className='game-container'>
           <Reveal effect='animated slideInDown'>
             <div className='game-title'>
-              { match.game.image ? <img src={ match.game.image } id='previewImage'/> : false }
+              { match.game.image ? <img src={ match.game.image } id='previewImage'/> : null }
               <h1 className='game-name'>{ match.game.name }</h1>
             </div>
             <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
@@ -158,12 +174,15 @@ class StartMatch extends React.PureComponent {
           { this.renderRanking() }
         </div>
       </div>
-    )
+    }
+    return component;
   }
 }
 
 StartMatch.propTypes = {
-  matchData: PropTypes.object
+  matchData: PropTypes.object,
+  setPlayer: PropTypes.func,
+  fetchMatch: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -174,8 +193,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateMatch: (match) => dispatch(updateMatch(match)),
-    setPlayer: (nickname) => dispatch(setPlayer(nickname))
+    setPlayer: (nickname) => dispatch(setPlayer(nickname)),
+    fetchMatch: (match) => dispatch(fetchMatch(match))
   };
 };
 
