@@ -92,7 +92,7 @@ export class CreateMatch extends React.PureComponent {
     } else {
       return(
         <Row>
-          <RealTimeMatch />
+          <RealTimeMatch/>
           <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
         </Row>
       );
