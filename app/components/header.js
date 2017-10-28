@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { Navbar } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import scrollToElement from 'scroll-to-element';
 import '../stylesheets/header.scss';
 
 class Header extends React.PureComponent {
@@ -17,30 +18,23 @@ class Header extends React.PureComponent {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('click', this.animateScroll);
-    window.addEventListener('load', this.animateScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('click', this.animateScroll);
-    window.removeEventListener('load', this.animateScroll);
   }
 
   handleScroll(event) {
-    // console.log(ReactDOM.findDOMNode(this.navbar).offsetTop);
     this.setState({
-        darkenHeader: window.pageYOffset > 20 ? true : false
+      darkenHeader: window.pageYOffset > 20 ? true : false
     });
   }
 
-  animateScroll() {
-    $('a.page-scroll').bind('click', function(event) {
-      var $anchor = $(this);
-      $('html, body').stop().animate({
-        scrollTop: $($anchor.attr('href')).offset().top
-      }, 1500, 'easeInOutExpo');
-      event.preventDefault();
+  animateScroll(id) {
+    scrollToElement(`#${ id }`, {
+      offset: 0,
+      ease: 'inOutExpo',
+      duration: 1500
     });
   }
 
@@ -50,12 +44,12 @@ class Header extends React.PureComponent {
     if (currentLocation == '/') {
       var navbarAction = (
         <div className='navbar-action'>
-          <a className='page-scroll' href='#matches'>Games</a>
-          <a className='page-scroll' href='#about'>About</a>
+          <a onClick={ () => this.animateScroll('matches') } href='#matches'>Games</a>
+          <a onClick={ () => this.animateScroll('about') } href='#about'>About</a>
         </div>
       );
       homeButton = (
-        <a className='navbar-brand page-scroll' href='#page-top'>
+        <a className='navbar-brand page-scroll' onClick={ () => this.animateScroll('page-top') } href='#page-top'>
           <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
         </a>
       );
