@@ -55,6 +55,9 @@ export class CreateMatch extends React.PureComponent {
   }
 
   handleClick(event) {
+    if (this.state.switched) {
+      this.match.isRealTime = true;
+    }
     this.props.createMatch(this.match, this.onSuccess);
   }
 
@@ -89,8 +92,8 @@ export class CreateMatch extends React.PureComponent {
     } else {
       return(
         <Row>
+          <RealTimeMatch />
           <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
-          <RealTimeMatch/>
         </Row>
       );
     }
