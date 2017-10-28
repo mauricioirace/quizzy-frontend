@@ -1,4 +1,5 @@
 import {
+  SET_SCREEN,
   SET_PLAYERS,
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
@@ -19,12 +20,19 @@ import {
   TIMEOUT
 } from '../constants/match';
 
+import {
+  START_MATCH_SCREEN,
+  ANSWER_QUESTION_SCREEN,
+  END_NORMAL_GAME_SCREEN
+} from '../../constants/match';
+
 const initialState = {
   currentMatch: '',
   match: false,
   isFetching: false,
   error: false,
   state: {
+    screen: START_MATCH_SCREEN,
     question: 0,
     player: '',
     score: 0,
@@ -167,6 +175,14 @@ export default (state = initialState, action) => {
         state: {
           ...state.state,
           players: action.players
+        }
+      }
+    case SET_SCREEN:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          screen: action.screen
         }
       }
     default:

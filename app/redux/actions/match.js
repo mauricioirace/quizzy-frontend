@@ -1,5 +1,6 @@
 import matchService from '../../services/match'
 import {
+  SET_SCREEN,
   SET_PLAYERS,
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
@@ -30,6 +31,13 @@ export const loadCurrentMatch = (input) => {
 export const removeCurrentMatch = () => {
   return {
     type: REMOVE_CURRENT_MATCH,
+  }
+}
+
+export const setScreen = (screen) => {
+  return {
+    type: SET_SCREEN,
+    screen
   }
 }
 
