@@ -6,7 +6,7 @@ import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Moda
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
-import { findIndex, isEqual, size, sortBy } from 'underscore';
+import { findIndex } from 'underscore';
 import matchService from '../services/match';
 
 const mapStateToProps = state => {
@@ -23,23 +23,17 @@ class EndNormalGame extends React.PureComponent {
     this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
+    this.greaterOrEqual = this.greaterOrEqual.bind(this);
+    this.userPosition = -1;
     this.state = {
       showModal: 'hide',
       ranking: [],
-      userPosition: 0
+      // userPosition: -1
     };
   }
 
   componentWillMount() {
-    debugger;
     this.updateRanking();
-    let userPosition = findIndex(this.state.ranking,this.greaterOrEqual);
-    if (userPosition === -1) {
-      userPosition = size(this.state.ranking);
-    }
-    this.setState({
-      userPosition,
-    });
   }
 
   setModalSignIn() {
@@ -70,7 +64,7 @@ class EndNormalGame extends React.PureComponent {
 
   addItemtoRanking(items, i) {
     items.push(
-      (i === this.state.userPosition) ? (
+      (i === this.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
         <td>{ this.state.ranking[i].user }</td>
@@ -87,37 +81,45 @@ class EndNormalGame extends React.PureComponent {
   }
 
   renderRanking() {
-    const lastIndex = size(this.state.ranking) - 1;
-    const userPosition = this.state.userPosition;
-    let first;
-    let until;
-    if (lastIndex <= 4) {
-      //show until 5 users starting from 0
-      first = 0;
-      until = lastIndex;
-    } else {
-      //if current user is in first place or second one
-      if (userPosition === 0 || userPosition === 1) {
-        //show 5 starting from 0
+    let items = [];
+    const lastIndex = this.state.ranking.length - 1;
+
+    if (lastIndex >= 0) {
+
+      let userPosition = this.state.ranking.findIndex(this.greaterOrEqual);
+      if (userPosition === -1) {
+        userPosition = this.state.ranking.length;
+      }
+      this.userPosition = userPosition;
+      let first;
+      let until;
+      if (lastIndex <= 4) {
+        //show until 5 users starting from 0
         first = 0;
-        until = 4;
+        until = lastIndex;
       } else {
-        //if current user is the last or previous than last
-        if (userPosition === lastIndex || userPosition === lastIndex - 1) {
-          //show 5 starting from lastIndex - 4
-          first = lastIndex - 4;
-          until = lastIndex;
+        //if current user is in first place or second one
+        if (this.userPosition === 0 || this.userPosition === 1) {
+          //show 5 starting from 0
+          first = 0;
+          until = 4;
         } else {
-          //current user is in the middle
-          first = userPosition - 2;
-          until = userPosition + 2;
+          //if current user is the last or previous than last
+          if (this.userPosition === lastIndex || this.userPosition === lastIndex - 1) {
+            //show 5 starting from lastIndex - 4
+            first = lastIndex - 4;
+            until = lastIndex;
+          } else {
+            //current user is in the middle
+            first = this.userPosition - 2;
+            until = this.userPosition + 2;
+          }
         }
       }
-    }
-    let i;
-    let items = [];
-    for (i = first; i <= until; i++) {
-      this.addItemtoRanking(items, i);
+      let i;
+      for (i = first; i <= until; i++) {
+        this.addItemtoRanking(items, i);
+      }
     }
     return (<tbody>{items}</tbody>);
   }
