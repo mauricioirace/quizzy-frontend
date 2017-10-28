@@ -44,16 +44,16 @@ class Questions extends React.PureComponent {
 
   openPanel() {
     this.props.disableStepButtons();
-    this.setState({ 
-      showAddButton: false,      
+    this.setState({
+      showAddButton: false,
       showPanel: true
      });
   }
 
   closePanel() {
     this.props.enableStepButtons();
-    this.setState({ 
-      showAddButton: true,      
+    this.setState({
+      showAddButton: true,
       showPanel: false
      });
   }
@@ -72,7 +72,7 @@ class Questions extends React.PureComponent {
                   <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
                   <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
                 </DropdownButton>
-                { difficulty } 
+                { difficulty }
               </h3>
               <p> { text } </p>
             </Thumbnail>
@@ -107,10 +107,9 @@ class Questions extends React.PureComponent {
     const currentItem = this.state.editIndex;
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion } 
+      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }
       closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }/>
     );
-
     return (
       <div>
         <Grid>

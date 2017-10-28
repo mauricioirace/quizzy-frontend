@@ -32,6 +32,10 @@ class Question extends React.PureComponent {
   constructor(props){
     super(props);
     this.state = {
+      textMessage: '',
+      answerMessage: '',
+      validateTextField: false,
+      validateAnswerFields: false,
       text: this.props.obj.text,
       hint: this.props.obj.hint,
       difficulty: this.props.obj.difficulty,
@@ -46,6 +50,8 @@ class Question extends React.PureComponent {
     this.cancelChanges = this.cancelChanges.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.handleEnterOnAnswer = this.handleEnterOnAnswer.bind(this);
+    this.validateQuestion = this.validateQuestion.bind(this);
+    this.validateAnswers = this.validateAnswers.bind(this);
   }
 
   changeQuestion(event) {
@@ -61,12 +67,14 @@ class Question extends React.PureComponent {
   }
 
   addAnswer() {
-    if (this.props.obj.answers.length < 6) {
-      const newAnswers = this.props.obj.answers.slice(0, 6);
-      newAnswers.push({ 'answer': '' });
-      this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
-    } else {
-      alert("The question can't have more than six answers");
+    if (this.validateAnswers()){
+      if (this.props.obj.answers.length < 6) {
+        const newAnswers = this.props.obj.answers.slice(0, 6);
+        newAnswers.push({ 'answer': '' });
+        this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
+      } else {
+        alert("The question can't have more than six answers");
+      }
     }
   }
 
@@ -89,7 +97,7 @@ class Question extends React.PureComponent {
   }
 
   cancelChanges() {
-    if (this.props.obj.text == '') {
+    if (this.props.obj.text === '') {
       this.props.removeQuestion(this.props.id)
     } else {
       this.rollbackState(this.props.obj);
@@ -100,12 +108,14 @@ class Question extends React.PureComponent {
   }
 
   saveChanges() {
-    this.setState({ answers: this.props.obj.answers });
-    this.setState({ correctAnswer: this.props.obj.correctAnswer });
-    this.props.changeQuestionName(this.state.text, this.props.id);
-    this.props.changeHintQuestion(this.state.hint, this.props.id);
-    this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
-    this.props.closePanel();
+    if ((this.validateQuestion()) && (this.validateAnswers())){
+      this.setState({ answers: this.props.obj.answers });
+      this.setState({ correctAnswer: this.props.obj.correctAnswer });
+      this.props.changeQuestionName(this.state.text, this.props.id);
+      this.props.changeHintQuestion(this.state.hint, this.props.id);
+      this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
+      this.props.closePanel();
+    }
   }
 
   handleEnterOnAnswer(index) {
@@ -114,28 +124,86 @@ class Question extends React.PureComponent {
     }
   }
 
+  validateQuestion() {
+    if (this.state.text === '') {
+      this.setState({
+        validateTextField: true,
+        textMessage: "This field can't be empty"
+      })
+      return false;
+    } else {
+      this.setState({
+        validateTextField: false,
+        textMessage: ''
+      })
+    }
+    return true;
+  }
+
+  validateAnswers() {
+    let valid = true;
+    let answers = this.props.obj.answers;
+    for (let ans of answers) {
+      valid = (valid && (ans.answer !== ''));
+    }
+    if (valid) {
+      this.setState({
+        validateAnswerFields: false,
+        answerMessage: '',
+      });
+    } else {
+      this.setState({
+        validateAnswerFields: true,
+        answerMessage: "These fields can't be empty",
+      })
+      return false;
+    }
+    return true;
+  }
+
+  getAnswerValidationState(question, index) {
+    if (this.state.validateAnswerFields) {
+      if (question.answers[index].answer === '') {
+        return 'error'
+      }
+    }
+    return null
+  }
+
+  getTextValidationState() {
+    if (this.state.validateTextField) {
+      if (this.state.text === '') {
+        return 'error'
+      }
+    }
+    return null
+  }
+
   render() {
     const question = this.props.self;
     const id = this.props.id;
     const answers = [];
     question.answers.forEach( (answer, index) => {
       answers.push(
-        <Answer
-          key={ index }
-          id={ index }
-          text={ answer.answer }
-          correct={ question.correctAnswer == index }
-          question={ id }
-          addAnswer={ this.addAnswer }
-          removeAnswer={ this.removeAnswer }
-          handleEnter={ this.handleEnterOnAnswer }
-        />
+        <FormGroup validationState = { this.getAnswerValidationState(question, index) }>
+          <Answer
+            key={ index }
+            id={ index }
+            text={ answer.answer }
+            correct={ question.correctAnswer == index }
+            question={ id }
+            addAnswer={ this.addAnswer }
+            removeAnswer={ this.removeAnswer }
+            handleEnter={ this.handleEnterOnAnswer }
+          />
+        </FormGroup>
       );
     });
 
     return (
       <div className='question'>
-        <FormGroup>
+        <FormGroup
+          validationState = { this.getTextValidationState() }>
           <InputGroup>
             <FormControl
               type='text'
@@ -145,6 +213,7 @@ class Question extends React.PureComponent {
             />
             <InputGroup.Addon>?</InputGroup.Addon>
           </InputGroup>
+          <span className='help-block'>{ this.state.textMessage }</span>
         </FormGroup>
         <FormGroup>
           <ControlLabel>Hint (optional):</ControlLabel>
@@ -169,16 +238,17 @@ class Question extends React.PureComponent {
             <option value='Hard'>Hard</option>
           </FormControl>
         </FormGroup>
-        <FormGroup>
           <ControlLabel>Answers:</ControlLabel>
-            { answers }
+          { answers }
+        <FormGroup validationState = { this.state.validAnswer }>
+         <span className='help-block'>{ this.state.answerMessage }</span>
         </FormGroup>
         <div>
-          <a id="arAnswer" onClick={ this.addAnswer }>Add answer</a>
+          <a id='arAnswer' onClick={ this.addAnswer }>Add answer</a>
         </div>
         <div>
-          <Button className='pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
-          <Button className='pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
+          <Button className='default' className='pull-right' onClick={ this.saveChanges.bind(this) } id='savedelete'>Save</Button>
+          <Button className='default' className='pull-right' onClick={ this.cancelChanges.bind(this) } id='savedelete'>Cancel</Button>
         </div>
       </div>
     );
