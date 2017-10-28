@@ -26,13 +26,11 @@ const mapDispatchToProps = (dispatch) => {
 class Lobby extends React.PureComponent {
   constructor(props) {
     super(props);
-
   }
 
   componentWillMount() {
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
-
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
   }
 
