@@ -88,15 +88,18 @@ class StartMatch extends React.PureComponent {
     const ranking = this.props.matchData.match.game.ranking;
     if (ranking.length > 0) {
       const items = [];
-      ranking.forEach( (entry, index) => {
+      let index = 0;
+      const stop = ranking.length < 5 ? ranking.length : 5;
+      while (index < stop) {
         items.push(
-          <tr>
+          <tr key={index}>
             <td>{ index + 1 }</td>
-            <td>{ entry.user }</td>
-            <td>{ entry.points } pts</td>
+            <td>{ ranking[index].user }</td>
+            <td>{ ranking[index].points } pts</td>
           </tr>
         );
-      });
+        index = index + 1;
+      }
       return (
         <Reveal effect='animated slideInRight'>
           <h3>Best players</h3>
