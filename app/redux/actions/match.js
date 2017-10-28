@@ -123,9 +123,7 @@ export const receiveMessageRealTime = ({ data }) => {
     } else {
       const messages= JSON.parse(data);
       let players = [];
-
       for (let i = 0; i < messages.length; i++) {
-
         if (messages[i][0] === currentMatch) {
           players.push(messages[i][1]);
         }
