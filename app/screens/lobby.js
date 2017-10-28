@@ -5,11 +5,21 @@ import { Route, Link, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/lobby.scss';
+import { receiveMessageRealTime } from '../redux/actions/match';
+import { open, close } from '../redux/actions/ws';
 
 const mapStateToProps = (state) => {
   return {
     matchData: state.matchData,
-    player: state.matchData.state.player
+    player: state.matchData.state.player,
+    players: state.matchData.state.players
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    open: (endpoint) => dispatch(open(endpoint, (message) => dispatch(receiveMessageRealTime(message)))),
+    close: () => dispatch(close()),
   };
 };
 
@@ -17,41 +27,21 @@ class Lobby extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      users: []
-    }
   }
 
   componentWillMount() {
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
 
-    this.ws = new WebSocket(`ws://${HOST}:${PORT}/realusers`);
-    this.ws.onmessage = e => {
-      const users = [];
-      if (e.data === 'hola') {
-        this.ws.send(JSON.stringify([this.props.matchData.currentMatch, this.props.player]));
-      } else {
-        const ms = JSON.parse(e.data);
-        for (var i=0; i < ms.length; i++) {
-          //const each = JSON.parse(ms[i]);
-          if (ms[i][0] === this.props.matchData.currentMatch) {
-            users.push(ms[i][1]);
-          }
-        }
-         this.setState({
-          users: users
-        });
-      }
-    }
+    this.props.open(`ws://${HOST}:${PORT}/realusers`);
   }
 
   componentWillUnmount() {
-    this.ws.close();
+    this.props.close();
   }
 
   renderUsers = () => {
-    return this.state.users.map(u => <li key={ Math.random() }>{ u }</li>);
+    return this.props.players.map(u => <li key={ Math.random() }>{ u }</li>);
   }
 
   render() {
@@ -61,7 +51,7 @@ class Lobby extends React.PureComponent {
           <div className='Container' id='client'>
             <PageHeader className='text-center'>Lobby { this.props.matchData.currentMatch }</PageHeader>
             <h4>Waiting for players...</h4>
-            <h3>In this room: { this.state.users.length }</h3>
+            <h3>In this room: { this.props.players.length }</h3>
             <h3>{ this.renderUsers() }</h3>
           </div>
         </Col>
@@ -70,4 +60,4 @@ class Lobby extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(Lobby));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Lobby));

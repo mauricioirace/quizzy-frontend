@@ -1,5 +1,6 @@
 import matchService from '../../services/match'
 import {
+  SET_PLAYERS,
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
@@ -108,6 +109,36 @@ export const createMatch = (match, onSuccess) => {
       });
   }
 };
+
+export const receiveMessageRealTime = ({ data }) => {
+  return (dispatch, getState) => {
+    const currentMatch = getState().matchData.currentMatch;
+    const player = getState().matchData.state.player;
+    const ws = getState().wsData.ws;
+    if (data === 'hola') {
+      ws.send(JSON.stringify([
+        currentMatch,
+        player
+      ]));
+    } else {
+      const messages= JSON.parse(data);
+      let players = [];
+
+      for (let i = 0; i < messages.length; i++) {
+
+        if (messages[i][0] === currentMatch) {
+          players.push(messages[i][1]);
+        }
+      }
+      dispatch(setPlayers(players));
+    }
+  }
+};
+
+export const setPlayers = (players) => ({
+  type: SET_PLAYERS,
+  players
+});
 
 export const updateMatch = (match) => ({
   type: UPDATE_MATCH,

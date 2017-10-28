@@ -68,11 +68,11 @@ class StartMatch extends React.PureComponent {
       error.style.fontWeight = 'bold';
       return;
     } else {
-      // const match = this.props.currentMatch;
+      // const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
       // match.players.push(this.state.nickname);
       // this.props.updateMatch(match);
-      if (!this.props.currentMatch.isRealTime) {
+      if (!this.props.matchData.match.isRealTime) {
         this.props.history.push('/answer-question')
       } else {
         this.props.history.push(`/lobby`)
@@ -81,7 +81,7 @@ class StartMatch extends React.PureComponent {
   }
 
   renderRanking() {
-    const ranking = this.props.currentMatch.game.ranking;
+    const ranking = this.props.matchData.match.game.ranking;
     if (ranking.length > 0) {
       const items = [];
       ranking.forEach( (entry, index) => {
@@ -122,7 +122,7 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
-    const match = this.props.currentMatch;
+    const match = this.props.matchData.match;
     return (
       <div className='page-match'>
         <div className='game-container'>
@@ -165,12 +165,12 @@ class StartMatch extends React.PureComponent {
 }
 
 StartMatch.propTypes = {
-  currentMatch: PropTypes.object
+  matchData: PropTypes.object
 }
 
 const mapStateToProps = state => {
   return {
-    currentMatch: state.matchData.match
+    matchData: state.matchData
   }
 }
 

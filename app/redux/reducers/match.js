@@ -1,4 +1,5 @@
 import {
+  SET_PLAYERS,
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
@@ -27,7 +28,8 @@ const initialState = {
     question: 0,
     player: '',
     score: 0,
-    answer: false
+    answer: false,
+    players: []
   }
 };
 
@@ -156,6 +158,14 @@ export default (state = initialState, action) => {
         state: {
           ...state.state,
           player: action.player
+        }
+      }
+    case SET_PLAYERS:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          players: action.players
         }
       }
     default:
