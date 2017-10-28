@@ -15,3 +15,4 @@ export const TIMEOUT = 'TIMEOUT';
 export const CLEAR_MATCH_STATE = 'CLEAR_MATCH_STATE';
 export const UPDATE_MATCH = 'UPDATE_MATCH';
 export const SET_PLAYER = 'SET_PLAYER';
+export const SET_PLAYERS = 'SET_PLAYERS';
