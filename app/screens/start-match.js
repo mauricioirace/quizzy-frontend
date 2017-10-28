@@ -68,10 +68,7 @@ class StartMatch extends React.PureComponent {
       error.style.fontWeight = 'bold';
       return;
     } else {
-      // const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
-      // match.players.push(this.state.nickname);
-      // this.props.updateMatch(match);
       if (!this.props.matchData.match.isRealTime) {
         this.props.history.push('/answer-question')
       } else {
