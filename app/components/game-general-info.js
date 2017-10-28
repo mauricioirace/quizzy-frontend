@@ -29,35 +29,44 @@ class GameGeneralInfo extends React.PureComponent {
     this.props.changeCategory(event.target.value);
   }
 
+  getNameValidationState(name) {
+    if (this.props.validateField) {
+      if (this.props.gameData.name === '') {
+        return 'error'
+      }
+    }
+    return null
+  }
+
   render() {
     const game = this.props.gameData;
     return (
       <Form>
-        <FormGroup controlId='formName' validationState={ this.props.validName }>
-            <ControlLabel>Name</ControlLabel>
-            <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
-            <span className="help-block">{ this.props.nameMessage }</span>
+        <FormGroup controlId='formName' validationState={ this.getNameValidationState() }>
+          <ControlLabel>Name</ControlLabel>
+          <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
+          <span className='help-block'>{ this.props.nameMessage }</span> 
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
-            <ControlLabel>Description</ControlLabel>
-            <FormControl componentClass='textarea' value={ game.description } type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
+          <ControlLabel>Description</ControlLabel>
+          <FormControl componentClass='textarea' value={ game.description } type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
         </FormGroup>
 
         <FormGroup controlId='imageasd'>
-            <ControlLabel>Image</ControlLabel>
-            <FormControl type='file' onChange={ this.onChangeImage }/>
+          <ControlLabel>Image</ControlLabel>
+          <FormControl type='file' onChange={ this.onChangeImage }/>
         </FormGroup>
 
         <FormGroup controlId='formCategory'>
-            <ControlLabel>Category</ControlLabel>
-            <FormControl componentClass='select' value={ game.category } placeholder='select' onChange={ this.onChangeCategory }>
-              <option value='music'>Music</option>
-              <option value='sports'>Sports</option>
-              <option value='videogames'>Videogames</option>
-              <option value='history'>History</option>
-              <option value='other'>Other</option>
-            </FormControl>
+          <ControlLabel>Category</ControlLabel>
+          <FormControl componentClass='select' value={ game.category } placeholder='select' onChange={ this.onChangeCategory }>
+            <option value='music'>Music</option>
+            <option value='sports'>Sports</option>
+            <option value='videogames'>Videogames</option>
+            <option value='history'>History</option>
+            <option value='other'>Other</option>
+          </FormControl>
         </FormGroup>
       </Form>
     );
