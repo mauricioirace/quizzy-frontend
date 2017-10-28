@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
       state.ws.close();
       return {
         ws: null
-
       }
     default:
       return state
