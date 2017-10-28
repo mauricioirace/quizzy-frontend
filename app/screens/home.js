@@ -10,6 +10,8 @@ import { EMPTY_MATCH_NAME } from '../constants/home';
 import { Icon } from 'react-fa'
 import Reveal from 'react-reveal';
 import 'animate.css/animate.css';
+import { SlideFadeTop } from '../components/transitions';
+import { TransitionGroup } from 'react-transition-group';
 import '../stylesheets/home.scss';
 
 export class Home extends React.Component {
@@ -113,11 +115,13 @@ export class Home extends React.Component {
     this.props.matchesData.matches.forEach((match, index) => {
       if (index < 5) {
         items.push(
-          <MatchRow key={ index } data={ match }/>
+          <SlideFadeTop key={ match.url }>
+            <MatchRow key={ index } data={ match }/>
+          </SlideFadeTop>
         );
       }
     });
-    return (<tbody> { items } </tbody>);
+    return (<TransitionGroup component='tbody'>{ items }</TransitionGroup>);
   }
 
   render() {
