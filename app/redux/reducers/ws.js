@@ -7,9 +7,8 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case OPEN:
-      console.log(action);
       const ws = new WebSocket(action.endpoint);
-      ws.message = action.onMessage;
+      ws.onmessage = action.onMessage;
       return {
         ws
       }
