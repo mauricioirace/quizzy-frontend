@@ -36,7 +36,6 @@ export class App extends React.PureComponent {
             </Switch>
           </div>
         </div>
-        {/*<Footer/>*/}
       </BrowserRouter>
     )
   }
