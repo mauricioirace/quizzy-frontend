@@ -4,12 +4,13 @@ import '../stylesheets/answer-question.scss';
 import AnswerButton from './answer-button';
 import { ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { answerQuestion, nextQuestion } from '../redux/actions/match';
+import { answerQuestion, nextQuestion, setScreen } from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
 import { withRouter } from 'react-router-dom';
 import { SlideFadeLeft } from '../components/transitions';
 import shuffle from 'shuffle-array';
 import PropTypes from 'prop-types';
+import { END_NORMAL_GAME_SCREEN } from '../constants/match';
 
 const mapStateToProps = state => {
   return {
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch => {
   return {
     answerQuestion: (correct,answer) => dispatch(answerQuestion(correct,answer)),
     nextQuestion: () => dispatch(nextQuestion()),
+    setScreen: (screen) => dispatch(setScreen(screen))
   };
 };
 
@@ -48,7 +50,7 @@ class AnswerButtons extends React.PureComponent {
       const total = this.props.matchData.game.questions.length;
 
       if (next >= total) {
-        this.props.history.push('/end-normal-game');
+        this.props.setScreen(END_NORMAL_GAME_SCREEN);
       } else {
         this.props.nextQuestion();
       }

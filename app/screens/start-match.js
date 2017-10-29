@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { setPlayer, fetchMatch } from '../redux/actions/match';
+import {
+  setPlayer,
+  fetchMatch,
+  setScreen
+} from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -25,6 +29,7 @@ import {
   ShareCounts,
   generateShareIcon
 } from 'react-share';
+import { ANSWER_QUESTION_SCREEN } from '../constants/match';
 
 const {
   FacebookShareButton,
@@ -46,7 +51,7 @@ class StartMatch extends React.PureComponent {
 
   componentWillMount() {
     if (!this.props.matchData.match) {
-      this.props.fetchMatch(this.props.match.params.url)
+      this.props.fetchMatch(this.props.url)
     }
   }
 
@@ -77,7 +82,7 @@ class StartMatch extends React.PureComponent {
       const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
       if (!match.isRealTime) {
-        this.props.history.push('/answer-question')
+        this.props.setScreen(ANSWER_QUESTION_SCREEN);
       } else {
         this.props.history.push(`/lobby`)
       }
@@ -182,7 +187,8 @@ class StartMatch extends React.PureComponent {
 StartMatch.propTypes = {
   matchData: PropTypes.object,
   setPlayer: PropTypes.func,
-  fetchMatch: PropTypes.func
+  fetchMatch: PropTypes.func,
+  setScreen: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -194,7 +200,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPlayer: (nickname) => dispatch(setPlayer(nickname)),
-    fetchMatch: (match) => dispatch(fetchMatch(match))
+    fetchMatch: (match) => dispatch(fetchMatch(match)),
+    setScreen: (screen) => dispatch(setScreen(screen))
   };
 };
 
