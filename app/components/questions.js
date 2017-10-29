@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Question from './question';
-import Scroll from 'react-scroll';
-import { Button, Col, Row, Form, ControlLabel,
+import { Button, Col, Row, Form, ControlLabel, Alert,
   FormControl, Panel, Thumbnail, Grid, DropdownButton, MenuItem } from 'react-bootstrap';
 
 class Questions extends React.PureComponent {
@@ -24,22 +23,21 @@ class Questions extends React.PureComponent {
   }
 
   onAddQuestion() {
+    this.props.hideAlert();
     this.props.addQuestion();
     this.onEditQuestion(this.props.questions.length);
   }
 
   onEditQuestion(index) {
+    this.props.hideAlert();    
     this.setState({ editIndex: index });
     this.openPanel();
   }
 
   onRemoveQuestion(index) {
+    this.props.hideAlert();    
     this.props.removeQuestion(index);
     this.closePanel();
-  }
-
-  scrollToBottom() {
-    Scroll.animateScroll.scrollToBottom();
   }
 
   openPanel() {
@@ -108,7 +106,9 @@ class Questions extends React.PureComponent {
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
       <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }
-      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }/>
+      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion } 
+      showAlert={ this.props.showAlert } hideAlert={ this.props.hideAlert }
+      />
     );
     return (
       <div>

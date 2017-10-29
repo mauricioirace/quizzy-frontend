@@ -11,6 +11,7 @@ import {
 import '../stylesheets/question.scss';
 import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
+import Scroll from 'react-scroll';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -55,14 +56,17 @@ class Question extends React.PureComponent {
   }
 
   changeQuestion(event) {
+    this.props.hideAlert();    
     this.setState({ text: event.target.value });
   }
 
   changeHint(event){
+    this.props.hideAlert();    
     this.setState({ hint: event.target.value });
   }
 
   changeDifficulty (event) {
+    this.props.hideAlert();    
     this.setState({ difficulty: event.target.value });
   }
 
@@ -72,8 +76,10 @@ class Question extends React.PureComponent {
         const newAnswers = this.props.obj.answers.slice(0, 6);
         newAnswers.push({ 'answer': '' });
         this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
+        this.props.hideAlert();      
       } else {
-        alert("The question can't have more than six answers");
+        this.props.showAlert("The question can't have more than six answers.");
+        this.scrollToTop();      
       }
     }
   }
@@ -83,8 +89,10 @@ class Question extends React.PureComponent {
       const newAnswers = this.props.obj.answers.slice(0, 6);
       newAnswers.splice(index, 1);
       this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
+      this.props.hideAlert();
     } else {
-      alert('The question must have at least two answers');
+      this.props.showAlert("The question must have at least two answers.");      
+      this.scrollToTop();
     }
   }
 
@@ -97,6 +105,7 @@ class Question extends React.PureComponent {
   }
 
   cancelChanges() {
+    this.props.hideAlert();    
     if (this.props.obj.text === '') {
       this.props.removeQuestion(this.props.id)
     } else {
@@ -108,6 +117,7 @@ class Question extends React.PureComponent {
   }
 
   saveChanges() {
+    this.props.hideAlert();
     if ((this.validateQuestion()) && (this.validateAnswers())){
       this.setState({ answers: this.props.obj.answers });
       this.setState({ correctAnswer: this.props.obj.correctAnswer });
@@ -179,6 +189,10 @@ class Question extends React.PureComponent {
     return null
   }
 
+  scrollToTop() {
+    Scroll.animateScroll.scrollToTop();
+  }
+
   render() {
     const question = this.props.self;
     const id = this.props.id;
@@ -187,12 +201,13 @@ class Question extends React.PureComponent {
       answers.push(
         <FormGroup validationState = { this.getAnswerValidationState(question, index) }>
           <Answer
-            key={ index }
             id={ index }
+            key={ index }
+            question={ id }
             text={ answer.answer }
             correct={ question.correctAnswer == index }
-            question={ id }
             addAnswer={ this.addAnswer }
+            hideAlert={ this.props.hideAlert }
             removeAnswer={ this.removeAnswer }
             handleEnter={ this.handleEnterOnAnswer }
           />

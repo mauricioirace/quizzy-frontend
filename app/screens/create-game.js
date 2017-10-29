@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import empty from '../../assets/images/empty.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import GameGeneralInfo from '../components/game-general-info';
 import Steps, { Step } from 'rc-steps';
 import 'rc-steps/assets/index.css';
@@ -63,6 +63,8 @@ class CreateGame extends React.PureComponent {
     super(props);
     this.state = {
       step: 1,
+      alertMessage: '',
+      alertVisible: false,
       disableButtons: false,
       validateField: false,
       nameMessage: ''
@@ -78,6 +80,10 @@ class CreateGame extends React.PureComponent {
     this.prevStep = this.prevStep.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.validateName = this.validateName.bind(this);
+    this.enableStepButtons = this.enableStepButtons.bind(this);
+    this.disableStepButtons = this.disableStepButtons.bind(this);  
+    this.handleAlertShow = this.handleAlertShow.bind(this);
+    this.handleAlertDismiss = this.handleAlertDismiss.bind(this);  
   }
 
   onDone() {
@@ -129,14 +135,15 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
-    if ((this.state.step == 2) && (this.props.questions.length == 0 ))
-      alert('You must create at least one question')
-    else {
+    if ((this.state.step == 2) && (this.props.questions.length == 0 )) {
+      this.handleAlertShow('You must create at least one question.');
+    } else {  
       this.setState({ step: this.state.step + 1 });
     }
   }
 
   prevStep() {
+    this.handleAlertDismiss();    
     this.setState({ step: this.state.step - 1 });
   }
 
@@ -167,6 +174,20 @@ class CreateGame extends React.PureComponent {
     }
   }
 
+  handleAlertDismiss() {
+    this.setState({
+      alertMessage: '',
+      alertVisible: false
+    })
+  }
+
+  handleAlertShow(message) {
+    this.setState({
+      alertMessage: message,
+      alertVisible: true
+    })
+  }
+
   showStep() {
     switch (this.state.step) {
       case 1:
@@ -188,13 +209,24 @@ class CreateGame extends React.PureComponent {
         return (
           <div>
             <div className='question-panel'>
+              <div>
+                {
+                  this.state.alertVisible ? 
+                  <Alert bsStyle="danger" className='alert' onDismiss={ this.handleAlertDismiss }>
+                    <h4>{ this.state.alertMessage }</h4>
+                  </Alert> : null
+                }
+              </div>
+
               <Questions
                 questions={ this.props.questions }
                 editQuestion={ this.onEditQuestion }
                 addQuestion={ this.onAddQuestion }
                 removeQuestion={ this.onRemoveQuestion }
-                enableStepButtons={ this.enableStepButtons.bind(this) }
-                disableStepButtons={ this.disableStepButtons.bind(this) }
+                showAlert={ this.handleAlertShow }    
+                hideAlert={ this.handleAlertDismiss }            
+                enableStepButtons={ this.enableStepButtons }
+                disableStepButtons={ this.disableStepButtons }        
               />
             </div>
             <div>

@@ -33,10 +33,12 @@ class Answer extends React.PureComponent {
   }
 
   handleChange(event) {
+    this.props.hideAlert();    
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
   }
   
   handleSelectionChange(event) {
+    this.props.hideAlert();
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
   }
 
