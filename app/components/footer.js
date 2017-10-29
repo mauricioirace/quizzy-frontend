@@ -16,7 +16,7 @@ class Footer extends React.PureComponent {
         <Grid>
           <Row>
             <img className='image' src={ require('../../assets/images/quizzy_logo.svg') }/>
-            Copyright 2017 Quizzy, Rights Reserved.
+            Copyright 2017 Quizzy, All Rights Reserved.
           </Row>
         </Grid>
       </div>
