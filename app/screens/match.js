@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentMatch, fetchMatch, removeCurrentMatch } from '../redux/actions/match';
+import {
+  setCurrentMatch,
+  fetchMatch,
+  removeCurrentMatch,
+  removeMatch
+} from '../redux/actions/match';
 import CreateGame from './create-game';
 import StartMatch from './start-match';
 import AnswerQuestion from './answer-question';
@@ -25,6 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeCurrentMatch: () => dispatch(removeCurrentMatch()),
+    removeMatch: () => dispatch(removeMatch()),
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
     fetchMatch: url => dispatch(fetchMatch(url)),
   };
@@ -39,6 +45,7 @@ export class Match extends React.PureComponent {
   }
 
   componentWillMount() {
+    this.props.removeMatch();
     this.props.fetchMatch(this.props.match.params.url);
   }
 
