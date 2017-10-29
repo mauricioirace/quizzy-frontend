@@ -13,7 +13,8 @@ class Questions extends React.PureComponent {
     this.state = {
       editIndex: 0,
       showPanel: false,
-      showAddButton: true
+      showAddButton: true,
+      disableMenuButton: false
     };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onEditQuestion = this.onEditQuestion.bind(this);
@@ -43,6 +44,7 @@ class Questions extends React.PureComponent {
   openPanel() {
     this.props.disableStepButtons();
     this.setState({
+      disableMenuButton: true,
       showAddButton: false,
       showPanel: true
      });
@@ -51,6 +53,7 @@ class Questions extends React.PureComponent {
   closePanel() {
     this.props.enableStepButtons();
     this.setState({
+      disableMenuButton: false,      
       showAddButton: true,
       showPanel: false
      });
@@ -66,7 +69,7 @@ class Questions extends React.PureComponent {
           <Col xs={2} md={2}>
             <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
               <h3>
-                <DropdownButton bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
+                <DropdownButton disabled={ this.state.disableMenuButton } bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
                   <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
                   <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
                 </DropdownButton>
