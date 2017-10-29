@@ -1,5 +1,4 @@
-import React from 'react';
-import Header from '../components/header';
+import React, { PropTypes } from 'react';
 import LoginModal from '../components/login-modal';
 import RegisterModal from '../components/register-modal';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
@@ -7,19 +6,12 @@ import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Moda
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
-import { findIndex, isEqual, size, sortBy } from 'underscore';
+import { findIndex } from 'underscore';
 import matchService from '../services/match';
-import { removeMatch } from '../redux/actions/match';
 
 const mapStateToProps = state => {
   return {
     matchData: state.matchData
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    removeMatch: () => dispatch(removeMatch())
   }
 }
 
@@ -30,27 +22,17 @@ class EndNormalGame extends React.PureComponent {
     this.setModalSignUp = this.setModalSignUp.bind(this);
     this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
-    this.saveMatch = this.saveMatch.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
-
-    let ranking = this.props.matchData.match.game.ranking.slice(); //clean copy of ranking
-    let userPosition = ranking.findIndex(this.greaterOrEqual);
-    if (userPosition === -1) {
-      //add user at the end of the ranking
-      userPosition = size(ranking);
-    }
-
-    ranking.splice(userPosition, 0, {
-      user: this.props.matchData.state.player,
-      points: this.props.matchData.state.score
-    });
-
+    this.userPosition = -1;
     this.state = {
       showModal: 'hide',
-      ranking: ranking,
-      userPosition: userPosition
+      ranking: [],
     };
+  }
+
+  componentWillMount() {
+    this.updateRanking();
   }
 
   setModalSignIn() {
@@ -64,20 +46,17 @@ class EndNormalGame extends React.PureComponent {
   setModalHide() {
     this.setState({ showModal: 'hide' });
   }
-  
-  componentWillMount() {
-    this.saveMatch();
-  }
 
-  componentWillUnmount() {
-    // remove the_match from state
-    this.props.removeMatch();
-  }
-
-  saveMatch() {
-    const currentMatch = this.props.matchData.match;
-    currentMatch.game.ranking = this.state.ranking;
-    matchService.update(currentMatch)
+  updateRanking = () => {
+    if (this.props.matchData.state.player !== "") {
+      matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
+      .then((res) => {
+        this.setState({ ranking: res.data })
+      })
+      .catch((err) => {
+        console.log(err);
+      });        
+    }
   }
 
   greaterOrEqual(item) {
@@ -86,7 +65,7 @@ class EndNormalGame extends React.PureComponent {
 
   addItemtoRanking(items, i) {
     items.push(
-      (i === this.state.userPosition) ? (
+      (i === this.userPosition) ? (
       <tr className='current-player' key={ i }>
         <td>{ i + 1 }</td>
         <td>{ this.state.ranking[i].user }</td>
@@ -103,37 +82,44 @@ class EndNormalGame extends React.PureComponent {
   }
 
   renderRanking() {
-    const lastIndex = size(this.state.ranking) - 1;
-    const userPosition = this.state.userPosition;
-    let first;
-    let until;
-    if (lastIndex <= 4) {
-      //show until 5 users starting from 0
-      first = 0;
-      until = lastIndex;
-    } else {
-      //if current user is in first place or second one
-      if (userPosition === 0 || userPosition === 1) {
-        //show 5 starting from 0
+    let items = [];
+    const lastIndex = this.state.ranking.length - 1;
+    if (lastIndex >= 0) {
+
+      let userPosition = this.state.ranking.findIndex(this.greaterOrEqual);
+      if (userPosition === -1) {
+        userPosition = this.state.ranking.length;
+      }
+      this.userPosition = userPosition;
+      let first;
+      let until;
+      if (lastIndex <= 4) {
+        //show until 5 users starting from 0
         first = 0;
-        until = 4;
+        until = lastIndex;
       } else {
-        //if current user is the last or previous than last
-        if (userPosition === lastIndex || userPosition === lastIndex - 1) {
-          //show 5 starting from lastIndex - 4
-          first = lastIndex - 4;
-          until = lastIndex;
+        //if current user is in first place or second one
+        if (this.userPosition === 0 || this.userPosition === 1) {
+          //show 5 starting from 0
+          first = 0;
+          until = 4;
         } else {
-          //current user is in the middle
-          first = userPosition - 2;
-          until = userPosition + 2;
+          //if current user is the last or previous than last
+          if (this.userPosition === lastIndex || this.userPosition === lastIndex - 1) {
+            //show 5 starting from lastIndex - 4
+            first = lastIndex - 4;
+            until = lastIndex;
+          } else {
+            //current user is in the middle
+            first = this.userPosition - 2;
+            until = this.userPosition + 2;
+          }
         }
       }
-    }
-    let i;
-    let items = [];
-    for (i = first; i <= until; i++) {
-      this.addItemtoRanking(items, i);
+      let i;
+      for (i = first; i <= until; i++) {
+        this.addItemtoRanking(items, i);
+      }
     }
     return (<tbody>{items}</tbody>);
   }
@@ -188,4 +174,8 @@ class EndNormalGame extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EndNormalGame)
+EndNormalGame.propTypes = {
+  matchData: PropTypes.object,
+}
+
+export default connect(mapStateToProps)(EndNormalGame)
