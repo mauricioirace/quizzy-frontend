@@ -28,7 +28,6 @@ class EndNormalGame extends React.PureComponent {
     this.state = {
       showModal: 'hide',
       ranking: [],
-      // userPosition: -1
     };
   }
 
@@ -49,13 +48,15 @@ class EndNormalGame extends React.PureComponent {
   }
 
   updateRanking = () => {
-    matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
+    if (this.props.matchData.state.player !== "") {
+      matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
       .then((res) => {
         this.setState({ ranking: res.data })
       })
       .catch((err) => {
         console.log(err);
-      });
+      });        
+    }
   }
 
   greaterOrEqual(item) {
@@ -83,7 +84,6 @@ class EndNormalGame extends React.PureComponent {
   renderRanking() {
     let items = [];
     const lastIndex = this.state.ranking.length - 1;
-
     if (lastIndex >= 0) {
 
       let userPosition = this.state.ranking.findIndex(this.greaterOrEqual);
