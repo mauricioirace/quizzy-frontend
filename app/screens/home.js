@@ -8,8 +8,11 @@ import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { EMPTY_MATCH_NAME } from '../constants/home';
 import { Icon } from 'react-fa'
+import scrollToElement from 'scroll-to-element';
 import Reveal from 'react-reveal';
 import 'animate.css/animate.css';
+import { SlideFadeTop } from '../components/transitions';
+import { TransitionGroup } from 'react-transition-group';
 import '../stylesheets/home.scss';
 
 export class Home extends React.Component {
@@ -46,6 +49,14 @@ export class Home extends React.Component {
       event.preventDefault();
       this.props.matchNameError(EMPTY_MATCH_NAME);
     }
+  }
+
+  animateScroll(id) {
+    scrollToElement(`#${ id }`, {
+      offset: 0,
+      ease: 'inOutExpo',
+      duration: 1500
+    });
   }
 
   moveTable() {
@@ -113,11 +124,13 @@ export class Home extends React.Component {
     this.props.matchesData.matches.forEach((match, index) => {
       if (index < 5) {
         items.push(
-          <MatchRow key={ index } data={ match }/>
+          <SlideFadeTop key={ match.url }>
+            <MatchRow key={ index } data={ match }/>
+          </SlideFadeTop>
         );
       }
     });
-    return (<tbody> { items } </tbody>);
+    return (<TransitionGroup component='tbody'>{ items }</TransitionGroup>);
   }
 
   render() {
@@ -157,7 +170,7 @@ export class Home extends React.Component {
             <Row>
               <Col md={ 7 } mdOffset={ 2 } xs={ 12 }>
                 <Reveal effect='animated slideInUp'>
-                  <a href='#matches' className='btn btn-circle page-scroll'>
+                  <a href='#matches' onClick={ () => this.animateScroll('matches') } className='btn btn-circle page-scroll'>
                     <Icon name='angle-double-down' className='animated'></Icon>
                   </a>
                   <h2 className='arrow-title'>Or join a live one!</h2>

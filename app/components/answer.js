@@ -29,7 +29,7 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.removeAnswer = this.removeAnswer.bind(this);
+    this.removeAnswer = this.removeAnswer.bind(this);    
   }
 
   handleChange(event) {
@@ -50,6 +50,12 @@ class Answer extends React.PureComponent {
     this.props.removeAnswer(index);
   }
 
+  handleKeyPress(target, index) {
+    if(target.charCode === 13) {
+      this.props.handleEnter(index);
+    }      
+  }
+
   render() {
     return (
       <div className='answer'>
@@ -59,11 +65,13 @@ class Answer extends React.PureComponent {
              <Icon name='close' id='arAnswer' onClick={ () => this.removeAnswer(this.props.id) }/> 
             </InputGroup.Addon>
             <FormControl
+              autoFocus
               className='answer'
               type='text'
               value={ this.props.text }
               placeholder={ 'Answer #' + (this.props.id + 1) }
               onChange={ this.handleChange }
+              onKeyPress={ (target) => this.handleKeyPress(target, this.props.id) }
             />
             <InputGroup.Addon>
               <input type='checkbox' aria-label='...'
@@ -71,7 +79,7 @@ class Answer extends React.PureComponent {
               value={ this.props.id }
               checked={ this.props.correct }
               onClick={ this.handleSelectionChange }
-              />
+            />
             </InputGroup.Addon>
           </InputGroup>
         </FormGroup>

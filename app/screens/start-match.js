@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { updateMatch, setPlayer, fetchMatch } from '../redux/actions/match';
+import { setPlayer, fetchMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -74,11 +74,13 @@ class StartMatch extends React.PureComponent {
       error.style.fontWeight = 'bold';
       return;
     } else {
-      // const match = this.props.matchData.match;
+      const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
-      // match.players.push(this.state.nickname);
-      // this.props.updateMatch(match);
-      this.props.history.push('/answer-question')
+      if (!match.isRealTime) {
+        this.props.history.push('/answer-question')
+      } else {
+        this.props.history.push(`/lobby`)
+      }
     }
   }
 
@@ -86,15 +88,18 @@ class StartMatch extends React.PureComponent {
     const ranking = this.props.matchData.match.game.ranking;
     if (ranking.length > 0) {
       const items = [];
-      ranking.forEach( (entry, index) => {
+      let index = 0;
+      const stop = ranking.length < 5 ? ranking.length : 5;
+      while (index < stop) {
         items.push(
-          <tr>
+          <tr key={index}>
             <td>{ index + 1 }</td>
-            <td>{ entry.user }</td>
-            <td>{ entry.points } pts</td>
+            <td>{ ranking[index].user }</td>
+            <td>{ ranking[index].points } pts</td>
           </tr>
         );
-      });
+        index = index + 1;
+      }
       return (
         <Reveal effect='animated slideInRight'>
           <h3>Best players</h3>
@@ -176,7 +181,6 @@ class StartMatch extends React.PureComponent {
 
 StartMatch.propTypes = {
   matchData: PropTypes.object,
-  updateMatch: PropTypes.func,
   setPlayer: PropTypes.func,
   fetchMatch: PropTypes.func
 }
@@ -189,7 +193,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateMatch: (match) => dispatch(updateMatch(match)),
     setPlayer: (nickname) => dispatch(setPlayer(nickname)),
     fetchMatch: (match) => dispatch(fetchMatch(match))
   };
