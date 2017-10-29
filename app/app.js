@@ -35,7 +35,6 @@ export class App extends React.PureComponent {
               <Route exact path='/lobby' component={ Lobby }/>
             </Switch>
           </div>
-          {/*<Footer/>*/}
         </div>
       </BrowserRouter>
     )

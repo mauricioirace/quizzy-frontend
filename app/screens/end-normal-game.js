@@ -48,7 +48,7 @@ class EndNormalGame extends React.PureComponent {
   }
 
   updateRanking = () => {
-    if (this.props.matchData.state.player !== "") {
+    if (this.props.matchData.state.player !== '') {
       matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
       .then((res) => {
         this.setState({ ranking: res.data })
