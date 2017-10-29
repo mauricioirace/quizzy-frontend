@@ -15,28 +15,11 @@ class Footer extends React.PureComponent {
       <div className='display-flex'>
         <Grid>
           <Row>
-            <Col>
-              <img className='image' src={ require('../../assets/images/quizzy_logo.svg') }/>
-            </Col>
-            <Col xs={6} md={4} className='col align-self-end'>
-              Copyright 2017 Quizzy, Rights Reserved.
-             </Col>
+            <img className='image' src={ require('../../assets/images/quizzy_logo.svg') }/>
+            Copyright 2017 Quizzy, Rights Reserved.
           </Row>
         </Grid>
       </div>
-
-      /*<Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a className='logo-img' >
-              <img src={ require('../../assets/images/quizzy_logo.svg') }/>
-            </a>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Navbar.Text pullRight>
-          CopyRight 2017
-        </Navbar.Text>
-      </Navbar>*/
     )
   }
 }
