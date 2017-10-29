@@ -78,7 +78,7 @@ class StartMatch extends React.PureComponent {
     if (ranking.length > 0) {
       const items = [];
       let index = 0;
-      const stop = ranking.length < 5 ? ranking.length : 5;
+      const stop = ranking.length < 10 ? ranking.length : 10;
       while (index < stop) {
         items.push(
           <tr key={index}>
