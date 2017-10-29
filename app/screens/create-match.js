@@ -14,6 +14,7 @@ import '../stylesheets/create-match.scss';
 import { connect } from 'react-redux';
 import Reveal from 'react-reveal';
 
+@withRouter
 export class CreateMatch extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -63,7 +64,7 @@ export class CreateMatch extends React.PureComponent {
 
   onSuccess(currentMatch) {
     this.props.setCurrentMatch(currentMatch);
-    this.props.history.push(`/start-match/${this.props.currentMatch}`);
+    this.props.history.push(`/match/${this.props.currentMatch}`);
   }
 
   renderDescription() {

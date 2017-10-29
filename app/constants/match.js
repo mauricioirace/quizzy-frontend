@@ -1,1 +1,4 @@
-export const TIME_TO_ANSWER = 15;
+export const TIME_TO_ANSWER         = 15;
+export const START_MATCH_SCREEN     = 'START_MATCH';
+export const ANSWER_QUESTION_SCREEN = 'ANSWER_QUESTION';
+export const END_NORMAL_GAME_SCREEN = 'END_NORMAL_GAME';

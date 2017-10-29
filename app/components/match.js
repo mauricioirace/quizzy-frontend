@@ -16,7 +16,7 @@ class Match extends React.PureComponent {
 
   handleClick() {
     this.props.setCurrentMatch(this.props.data);
-    this.props.history.push(`/start-match/${this.props.data.url}`);
+    this.props.history.push(`/match/${this.props.data.url}`);
   }
 
   render() {
