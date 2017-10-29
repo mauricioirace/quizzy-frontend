@@ -148,7 +148,15 @@ class CreateGame extends React.PureComponent {
   }
 
   goToStep(index) {
-    this.setState({ step: index });
+    if (this.state.step === 1 && this.props.name === '') {
+      this.validateName();
+    } else if (index === 3 && this.props.questions.length === 0) {
+      this.setState({ step: 2 });
+      this.handleAlertShow('You must create at least one question.');          
+    } else { 
+      this.handleAlertDismiss();
+      this.setState({ step: index });
+    }
   }
 
   enableStepButtons() {
@@ -160,7 +168,7 @@ class CreateGame extends React.PureComponent {
   }
 
   validateName() {
-    if (this.props.name == ''){
+    if (this.props.name === ''){
       this.setState({
         validateField: true,
         nameMessage: "The name of the game can't be empty"
