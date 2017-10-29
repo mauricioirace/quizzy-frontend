@@ -148,14 +148,18 @@ class CreateGame extends React.PureComponent {
   }
 
   goToStep(index) {
-    if (this.state.step === 1 && this.props.name === '') {
-      this.validateName();
-    } else if (index === 3 && this.props.questions.length === 0) {
-      this.setState({ step: 2 });
-      this.handleAlertShow('You must create at least one question.');          
-    } else { 
-      this.handleAlertDismiss();
-      this.setState({ step: index });
+    if (this.state.disableButtons && index !== 2) {
+      this.handleAlertShow('You must save or cancel your question before changing step.');                
+    } else {
+      if (this.state.step === 1 && this.props.name === '') {
+        this.validateName();
+      } else if (index === 3 && this.props.questions.length === 0) {
+        this.setState({ step: 2 });
+        this.handleAlertShow('You must create at least one question.');          
+      } else { 
+        this.handleAlertDismiss();
+        this.setState({ step: index });
+      }
     }
   }
 
