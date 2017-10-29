@@ -18,11 +18,9 @@ class Footer extends React.PureComponent {
             <Col>
               <img className='image' src={ require('../../assets/images/quizzy_logo.svg') }/>
             </Col>
-            <Col xs={6} md={4}>
-              <h1>
-                COPYRIGHT 2017            
-              </h1>
-             </Col> 
+            <Col xs={6} md={4} className='col align-self-end'>
+              Copyright 2017 Quizzy, Rights Reserved.
+             </Col>
           </Row>
         </Grid>
       </div>
@@ -38,7 +36,7 @@ class Footer extends React.PureComponent {
         <Navbar.Text pullRight>
           CopyRight 2017
         </Navbar.Text>
-      </Navbar>*/  
+      </Navbar>*/
     )
   }
 }
