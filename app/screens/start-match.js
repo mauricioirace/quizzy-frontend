@@ -20,17 +20,6 @@ import { sortBy } from 'underscore';
 import userService from '../services/user';
 import { withRouter } from 'react-router-dom';
 import Reveal from 'react-reveal';
-import {
-  ShareButtons,
-  ShareCounts,
-  generateShareIcon
-} from 'react-share';
-
-const {
-  FacebookShareButton,
-} = ShareButtons;
-
-const FacebookIcon = generateShareIcon('facebook');
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
@@ -89,7 +78,7 @@ class StartMatch extends React.PureComponent {
     if (ranking.length > 0) {
       const items = [];
       let index = 0;
-      const stop = ranking.length < 5 ? ranking.length : 5;
+      const stop = ranking.length < 10 ? ranking.length : 10;
       while (index < stop) {
         items.push(
           <tr key={index}>
@@ -160,7 +149,6 @@ class StartMatch extends React.PureComponent {
                  <label className='fs-22'>Share it</label>
                  <input className='fs-16' id='matchURL' type='url' readOnly value={ window.location.href }/>
                  <Button className='share' onClick={ this.copyURL }>Copy</Button>
-                 <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
                </div>
              </form>
             </div>
