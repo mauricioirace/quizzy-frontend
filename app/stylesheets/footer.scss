@@ -1,0 +1,12 @@
+@import '../../assets/styles/variables.scss';
+
+.display-flex {
+  flex-wrap: wrap;
+  background: $black;
+  border-bottom: 1px solid rgba(white, 0.3);
+  color: $font-white;
+
+  .image {
+	height: 60px;
+  }
+}
