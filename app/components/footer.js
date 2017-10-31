@@ -5,13 +5,8 @@ import { Navbar, Grid, Row, Col } from 'react-bootstrap';
 import '../stylesheets/footer.scss';
 
 class Footer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-
       <div className='display-flex'>
         <Grid>
           <Row>
