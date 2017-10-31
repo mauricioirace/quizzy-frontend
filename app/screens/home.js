@@ -14,6 +14,8 @@ import 'animate.css/animate.css';
 import { SlideFadeTop } from '../components/transitions';
 import { TransitionGroup } from 'react-transition-group';
 import '../stylesheets/home.scss';
+import Spinner from '../components/spinner';
+import '../stylesheets/react-spinner.scss';
 
 export class Home extends React.Component {
   constructor(props) {
@@ -99,14 +101,14 @@ export class Home extends React.Component {
     const { matchesData } = this.props;
     if (matchesData.isFetching) {
       return (
-        <div>
-          Loading...
+        <div className='loading-matches'>
+          <Spinner />
         </div>
       );
     } else if (matchesData.error) {
       return (
         <div>
-          Error!
+          Could not get the matches from the server :(
         </div>
       );
     } else if (matchesData.matches) {

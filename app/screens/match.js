@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { setCurrentMatch, fetchMatch, removeCurrentMatch } from '../redux/actions/match';
 import CreateGame from './create-game';
 import FetchedMatch from './fetched-match';
+import Spinner from '../components/spinner';
+import '../stylesheets/react-spinner.scss';
 
 export class Match extends React.PureComponent {
   constructor(props) {
@@ -20,7 +22,11 @@ export class Match extends React.PureComponent {
     if (matchData.isFetching) {
       return (
         <div>
-          Cargando...
+          <div className='loading-match'>
+          </div>
+          <div>
+            <Spinner />
+          </div>
         </div>
       );
     } else if (matchData.error ) {
