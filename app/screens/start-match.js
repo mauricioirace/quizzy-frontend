@@ -25,6 +25,8 @@ import {
   ShareCounts,
   generateShareIcon
 } from 'react-share';
+import Spinner from '../components/spinner';
+import '../stylesheets/react-spinner.scss';
 
 const {
   FacebookShareButton,
@@ -131,10 +133,16 @@ class StartMatch extends React.PureComponent {
   render() {
     let component = null;
     if (this.props.matchData.error) {
-      component = <div>Error!</div>
+      component = <div>Could not get the match from the server :(</div>
     } else if (this.props.matchData.isFetching) {
-      // TODO Usar un spinner para estas partes de Loading...
-      component = <div>Loading...</div>
+      component =
+      <div>
+        <div className='loading-match'>
+        </div>
+        <div>
+          <Spinner />
+        </div>
+      </div>
     } else if (this.props.matchData.match) {
       const match = this.props.matchData.match;
       component =
