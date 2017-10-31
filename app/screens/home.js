@@ -39,7 +39,9 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.moveTable();
+	if (matchesData.matches) {
+		this.moveTable();
+	};
   }
 
   handleChange(event) {
