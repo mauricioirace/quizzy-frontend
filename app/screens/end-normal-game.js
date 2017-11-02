@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
-import LoginModal from '../components/login-modal';
-import RegisterModal from '../components/register-modal';
-import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, Modal, FormGroup, Col,
+import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, FormGroup, Col,
         FormControl, Checkbox, Form, ControlLabel } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,33 +16,17 @@ const mapStateToProps = state => {
 class EndNormalGame extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.setModalSignIn = this.setModalSignIn.bind(this);
-    this.setModalSignUp = this.setModalSignUp.bind(this);
-    this.setModalHide = this.setModalHide.bind(this);
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.greaterOrEqual = this.greaterOrEqual.bind(this);
     this.userPosition = -1;
     this.state = {
-      showModal: 'hide',
       ranking: [],
     };
   }
 
   componentWillMount() {
     this.updateRanking();
-  }
-
-  setModalSignIn() {
-    this.setState({ showModal: 'signIn' });
-  }
-
-  setModalSignUp() {
-    this.setState({ showModal: 'signUp' });
-  }
-
-  setModalHide() {
-    this.setState({ showModal: 'hide' });
   }
 
   updateRanking = () => {
@@ -144,9 +126,6 @@ class EndNormalGame extends React.PureComponent {
           <h1>Your final score is { score }!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
-            <Button bsStyle='success' onClick={ () => this.setModalSignIn() }>
-              Save
-            </Button>
             <Link to={ '/' }>
               <Button bsStyle='link'>
                 Continue with your nickname
@@ -154,16 +133,6 @@ class EndNormalGame extends React.PureComponent {
             </Link>
           </p>
         </Jumbotron>
-        <LoginModal
-          show={ this.state.showModal }
-          setSignUp={ this.setModalSignUp }
-          setHide={ this.setModalHide }
-        />
-        <RegisterModal
-          show={ this.state.showModal }
-          setSignIn={ this.setModalSignIn }
-          setHide={ this.setModalHide }
-        />
         <h2>Leaderboard</h2>
         <Table responsive>
           { this.renderHeaderRanking() }
