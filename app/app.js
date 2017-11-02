@@ -12,6 +12,7 @@ import Lobby from './screens/lobby'
 import { connect } from 'react-redux'
 import history from './history';
 import Header from './components/header';
+import Footer from './components/footer';
 import './styles.scss';
 import AnswerQuestion from './screens/answer-question';
 
@@ -35,6 +36,7 @@ export class App extends React.PureComponent {
               <Route exact path='/lobby' component={ Lobby }/>
             </Switch>
           </div>
+          <Footer/>
         </div>
       </BrowserRouter>
     )

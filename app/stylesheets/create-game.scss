@@ -24,6 +24,15 @@
     #savedelete {
       margin-right: 10px;
     }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+
+      &.inverted {
+        flex-direction: row-reverse;
+      }
+    }
   }
 
   .error-message {
