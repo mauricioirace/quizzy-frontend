@@ -20,6 +20,7 @@ import GameGeneralInfo from '../components/game-general-info';
 import Steps, { Step } from 'rc-steps';
 import 'rc-steps/assets/index.css';
 import 'rc-steps/assets/iconfont.css';
+import Scroll from 'react-scroll';
 
 const mapStateToProps = (state) => {
   return {
@@ -51,9 +52,9 @@ const question = () => {
   return {
     text: '',
     hint: '',
-    difficulty: 'Easy',
+    difficulty: '',
     answers: [{ 'answer': '' }, { 'answer': '' }],
-    correctAnswer: 0
+    correctAnswer: -1
   };
 };
 
@@ -186,6 +187,10 @@ class CreateGame extends React.PureComponent {
     }
   }
 
+  scrollToTop() {
+    Scroll.animateScroll.scrollToTop();
+  }
+
   handleAlertDismiss() {
     this.setState({
       alertMessage: '',
@@ -194,6 +199,7 @@ class CreateGame extends React.PureComponent {
   }
 
   handleAlertShow(message) {
+    this.scrollToTop();
     this.setState({
       alertMessage: message,
       alertVisible: true

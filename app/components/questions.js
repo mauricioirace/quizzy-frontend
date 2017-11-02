@@ -62,20 +62,22 @@ class Questions extends React.PureComponent {
   renderQuestions(questions) {
     const list = [];
     questions.map( (question, index) => {
-      const text = <FormControl readOnly type='text' key={ index } value={ question.props.obj.text } placeholder={ 'Question #' + (index + 1) }/>;
-      let difficulty = <ControlLabel> { question.props.obj.difficulty.toUpperCase() } </ControlLabel>
+      const text = question.props.obj.text;
+      const difficulty = question.props.obj.difficulty.toUpperCase();
       list.push(
         <div id='questionSquare' >
           <Col xs={2} md={2}>
             <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
               <h3>
-                <DropdownButton disabled={ this.state.disableMenuButton } bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-right'>
+                <DropdownButton disabled={ this.state.disableMenuButton } bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-left'>
                   <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
                   <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
                 </DropdownButton>
-                { difficulty }
+                <ControlLabel> { difficulty === '' ? 'New question' : difficulty } </ControlLabel>
               </h3>
-              <p> { text } </p>
+              <p> 
+                <FormControl readOnly type='text' key={ index } value={ text } placeholder={ 'Question #' + (index + 1) }/> 
+              </p>
             </Thumbnail>
           </Col>
         </div>
