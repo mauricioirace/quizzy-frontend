@@ -233,7 +233,7 @@ class CreateGame extends React.PureComponent {
                 {
                   this.state.alertVisible ?
                   <Alert bsStyle="danger" className='alert' onDismiss={ this.handleAlertDismiss }>
-                    <h4>{ this.state.alertMessage }</h4>
+                    <p>{ this.state.alertMessage }</p>
                   </Alert> : null
                 }
               </div>
