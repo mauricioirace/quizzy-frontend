@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Question from './question';
 import { Button, Col, Row, Form, ControlLabel, Alert,
   FormControl, Panel, Thumbnail, Grid, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Icon } from 'react-fa';
 
 class Questions extends React.PureComponent {
   static propTypes = {
@@ -63,18 +64,19 @@ class Questions extends React.PureComponent {
     const list = [];
     questions.map( (question, index) => {
       const text = question.props.obj.text;
-      const difficulty = question.props.obj.difficulty.toUpperCase();
+      const difficulty = question.props.obj.difficulty;
       list.push(
         <div id='questionSquare' >
           <Col xs={2} md={2}>
             <Thumbnail  className='thumbnail' id={ question.props.obj.difficulty }>
-              <h3>
-                <DropdownButton disabled={ this.state.disableMenuButton } bsSize='xsmall' title='' id='bg-vertical-dropdown' bsStyle='pull-left'>
-                  <MenuItem eventKey='1' onClick={ () => this.onEditQuestion(index) } >Edit</MenuItem>
-                  <MenuItem eventKey='2' onClick={ () => this.onRemoveQuestion(index) } >Delete</MenuItem>
-                </DropdownButton>
-                <ControlLabel> { difficulty === '' ? 'New question' : difficulty } </ControlLabel>
-              </h3>
+              {
+                this.state.disableMenuButton ? null
+                : <div>
+                    <Icon name='trash' className='pull-right' id='arAnswer' onClick={ () => this.onRemoveQuestion(index) }/>
+                    <Icon name='gear' className='pull-right' id='arAnswer' onClick={ () => this.onEditQuestion(index) }/>
+                  </div>
+              }
+              <h3><ControlLabel>{ difficulty === '' ? 'New question' : difficulty }</ControlLabel></h3>
               <p> 
                 <FormControl readOnly type='text' key={ index } value={ text } placeholder={ 'Question #' + (index + 1) }/> 
               </p>

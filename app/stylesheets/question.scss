@@ -90,6 +90,15 @@
   }
 }
 
+#editQuestion {
+  padding-left: 5px;
+}
+
+#editQuestion:hover {
+  cursor: pointer;
+  color: $primary-color;
+}
+
 #arAnswer:hover {
   cursor: pointer;
   color: $primary-color;

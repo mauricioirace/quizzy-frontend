@@ -104,7 +104,7 @@ class Question extends React.PureComponent {
   cancelChanges() {
     this.props.hideAlert();    
     if (this.props.obj.text === '') {
-      this.props.removeQuestion(this.props.id)
+      this.props.removeQuestion(this.props.id);
     } else {
       this.rollbackState(this.props.obj);
       this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
@@ -246,7 +246,8 @@ class Question extends React.PureComponent {
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
           <ButtonToolbar>
-            <ToggleButtonGroup justified type="radio" name="options" checked={ this.state.difficulty } onChange={ this.changeDifficulty }>
+            <ToggleButtonGroup justified type="radio" name="options" value={ this.state.difficulty } 
+            onChange={ this.changeDifficulty } defaultChecked={ this.state.difficulty }>
               <ToggleButton value='Easy'>Easy</ToggleButton>
               <ToggleButton value='Medium'>Medium</ToggleButton>
               <ToggleButton value='Hard'>Hard</ToggleButton>
