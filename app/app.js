@@ -29,7 +29,7 @@ export class App extends React.PureComponent {
               <Route exact path='/register' component={ Register }/>
               <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
-              <Route exact path='/end-normal-game' component={ EndNormalGame }/>
+              <Route exact path='/end-normal-game/:id/:player/:score' component={ EndNormalGame }/>
               <Route exact path='/create-match' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
               <Route exact path='/start-match/:url' component={ StartMatch }/>
