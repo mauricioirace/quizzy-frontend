@@ -20,19 +20,8 @@ import { sortBy } from 'underscore';
 import userService from '../services/user';
 import { withRouter } from 'react-router-dom';
 import Reveal from 'react-reveal';
-import {
-  ShareButtons,
-  ShareCounts,
-  generateShareIcon
-} from 'react-share';
 import Spinner from '../components/spinner';
 import '../stylesheets/react-spinner.scss';
-
-const {
-  FacebookShareButton,
-} = ShareButtons;
-
-const FacebookIcon = generateShareIcon('facebook');
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
