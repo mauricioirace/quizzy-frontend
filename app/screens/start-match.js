@@ -168,7 +168,6 @@ class StartMatch extends React.PureComponent {
                  <label className='fs-22'>Share it</label>
                  <input className='fs-16' id='matchURL' type='url' readOnly value={ window.location.href }/>
                  <Button className='share' onClick={ this.copyURL }>Copy</Button>
-                 <FacebookShareButton url={ match.url }><FacebookIcon size='37px'/></FacebookShareButton>
                </div>
              </form>
             </div>
