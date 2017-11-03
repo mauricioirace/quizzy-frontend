@@ -9,9 +9,8 @@ import {
   changeSelectedAnswer
 } from '../redux/actions/game';
 import '../stylesheets/question.scss';
-import { Button, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
+import { Button, ButtonToolbar, ToggleButton, ToggleButtonGroup, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap';
 import { Icon } from 'react-fa';
-import Scroll from 'react-scroll';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -67,7 +66,7 @@ class Question extends React.PureComponent {
 
   changeDifficulty (event) {
     this.props.hideAlert();    
-    this.setState({ difficulty: event.target.value });
+    this.setState({ difficulty: event });
   }
 
   addAnswer() {
@@ -79,7 +78,6 @@ class Question extends React.PureComponent {
         this.props.hideAlert();      
       } else {
         this.props.showAlert("The question can't have more than six answers.");
-        this.scrollToTop();      
       }
     }
   }
@@ -92,7 +90,6 @@ class Question extends React.PureComponent {
       this.props.hideAlert();
     } else {
       this.props.showAlert("The question must have at least two answers.");      
-      this.scrollToTop();
     }
   }
 
@@ -107,7 +104,7 @@ class Question extends React.PureComponent {
   cancelChanges() {
     this.props.hideAlert();    
     if (this.props.obj.text === '') {
-      this.props.removeQuestion(this.props.id)
+      this.props.removeQuestion(this.props.id);
     } else {
       this.rollbackState(this.props.obj);
       this.props.addOrRemoveQuestionAnswer(this.state.answers, this.props.id);
@@ -119,12 +116,18 @@ class Question extends React.PureComponent {
   saveChanges() {
     this.props.hideAlert();
     if ((this.validateQuestion()) && (this.validateAnswers())){
-      this.setState({ answers: this.props.obj.answers });
-      this.setState({ correctAnswer: this.props.obj.correctAnswer });
-      this.props.changeQuestionName(this.state.text, this.props.id);
-      this.props.changeHintQuestion(this.state.hint, this.props.id);
-      this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
-      this.props.closePanel();
+      if (this.state.difficulty === '') {
+        this.props.showAlert("You must select the difficulty.");   
+      } else if (this.props.obj.correctAnswer === -1) {
+        this.props.showAlert("You must select a correct answer.");        
+      } else {
+        this.setState({ answers: this.props.obj.answers });
+        this.setState({ correctAnswer: this.props.obj.correctAnswer });
+        this.props.changeQuestionName(this.state.text, this.props.id);
+        this.props.changeHintQuestion(this.state.hint, this.props.id);
+        this.props.changeQuestionDifficulty(this.state.difficulty, this.props.id);
+        this.props.closePanel();
+      }
     }
   }
 
@@ -189,10 +192,6 @@ class Question extends React.PureComponent {
     return null
   }
 
-  scrollToTop() {
-    Scroll.animateScroll.scrollToTop();
-  }
-
   render() {
     const question = this.props.self;
     const id = this.props.id;
@@ -246,12 +245,14 @@ class Question extends React.PureComponent {
         </FormGroup>
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
-          <FormControl componentClass='select' onChange={ this.changeDifficulty }
-          value={ this.state.difficulty }>
-            <option value='Easy'>Easy</option>
-            <option value='Medium'>Medium</option>
-            <option value='Hard'>Hard</option>
-          </FormControl>
+          <ButtonToolbar>
+            <ToggleButtonGroup justified type="radio" name="options" value={ this.state.difficulty } 
+            onChange={ this.changeDifficulty } defaultChecked={ this.state.difficulty }>
+              <ToggleButton value='Easy'>Easy</ToggleButton>
+              <ToggleButton value='Medium'>Medium</ToggleButton>
+              <ToggleButton value='Hard'>Hard</ToggleButton>
+            </ToggleButtonGroup>
+          </ButtonToolbar>
         </FormGroup>
           <ControlLabel>Answers:</ControlLabel>
           { answers }
