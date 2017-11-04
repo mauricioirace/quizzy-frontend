@@ -18,7 +18,7 @@ class EndNormalGame extends React.PureComponent {
     super(props);
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
-    this.greaterOrEqual = this.greaterOrEqual.bind(this);
+    this.isUser = this.isUser.bind(this);
     this.userPosition = -1;
     this.id = this.props.match.params.id;
     this.player = this.props.match.params.player;
@@ -33,7 +33,7 @@ class EndNormalGame extends React.PureComponent {
   }
 
   getRanking = () => {
-    matchService.getRanking(this.id);
+    matchService.getRanking(this.id)
     .then((res) => {
       this.setState({ ranking: res.data })
     })
@@ -41,21 +41,9 @@ class EndNormalGame extends React.PureComponent {
       console.log(err);
     });     
   }
-
-  // updateRanking = () => {
-  //   if (this.props.matchData.state.player !== '') {  
-  //     matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
-  //     .then((res) => {
-  //       this.setState({ ranking: res.data })
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });        
-  //   }
-  // }
-
-  greaterOrEqual(item) {
-    return this.score >= item.points;
+  
+  isUser(item) {
+    return (this.score == item.points && this.player == item.user)
   }
 
   addItemtoRanking(items, i) {
@@ -80,8 +68,7 @@ class EndNormalGame extends React.PureComponent {
     let items = [];
     const lastIndex = this.state.ranking.length - 1;
     if (lastIndex >= 0) {
-
-      let userPosition = this.state.ranking.findIndex(this.greaterOrEqual);
+      let userPosition = this.state.ranking.findIndex(this.isUser);
       if (userPosition === -1) {
         userPosition = this.state.ranking.length;
       }

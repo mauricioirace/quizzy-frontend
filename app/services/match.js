@@ -16,6 +16,10 @@ class MatchService extends CrudService {
     return axios.put(`${ this.repository }/${ id }`, { user: user, points: points });
   }
 
+  getRanking(id) {
+    return axios.get(`${ this.repository }/${ id }?v=ranking`);
+  }
+  
   update(match) {
     return super.update({ match: match }, match.id);
   }
