@@ -10,24 +10,6 @@ import '../stylesheets/header.scss';
 class Header extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      darkenHeader: false
-    };
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll(event) {
-    this.setState({
-      darkenHeader: window.pageYOffset > 20 ? true : false
-    });
   }
 
   animateScroll(id) {
@@ -50,24 +32,22 @@ class Header extends React.PureComponent {
       );
       homeButton = (
         <a className='navbar-brand page-scroll' onClick={ () => this.animateScroll('page-top') } href='#page-top'>
-          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
+          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo_white.png') }/></Link>
         </a>
       );
     } else {
       homeButton = (
         <a className='navbar-brand page-scroll'>
-          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo.svg') }/></Link>
+          <Link className='logo-img' to='/'><img src={ require('../../assets/images/quizzy_logo_black.png') }/></Link>
         </a>
       );
     }
     var navbarClass = classNames({
       'navbar': true,
       'navbar-default': true,
-      'navbar-fixed-top': true,
-      'top-nav-collapse': this.state.darkenHeader
     });
     return (
-      <Navbar fixedTop className={ navbarClass } ref={ el => this.navbar = el } role='navigation'>
+      <Navbar className={ navbarClass } role='navigation'>
         <div className='container'>
           { navbarAction }
           <div className='navbar-header'>

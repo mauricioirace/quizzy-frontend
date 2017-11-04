@@ -1,27 +1,18 @@
 @import '../../assets/styles/variables.scss';
 
 .navbar-default {
-  margin-bottom: 0;
-  border-bottom: none !important;
+  margin-bottom: 0 !important;
   text-transform: uppercase;
   background-color: transparent !important;
-  padding: 10px 0;
-  border-bottom: none;
+  padding: 20px 0;
+  border: none !important;
   letter-spacing: 1px;
   background: transparent;
   -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
   -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
   transition: background .5s ease-in-out,padding .5s ease-in-out;
   min-height: 70px;
-
-  &.top-nav-collapse {
-    background: $black !important;
-    border-bottom: 1px solid rgba(white, 0.3);
-
-    a {
-      color: $white !important;
-    }
-  }
+  float: left;
 
   .navbar-toggle {
     padding: 4px 6px;
@@ -42,7 +33,7 @@
     height: 100%;
     display: inline-block;
     position: absolute;
-    top: 6px;
+    top: 16px;
 
     img {
       height: 60px;
