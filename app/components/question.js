@@ -89,7 +89,7 @@ class Question extends React.PureComponent {
       this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
       this.props.hideAlert();
     } else {
-      this.props.showAlert("The question must have at least two answers.");      
+      this.props.showAlert("The question must have at least two answers.");
     }
   }
 
@@ -117,9 +117,9 @@ class Question extends React.PureComponent {
     this.props.hideAlert();
     if ((this.validateQuestion()) && (this.validateAnswers())){
       if (this.state.difficulty === '') {
-        this.props.showAlert("You must select the difficulty.");   
+        this.props.showAlert("You must select the difficulty.");
       } else if (this.props.obj.correctAnswer === -1) {
-        this.props.showAlert("You must select a correct answer.");        
+        this.props.showAlert("You must select a correct answer.");
       } else {
         this.setState({ answers: this.props.obj.answers });
         this.setState({ correctAnswer: this.props.obj.correctAnswer });

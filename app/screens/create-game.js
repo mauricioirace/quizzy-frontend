@@ -21,6 +21,7 @@ import Steps, { Step } from 'rc-steps';
 import 'rc-steps/assets/index.css';
 import 'rc-steps/assets/iconfont.css';
 import Scroll from 'react-scroll';
+import uuidv1 from 'uuid/v1';
 
 const mapStateToProps = (state) => {
   return {
@@ -53,6 +54,7 @@ const question = () => {
     text: '',
     hint: '',
     difficulty: '',
+    uniqueId: uuidv1(),    
     answers: [{ 'answer': '' }, { 'answer': '' }],
     correctAnswer: -1
   };

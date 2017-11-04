@@ -57,7 +57,7 @@ class Questions extends React.PureComponent {
       disableMenuButton: false,      
       showAddButton: true,
       showPanel: false
-     });
+    });
   }
 
   renderQuestions(questions) {
@@ -112,7 +112,7 @@ class Questions extends React.PureComponent {
     const currentItem = this.state.editIndex;
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
-      <Question key={ index } id={ index } obj={ question } edit={ () => this.onEditQuestion }
+      <Question key={ question.uniqueId } id={ index } obj={ question } edit={ () => this.onEditQuestion }
       closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion } 
       showAlert={ this.props.showAlert } hideAlert={ this.props.hideAlert }
       />
