@@ -25,8 +25,9 @@ class QuestionHeader extends React.PureComponent {
 
   renderCorrectnes(total) {
     const { correctness, correctnessColor } = this.getCorrectness();
+    const notAnswered = typeof this.props.stop === 'boolean';
 
-    if (!this.props.stop) {
+    if (notAnswered) {
       return (
         <h1 className='text-center'>
           <small className='quizzy-text'>
@@ -47,6 +48,7 @@ class QuestionHeader extends React.PureComponent {
   renderer({ total }) {
     const percentage = total / this.props.seconds / 10;
     const { correctness, correctnessColor } = this.getCorrectness();
+    const notAnswered = typeof this.props.stop === 'boolean';
 
     return (
       <div>
@@ -55,8 +57,8 @@ class QuestionHeader extends React.PureComponent {
             <Col sm={ 4 } xsHidden>
               <CircularProgressbar
                 percentage={ percentage }
-                textForPercentage={ (pct) => `${ total  ? total / 1000 : correctness }` }
-                className={ total ? null : correctnessColor }
+                textForPercentage={ (pct) => `${ notAnswered ? total / 1000 : correctness }` }
+                className={ notAnswered ? null : correctnessColor }
               />
             </Col>
           </SlideFadeRight>
@@ -81,7 +83,7 @@ class QuestionHeader extends React.PureComponent {
   }
 
   render() {
-    if (!this.props.stop) {
+    if (this.props.stop === false) {
       return  (
         <Countdown
           renderer={ this.renderer }
