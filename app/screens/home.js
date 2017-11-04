@@ -49,7 +49,7 @@ export class Home extends React.Component {
   }
 
   checkEmptyName(event) {
-    if (!this.props.matchData.currentMatch) {
+    if (!this.props.matchData.currentMatch.trim()) {
       event.preventDefault();
       this.props.matchNameError(EMPTY_MATCH_NAME);
     }
@@ -82,7 +82,7 @@ export class Home extends React.Component {
 
   handleKeyPress(target) {
     if(target.charCode == 13) {
-      if (!this.props.matchData.currentMatch) {
+      if (!this.props.matchData.currentMatch.trim()) {
         target.preventDefault();
         this.props.matchNameError(EMPTY_MATCH_NAME);
       } else {
