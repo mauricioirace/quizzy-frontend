@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { PropTypes }  from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'react-bootstrap';
+import '../stylesheets/real-time-match.scss';
 
 class RealTimeMatch extends React.PureComponent {
   handleChange = (event) => {
@@ -13,10 +14,6 @@ class RealTimeMatch extends React.PureComponent {
   }
 
   render() {
-    const style = {
-      color: 'black',
-      paddingRight: '5px'
-    };
     return (
       <div>
         <div className='form-container'>
@@ -29,11 +26,16 @@ class RealTimeMatch extends React.PureComponent {
             </Link>
           </div>
           Choose the number of players (between 2 and 10):
-          <input style={ style } type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.handleChange }/>
+          <input className='input-number-realtime' type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.handleChange }/>
         </div>
       </div>
     )
   }
+}
+
+RealTimeMatch.propTypes = {
+  totalPlayers: PropTypes.number,
+  setTotalPlayers: PropTypes.func
 }
 
 export default RealTimeMatch;
