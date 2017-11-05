@@ -13,6 +13,10 @@ class RealTimeMatch extends React.PureComponent {
   }
 
   render() {
+    const style = {
+      color: 'black',
+      paddingRight: '5px'
+    };
     return (
       <div>
         <div className='form-container'>
