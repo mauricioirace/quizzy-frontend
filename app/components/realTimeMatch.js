@@ -5,10 +5,10 @@ import { Button, Col, Row, Table } from 'react-bootstrap';
 class RealTimeMatch extends React.PureComponent {
   handleChange = (event) => {
     const num = event.target.value;
-    // if (num < 2 || num > 10) {
-    //   event.target.value = 3;
-    //   return;
-    // };
+    if (num < 2 || num > 10) {
+      event.target.value = '';
+      return;
+    };
     this.props.setTotalPlayers(num);
   }
 
