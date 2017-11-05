@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/header';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
@@ -8,6 +9,7 @@ class Game extends React.PureComponent {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <tr>
@@ -18,6 +20,10 @@ class Game extends React.PureComponent {
       </tr>
     )
   }
+}
+
+Game.propTypes = {
+  data: PropTypes.object
 }
 
 export default Game;

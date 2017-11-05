@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeAnswer, changeSelectedAnswer, foundError, removeError } from '../redux/actions/game';
-import EmptyFieldError from '../components/errors/emptyFieldError';
 import EMPTY_FIELD_ERROR from '../constants/game';
 import '../stylesheets/question.scss';
 import { Form, FormControl, FormGroup, Radio, Checkbox, InputGroup } from 'react-bootstrap';
@@ -29,14 +29,14 @@ class Answer extends React.PureComponent {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
-    this.removeAnswer = this.removeAnswer.bind(this);    
+    this.removeAnswer = this.removeAnswer.bind(this);
   }
 
   handleChange(event) {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.props.changeAnswer(this.props.question, event.target.value, this.props.id);
   }
-  
+
   handleSelectionChange(event) {
     this.props.hideAlert();
     this.props.changeSelectedAnswer(this.props.question, event.target.value);
@@ -55,7 +55,7 @@ class Answer extends React.PureComponent {
   handleKeyPress(target, index) {
     if(target.charCode === 13) {
       this.props.handleEnter(index);
-    }      
+    }
   }
 
   render() {
@@ -64,7 +64,7 @@ class Answer extends React.PureComponent {
         <FormGroup>
           <InputGroup>
             <InputGroup.Addon>
-             <Icon name='close' id='arAnswer' onClick={ () => this.removeAnswer(this.props.id) }/> 
+             <Icon name='close' id='arAnswer' onClick={ () => this.removeAnswer(this.props.id) }/>
             </InputGroup.Addon>
             <FormControl
               autoFocus
@@ -91,10 +91,23 @@ class Answer extends React.PureComponent {
 }
 
 Answer.propTypes = {
-  text : React.PropTypes.string.isRequired,
-  key : React.PropTypes.number,
-  id : React.PropTypes.number,
-  question : React.PropTypes.number,
+  text : PropTypes.string.isRequired,
+  key : PropTypes.number,
+  id : PropTypes.number,
+  question : PropTypes.number,
+  self: PropTypes.object,
+  questions: PropTypes.array,
+  error : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  correct: PropTypes.bool,
+  changeAnswer: PropTypes.func,
+  changeSelectedAnswer: PropTypes.func,
+  foundError: PropTypes.func,
+  removeError: PropTypes.func,
+  hideAlert: PropTypes.func,
+  removeAnswer: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answer);

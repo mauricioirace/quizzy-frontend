@@ -5,10 +5,6 @@ import { Button, Col, Row, Form, ControlLabel, Alert,
 import { Icon } from 'react-fa';
 
 class Questions extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node
-  };
-
   constructor(props){
     super(props);
     this.state = {
@@ -31,13 +27,13 @@ class Questions extends React.PureComponent {
   }
 
   onEditQuestion(index) {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.setState({ editIndex: index });
     this.openPanel();
   }
 
   onRemoveQuestion(index) {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.props.removeQuestion(index);
     this.closePanel();
   }
@@ -54,7 +50,7 @@ class Questions extends React.PureComponent {
   closePanel() {
     this.props.enableStepButtons();
     this.setState({
-      disableMenuButton: false,      
+      disableMenuButton: false,
       showAddButton: true,
       showPanel: false
     });
@@ -77,8 +73,8 @@ class Questions extends React.PureComponent {
                   </div>
               }
               <h3><ControlLabel>{ difficulty === '' ? 'New question' : difficulty }</ControlLabel></h3>
-              <p> 
-                <FormControl readOnly type='text' key={ index } value={ text } placeholder={ 'Question #' + (index + 1) }/> 
+              <p>
+                <FormControl readOnly type='text' key={ index } value={ text } placeholder={ 'Question #' + (index + 1) }/>
               </p>
             </Thumbnail>
           </Col>
@@ -113,7 +109,7 @@ class Questions extends React.PureComponent {
     const title = 'Question #' + (currentItem + 1);
     const questions = this.props.questions.map( (question, index) =>
       <Question key={ question.uniqueId } id={ index } obj={ question } edit={ () => this.onEditQuestion }
-      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion } 
+      closePanel={ this.closePanel } removeQuestion={ this.onRemoveQuestion }
       showAlert={ this.props.showAlert } hideAlert={ this.props.hideAlert }
       />
     );
@@ -136,6 +132,17 @@ class Questions extends React.PureComponent {
       </div>
     );
   }
+}
+
+Questions.propTypes = {
+  children: PropTypes.node,
+  hideAlert: PropTypes.func,
+  addQuestion: PropTypes.func,
+  questions: PropTypes.array,
+  removeQuestion: PropTypes.func,
+  disableStepButtons: PropTypes.func,
+  enableStepButtons: PropTypes.func,
+  showAlert: PropTypes.func,
 }
 
 export default Questions;

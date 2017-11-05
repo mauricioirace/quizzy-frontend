@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { Router, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Navbar } from 'react-bootstrap';
@@ -57,6 +59,12 @@ class Header extends React.PureComponent {
       </Navbar>
     )
   }
+}
+
+Header.propTypes = {
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match
 }
 
 export default withRouter(Header);

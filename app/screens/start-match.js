@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
 import { setPlayer, fetchMatch } from '../redux/actions/match';
@@ -178,6 +179,9 @@ class StartMatch extends React.PureComponent {
 StartMatch.propTypes = {
   matchData: PropTypes.object,
   setPlayer: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
   fetchMatch: PropTypes.func
 }
 

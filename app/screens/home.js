@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Row, Col, Grid } from 'react-bootstrap';
 import MatchRow from '../components/match';
 import { connect } from 'react-redux';
@@ -39,9 +40,9 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-	if (this.props.matchesData.matches) {
-		this.moveTable();
-	};
+  	if (this.props.matchesData.matches) {
+  		this.moveTable();
+  	};
   }
 
   handleChange(event) {
@@ -81,12 +82,12 @@ export class Home extends React.Component {
   }
 
   handleKeyPress(target) {
-    if(target.charCode == 13) {
+    if (target.charCode === 13) {
       if (!this.props.matchData.currentMatch.trim()) {
         target.preventDefault();
         this.props.matchNameError(EMPTY_MATCH_NAME);
       } else {
-        this.props.history.push(`/match/${ this.props.matchData.currentMatch }`);
+        this.props.history.push(`/match/${ this.props.matchData.currentMatch.toLowerCase() }`);
       }
     }
   }
@@ -158,7 +159,7 @@ export class Home extends React.Component {
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
                                name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
-                        <Link to={ `/match/${ this.props.matchData.currentMatch }` }
+                        <Link to={ `/match/${ this.props.matchData.currentMatch.toLowerCase() }` }
                               onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button primary medium'>PLAY!</button>
                         </Link>
@@ -242,6 +243,12 @@ Home.propTypes = {
   matchesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
   fetchMatches: PropTypes.func,
+  removeCurrentMatch: PropTypes.func,
+  removeMatch: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  matchNameError: PropTypes.func
 }
 
 const mapStateToProps = state => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../stylesheets/linear-bar.scss';
 
 class LinearBar extends React.PureComponent {
@@ -14,6 +15,10 @@ class LinearBar extends React.PureComponent {
       </div>
     )
   }
+}
+
+LinearBar.propTypes = {
+  percentage: PropTypes.number
 }
 
 export default LinearBar;

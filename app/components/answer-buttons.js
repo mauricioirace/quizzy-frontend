@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../stylesheets/answer-question.scss';
 import AnswerButton from './answer-button';
@@ -104,7 +105,14 @@ class AnswerButtons extends React.PureComponent {
 
 AnswerButtons.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.object),
-  correctAnswer: PropTypes.number
+  correctAnswer: PropTypes.number,
+  matchData: PropTypes.object,
+  matchState: PropTypes.object,
+  answerQuestion: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  nextQuestion: PropTypes.func
 };
 
 export default AnswerButtons;

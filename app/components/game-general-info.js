@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
@@ -45,7 +46,7 @@ class GameGeneralInfo extends React.PureComponent {
         <FormGroup controlId='formName' validationState={ this.getNameValidationState() }>
           <ControlLabel>Name</ControlLabel>
           <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
-          <span className='help-block'>{ this.props.nameMessage }</span> 
+          <span className='help-block'>{ this.props.nameMessage }</span>
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
@@ -71,6 +72,16 @@ class GameGeneralInfo extends React.PureComponent {
       </Form>
     );
   }
+}
+
+GameGeneralInfo.propTypes = {
+  nameMessage: PropTypes.string,
+  validateField: PropTypes.bool,
+  gameData: PropTypes.object,
+  changeCategory: PropTypes.func,
+  changeName: PropTypes.func,
+  changeDescription: PropTypes.func,
+  changeImage: PropTypes.func,
 }
 
 export default GameGeneralInfo;
