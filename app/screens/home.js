@@ -81,7 +81,7 @@ export class Home extends React.Component {
   }
 
   handleKeyPress(target) {
-    if(target.charCode == 13) {
+    if(target.charCode === 13) {
       if (!this.props.matchData.currentMatch.trim()) {
         target.preventDefault();
         this.props.matchNameError(EMPTY_MATCH_NAME);
