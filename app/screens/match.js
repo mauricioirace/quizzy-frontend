@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { connect } from 'react-redux';
 import { setCurrentMatch, fetchMatch, removeCurrentMatch } from '../redux/actions/match';
@@ -52,6 +53,9 @@ Match.propTypes = {
   setCurrentMatch: PropTypes.func,
   matchData: PropTypes.object,
   fetchMatch: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
 }
 
 const mapStateToProps = state => {

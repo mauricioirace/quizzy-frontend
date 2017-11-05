@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AnswerButtons from '../components/answer-buttons';
 import { Col, Grid, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
@@ -71,6 +72,15 @@ class AnswerQuestion extends React.PureComponent {
       </Grid>
     )
   }
+}
+
+AnswerQuestion.propTypes = {
+  matchData: PropTypes.object,
+  matchState: PropTypes.object,
+  removeCurrentMatch: PropTypes.func,
+  fetchMatch: PropTypes.func,
+  timeout: PropTypes.func,
+  clearMatchState: PropTypes.func,
 }
 
 export default AnswerQuestion;

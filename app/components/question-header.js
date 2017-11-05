@@ -44,7 +44,7 @@ class QuestionHeader extends React.PureComponent {
       </h1>
      );
   }
-  
+
   renderer({ total }) {
     const percentage = total / this.props.seconds / 10;
     const { correctness, correctnessColor } = this.getCorrectness();
@@ -99,7 +99,13 @@ class QuestionHeader extends React.PureComponent {
 
 QuestionHeader.PropTypes = {
   total: PropTypes.number,
-  remaining: PropTypes.number,
-  onTimeout: PropTypes.func
+  onTimeout: PropTypes.func,
+  correct: PropTypes.bool,
+  stop: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool
+  ]),
+  seconds: PropTypes.number,
+  text: PropTypes.string,
 }
 export default QuestionHeader;
