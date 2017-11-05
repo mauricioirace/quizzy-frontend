@@ -82,21 +82,12 @@ export class CreateMatch extends React.PureComponent {
   }
 
   renderMatchMode() {
-    if(!this.state.switched) {
-      return(
-        <Row>
-          <NormalMatch data={ this.game }/>
-          <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
-        </Row>
-      );
-    } else {
-      return(
-        <Row>
-          <RealTimeMatch/>
-          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
-        </Row>
-      );
-    }
+    return(
+      <Row>
+        <NormalMatch data={ this.game }/>
+        <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
+      </Row>
+    )
   }
 
   render() {
