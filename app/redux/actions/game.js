@@ -61,7 +61,6 @@ export const createGame = (game,onSuccess) => {
     dispatch(creatingGame());
     gameService.create(game)
       .then(() => {
-        // dispatch(push('/'));
         onSuccess();
       })
       .catch((error) => {
