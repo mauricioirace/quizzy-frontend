@@ -22,7 +22,6 @@ export class CreateMatch extends React.PureComponent {
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
-    // this.setTotalPlayers = this.setTotalPlayers.bind(this);
     this.state = {
       switched: false,
       totalPlayers: 3
