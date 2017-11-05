@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { SlideFadeLeft } from '../components/transitions';
 import shuffle from 'shuffle-array';
 import PropTypes from 'prop-types';
+import matchService from '../services/match';
 
 const mapStateToProps = state => {
   return {
@@ -24,7 +25,6 @@ const mapDispatchToProps = dispatch => {
     nextQuestion: () => dispatch(nextQuestion()),
   };
 };
-
 
 @connect(mapStateToProps, mapDispatchToProps)
 @ReactTimeout
@@ -46,13 +46,26 @@ class AnswerButtons extends React.PureComponent {
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
       const total = this.props.matchData.game.questions.length;
-
       if (next >= total) {
-        this.props.history.push('/end-normal-game');
+        this.updateRanking();
       } else {
         this.props.nextQuestion();
       }
     }, 4000);
+  }
+
+  updateRanking = () => {
+    const { id } = this.props.matchData;
+    const { player, score } = this.props.matchState;
+    if (player !== '') {  
+      matchService.rankingInsert(id, player, score)
+      .then((res) => {
+        this.props.history.push(`/end-normal-game/${ id }/${ player }/${ score }`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });        
+    }
   }
 
   render() {

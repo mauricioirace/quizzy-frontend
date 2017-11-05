@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, FormGroup, Col,
         FormControl, Checkbox, Form, ControlLabel } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../stylesheets/end-normal-game.scss';
 import { findIndex } from 'underscore';
@@ -18,31 +18,32 @@ class EndNormalGame extends React.PureComponent {
     super(props);
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
-    this.greaterOrEqual = this.greaterOrEqual.bind(this);
+    this.isUser = this.isUser.bind(this);
     this.userPosition = -1;
+    this.id = this.props.match.params.id;
+    this.player = this.props.match.params.player;
+    this.score = this.props.match.params.score;
     this.state = {
-      ranking: [],
+      ranking: []
     };
   }
 
   componentWillMount() {
-    this.updateRanking();
+    this.getRanking();  
   }
 
-  updateRanking = () => {
-    if (this.props.matchData.state.player !== '') {
-      matchService.rankingInsert(this.props.matchData.match.id, this.props.matchData.state.player, this.props.matchData.state.score)
-      .then((res) => {
-        this.setState({ ranking: res.data })
-      })
-      .catch((err) => {
-        console.log(err);
-      });        
-    }
+  getRanking = () => {
+    matchService.getRanking(this.id)
+    .then((res) => {
+      this.setState({ ranking: res.data })
+    })
+    .catch((err) => {
+      console.log(err);
+    });     
   }
-
-  greaterOrEqual(item) {
-    return this.props.matchData.state.score >= item.points;
+  
+  isUser(item) {
+    return (this.score == item.points && this.player == item.user)
   }
 
   addItemtoRanking(items, i) {
@@ -67,8 +68,7 @@ class EndNormalGame extends React.PureComponent {
     let items = [];
     const lastIndex = this.state.ranking.length - 1;
     if (lastIndex >= 0) {
-
-      let userPosition = this.state.ranking.findIndex(this.greaterOrEqual);
+      let userPosition = this.state.ranking.findIndex(this.isUser);
       if (userPosition === -1) {
         userPosition = this.state.ranking.length;
       }
@@ -119,11 +119,10 @@ class EndNormalGame extends React.PureComponent {
   }
 
   render() {
-    const score = this.props.matchData.state.score;
     return (
       <div className='container'>
         <Jumbotron className='margin-jumbotron'>
-          <h1>Your final score is { score }!</h1>
+          <h1>Your final score is { this.score }!</h1>
           <p>Would you like to save your score to compete with other players?</p>
           <p>
             <Link to={ '/' }>
@@ -147,4 +146,4 @@ EndNormalGame.propTypes = {
   matchData: PropTypes.object,
 }
 
-export default connect(mapStateToProps)(EndNormalGame)
+export default connect(mapStateToProps)(withRouter(EndNormalGame))
