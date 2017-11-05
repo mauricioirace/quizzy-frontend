@@ -112,19 +112,19 @@ export const createMatch = (match, onSuccess) => {
 
 export const receiveMessageRealTime = ({ data }) => {
   return (dispatch, getState) => {
-    const currentMatch = getState().matchData.currentMatch;
+    const url = getState().matchData.match.url;
     const player = getState().matchData.state.player;
     const ws = getState().wsData.ws;
     if (data === 'hola') {
       ws.send(JSON.stringify([
-        currentMatch,
+        url,
         player
       ]));
     } else {
       const messages= JSON.parse(data);
       let players = [];
       for (let i = 0; i < messages.length; i++) {
-        if (messages[i][0] === currentMatch) {
+        if (messages[i][0] === url) {
           players.push(messages[i][1]);
         }
       }
