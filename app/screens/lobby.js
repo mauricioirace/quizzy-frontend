@@ -47,7 +47,7 @@ class Lobby extends React.PureComponent {
       <Row>
         <Col xs={ 12 } smOffset={ 4 } sm={ 6 }>
           <div className='Container' id='client'>
-            <PageHeader className='text-center'>Lobby { this.props.matchData.currentMatch }</PageHeader>
+            <PageHeader className='text-center'>Lobby { this.props.matchData.match.url }</PageHeader>
             <h4>Waiting for players...</h4>
             <h3>In this room: { this.props.players.length }</h3>
             <h3>{ this.renderUsers() }</h3>

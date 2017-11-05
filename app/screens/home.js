@@ -86,7 +86,7 @@ export class Home extends React.Component {
         target.preventDefault();
         this.props.matchNameError(EMPTY_MATCH_NAME);
       } else {
-        this.props.history.push(`/match/${ this.props.matchData.currentMatch }`);
+        this.props.history.push(`/match/${ this.props.matchData.currentMatch.toLowerCase() }`);
       }
     }
   }
@@ -158,7 +158,7 @@ export class Home extends React.Component {
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
                                name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
-                        <Link to={ `/match/${ this.props.matchData.currentMatch }` }
+                        <Link to={ `/match/${ this.props.matchData.currentMatch.toLowerCase() }` }
                               onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button primary medium'>PLAY!</button>
                         </Link>

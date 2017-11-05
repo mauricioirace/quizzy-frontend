@@ -63,7 +63,7 @@ export class CreateMatch extends React.PureComponent {
 
   onSuccess(currentMatch) {
     this.props.setCurrentMatch(currentMatch);
-    this.props.history.push(`/start-match/${this.props.currentMatch}`);
+    this.props.history.push(`/start-match/${ this.props.currentMatch.toLowerCase() }`);
   }
 
   renderDescription() {
