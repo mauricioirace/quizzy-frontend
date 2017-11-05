@@ -58,10 +58,8 @@ export const createGameFailure = (error) => {
 
 export const createGame = (game,onSuccess) => {
   return (dispatch) => {
-    dispatch(creatingGame());
     gameService.create(game)
       .then(() => {
-        // dispatch(push('/'));
         onSuccess();
       })
       .catch((error) => {

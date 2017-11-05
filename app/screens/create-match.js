@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router';
 import { Button, Col, Row, Grid } from 'react-bootstrap';
 import { sortBy } from 'underscore';
@@ -21,8 +22,10 @@ export class CreateMatch extends React.PureComponent {
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
+    // this.setTotalPlayers = this.setTotalPlayers.bind(this);
     this.state = {
-      switched: false
+      switched: false,
+      totalPlayers: 3
     };
   }
 
@@ -33,16 +36,14 @@ export class CreateMatch extends React.PureComponent {
   }
 
   toggleSwitch = () => {
-    this.setState(prevState => {
-      return {
-        switched: !prevState.switched
-      };
+    this.setState({
+      switched: !this.state.switched
     });
-  };
+  }
 
   getMatch() {
     const { name, description, image, category, questions, currentMatch } = this.props;
-    const match = {
+    let match = {
       url: currentMatch,
       owner: 'Fulane of such',
       isRealTime: this.state.switched,
@@ -55,6 +56,9 @@ export class CreateMatch extends React.PureComponent {
         questions,
         image
       }
+    };
+    if (this.state.switched) {
+      match = { ...match, totalPlayers: this.state.totalPlayers }
     };
     return match;
   }
@@ -69,11 +73,11 @@ export class CreateMatch extends React.PureComponent {
   }
 
   renderDescription() {
-    if (this.match.game.description) {
-      return(
+    if (this.props.description) {
+      return (
         <div className='description-container'>
           <h2 className='game-description'>Game description</h2>
-          <h4>{ this.match.game.description }</h4>
+          <h4>{ this.props.description }</h4>
         </div>
       );
     }
@@ -84,15 +88,25 @@ export class CreateMatch extends React.PureComponent {
   }
 
   renderMatchMode() {
-    return(
-      <Row>
-        <NormalMatch data={ this.game }/>
-        <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
-      </Row>
-    )
+    if (!this.state.switched) {
+      return(
+        <Row>
+          <NormalMatch/>
+          <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
+        </Row>
+      );
+    } else {
+      return(
+        <Row>
+          <RealTimeMatch setTotalPlayers={ this.setTotalPlayers } totalPlayers={ this.state.totalPlayers }/>
+          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
+        </Row>
+      );
+    }
   }
 
   render() {
+    const match = this.getMatch();
     return (
       <div>
         <div className='page-match'>
@@ -103,8 +117,8 @@ export class CreateMatch extends React.PureComponent {
           <div className='game-container'>
             <Row>
               <div className='game-title'>
-                { this.match.game.image ? <img src={ this.match.game.image } id='previewImage'/> : false }
-                <h1 className='game-name'>{ this.match.game.name }</h1>
+                { match.game.image ? <img src={ match.game.image } id='previewImage'/> : null }
+                <h1 className='game-name'>{ match.game.name }</h1>
               </div>
             </Row>
             <Row>
@@ -137,7 +151,10 @@ CreateMatch.propTypes = {
   error: PropTypes.string,
   currentMatch: PropTypes.string,
   createMatch: PropTypes.func,
-  setCurrentMatch: PropTypes.func
+  setCurrentMatch: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
 }
 
 const mapStateToProps = (state) => {
