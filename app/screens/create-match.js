@@ -22,7 +22,6 @@ export class CreateMatch extends React.PureComponent {
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
-    // this.setTotalPlayers = this.setTotalPlayers.bind(this);
     this.state = {
       switched: false,
       totalPlayers: 3
@@ -59,10 +58,7 @@ export class CreateMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    if (this.state.switched) {
-      this.match.isRealTime = true;
-    }
-    this.props.createMatch(this.match, this.onSuccess);
+    this.props.createMatch(this.getMatch(), this.onSuccess);
   }
 
   onSuccess(currentMatch) {
