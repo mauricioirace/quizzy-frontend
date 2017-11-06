@@ -82,10 +82,10 @@ export const createMatchSuccess = () => {
   }
 };
 
-export const createMatchFailure = (error) => {
+export const createMatchFailure = () => {
   return {
     type: CREATE_MATCH_FAILURE,
-    error
+    error: true
   }
 };
 
@@ -105,7 +105,7 @@ export const createMatch = (match, onSuccess) => {
         onSuccess(newMatch);
       })
       .catch((error) => {
-        dispatch(createMatchFailure(error.response.data.error))
+        dispatch(createMatchFailure())
       });
   }
 };
