@@ -26,7 +26,6 @@ export class CreateMatch extends React.PureComponent {
       switched: false,
       totalPlayers: 3
     };
-    this.match = this.getMatch();
   }
 
   toggleSwitch = () => {
