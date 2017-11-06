@@ -7,9 +7,11 @@ import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout, clearMatchState } from '../redux/actions/match';
 import '../stylesheets/home.scss';
-import { TIME_TO_ANSWER } from '../constants/match';
+import { TIME_TO_ANSWER, PROGRESS_HEIGHT, PROGRESS_COLOR } from '../constants/match';
 import { SlideFadeDelayed } from '../components/transitions';
 import Progress from 'react-progress';
+import { withRouter } from 'react-router-dom';
+import Spinner from '../components/spinner';
 
 const mapStateToProps = (state) => {
   return {
@@ -28,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
+@withRouter
 class AnswerQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -37,12 +40,15 @@ class AnswerQuestion extends React.PureComponent {
   componentWillMount() {
     this.props.clearMatchState();
   }
-
   onTimeout() {
     this.props.timeout();
   }
 
   render() {
+    if (!this.props.matchData) {
+      this.props.history.push('/');
+      return <Spinner/>;
+    }
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
@@ -52,7 +58,8 @@ class AnswerQuestion extends React.PureComponent {
       <Grid>
         <Progress
           percent={ 100 * (questionIndex) / totalQuestions }
-          color='#ff8d40'
+          color={ PROGRESS_COLOR }
+          height={ PROGRESS_HEIGHT }
         />
         <QuestionHeader
           seconds={ TIME_TO_ANSWER }
