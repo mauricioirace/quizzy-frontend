@@ -141,7 +141,7 @@ CreateMatch.propTypes = {
   category: PropTypes.string,
   questions: PropTypes.array,
   name: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.bool,
   currentMatch: PropTypes.string,
   createMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
