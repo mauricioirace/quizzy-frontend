@@ -49,10 +49,10 @@ export const createGameSuccess = (game) => {
   }
 };
 
-export const createGameFailure = (error) => {
+export const createGameFailure = () => {
   return {
     type: CREATE_GAME_FAILURE,
-    error
+    error: true
   }
 };
 
@@ -61,11 +61,10 @@ export const createGame = (game,onSuccess) => {
     dispatch(creatingGame());
     gameService.create(game)
       .then(() => {
-        // dispatch(push('/'));
         onSuccess();
       })
       .catch((error) => {
-        dispatch(createGameFailure(error.response.data.error))
+        dispatch(createGameFailure())
       });
   }
 };
