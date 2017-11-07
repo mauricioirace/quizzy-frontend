@@ -28,6 +28,12 @@ export class CreateMatch extends React.PureComponent {
     };
   }
 
+  setTotalPlayers = (input) => {
+    this.setState({
+      totalPlayers: input
+    });
+  }
+
   toggleSwitch = () => {
     this.setState({
       switched: !this.state.switched
