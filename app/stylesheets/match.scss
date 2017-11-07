@@ -9,6 +9,11 @@
   }
 }
 
+.match-image {
+  height: 80;
+  width: 100;
+}
+
 @media(max-width:768px) {
   .match-image {
     display: none;
