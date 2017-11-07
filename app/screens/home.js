@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Row, Col, Grid } from 'react-bootstrap';
 import MatchRow from '../components/match';
 import { connect } from 'react-redux';

@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
 import { setPlayer, fetchMatch } from '../redux/actions/match';

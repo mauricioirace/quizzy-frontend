@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { connect } from 'react-redux';
 import { setCurrentMatch, fetchMatch, removeCurrentMatch } from '../redux/actions/match';

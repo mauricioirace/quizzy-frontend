@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Question from './question';
 import { Button, Col, Row, Form, ControlLabel, Alert,
   FormControl, Panel, Thumbnail, Grid, DropdownButton, MenuItem } from 'react-bootstrap';
