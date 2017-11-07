@@ -83,7 +83,11 @@
     }
   }
 
-  @media(max-width:768px) {
-
+  @media(max-width: 768px) {
+    .logo-img {
+      img {
+        content: url(../../assets/images/quizzy_logo.png);
+      }
+    }
   }
 }

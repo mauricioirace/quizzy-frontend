@@ -11,6 +11,7 @@ class MatchRow extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {};
   }
 
   handleClick() {
@@ -29,10 +30,16 @@ class MatchRow extends React.PureComponent {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
   };
 }
 
-export default connect(mapDispatchToProps)(MatchRow)
+export default connect(mapStateToProps, mapDispatchToProps)(MatchRow)
