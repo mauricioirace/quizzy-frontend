@@ -45,6 +45,20 @@ export class Home extends React.Component {
   }
 
   handleChange(event) {
+    if (event.target.value.length !== 0){
+      let i = 0;
+      let length = event.target.value.length;
+      while (!event.target.value.match(/^(\w|-)+$/) && event.target.value.length > 0) {
+        if (event.target.value[i] === ' ') {
+          event.target.value = event.target.value.replace(' ', '-');
+        } else if (!event.target.value[i].match(/(\w|-)/)) {
+          let caracter = event.target.value[i]
+          event.target.value = event.target.value.replace(caracter , '')
+        } else {
+          i++;
+        }
+      }
+    }
     this.props.loadCurrentMatch(event.target.value);
   }
 
