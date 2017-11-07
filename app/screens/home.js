@@ -41,9 +41,7 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-  	if (this.props.matchesData.matches) {
-  		this.moveTable();
-  	};
+		this.moveTable();
   }
 
   handleChange(event) {
@@ -67,7 +65,7 @@ export class Home extends React.Component {
 
   moveTable() {
       setInterval(() => {
-        if(!this.isMouseOn) {
+        if(!this.isMouseOn && this.props.matchesData.matches) {
           const { matchesData } = this.props;
           let length = matchesData.matches.length;
           let last = matchesData.matches[length - 1];
