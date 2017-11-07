@@ -54,6 +54,9 @@ Match.propTypes = {
   setCurrentMatch: PropTypes.func,
   matchData: PropTypes.object,
   fetchMatch: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
 }
 
 const mapStateToProps = state => {

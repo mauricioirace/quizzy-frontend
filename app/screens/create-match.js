@@ -148,13 +148,16 @@ CreateMatch.propTypes = {
   category: PropTypes.string,
   questions: PropTypes.array,
   name: PropTypes.string,
-  error: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
   currentMatch: PropTypes.string,
   createMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
-  match: ReactRouterPropTypes.match,
+  match: ReactRouterPropTypes.match
 }
 
 const mapStateToProps = (state) => {

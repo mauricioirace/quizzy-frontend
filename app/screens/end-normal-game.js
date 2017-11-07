@@ -124,6 +124,14 @@ class EndNormalGame extends React.PureComponent {
       <div className='container'>
         <Jumbotron className='margin-jumbotron'>
           <h1>Your final score is { this.score }!</h1>
+          <p>Would you like to save your score to compete with other players?</p>
+          <p>
+            <Link to={ '/' }>
+              <Button bsStyle='link'>
+                Continue with your nickname
+              </Button>
+            </Link>
+          </p>
         </Jumbotron>
         <h2>Leaderboard</h2>
         <Table responsive>

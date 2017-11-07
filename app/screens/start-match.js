@@ -180,6 +180,9 @@ class StartMatch extends React.PureComponent {
 StartMatch.propTypes = {
   matchData: PropTypes.object,
   setPlayer: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
   fetchMatch: PropTypes.func
 }
 

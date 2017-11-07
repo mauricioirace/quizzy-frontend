@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Spinner extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     let bars = [];
     const props = this.props;
@@ -25,5 +26,9 @@ class Spinner extends React.Component {
     );
   }
 };
+
+Spinner.propTypes = {
+  className: PropTypes.string
+}
 
 export default Spinner;

@@ -41,9 +41,9 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-	if (this.props.matchesData.matches) {
-		this.moveTable();
-	};
+  	if (this.props.matchesData.matches) {
+  		this.moveTable();
+  	};
   }
 
   handleChange(event) {
@@ -244,6 +244,12 @@ Home.propTypes = {
   matchesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
   fetchMatches: PropTypes.func,
+  removeCurrentMatch: PropTypes.func,
+  removeMatch: PropTypes.func,
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  matchNameError: PropTypes.func
 }
 
 const mapStateToProps = state => {

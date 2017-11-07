@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   addQuestion,
   changeCategory,
@@ -295,6 +297,31 @@ class CreateGame extends React.PureComponent {
       </div>
     )
   }
+}
+
+CreateGame.propTypes = {
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  category: PropTypes.string,
+  questions: PropTypes.array,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
+  hint: PropTypes.string,
+  addQuestion: PropTypes.func,
+  removeQuestion: PropTypes.func,
+  removeAllData: PropTypes.func,
+  changeImage: PropTypes.func,
+  changeDescription: PropTypes.func,
+  changeName: PropTypes.func,
+  changeCategory: PropTypes.func,
+  createGame: PropTypes.func,
+  changeHint: PropTypes.func,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(CreateGame));
