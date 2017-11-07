@@ -13,6 +13,7 @@
   transition: background .5s ease-in-out,padding .5s ease-in-out;
   min-height: 70px;
   float: left;
+  width: 100%;
 
   .navbar-toggle {
     padding: 4px 6px;
@@ -82,7 +83,11 @@
     }
   }
 
-  @media(max-width:768px) {
-
+  @media(max-width: 768px) {
+    .logo-img {
+      img {
+        content: url(../../assets/images/quizzy_logo.png);
+      }
+    }
   }
 }
