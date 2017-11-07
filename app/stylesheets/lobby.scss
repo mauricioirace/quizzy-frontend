@@ -3,3 +3,21 @@
 #client {
   margin-top: 30px;
 }
+
+.lobby-screen {
+  width: 100%;
+  background-color: $secondary-color;
+  color: white;
+  padding: 10px 170px;
+  height: 600px;
+
+  h1 {
+    margin-top: 30px;
+  }
+}
+
+.Container {
+  border: 7px solid $primary-color;
+  padding: 10px 40px 10px 40px;
+  border-radius: 15px;
+}

@@ -44,7 +44,7 @@ class Lobby extends React.PureComponent {
 
   render() {
     return (
-      <Row>
+      <Row className="lobby-screen">
         <Col xs={ 12 } smOffset={ 4 } sm={ 6 }>
           <div className='Container' id='client'>
             <PageHeader className='text-center'>Lobby { this.props.matchData.match.url }</PageHeader>
