@@ -1,6 +1,7 @@
 import React, { PropTypes }  from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'react-bootstrap';
+import '../stylesheets/real-time-match.scss';
 
 class RealTimeMatch extends React.PureComponent {
   handleChange = (event) => {
@@ -24,6 +25,8 @@ class RealTimeMatch extends React.PureComponent {
               <button className='button primary medium'>SHARE!</button>
             </Link>
           </div>
+          Choose the number of players (between 2 and 10):
+          <input className='input-number-realtime' type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.handleChange }/>
         </div>
       </div>
     )
@@ -31,7 +34,9 @@ class RealTimeMatch extends React.PureComponent {
 }
 
 RealTimeMatch.propTypes = {
-  totalPlayers: PropTypes.number,
+  totalPlayers: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number]),
   setTotalPlayers: PropTypes.func
 }
 
