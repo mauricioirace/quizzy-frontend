@@ -91,7 +91,7 @@ export class CreateMatch extends React.PureComponent {
       return(
         <Row>
           <NormalMatch/>
-          <Button className='button primary medium' onClick={ this.handleClick }>DONE</Button>
+          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
         </Row>
       );
     } else {
