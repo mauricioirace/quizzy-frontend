@@ -39,9 +39,7 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-	if (this.props.matchesData.matches) {
 		this.moveTable();
-	};
   }
 
   handleChange(event) {
@@ -84,7 +82,7 @@ export class Home extends React.Component {
 
   moveTable() {
       setInterval(() => {
-        if(!this.isMouseOn) {
+        if(!this.isMouseOn && this.props.matchesData.matches) {
           const { matchesData } = this.props;
           let length = matchesData.matches.length;
           let last = matchesData.matches[length - 1];
@@ -176,7 +174,7 @@ export class Home extends React.Component {
                       <div className='form-input horizontal long'>
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
-                               id='game' name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+                               id='game' name='game' placeholder='match-name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch.toLowerCase() }` }
                               onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button primary medium'>PLAY!</button>

@@ -7,10 +7,11 @@ import { Button } from 'react-bootstrap';
 import '../stylesheets/match.scss';
 
 @withRouter
-class Match extends React.PureComponent {
+class MatchRow extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {};
   }
 
   handleClick() {
@@ -21,11 +22,17 @@ class Match extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td><img className='match-image' src={ this.props.data.game.image || require('../../assets/images/empty.svg') } height='80' width='100'/></td>
+        <td><img className='match-image' src={ this.props.data.game.image || require('../../assets/images/empty.svg') }/></td>
         <td>{ this.props.data.game.name }</td>
         <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
       </tr>
     )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    state
   }
 }
 
@@ -35,4 +42,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect((state) => {}, mapDispatchToProps)(Match)
+export default connect(mapStateToProps, mapDispatchToProps)(MatchRow)
