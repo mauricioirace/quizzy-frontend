@@ -155,7 +155,7 @@ export class Home extends React.Component {
                       <div className='form-input horizontal long'>
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
-                               name='game' placeholder='game-name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+                               name='game' placeholder='match-name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch.toLowerCase() }` }
                               onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button primary medium'>PLAY!</button>
