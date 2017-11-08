@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Image } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
 
@@ -45,7 +45,7 @@ class GameGeneralInfo extends React.PureComponent {
         <FormGroup controlId='formName' validationState={ this.getNameValidationState() }>
           <ControlLabel>Name</ControlLabel>
           <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
-          <span className='help-block'>{ this.props.nameMessage }</span> 
+          <span className='help-block'>{ this.props.nameMessage }</span>
         </FormGroup>
 
         <FormGroup controlId='formControlsTextarea'>
@@ -55,8 +55,10 @@ class GameGeneralInfo extends React.PureComponent {
 
         <FormGroup controlId='imageasd'>
           <ControlLabel>Image</ControlLabel>
-          <FormControl type='file' onChange={ this.onChangeImage }/>
+          <Image src={ game.image || require('../../assets/images/empty.svg') } id='previewImage'/>
+          <FormControl type='file' value='' id='subirArchivo' onChange={ this.onChangeImage }/>
         </FormGroup>
+
 
         <FormGroup controlId='formCategory'>
           <ControlLabel>Category</ControlLabel>
