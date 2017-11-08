@@ -45,15 +45,20 @@ export class Home extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.value.length !== 0){
+    if (event.target.value.length !== 0) {
       let i = 0;
+      let listo = false;
       let length = event.target.value.length;
       while (!event.target.value.match(/^(\w|-)+$/) && event.target.value.length > 0) {
         if (event.target.value[i] === ' ') {
           event.target.value = event.target.value.replace(' ', '-');
+          document.getElementById('game').selectionStart = i + 2;
+          document.getElementById('game').selectionEnd = i + 1;
         } else if (!event.target.value[i].match(/(\w|-)/)) {
           let caracter = event.target.value[i]
           event.target.value = event.target.value.replace(caracter , '')
+          document.getElementById('game').selectionStart = i + 1;
+          document.getElementById('game').selectionEnd = i;
         } else {
           i++;
         }
@@ -171,7 +176,7 @@ export class Home extends React.Component {
                       <div className='form-input horizontal long'>
                         <label className='fs-22'>quizzy.com/</label>
                         <input className='fs-16' type='text'
-                               name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+                               id='game' name='game' placeholder='Game name' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
                         <Link to={ `/match/${ this.props.matchData.currentMatch.toLowerCase() }` }
                               onClick={ this.checkEmptyName } className='play-link'>
                           <button className='button primary medium'>PLAY!</button>
