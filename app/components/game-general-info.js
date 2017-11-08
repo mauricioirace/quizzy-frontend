@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Form, FormGroup, ControlLabel, FormControl, Image } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
 
@@ -56,8 +56,10 @@ class GameGeneralInfo extends React.PureComponent {
 
         <FormGroup controlId='imageasd'>
           <ControlLabel>Image</ControlLabel>
-          <FormControl type='file' onChange={ this.onChangeImage }/>
+          <Image src={ game.image || require('../../assets/images/empty.svg') } id='previewImage'/>
+          <FormControl type='file' value='' id='subirArchivo' onChange={ this.onChangeImage }/>
         </FormGroup>
+
 
         <FormGroup controlId='formCategory'>
           <ControlLabel>Category</ControlLabel>

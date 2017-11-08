@@ -18,14 +18,6 @@ class RealTimeMatch extends React.PureComponent {
     return (
       <div>
         <div className='form-container'>
-          <div className='form-input horizontal long'>
-            <label className='fs-22'>quizzy.com/</label>
-            <input className='fs-16' type='text'
-             name='game' placeholder='Game name'/>
-            <Link to='/' className='play-link'>
-              <button className='button primary medium'>SHARE!</button>
-            </Link>
-          </div>
           Choose the number of players (between 2 and 10):
           <input className='input-number-realtime' type='number' value={ this.props.totalPlayers } min='2' max='10' onChange={ this.handleChange }/>
         </div>
