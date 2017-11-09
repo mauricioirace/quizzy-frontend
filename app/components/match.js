@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-Match.propTypes = {
+MatchRow.propTypes = {
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
