@@ -21,7 +21,7 @@ class AnswerButton extends React.PureComponent {
       return 'custom';
     }
   }
-  
+
   render() {
     bootstrapUtils.addStyle(Button, 'custom');
     bootstrapUtils.addStyle(Button, 'correct');
@@ -47,7 +47,12 @@ AnswerButton.propTypes = {
   answered: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.bool
-  ])
+  ]),
+  correct: PropTypes.bool,
+  onClick: PropTypes.func,
+  key: PropTypes.number,
+  id: PropTypes.number,
+  text: PropTypes.string,
 };
 
 export default AnswerButton;

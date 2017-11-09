@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, ButtonToolbar, Jumbotron, ListGroup, ListGroupItem, Table, FormGroup, Col,
         FormControl, Checkbox, Form, ControlLabel } from 'react-bootstrap';
 import { Link, Redirect, withRouter } from 'react-router-dom';
@@ -29,7 +30,7 @@ class EndNormalGame extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.getRanking();  
+    this.getRanking();
   }
 
   getRanking = () => {
@@ -39,9 +40,9 @@ class EndNormalGame extends React.PureComponent {
     })
     .catch((err) => {
       console.log(err);
-    });     
+    });
   }
-  
+
   isUser(item) {
     return (this.score == item.points && this.player == item.user)
   }
@@ -123,6 +124,14 @@ class EndNormalGame extends React.PureComponent {
       <div className='container'>
         <Jumbotron className='margin-jumbotron'>
           <h1>Your final score is { this.score }!</h1>
+          <p>Would you like to save your score to compete with other players?</p>
+          <p>
+            <Link to={ '/' }>
+              <Button bsStyle='link'>
+                Continue with your nickname
+              </Button>
+            </Link>
+          </p>
         </Jumbotron>
         <h2>Leaderboard</h2>
         <Table responsive>

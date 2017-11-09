@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { withRouter } from 'react-router-dom';
 import { setCurrentMatch } from '../redux/actions/match';
@@ -40,6 +42,14 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
   };
+}
+
+Match.propTypes = {
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  data: PropTypes.object,
+  setCurrentMatch: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchRow)

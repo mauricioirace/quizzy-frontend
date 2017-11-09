@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Answer from './answer';
 import { connect } from 'react-redux';
 import {
@@ -55,17 +56,17 @@ class Question extends React.PureComponent {
   }
 
   changeQuestion(event) {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.setState({ text: event.target.value });
   }
 
   changeHint(event){
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.setState({ hint: event.target.value });
   }
 
   changeDifficulty (event) {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     this.setState({ difficulty: event });
   }
 
@@ -75,7 +76,7 @@ class Question extends React.PureComponent {
         const newAnswers = this.props.obj.answers.slice(0, 6);
         newAnswers.push({ 'answer': '' });
         this.props.addOrRemoveQuestionAnswer(newAnswers, this.props.id);
-        this.props.hideAlert();      
+        this.props.hideAlert();
       } else {
         this.props.showAlert("The question can't have more than six answers.");
       }
@@ -102,7 +103,7 @@ class Question extends React.PureComponent {
   }
 
   cancelChanges() {
-    this.props.hideAlert();    
+    this.props.hideAlert();
     if (this.props.obj.text === '') {
       this.props.removeQuestion(this.props.id);
     } else {
@@ -133,7 +134,7 @@ class Question extends React.PureComponent {
 
   handleEnterOnAnswer(index) {
     if (index === this.props.obj.answers.length - 1) {
-      this.addAnswer();  
+      this.addAnswer();
     }
   }
 
@@ -246,7 +247,7 @@ class Question extends React.PureComponent {
         <FormGroup>
           <ControlLabel>Difficulty:</ControlLabel>
           <ButtonToolbar>
-            <ToggleButtonGroup justified type="radio" name="options" value={ this.state.difficulty } 
+            <ToggleButtonGroup justified type="radio" name="options" value={ this.state.difficulty }
             onChange={ this.changeDifficulty } defaultChecked={ this.state.difficulty }>
               <ToggleButton value='Easy'>Easy</ToggleButton>
               <ToggleButton value='Medium'>Medium</ToggleButton>
@@ -269,6 +270,21 @@ class Question extends React.PureComponent {
       </div>
     );
   }
+}
+
+Question.propTypes = {
+  self: PropTypes.object,
+  obj: PropTypes.object,
+  id: PropTypes.number,
+  hideAlert: PropTypes.func,
+  removeQuestion: PropTypes.func,
+  showAlert: PropTypes.func,
+  changeQuestionName: PropTypes.func,
+  changeQuestionDifficulty: PropTypes.func,
+  changeHintQuestion: PropTypes.func,
+  addOrRemoveQuestionAnswer: PropTypes.func,
+  changeSelectedAnswer: PropTypes.func,
+  closePanel: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

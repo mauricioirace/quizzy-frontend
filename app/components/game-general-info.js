@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, FormGroup, ControlLabel, FormControl, Image } from 'react-bootstrap';
 
 class GameGeneralInfo extends React.PureComponent {
@@ -73,6 +74,16 @@ class GameGeneralInfo extends React.PureComponent {
       </Form>
     );
   }
+}
+
+GameGeneralInfo.propTypes = {
+  nameMessage: PropTypes.string,
+  validateField: PropTypes.bool,
+  gameData: PropTypes.object,
+  changeCategory: PropTypes.func,
+  changeName: PropTypes.func,
+  changeDescription: PropTypes.func,
+  changeImage: PropTypes.func,
 }
 
 export default GameGeneralInfo;

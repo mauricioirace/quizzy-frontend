@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router';
 import { Button, Col, Row, Grid } from 'react-bootstrap';
@@ -147,13 +148,16 @@ CreateMatch.propTypes = {
   category: PropTypes.string,
   questions: PropTypes.array,
   name: PropTypes.string,
-  error: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
   currentMatch: PropTypes.string,
   createMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
-  match: ReactRouterPropTypes.match,
+  match: ReactRouterPropTypes.match
 }
 
 const mapStateToProps = (state) => {

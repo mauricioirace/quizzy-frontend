@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, Checkbox, Col, Form, FormControl, FormGroup, Modal, ControlLabel} from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -11,7 +12,7 @@ class LoginModal extends React.PureComponent {
         show={ this.props.show == 'signIn' }
         onHide={ this.props.setHide }
         container={ this }
-        aria-labelledby='contained-modal-title' 
+        aria-labelledby='contained-modal-title'
       >
         <Modal.Header closeButton>
           <Modal.Title id='contained-modal-title'>Sign in to save</Modal.Title>
@@ -50,7 +51,7 @@ class LoginModal extends React.PureComponent {
                   <Button bsStyle='primary' type='submit'>
                     Save and Continue
                   </Button>
-                </Link>  
+                </Link>
               </Col>
             </FormGroup>
           </Form>
@@ -69,6 +70,12 @@ class LoginModal extends React.PureComponent {
       </Modal>
     )
   }
+}
+
+LoginModal.propTypes = {
+  show: PropTypes.string,
+  setHide: PropTypes.func,
+  setSignUp: PropTypes.func,
 }
 
 export default LoginModal;

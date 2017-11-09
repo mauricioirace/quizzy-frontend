@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Col, Row, PageHeader } from 'react-bootstrap';
 import { Route, Link, Redirect } from 'react-router';
@@ -56,6 +58,17 @@ class Lobby extends React.PureComponent {
       </Row>
     )
   }
+}
+
+Lobby.propTypes = {
+  history: ReactRouterPropTypes.history,
+  location: ReactRouterPropTypes.location,
+  match: ReactRouterPropTypes.match,
+  matchData: PropTypes.object,
+  player: PropTypes.string,
+  players: PropTypes.array,
+  open: PropTypes.func,
+  close: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Lobby));
