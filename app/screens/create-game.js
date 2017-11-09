@@ -24,6 +24,7 @@ import 'rc-steps/assets/index.css';
 import 'rc-steps/assets/iconfont.css';
 import Scroll from 'react-scroll';
 import uuidv1 from 'uuid/v1';
+import gameService from '../services/game';
 
 const mapStateToProps = (state) => {
   return {
@@ -72,7 +73,8 @@ class CreateGame extends React.PureComponent {
       alertVisible: false,
       disableButtons: false,
       validateField: false,
-      nameMessage: ''
+      nameMessage: '',
+      gameNameUsed: false,
     };
     this.onAddQuestion = this.onAddQuestion.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
@@ -89,6 +91,7 @@ class CreateGame extends React.PureComponent {
     this.disableStepButtons = this.disableStepButtons.bind(this);
     this.handleAlertShow = this.handleAlertShow.bind(this);
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+    this.validateFirstStep = this.validateFirstStep.bind(this);
   }
 
   onDone() {
@@ -140,6 +143,7 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
+    this.handleAlertDismiss();    
     if ((this.state.step == 2) && (this.props.questions.length == 0 )) {
       this.handleAlertShow('You must create at least one question.');
     } else {
@@ -175,13 +179,29 @@ class CreateGame extends React.PureComponent {
   disableStepButtons() {
     this.setState({ disableButtons: true })
   }
+  
+  validateFirstStep(name) {
+    gameService.checkNameExist(name)
+    .then((res) => {  
+      this.setState({ gameNameUsed: true }, () => { this.validateName() })
+    })
+    .catch((err) => {
+      this.setState({ gameNameUsed: false }, () => { this.validateName() })
+    }); 
+  }
 
   validateName() {
-    if (this.props.name === ''){
+    if (this.props.name === '') {
       this.setState({
         validateField: true,
         nameMessage: "The name of the game can't be empty"
       })
+    } else if (this.state.gameNameUsed) {
+      this.handleAlertShow('The name already exists, please try another one.'); 
+      this.setState({
+        validateField: true,
+        nameMessage: ''
+      })     
     } else {
       this.setState({
         validateField: false,
@@ -223,36 +243,26 @@ class CreateGame extends React.PureComponent {
               changeCategory={ this.onChangeCategory }
               validateField={ this.state.validateField }
               nameMessage={ this.state.nameMessage }
+              hideAlert={ this.handleAlertDismiss }
             />
             <div className='button-container inverted'>
-              <Button bsSize='large' bsStyle='success' onClick={ this.validateName }>Next</Button>
+              <Button bsSize='large' bsStyle='success' onClick={ () => this.validateFirstStep(this.props.name) }>Next</Button>
             </div>
           </div>
         )
       case 2:
         return (
           <div>
-            <div className='question-panel'>
-              <div>
-                {
-                  this.state.alertVisible ?
-                  <Alert bsStyle="danger" className='alert' onDismiss={ this.handleAlertDismiss }>
-                    <p>{ this.state.alertMessage }</p>
-                  </Alert> : null
-                }
-              </div>
-
-              <Questions
-                questions={ this.props.questions }
-                editQuestion={ this.onEditQuestion }
-                addQuestion={ this.onAddQuestion }
-                removeQuestion={ this.onRemoveQuestion }
-                showAlert={ this.handleAlertShow }
-                hideAlert={ this.handleAlertDismiss }
-                enableStepButtons={ this.enableStepButtons }
-                disableStepButtons={ this.disableStepButtons }
-              />
-            </div>
+            <Questions
+              questions={ this.props.questions }
+              editQuestion={ this.onEditQuestion }
+              addQuestion={ this.onAddQuestion }
+              removeQuestion={ this.onRemoveQuestion }
+              showAlert={ this.handleAlertShow }
+              hideAlert={ this.handleAlertDismiss }
+              enableStepButtons={ this.enableStepButtons }
+              disableStepButtons={ this.disableStepButtons }
+            />
             <div className='button-container'>
               <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='default' onClick={ this.prevStep }>Back</Button>
               <Button bsSize='large' disabled={ this.state.disableButtons } bsStyle='success' onClick={ this.nextStep }>Next</Button>
@@ -290,6 +300,15 @@ class CreateGame extends React.PureComponent {
             <Step title="Questions" onClick={ () => this.goToStep(2) } className='step'/>
             <Step title="Final step!" onClick={ () => this.goToStep(3) } className='step'/>
           </Steps>
+
+          <div>
+            {
+              this.state.alertVisible ?
+              <Alert bsStyle="danger" className='alert' onDismiss={ this.handleAlertDismiss }>
+                <p>{ this.state.alertMessage }</p>
+              </Alert> : null
+            }
+          </div>
 
           { this.showStep() }
 
