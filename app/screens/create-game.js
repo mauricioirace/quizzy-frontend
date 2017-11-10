@@ -143,9 +143,9 @@ class CreateGame extends React.PureComponent {
   }
 
   nextStep() {
-    this.handleAlertDismiss();    
-    if ((this.state.step == 2) && (this.props.questions.length == 0 )) {
-      this.handleAlertShow('You must create at least one question.');
+    this.handleAlertDismiss();
+    if ((this.state.step === 2) && (this.props.questions.length === 0 )) {
+      this.handleAlertShow('You must create at least one question.');    
     } else {
       this.setState({ step: this.state.step + 1 });
     }
@@ -160,11 +160,17 @@ class CreateGame extends React.PureComponent {
     if (this.state.disableButtons && index !== 2) {
       this.handleAlertShow('You must save or cancel your question before changing step.');
     } else {
-      if (this.state.step === 1 && this.props.name === '') {
-        this.validateName();
+      if (this.state.step === 1 && index !== 1) {
+        this.validateFirstStep(this.props.name);
+        if (index === 3 && this.props.name !== '') {
+          if (this.props.questions.length === 0) {
+            this.handleAlertShow('You must create at least one question.');               
+          } else {
+            this.nextStep();
+          }
+        }
       } else if (index === 3 && this.props.questions.length === 0) {
-        this.setState({ step: 2 });
-        this.handleAlertShow('You must create at least one question.');
+        this.handleAlertShow('You must create at least one question.');        
       } else {
         this.handleAlertDismiss();
         this.setState({ step: index });
@@ -207,7 +213,7 @@ class CreateGame extends React.PureComponent {
         validateField: false,
         nameMessage: ''
       })
-      this.nextStep()
+      this.setState({ step: 2 });
     }
   }
 
