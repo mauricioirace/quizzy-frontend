@@ -19,7 +19,7 @@ class MatchService extends CrudService {
   getRanking(id) {
     return axios.get(`${ this.repository }/${ id }?v=ranking`);
   }
-  
+
   update(match) {
     return super.update({ match: match }, match.id);
   }
@@ -27,6 +27,19 @@ class MatchService extends CrudService {
   create(match) {
     return super.create({ match: match });
   }
+  decrypt(question) {
+     const lengthAnswers = question.answers.length;
+     let numberDifficulty;
+     if (question.difficulty === 'Easy') {
+       numberDifficulty = 20;
+     } else if (question.difficulty === 'Medium') {
+       numberDifficulty = 40;
+     } else {
+       numberDifficulty = 60;
+     };
+     const lengthText = question.text.length;
+     return question.correctAnswer / lengthText + lengthAnswers - numberDifficulty;
+   }
 }
 
 const matchService = new MatchService();

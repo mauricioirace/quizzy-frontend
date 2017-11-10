@@ -58,14 +58,14 @@ class AnswerButtons extends React.PureComponent {
   updateRanking = () => {
     const { id } = this.props.matchData;
     const { player, score } = this.props.matchState;
-    if (player !== '') {  
+    if (player !== '') {
       matchService.rankingInsert(id, player, score)
       .then((res) => {
         this.props.history.push(`/end-normal-game/${ id }/${ player }/${ score }`);
       })
       .catch((err) => {
         console.log(err);
-      });        
+      });
     }
   }
 
@@ -82,7 +82,7 @@ class AnswerButtons extends React.PureComponent {
     const answers = this.props.answers.map((_, oldIndex) => {
       const index = this.mapping[oldIndex];
       const answer = this.props.answers[index];
-      const correct = index === this.props.correctAnswer;
+      const correct = index === matchService.decrypt(this.props.matchData.game.questions[this.props.matchState.question]);
 
       return (
           <AnswerButton
