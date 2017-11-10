@@ -17,7 +17,8 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  TIMEOUT
+  TIMEOUT,
+  REDIRECT
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -115,23 +116,48 @@ export const receiveMessageRealTime = ({ data }) => {
     const url = getState().matchData.match.url;
     const player = getState().matchData.state.player;
     const ws = getState().wsData.ws;
+    const totalPlayers = getState().matchData.match.totalPlayers;
+
     if (data === 'hola') {
       ws.send(JSON.stringify([
         url,
         player
       ]));
     } else {
-      const messages= JSON.parse(data);
+      let start = false;
+
+      const messages = JSON.parse(data);
       let players = [];
       for (let i = 0; i < messages.length; i++) {
         if (messages[i][0] === url) {
-          players.push(messages[i][1]);
+          if (messages[i][1].localeCompare('start') == 0) {
+            start = true;
+          } else {
+            players.push(messages[i][1]);
+          }
+        }
+      }
+      if (start){
+        console.log('Redirecting...');
+        dispatch(setPlayers(players));
+        //Redirect
+        ws.close();
+      } else {
+        if (totalPlayers == players.length) {
+          ws.send(JSON.stringify([
+            url,
+            'start'
+          ]));
         }
       }
       dispatch(setPlayers(players));
     }
   }
 };
+
+export const redirect = () => ({
+  type: REDIRECT
+});
 
 export const setPlayers = (players) => ({
   type: SET_PLAYERS,
