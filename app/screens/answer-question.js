@@ -13,6 +13,7 @@ import { SlideFadeDelayed } from '../components/transitions';
 import Progress from 'react-progress';
 import { withRouter } from 'react-router-dom';
 import Spinner from '../components/spinner';
+import matchService from '../services/match';
 
 const mapStateToProps = (state) => {
   return {
@@ -67,7 +68,7 @@ class AnswerQuestion extends React.PureComponent {
           onTimeout={ this.onTimeout }
           text={ question.text }
           stop={ answered }
-          correct={ question.correctAnswer === answered }
+          correct={ matchService.decrypt(question) === answered }
         />
         <Row>
           <SlideFadeDelayed in={ answered === false  }>
