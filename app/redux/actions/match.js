@@ -18,7 +18,9 @@ import {
   UPDATE_MATCH,
   SET_PLAYER,
   TIMEOUT,
-  REDIRECT
+  REDIRECT,
+  REDIRECT_ON,
+  REDIRECT_OFF
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -111,6 +113,18 @@ export const createMatch = (match, onSuccess) => {
   }
 };
 
+export const redirectOn = () => {
+  return {
+    type: REDIRECT_ON
+  }
+};
+
+export const redirectOff = () => {
+  return {
+    type: REDIRECT_OFF
+  }
+};
+
 export const receiveMessageRealTime = ({ data }) => {
   return (dispatch, getState) => {
     const url = getState().matchData.match.url;
@@ -138,9 +152,8 @@ export const receiveMessageRealTime = ({ data }) => {
         }
       }
       if (start){
-        console.log('Redirecting...');
         dispatch(setPlayers(players));
-        //Redirect
+        dispatch(redirectOn());
         ws.close();
       } else {
         if (totalPlayers == players.length) {

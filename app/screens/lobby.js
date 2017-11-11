@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     open: (endpoint) => dispatch(open(endpoint, (message) => dispatch(receiveMessageRealTime(message)))),
     close: () => dispatch(close()),
+    redirectOff: () => dispatch(redirectOff())
   };
 };
 
@@ -65,6 +66,10 @@ class Lobby extends React.PureComponent {
 
   render() {
     let match = this.props.matchData.match;
+    if (this.props.matchData.redirect) {
+      this.props.redirectOff();
+      this.props.history.push('/answer-question');
+    };
     return (
         <div className='page-match'>
           <div className='Container' id='client'>
