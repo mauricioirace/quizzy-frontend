@@ -144,15 +144,17 @@ export class Home extends React.Component {
 
   renderMatches() {
     const items = [];
-    this.props.matchesData.matches.forEach((match, index) => {
-      if (index < 5) {
-        items.push(
-          <SlideFadeTop key={ match.url }>
-            <MatchRow key={ index } data={ match }/>
-          </SlideFadeTop>
-        );
-      }
-    });
+    if (this.props.matchesData.matches[0] && this.props.matchesData.matches.length > 0) {
+      this.props.matchesData.matches.forEach((match, index) => {
+        if (index < 5) {
+          items.push(
+            <SlideFadeTop key={ match.url }>
+              <MatchRow key={ index } data={ match }/>
+            </SlideFadeTop>
+          );
+        }
+      });
+    }
     return (<TransitionGroup component='tbody'>{ items }</TransitionGroup>);
   }
 
