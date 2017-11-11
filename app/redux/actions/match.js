@@ -18,7 +18,6 @@ import {
   UPDATE_MATCH,
   SET_PLAYER,
   TIMEOUT,
-  REDIRECT,
   REDIRECT_ON,
   REDIRECT_OFF
 } from '../constants/match';
@@ -167,10 +166,6 @@ export const receiveMessageRealTime = ({ data }) => {
     }
   }
 };
-
-export const redirect = () => ({
-  type: REDIRECT
-});
 
 export const setPlayers = (players) => ({
   type: SET_PLAYERS,
