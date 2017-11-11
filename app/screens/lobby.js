@@ -7,6 +7,8 @@ import { Route, Link, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/lobby.scss';
+import '../stylesheets/create-match.scss';
+import '../stylesheets/start-match.scss';
 import { receiveMessageRealTime } from '../redux/actions/match';
 import { open, close } from '../redux/actions/ws';
 
@@ -41,21 +43,37 @@ class Lobby extends React.PureComponent {
   }
 
   renderUsers = () => {
-    return this.props.players.map(u => <li key={ Math.random() }>{ u }</li>);
+    const items = [];
+    this.props.players.map((player, index) => {
+      items.push(
+        <tr key={index}>
+          <td>{ index + 1 }</td>
+          <td>{ player }</td>
+        </tr>
+      );
+    });
+    return (
+      <table className='table'>
+        <tbody>{ items }</tbody>
+      </table>
+    )
   }
 
   render() {
+    let match = this.props.matchData.match;
     return (
-      <Row>
-        <Col xs={ 12 } smOffset={ 4 } sm={ 6 }>
+        <div className='page-match'>
           <div className='Container' id='client'>
-            <PageHeader className='text-center'>Lobby { this.props.matchData.match.url }</PageHeader>
+            <PageHeader className='text-center'>Lobby { match.url }</PageHeader>
+            <div className='game-title'>
+              { match.game.image ? <img src={ match.game.image } className='previewImage'/> : null }
+              <h1 className='game-name'>{ match.game.name }</h1>
+            </div>
             <h4>Waiting for players...</h4>
             <h3>In this room: { this.props.players.length }</h3>
             <h3>{ this.renderUsers() }</h3>
           </div>
-        </Col>
-      </Row>
+        </div>
     )
   }
 }
