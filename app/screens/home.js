@@ -39,9 +39,10 @@ export class Home extends React.Component {
     this.props.removeMatch();
     this.props.fetchLandingMatches();
   }
-
+  
   componentDidMount() {
-		this.moveTable();
+    window.scrollTo(0, 0);
+    this.moveTable();
   }
 
   handleChange(event) {

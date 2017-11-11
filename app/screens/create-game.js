@@ -94,6 +94,10 @@ class CreateGame extends React.PureComponent {
     this.validateFirstStep = this.validateFirstStep.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onDone() {
     const { name, description,
       category, questions , image } = this.props;
