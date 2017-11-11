@@ -23,6 +23,7 @@ class GameGeneralInfo extends React.PureComponent {
   }
 
   onChangeName(event) {
+    this.props.hideAlert();    
     this.props.changeName(event.target.value);
   }
 
@@ -54,12 +55,11 @@ class GameGeneralInfo extends React.PureComponent {
           <FormControl componentClass='textarea' value={ game.description } type='text' onChange={ this.onChangeDescription } placeholder="A game about grunge, jazz and rock n' roll"/>
         </FormGroup>
 
-        <FormGroup controlId='imageasd'>
+        <FormGroup>
           <ControlLabel>Image</ControlLabel>
           <Image src={ game.image || require('../../assets/images/empty.svg') } id='previewImage'/>
           <FormControl type='file' value='' id='subirArchivo' onChange={ this.onChangeImage }/>
         </FormGroup>
-
 
         <FormGroup controlId='formCategory'>
           <ControlLabel>Category</ControlLabel>

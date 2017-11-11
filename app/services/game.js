@@ -1,4 +1,5 @@
 import CrudService from './crud';
+import axios from 'axios';
 
 const REPOSITORY =  process.env.GAMES_API;
 
@@ -9,6 +10,10 @@ class GameService extends CrudService{
 
   create(game){
     return super.create({ game: game });
+  }
+
+  checkNameExist(name) {
+    return axios.get(`${ this.repository }/${ name }`);
   }
 
 }
