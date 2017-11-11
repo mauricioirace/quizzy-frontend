@@ -37,3 +37,16 @@ export const fetchMatches = () => {
       });
   }
 };
+
+export const fetchLandingMatches = () => {
+  return (dispatch) => {
+    dispatch(loadMatches());
+    matchService.landingMatches()
+      .then((res) => {
+        dispatch(loadMatchesSuccess(res.data.matches))
+      })
+      .catch((err) => {
+        dispatch(loadMatchesFailure(err))
+      });
+  }
+}

@@ -27,6 +27,7 @@ class MatchService extends CrudService {
   create(match) {
     return super.create({ match: match });
   }
+
   decrypt(question) {
      const lengthAnswers = question.answers.length;
      let numberDifficulty;
@@ -40,6 +41,10 @@ class MatchService extends CrudService {
      const lengthText = question.text.length;
      return question.correctAnswer / lengthText + lengthAnswers - numberDifficulty;
    }
+
+  landingMatches() {
+    return axios.get(`${ this.repository }/landing`);
+  }
 }
 
 const matchService = new MatchService();

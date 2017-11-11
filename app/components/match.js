@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { withRouter } from 'react-router-dom';
-import { setCurrentMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import '../stylesheets/match.scss';
@@ -17,7 +16,6 @@ class MatchRow extends React.PureComponent {
   }
 
   handleClick() {
-    this.props.setCurrentMatch(this.props.data);
     this.props.history.push(`/start-match/${this.props.data.url}`);
   }
 
@@ -26,6 +24,7 @@ class MatchRow extends React.PureComponent {
       <tr>
         <td><img className='match-image' src={ this.props.data.game.image || require('../../assets/images/empty.svg') }/></td>
         <td>{ this.props.data.game.name }</td>
+        <td>{ this.props.data.isRealTime ? 'Real-Time' : 'Normal' }</td>
         <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
       </tr>
     )
@@ -40,7 +39,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
+
   };
 }
 
@@ -49,7 +48,6 @@ MatchRow.propTypes = {
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
   data: PropTypes.object,
-  setCurrentMatch: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchRow)

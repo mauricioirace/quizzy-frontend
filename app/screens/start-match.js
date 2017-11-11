@@ -5,6 +5,7 @@ import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
 import { setPlayer, fetchMatch } from '../redux/actions/match';
 import { connect } from 'react-redux';
+import { setCurrentMatch } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
@@ -38,9 +39,7 @@ class StartMatch extends React.PureComponent {
   }
 
   componentWillMount() {
-    if (!this.props.matchData.match) {
-      this.props.fetchMatch(this.props.match.params.url)
-    }
+    this.props.fetchMatch(this.props.match.params.url);
   }
 
   handleChange(event) {
@@ -69,6 +68,7 @@ class StartMatch extends React.PureComponent {
     } else {
       const match = this.props.matchData.match;
       this.props.setPlayer(this.state.nickname);
+      this.props.setCurrentMatch(match);
       if (!match.isRealTime) {
         this.props.history.push('/answer-question')
       } else {
@@ -183,7 +183,8 @@ StartMatch.propTypes = {
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
-  fetchMatch: PropTypes.func
+  fetchMatch: PropTypes.func,
+  setCurrentMatch: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -195,7 +196,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setPlayer: (nickname) => dispatch(setPlayer(nickname)),
-    fetchMatch: (match) => dispatch(fetchMatch(match))
+    fetchMatch: (match) => dispatch(fetchMatch(match)),
+    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
   };
 };
 

@@ -28,7 +28,7 @@ export const SlideFadeTop = ({ children, ...props }) => (
   <CSSTransition
     { ...props }
     appear
-    timeout={ 5000 }
+    timeout={ 1000 }
     classNames='slide-fade-top'
   >
     { children }
