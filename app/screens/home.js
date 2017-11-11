@@ -5,7 +5,7 @@ import { Row, Col, Grid } from 'react-bootstrap';
 import MatchRow from '../components/match';
 import { connect } from 'react-redux';
 import { loadCurrentMatch, matchNameError, removeCurrentMatch, removeMatch } from '../redux/actions/match';
-import { fetchMatches } from '../redux/actions/matches';
+import { fetchLandingMatches } from '../redux/actions/matches';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { EMPTY_MATCH_NAME } from '../constants/home';
@@ -37,7 +37,7 @@ export class Home extends React.Component {
   componentWillMount() {
     this.props.removeCurrentMatch();
     this.props.removeMatch();
-    this.props.fetchMatches();
+    this.props.fetchLandingMatches();
   }
 
   componentDidMount() {
@@ -134,7 +134,7 @@ export class Home extends React.Component {
       );
     } else if (matchesData.matches) {
       return (
-        <table onMouseOver={ this.handleMouseOver } onMouseLeave={ this.handleMouseLeave } ref='root' id='list' className='table'>
+        <table onMouseOver={ this.handleMouseOver } onMouseLeave={ this.handleMouseLeave } ref='root' className='table'>
           { this.renderMatches() }
         </table>
       );
@@ -260,7 +260,7 @@ Home.propTypes = {
   matchData: PropTypes.object,
   matchesData: PropTypes.object,
   loadCurrentMatch: PropTypes.func,
-  fetchMatches: PropTypes.func,
+  fetchLandingMatches: PropTypes.func,
   removeCurrentMatch: PropTypes.func,
   removeMatch: PropTypes.func,
   history: ReactRouterPropTypes.history,
@@ -281,7 +281,7 @@ const mapDispatchToProps = dispatch => {
     loadCurrentMatch: (input) => dispatch(loadCurrentMatch(input)),
     removeCurrentMatch: (input) => dispatch(removeCurrentMatch()),
     removeMatch: (input) => dispatch(removeMatch()),
-    fetchMatches: () => dispatch(fetchMatches()),
+    fetchLandingMatches: () => dispatch(fetchLandingMatches()),
     matchNameError: (msg) => dispatch(matchNameError(msg))
   };
 }
