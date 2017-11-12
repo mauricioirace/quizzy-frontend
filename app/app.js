@@ -5,8 +5,7 @@ import Match from './screens/match';
 import StartMatch from './screens/start-match';
 import CreateMatch from './screens/create-match';
 import EndNormalGame from './screens/end-normal-game';
-import Lobby from './screens/lobby'
-import { connect } from 'react-redux'
+import Lobby from './screens/lobby';
 import history from './history';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -37,10 +36,4 @@ export class App extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    matchData: state.matchData,
-  }
-};
-
-export default connect(mapStateToProps)(App)
+export default App;
