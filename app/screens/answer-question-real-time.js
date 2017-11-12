@@ -5,7 +5,11 @@ import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { fetchMatch, removeCurrentMatch, timeout, clearMatchState } from '../redux/actions/match';
+import {
+  timeout,
+  clearMatchState,
+  receiveMessageAnswerQuestion
+} from '../redux/actions/match';
 import '../stylesheets/home.scss';
 import { TIME_TO_ANSWER, PROGRESS_HEIGHT, PROGRESS_COLOR } from '../constants/match';
 import { SlideFadeDelayed } from '../components/transitions';
@@ -16,14 +20,15 @@ import Spinner from '../components/spinner';
 const mapStateToProps = (state) => {
   return {
     matchData: state.matchData.match,
-    matchState: state.matchData.state
+    matchState: state.matchData.state,
+    status: state.matchData.state.status
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeCurrentMatch: () => dispatch(removeCurrentMatch()),
-    fetchMatch: matchName => dispatch(fetchMatch(matchName)),
+    open: (endpoint) => dispatch(open(endpoint,(message) => dispatch(receiveMessageAnswerQuestion(message)),(ws) => dispatch(connectRealTimeMatch(ws)))),
+    close: () => dispatch(close()),
     timeout: () => dispatch(timeout()),
     clearMatchState: () => dispatch(clearMatchState())
   };
@@ -38,8 +43,19 @@ class AnswerQuestion extends React.PureComponent {
   }
 
   componentWillMount() {
+    const HOST = process.env.API_HOST;
+    const PORT = process.env.API_PORT;
     this.props.clearMatchState();
+    this.props.open(`ws://${HOST}:${PORT}/answer-question/real-time`);
   }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  componentWillUnmount() {
+    this.props.close();
+  }
+
   onTimeout() {
     this.props.timeout();
   }
@@ -49,6 +65,10 @@ class AnswerQuestion extends React.PureComponent {
       this.props.history.push('/');
       return <Spinner/>;
     }
+    if (!this.props.status === WAITING_STATE) {
+      return <Spinner/>;
+    }
+
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];

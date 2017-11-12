@@ -20,8 +20,12 @@ import {
   REDIRECT_ON,
   REDIRECT_OFF,
   OWNER_ON,
-  OWNER_OFF
+  OWNER_OFF,
+  SET_STATUS,
+  SET_WINNER,
+  END_MATCH
 } from '../constants/match';
+import { ANSWERED_STATE, ANSWERING_STATE, FINISHED_STATE, WAITING_STATE } from '../../constants/match';
 
 const initialState = {
   owner: false,
@@ -35,7 +39,9 @@ const initialState = {
     player: '',
     score: 0,
     answer: false,
-    players: []
+    players: [],
+    status: WAITING_STATE,
+    winner: null
   }
 };
 
@@ -121,7 +127,9 @@ export default (state = initialState, action) => {
         state: {
           ...state.state,
           question: state.state.question + 1,
-          answer:false
+          answer: false,
+          winner: null,
+          status: ANSWERING_STATE
         }
       };
     case SET_CURRENT_MATCH:
@@ -151,7 +159,8 @@ export default (state = initialState, action) => {
           ...state.state,
           question: 0,
           score: 0,
-          answer: false
+          answer: false,
+          status: WAITING_STATE
         }
       }
     case UPDATE_MATCH:
@@ -194,7 +203,32 @@ export default (state = initialState, action) => {
       return {
         ...state,
         owner: false
-      }  
+      }
+    case SET_STATUS:
+      return {
+        ...state,
+        state: {
+          ...state,
+          status: action.status
+        }
+      }
+    case SET_WINNER:
+      return {
+        ...state,
+        state: {
+          ...state,
+          status: ANSWERED_STATE,
+          winner: action.winner
+        }
+      }
+      case END_MATCH:
+      return {
+        ...state,
+        state: {
+          ...state,
+          status: FINISHED_STATE,
+        }
+      }
     default:
       return state
   }

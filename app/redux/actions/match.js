@@ -17,12 +17,19 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  TIMEOUT,
   REDIRECT_ON,
   REDIRECT_OFF,
   OWNER_ON,
-  OWNER_OFF
+  OWNER_OFF,
+  SET_STATUS,
+  SET_WINNER,
+  END_MATCH
 } from '../constants/match';
+import {
+  ANSWERED_SIGNAL, ANSWERED_STATE,
+  ANSWERING_STATE, END_MATCH_ACTION, END_MATCH_SIGNAL, NEXT_SIGNAL,
+  READY_ACTION, START_SIGNAL, WAITING_STATE,
+} from '../../constants/match';
 
 export const loadCurrentMatch = (input) => {
   return {
@@ -99,6 +106,16 @@ export const clearMatchState = (error) => {
   }
 };
 
+export const setStatus = (status) => ({
+  type: SET_STATUS,
+  status
+});
+
+export const setWinner = (winner) => ({
+  type: SET_WINNER,
+  winner
+});
+
 export const createMatch = (match, onSuccess) => {
   return (dispatch) => {
     dispatch(creatingMatch());
@@ -125,6 +142,52 @@ export const redirectOff = () => {
     type: REDIRECT_OFF
   }
 };
+
+export const receiveMessageAnswerQuestion = ({ data }) => {
+  return (dispatch, getState) => {
+    const {} = getState().matchData.match;
+    const {status} = getState().matchData.state;
+    const {} = getState().wsData.ws;
+    switch (status) {
+      case WAITING_STATE:
+        if (data.type = START_SIGNAL) {
+          dispatch(setPlayers(data.players));
+          dispatch(setStatus(ANSWERING_STATE));
+        }
+        break;
+      case ANSWERING_STATE:
+        switch (data.type) {
+          case ANSWERED_SIGNAL:
+            dispatch(setWinner(data.winner));
+            break;
+        }
+        break;
+      case ANSWERED_STATE:
+        switch (data.type) {
+          case NEXT_SIGNAL:
+            dispatch(nextQuestion(data.winner));
+            break;
+          case END_MATCH_SIGNAL:
+            dispatch(endMatch());
+            break;
+        }
+        break;
+    }
+  }
+}
+export const connectRealTimeMatch = (ws) => {
+  return (dispatch, getState) => {
+    const { url, totalPlayers, questions } = getState().matchData.match;
+    const { player } = getState().matchData.state;
+    ws.send({
+      type: READY_ACTION,
+      url,
+      totalPlayers,
+      player,
+      correctAnswer: questions[0].correctAnswer
+    });
+  }
+}
 
 export const receiveMessageRealTime = ({ data }) => {
   return (dispatch, getState) => {
@@ -207,3 +270,6 @@ export const ownerOff = () => {
     type: OWNER_OFF
   }
 };
+export const endMatch = () => ({
+  type: END_MATCH
+});

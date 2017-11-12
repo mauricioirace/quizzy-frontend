@@ -20,3 +20,6 @@ export const REDIRECT_ON = 'REDIRECT_ON';
 export const REDIRECT_OFF = 'REDIRECT_OFF';
 export const OWNER_ON = 'OWNER_ON';
 export const OWNER_OFF = 'OWNER_OFF';
+export const SET_STATUS = 'SET_STATUS';
+export const SET_WINNER = 'SET_WINNER';
+export const END_MATCH = 'END_MATCH';

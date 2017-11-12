@@ -1,9 +1,10 @@
 import { OPEN, CLOSE } from '../constants/ws';
 
-export const open = (endpoint, onMessage) => ({
+export const open = (endpoint, onMessage, onOpen) => ({
   type: OPEN,
   endpoint,
-  onMessage
+  onMessage,
+  onOpen
 });
 
 export const send = (msg) => {
