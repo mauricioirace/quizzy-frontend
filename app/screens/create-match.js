@@ -30,6 +30,10 @@ export class CreateMatch extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   setTotalPlayers = (input) => {
     this.setState({
       totalPlayers: input

@@ -33,6 +33,10 @@ class EndNormalGame extends React.PureComponent {
     this.getRanking();
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  
   getRanking = () => {
     matchService.getRanking(this.id)
     .then((res) => {

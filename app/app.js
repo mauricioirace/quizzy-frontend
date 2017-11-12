@@ -1,9 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './screens/home';
-import About from './screens/about';
-import Register from './screens/register';
-import Login from './screens/login';
 import Match from './screens/match';
 import StartMatch from './screens/start-match';
 import CreateMatch from './screens/create-match';
@@ -25,9 +22,6 @@ export class App extends React.PureComponent {
           <div className='main-view'>
             <Switch>
               <Route exact path='/' component={ Home }/>
-              <Route exact path='/about' component={ About }/>
-              <Route exact path='/register' component={ Register }/>
-              <Route exact path='/login' component={ Login }/>
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/end-normal-game/:id/:player/:score' component={ EndNormalGame }/>
               <Route exact path='/create-match/:url' component={ CreateMatch }/>

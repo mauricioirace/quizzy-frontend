@@ -42,6 +42,11 @@ class AnswerQuestion extends React.PureComponent {
   componentWillMount() {
     this.props.clearMatchState();
   }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  
   onTimeout() {
     this.props.timeout();
   }

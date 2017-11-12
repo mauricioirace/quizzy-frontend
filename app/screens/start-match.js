@@ -42,6 +42,10 @@ class StartMatch extends React.PureComponent {
     this.props.fetchMatch(this.props.match.params.url);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleChange(event) {
     if (event.target.value !== ''){
       document.getElementById('error').innerHTML = '';

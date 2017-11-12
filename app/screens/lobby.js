@@ -38,6 +38,10 @@ class Lobby extends React.PureComponent {
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   componentWillUnmount() {
     this.props.close();
   }
