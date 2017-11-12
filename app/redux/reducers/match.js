@@ -16,10 +16,13 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  TIMEOUT
+  TIMEOUT,
+  REDIRECT_ON,
+  REDIRECT_OFF
 } from '../constants/match';
 
 const initialState = {
+  redirect: false,
   currentMatch: '',
   match: false,
   isFetching: false,
@@ -168,6 +171,16 @@ export default (state = initialState, action) => {
           ...state.state,
           players: action.players
         }
+      }
+    case REDIRECT_ON:
+      return {
+        ...state,
+        redirect: true
+      }
+    case REDIRECT_OFF:
+      return {
+        ...state,
+        redirect: false
       }
     default:
       return state

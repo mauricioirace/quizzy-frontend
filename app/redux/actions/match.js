@@ -17,7 +17,9 @@ import {
   CREATE_MATCH_FAILURE,
   UPDATE_MATCH,
   SET_PLAYER,
-  TIMEOUT
+  TIMEOUT,
+  REDIRECT_ON,
+  REDIRECT_OFF
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -110,22 +112,54 @@ export const createMatch = (match, onSuccess) => {
   }
 };
 
+export const redirectOn = () => {
+  return {
+    type: REDIRECT_ON
+  }
+};
+
+export const redirectOff = () => {
+  return {
+    type: REDIRECT_OFF
+  }
+};
+
 export const receiveMessageRealTime = ({ data }) => {
   return (dispatch, getState) => {
     const url = getState().matchData.match.url;
     const player = getState().matchData.state.player;
     const ws = getState().wsData.ws;
+    const totalPlayers = getState().matchData.match.totalPlayers;
+
     if (data === 'hola') {
       ws.send(JSON.stringify([
         url,
         player
       ]));
     } else {
-      const messages= JSON.parse(data);
+      let start = false;
+
+      const messages = JSON.parse(data);
       let players = [];
       for (let i = 0; i < messages.length; i++) {
         if (messages[i][0] === url) {
-          players.push(messages[i][1]);
+          if (messages[i][1].localeCompare('start') === 0) {
+            start = true;
+          } else {
+            players.push(messages[i][1]);
+          }
+        }
+      }
+      if (start){
+        dispatch(setPlayers(players));
+        dispatch(redirectOn());
+        ws.close();
+      } else {
+        if (totalPlayers === players.length) {
+          ws.send(JSON.stringify([
+            url,
+            'start'
+          ]));
         }
       }
       dispatch(setPlayers(players));
