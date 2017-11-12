@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import '../stylesheets/lobby.scss';
 import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
-import { receiveMessageRealTime } from '../redux/actions/match';
+import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
 import { open, close } from '../redux/actions/ws';
 
 const mapStateToProps = (state) => {
