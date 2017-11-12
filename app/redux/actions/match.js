@@ -143,7 +143,7 @@ export const receiveMessageRealTime = ({ data }) => {
       let players = [];
       for (let i = 0; i < messages.length; i++) {
         if (messages[i][0] === url) {
-          if (messages[i][1].localeCompare('start') == 0) {
+          if (messages[i][1].localeCompare('start') === 0) {
             start = true;
           } else {
             players.push(messages[i][1]);
@@ -155,7 +155,7 @@ export const receiveMessageRealTime = ({ data }) => {
         dispatch(redirectOn());
         ws.close();
       } else {
-        if (totalPlayers == players.length) {
+        if (totalPlayers === players.length) {
           ws.send(JSON.stringify([
             url,
             'start'
