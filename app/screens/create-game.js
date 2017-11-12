@@ -109,7 +109,7 @@ class CreateGame extends React.PureComponent {
   }
 
   onSuccess() {
-    this.props.history.push('/create-match');
+    this.props.history.push('/create-match/' + this.props.match.params.match);
   }
 
   componentWillMount() {

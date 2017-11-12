@@ -15,6 +15,7 @@ import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
 import { connect } from 'react-redux';
 import Reveal from 'react-reveal';
+import Spinner from '../components/spinner';
 
 export class CreateMatch extends React.PureComponent {
   constructor(props) {
@@ -42,9 +43,10 @@ export class CreateMatch extends React.PureComponent {
   }
 
   getMatch() {
-    const { name, description, image, category, questions, currentMatch } = this.props;
+    const matchUrl = this.props.match.params.url;
+    const { name, description, image, category, questions } = this.props;
     let match = {
-      url: currentMatch,
+      url: matchUrl,
       owner: 'Fulane of such',
       isRealTime: this.state.switched,
       game: {
@@ -69,7 +71,7 @@ export class CreateMatch extends React.PureComponent {
 
   onSuccess(currentMatch) {
     this.props.setCurrentMatch(currentMatch);
-    this.props.history.push(`/start-match/${ this.props.currentMatch.toLowerCase() }`);
+    this.props.history.push(`/start-match/${ this.props.match.params.url.toLowerCase() }`);
   }
 
   renderDescription() {
@@ -107,6 +109,12 @@ export class CreateMatch extends React.PureComponent {
 
   render() {
     const match = this.getMatch();
+    
+    if (match.game.name === '') {
+      this.props.history.push('/');
+      return <Spinner/>;
+    }
+
     return (
       <div>
         <div className='page-match'>

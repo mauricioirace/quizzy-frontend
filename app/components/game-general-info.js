@@ -43,7 +43,7 @@ class GameGeneralInfo extends React.PureComponent {
   render() {
     const game = this.props.gameData;
     return (
-      <Form>
+      <div>
         <FormGroup controlId='formName' validationState={ this.getNameValidationState() }>
           <ControlLabel>Name</ControlLabel>
           <FormControl type='text' value={ game.name } placeholder='90s music' onChange={ this.onChangeName }/>
@@ -71,7 +71,7 @@ class GameGeneralInfo extends React.PureComponent {
             <option value='other'>Other</option>
           </FormControl>
         </FormGroup>
-      </Form>
+      </div>
     );
   }
 }
