@@ -39,7 +39,7 @@ export class Home extends React.Component {
     this.props.removeMatch();
     this.props.fetchLandingMatches();
   }
-  
+
   componentDidMount() {
     window.scrollTo(0, 0);
     this.moveTable();
@@ -135,9 +135,14 @@ export class Home extends React.Component {
       );
     } else if (matchesData.matches) {
       return (
-        <table onMouseOver={ this.handleMouseOver } onMouseLeave={ this.handleMouseLeave } ref='root' className='table'>
-          { this.renderMatches() }
-        </table>
+        <div>
+          <table onMouseOver={ this.handleMouseOver } onMouseLeave={ this.handleMouseLeave } ref='root' className='table'>
+            { this.renderMatches() }
+          </table>
+          <Link to={ '/all-matches/1' } className='play-link'>
+            <button className='button primary medium'>See all</button>
+          </Link>
+        </div>
       );
     }
     return (<div></div>);

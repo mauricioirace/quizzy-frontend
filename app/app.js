@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './screens/home';
+import AllMatches from './screens/all-matches';
 import Match from './screens/match';
 import StartMatch from './screens/start-match';
 import CreateMatch from './screens/create-match';
@@ -21,6 +22,7 @@ export class App extends React.PureComponent {
           <div className='main-view'>
             <Switch>
               <Route exact path='/' component={ Home }/>
+              <Route exact path='/all-matches/:page' component={ AllMatches }/>
               <Route exact path='/match/:match' component={ Match }/>
               <Route exact path='/end-normal-game/:id/:player/:score' component={ EndNormalGame }/>
               <Route exact path='/create-match/:url' component={ CreateMatch }/>
