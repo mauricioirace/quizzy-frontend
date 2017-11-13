@@ -155,8 +155,9 @@ export const receiveMessageRealTime = ({ data }) => {
         setTimeout(function(){
             dispatch(redirectOn());
             ws.close();
-            console.log("Waiting...");
-        }, 2000);
+        }, 5000);
+
+      console.log('Waiting..');	
 
       } else {
         if (totalPlayers === players.length) {
