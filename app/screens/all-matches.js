@@ -50,10 +50,10 @@ export class AllMatches extends React.Component {
           </Link>
       };
       let next = null;
-      const begining = (page - 1) * pageSize;
-      const matches = this.props.matchesData.matches.slice(begining, begining + pageSize);
+      const beginning = (page - 1) * pageSize;
+      const matches = this.props.matchesData.matches.slice(beginning, beginning + pageSize);
       const length = matches.length;
-      if (begining + length < this.props.matchesData.matches.length) {
+      if (beginning + length < this.props.matchesData.matches.length) {
         const nextPage = (page + 1).toString();
         next =
           <Link to={ `/all-matches/${nextPage}` } className='next'>
@@ -63,7 +63,7 @@ export class AllMatches extends React.Component {
       return (
         <div>
           <table ref='root' className='table'>
-            { this.renderMatches(page, begining, matches, length) }
+            { this.renderMatches(matches, length) }
           </table>
           { prev }
           { next }
@@ -76,7 +76,7 @@ export class AllMatches extends React.Component {
     return (<div></div>);
   }
 
-  renderMatches(page, begining, matches, length) {
+  renderMatches(matches, length) {
     const items = [];
     if (matches[0] && length > 0) {
       matches.forEach((match, index) => {
