@@ -12,3 +12,10 @@
 .margin-jumbotron {
   margin-top: 100px;
 }
+
+ .modal-container {
+   position: relative;
+ }
+ .modal-container .modal, .modal-container .modal-backdrop {
+   position: absolute;
+ }
