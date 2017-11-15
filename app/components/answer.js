@@ -52,9 +52,9 @@ class Answer extends React.PureComponent {
     this.props.removeAnswer(index);
   }
 
-  handleKeyPress(target, index) {
-    if(target.charCode === 13) {
-      this.props.handleEnter(index);
+  handleKeyDown(target, index) {
+    if ((target.keyCode === 9 && index < 5) || (target.keyCode === 13)) {
+      this.props.handleEnter(target, index);
     }
   }
 
@@ -73,7 +73,7 @@ class Answer extends React.PureComponent {
               value={ this.props.text }
               placeholder={ 'Answer #' + (this.props.id + 1) }
               onChange={ this.handleChange }
-              onKeyPress={ (target) => this.handleKeyPress(target, this.props.id) }
+              onKeyDown={ (target) => this.handleKeyDown(target, this.props.id) }
             />
             <InputGroup.Addon>
               <input type='checkbox' aria-label='...'
