@@ -22,7 +22,7 @@ class MatchRow extends React.PureComponent {
   render() {
     return (
       <tr>
-        <td><img className='match-image' src={ this.props.data.game.image || require('../../assets/images/empty.svg') }/></td>
+        <td><img className='match-image' src={ this.props.data.game.image || require('../../assets/images/quizzy_logo.svg') }/></td>
         <td>{ this.props.data.game.name }</td>
         <td>{ this.props.data.isRealTime ? 'Real-Time' : 'Normal' }</td>
         <td><img className='play-button' src={ require('../../assets/images/play_button.png')} onClick={ this.handleClick }/></td>
