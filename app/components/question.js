@@ -132,8 +132,9 @@ class Question extends React.PureComponent {
     }
   }
 
-  handleEnterOnAnswer(index) {
+  handleEnterOnAnswer(target, index) {
     if (index === this.props.obj.answers.length - 1) {
+      target.preventDefault();
       this.addAnswer();
     }
   }
