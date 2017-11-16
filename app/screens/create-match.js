@@ -26,18 +26,12 @@ export class CreateMatch extends React.PureComponent {
     this.renderDescription = this.renderDescription.bind(this);
     this.state = {
       switched: false,
-      totalPlayers: 3
+      started: false
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
-  }
-
-  setTotalPlayers = (input) => {
-    this.setState({
-      totalPlayers: input
-    });
   }
 
   toggleSwitch = () => {
@@ -52,6 +46,7 @@ export class CreateMatch extends React.PureComponent {
     let match = {
       url: matchUrl,
       owner: 'Fulane of such',
+      started: false,
       isRealTime: this.state.switched,
       game: {
         name,
@@ -62,9 +57,6 @@ export class CreateMatch extends React.PureComponent {
         questions,
         image
       }
-    };
-    if (this.state.switched) {
-      match = { ...match, totalPlayers: this.state.totalPlayers }
     };
     return match;
   }
@@ -104,7 +96,6 @@ export class CreateMatch extends React.PureComponent {
     } else {
       return(
         <Row>
-          <RealTimeMatch setTotalPlayers={ this.setTotalPlayers } totalPlayers={ this.state.totalPlayers }/>
           <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
         </Row>
       );

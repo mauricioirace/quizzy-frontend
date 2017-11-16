@@ -14,7 +14,7 @@ import {
 import Questions from '../components/questions';
 import Question from '../components/question';
 import { connect } from 'react-redux';
-import empty from '../../assets/images/empty.svg';
+import empty from '../../assets/images/quizzy_logo.svg';
 import { withRouter } from 'react-router-dom';
 import '../stylesheets/create-game.scss';
 import { Button, Alert } from 'react-bootstrap';
