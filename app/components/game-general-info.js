@@ -57,7 +57,7 @@ class GameGeneralInfo extends React.PureComponent {
 
         <FormGroup>
           <ControlLabel>Image</ControlLabel>
-          <Image src={ game.image || require('../../assets/images/empty.svg') } id='previewImage'/>
+          <Image src={ game.image || require('../../assets/images/quizzy_logo.svg') } id='previewImage'/>
           <FormControl type='file' value='' id='subirArchivo' onChange={ this.onChangeImage }/>
         </FormGroup>
 
