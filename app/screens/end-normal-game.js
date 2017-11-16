@@ -25,18 +25,16 @@ class EndNormalGame extends React.PureComponent {
     this.player = this.props.match.params.player;
     this.score = this.props.match.params.score;
     this.state = {
-      ranking: []
+      ranking: [],
+      isRealTime: false
     };
   }
 
   componentWillMount() {
     this.getRanking();
+    this.getIsRealTime();
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-  
   getRanking = () => {
     matchService.getRanking(this.id)
     .then((res) => {
@@ -45,6 +43,20 @@ class EndNormalGame extends React.PureComponent {
     .catch((err) => {
       console.log(err);
     });
+  };
+
+  getIsRealTime = () => {
+    matchService.getIsRealTime(this.id)
+    .then((res) => {
+      this.setState({ isRealTime: res.data })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 
   isUser(item) {
@@ -73,35 +85,41 @@ class EndNormalGame extends React.PureComponent {
     let items = [];
     const lastIndex = this.state.ranking.length - 1;
     if (lastIndex >= 0) {
+      let first;
+      let until;
       let userPosition = this.state.ranking.findIndex(this.isUser);
       if (userPosition === -1) {
         userPosition = this.state.ranking.length;
       }
       this.userPosition = userPosition;
-      let first;
-      let until;
-      if (lastIndex <= 4) {
-        //show until 5 users starting from 0
-        first = 0;
+      if (this.state.isRealTime === true) {
+        //in real time show complete ranking
+        first = 0; 
         until = lastIndex;
       } else {
-        //if current user is in first place or second one
-        if (this.userPosition === 0 || this.userPosition === 1) {
-          //show 5 starting from 0
+        if (lastIndex <= 4) {
+          //show until 5 users starting from 0
           first = 0;
-          until = 4;
+          until = lastIndex;
         } else {
-          //if current user is the last or previous than last
-          if (this.userPosition === lastIndex || this.userPosition === lastIndex - 1) {
-            //show 5 starting from lastIndex - 4
-            first = lastIndex - 4;
-            until = lastIndex;
+          //if current user is in first place or second one
+          if (this.userPosition === 0 || this.userPosition === 1) {
+            //show 5 starting from 0
+            first = 0;
+            until = 4;
           } else {
-            //current user is in the middle
-            first = this.userPosition - 2;
-            until = this.userPosition + 2;
+            //if current user is the last or previous than last
+            if (this.userPosition === lastIndex || this.userPosition === lastIndex - 1) {
+              //show 5 starting from lastIndex - 4
+              first = lastIndex - 4;
+              until = lastIndex;
+            } else {
+              //current user is in the middle
+              first = this.userPosition - 2;
+              until = this.userPosition + 2;
+            }
           }
-        }
+        }          
       }
       let i;
       for (i = first; i <= until; i++) {
