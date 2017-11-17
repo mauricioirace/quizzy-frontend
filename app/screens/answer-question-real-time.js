@@ -8,10 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   timeout,
   clearMatchState,
-  receiveMessageAnswerQuestion
+  receiveMessageAnswerQuestion, connectRealTimeMatch,
 } from '../redux/actions/match';
+import { open, close } from '../redux/actions/ws';
 import '../stylesheets/home.scss';
-import { TIME_TO_ANSWER, PROGRESS_HEIGHT, PROGRESS_COLOR } from '../constants/match';
+import { TIME_TO_ANSWER, PROGRESS_HEIGHT, PROGRESS_COLOR, WAITING_STATE } from '../constants/match';
 import { SlideFadeDelayed } from '../components/transitions';
 import Progress from 'react-progress';
 import { withRouter } from 'react-router-dom';

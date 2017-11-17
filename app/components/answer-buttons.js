@@ -5,13 +5,18 @@ import '../stylesheets/answer-question.scss';
 import AnswerButton from './answer-button';
 import { ButtonGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { answerQuestion, nextQuestion } from '../redux/actions/match';
+import {
+  answerQuestion,
+  nextQuestion,
+  sendAnswer,
+  sendNextQuestion} from '../redux/actions/match';
 import ReactTimeout from 'react-timeout';
 import { withRouter } from 'react-router-dom';
 import { SlideFadeLeft } from '../components/transitions';
 import shuffle from 'shuffle-array';
 import PropTypes from 'prop-types';
 import matchService from '../services/match';
+import { ANSWERED_STATE } from '../constants/match';
 
 const mapStateToProps = state => {
   return {
@@ -24,6 +29,8 @@ const mapDispatchToProps = dispatch => {
   return {
     answerQuestion: (correct,answer) => dispatch(answerQuestion(correct,answer)),
     nextQuestion: () => dispatch(nextQuestion()),
+    sendAnswer: (answer) => dispatch(sendAnswer(answer)),
+    sendNextQuestion: (correctAnswer) => dispatch(sendNextQuestion(correctAnswer))
   };
 };
 
@@ -39,18 +46,34 @@ class AnswerButtons extends React.PureComponent {
   }
 
   onClickAnswer(correct, answer) {
-    this.props.answerQuestion(correct, answer);
+    if (this.props.matchData.isRealTime) {
+      this.props.sendAnswer(answer);
+    } else {
+      this.props.answerQuestion(correct, answer);
+    }
   }
 
   waitForNextQuestion() {
     // view between questions
+    if (this.props.matchData.isRealTime
+      && this.props.matchState.status !== ANSWERED_STATE) {
+      return;
+    }
     this.props.setTimeout( () => {
       const next = this.props.matchState.question + 1;
       const total = this.props.matchData.game.questions.length;
       if (next >= total) {
-        this.updateRanking();
+        if (this.props.matchData.isRealTime) {
+          this.props.history.push('/home');
+        } else {
+          this.updateRanking();
+        }
       } else {
-        this.props.nextQuestion();
+        if (this.props.matchData.isRealTime) {
+          this.props.sendNextQuestion(this.props.matchState.correctAnswer);
+        } else {
+          this.props.nextQuestion();
+        }
       }
     }, 4000);
   }

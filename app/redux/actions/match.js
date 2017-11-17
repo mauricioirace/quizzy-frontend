@@ -23,12 +23,13 @@ import {
   OWNER_OFF,
   SET_STATUS,
   SET_WINNER,
-  END_MATCH
+  END_MATCH, SEND_ANSWER, SENT_ANSWER, TIMEOUT
 } from '../constants/match';
 import {
+  ANSWERED_ACTION,
   ANSWERED_SIGNAL, ANSWERED_STATE,
   ANSWERING_STATE, END_MATCH_ACTION, END_MATCH_SIGNAL, NEXT_SIGNAL,
-  READY_ACTION, START_SIGNAL, WAITING_STATE,
+  READY_ACTION, START_SIGNAL, TIMEOUT_ACTION, WAITING_STATE,
 } from '../../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -144,28 +145,27 @@ export const redirectOff = () => {
 };
 
 export const receiveMessageAnswerQuestion = ({ data }) => {
+  const msg = JSON.parse(data);
   return (dispatch, getState) => {
-    const {} = getState().matchData.match;
-    const {status} = getState().matchData.state;
-    const {} = getState().wsData.ws;
+    const { status } = getState().matchData.state;
     switch (status) {
       case WAITING_STATE:
-        if (data.type = START_SIGNAL) {
-          dispatch(setPlayers(data.players));
+        if (msg.type = START_SIGNAL) {
+          dispatch(setPlayers(msg.players));
           dispatch(setStatus(ANSWERING_STATE));
         }
         break;
       case ANSWERING_STATE:
-        switch (data.type) {
+        switch (msg.type) {
           case ANSWERED_SIGNAL:
-            dispatch(setWinner(data.winner));
+            dispatch(setWinner(msg.winner));
             break;
         }
         break;
       case ANSWERED_STATE:
-        switch (data.type) {
+        switch (msg.type) {
           case NEXT_SIGNAL:
-            dispatch(nextQuestion(data.winner));
+            dispatch(nextQuestion(msg.winner));
             break;
           case END_MATCH_SIGNAL:
             dispatch(endMatch());
@@ -177,15 +177,15 @@ export const receiveMessageAnswerQuestion = ({ data }) => {
 }
 export const connectRealTimeMatch = (ws) => {
   return (dispatch, getState) => {
-    const { url, totalPlayers, questions } = getState().matchData.match;
+    const { url, totalPlayers, questions } = getState().matchData.match.game;
     const { player } = getState().matchData.state;
-    ws.send({
+    ws.send(JSON.stringify({
       type: READY_ACTION,
       url,
       totalPlayers,
       player,
       correctAnswer: questions[0].correctAnswer
-    });
+    }));
   }
 }
 
@@ -273,3 +273,30 @@ export const ownerOff = () => {
 export const endMatch = () => ({
   type: END_MATCH
 });
+
+export const sendAnswer = (answer) => {
+  return (dispatch, getState) => {
+    const { player } = getState().matchData.state;
+    const { ws } = getState().wsData;
+    ws.send(JSON.stringify({
+      type: ANSWERED_ACTION,
+      answer,
+      player
+    }));
+    dispatch(sentAnswer(answer));
+  }
+}
+
+export const sendNextQuestion = (correctAnswer) => {
+  return (dispatch, getState) => {
+    const { ws } = getState.wsData;
+    ws.send(JSON.stringify({
+      type: ANSWERED_ACTION,
+      correctAnswer
+    }));
+  }
+}
+export const sentAnswer = (answer) => ({
+  type: SENT_ANSWER,
+  answer
+})

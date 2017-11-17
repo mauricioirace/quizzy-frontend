@@ -129,7 +129,7 @@ class Lobby extends React.PureComponent {
     let match = this.props.matchData.match;
     if (this.props.matchData.redirect) {
       this.props.redirectOff();
-      this.props.history.push('/answer-question');
+      this.props.history.push('/answer-question-real-time');
     };
     return (
       <div className='page-match'>

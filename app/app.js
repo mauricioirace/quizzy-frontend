@@ -12,6 +12,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import './styles.scss';
 import AnswerQuestion from './screens/answer-question';
+import AnswerQuestionRealTime from './screens/answer-question-real-time';
 
 export class App extends React.PureComponent {
   render() {
@@ -27,6 +28,7 @@ export class App extends React.PureComponent {
               <Route exact path='/end-normal-game/:id/:player/:score' component={ EndNormalGame }/>
               <Route exact path='/create-match/:url' component={ CreateMatch }/>
               <Route exact path='/answer-question' component={ AnswerQuestion }/>
+              <Route exact path='/answer-question-real-time' component={ AnswerQuestionRealTime }/>
               <Route exact path='/start-match/:url' component={ StartMatch }/>
               <Route exact path='/lobby' component={ Lobby }/>
             </Switch>

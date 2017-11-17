@@ -23,7 +23,7 @@ import {
   OWNER_OFF,
   SET_STATUS,
   SET_WINNER,
-  END_MATCH
+  END_MATCH, SENT_ANSWER
 } from '../constants/match';
 import { ANSWERED_STATE, ANSWERING_STATE, FINISHED_STATE, WAITING_STATE } from '../../constants/match';
 
@@ -208,7 +208,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         state: {
-          ...state,
+          ...state.state,
           status: action.status
         }
       }
@@ -216,17 +216,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         state: {
-          ...state,
+          ...state.state,
           status: ANSWERED_STATE,
           winner: action.winner
         }
       }
-      case END_MATCH:
+    case END_MATCH:
       return {
         ...state,
         state: {
-          ...state,
+          ...state.state,
           status: FINISHED_STATE,
+        }
+      }
+    case SENT_ANSWER:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          answer: action.answer
         }
       }
     default:

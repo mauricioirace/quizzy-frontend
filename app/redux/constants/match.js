@@ -23,3 +23,5 @@ export const OWNER_OFF = 'OWNER_OFF';
 export const SET_STATUS = 'SET_STATUS';
 export const SET_WINNER = 'SET_WINNER';
 export const END_MATCH = 'END_MATCH';
+export const SEND_ANSWER = 'SEND_ANSWER';
+export const SENT_ANSWER = 'SENT_ANSWER';
