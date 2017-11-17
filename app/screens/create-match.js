@@ -7,8 +7,6 @@ import { sortBy } from 'underscore';
 import { createMatch, setCurrentMatch } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../../node_modules/react-toggle-switch/dist/css/switch.min.css';
-import NormalMatch from '../components/normalMatch';
-import RealTimeMatch from '../components/realTimeMatch';
 import { withRouter } from 'react-router-dom';
 import empty from '../../assets/images/empty.svg';
 import '../stylesheets/start-match.scss';
@@ -85,31 +83,12 @@ export class CreateMatch extends React.PureComponent {
     return !this.state.switched ? "In this game mode you have to answer all the questions in the given time period. It's single player." : "In this game mode you have to answer all the questions in the given time period, but you have a bonus the earlier you answer it. You will be competing in real-time with other players.";
   }
 
-  renderMatchMode() {
-    if (!this.state.switched) {
-      return(
-        <Row>
-          <NormalMatch/>
-          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
-        </Row>
-      );
-    } else {
-      return(
-        <Row>
-          <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
-        </Row>
-      );
-    }
-  }
-
   render() {
     const match = this.getMatch();
-    
     if (match.game.name === '') {
       this.props.history.push('/');
       return <Spinner/>;
     }
-
     return (
       <div>
         <div className='page-match'>
@@ -137,7 +116,7 @@ export class CreateMatch extends React.PureComponent {
             <Row>
               { this.renderDescription() }
             </Row>
-            { this.renderMatchMode() }
+            <Button className='button primary medium right' onClick={ this.handleClick }>DONE</Button>
           </div>
         </div>
       </div>
