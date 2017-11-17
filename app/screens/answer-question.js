@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AnswerButtons from '../components/answer-buttons';
-import { Col, Grid, Row } from 'react-bootstrap';
+import { Col, Grid, Row, Button, ControlLabel } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
@@ -37,6 +37,9 @@ class AnswerQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onTimeout = this.onTimeout.bind(this);
+    this.showHint = this.showHint.bind(this);
+    this.hideHint = this.hideHint.bind(this);
+    this.state = { hintUsed: false };
   }
 
   componentWillMount() {
@@ -51,6 +54,14 @@ class AnswerQuestion extends React.PureComponent {
     this.props.timeout();
   }
 
+  showHint() {
+    this.setState({ hintUsed: true });
+  }
+
+  hideHint() {
+    this.setState({ hintUsed: false });
+  }
+
   render() {
     if (!this.props.matchData) {
       this.props.history.push('/');
@@ -59,7 +70,7 @@ class AnswerQuestion extends React.PureComponent {
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
-    const answered = this.props.matchState.answer;
+    const answered = this.props.matchState.answer;    
 
     return (
       <Grid>
@@ -78,10 +89,22 @@ class AnswerQuestion extends React.PureComponent {
         <Row>
           <SlideFadeDelayed in={ answered === false  }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
-              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
+              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer } hintUsed={ this.state.hintUsed }
+              hideHint={ this.hideHint }/>
             </Col>
           </SlideFadeDelayed>
         </Row>
+
+        { 
+          question.hint !== '' ?
+          <div>
+            <Button onClick={ this.showHint }>Help!</Button>
+              {
+                this.state.hintUsed ? 
+                <ControlLabel>{ question.hint }</ControlLabel> : null
+              }
+            </div> : null
+          }
       </Grid>
     )
   }
