@@ -99,8 +99,12 @@ export default (state = initialState, action) => {
             score += 800;
             break;
         }
-
       }
+
+      if (action.hintUsed) {
+        score -= 100;          
+      }
+
       return {
         ...state,
         state: {

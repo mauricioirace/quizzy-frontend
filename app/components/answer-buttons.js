@@ -22,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    answerQuestion: (correct,answer) => dispatch(answerQuestion(correct,answer)),
+    answerQuestion: (correct, answer, hintUsed) => dispatch(answerQuestion(correct, answer, hintUsed)),
     nextQuestion: () => dispatch(nextQuestion()),
   };
 };
@@ -39,7 +39,7 @@ class AnswerButtons extends React.PureComponent {
   }
 
   onClickAnswer(correct, answer) {
-    this.props.answerQuestion(correct, answer);
+    this.props.answerQuestion(correct, answer, this.props.hintUsed);
   }
 
   waitForNextQuestion() {
@@ -51,6 +51,7 @@ class AnswerButtons extends React.PureComponent {
         this.updateRanking();
       } else {
         this.props.nextQuestion();
+        this.props.hideHint();
       }
     }, 4000);
   }
