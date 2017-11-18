@@ -148,9 +148,7 @@ export const receiveMessageRealTime = ({ data }) => {
           if (messages[i][1].localeCompare('start') === 0) {
             start = true;
           } else {
-            if (!getState().matchData.owner) {
-              players.push(messages[i][1]);
-            }
+            players.push(messages[i][1]);
           }
         }
       }

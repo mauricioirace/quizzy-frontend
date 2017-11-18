@@ -66,14 +66,16 @@ class Lobby extends React.PureComponent {
 
   renderUsers = () => {
     const items = [];
-    if (this.props.players.length > 0) {
+    if (this.props.players.length > 1) {
       this.props.players.map((player, index) => {
-        items.push(
-          <tr key={ index }>
-            <td>{ index + 1 }</td>
-            <td>{ player }</td>
-          </tr>
-        );    
+        if (player != '') { 
+          items.push(
+            <tr key={ index }>
+              <td>{ index }</td>
+              <td>{ player }</td>
+            </tr>
+          );             
+        }
       });
     }
     return (
@@ -90,19 +92,19 @@ class Lobby extends React.PureComponent {
       this.props.history.push('/answer-question');
     };
     return (
-        <div className='page-match'>
-          <div className='Container' id='client'>
-            <PageHeader className='text-center'>Lobby { match.url }</PageHeader>
-            <div className='game-title'>
-              { match.game.image ? <img src={ match.game.image } className='previewImage'/> : null }
-              <h1 className='game-name'>{ match.game.name }</h1>
-            </div>
-            <h4>Waiting for players...</h4>
-            <h3>In this room: { this.props.players.length }</h3>
-            <h3>{ this.renderUsers() }</h3>
-            <h3>{ this.showStart() }</h3>
+      <div className='page-match'>
+        <div className='Container' id='client'>
+          <PageHeader className='text-center'>Lobby { match.url }</PageHeader>
+          <div className='game-title'>
+            { match.game.image ? <img src={ match.game.image } className='previewImage'/> : null }
+            <h1 className='game-name'>{ match.game.name }</h1>
           </div>
+          <h4>Waiting for players...</h4>
+          <h3>In this room: { this.props.players.length - 1}</h3>
+          <h3>{ this.renderUsers() }</h3>
+          <h3>{ this.showStart() }</h3>
         </div>
+      </div>
     )
   }
 }
