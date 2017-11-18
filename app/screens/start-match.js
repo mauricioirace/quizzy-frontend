@@ -63,20 +63,26 @@ class StartMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    if (!this.state.nickname) {
-      let error = document.getElementById('error');
-      error.innerHTML = 'Please, enter a nickname';
-      error.style.color = 'red';
-      error.style.fontWeight = 'bold';
-      return;
-    } else {
+    if (this.props.matchData.owner && this.props.matchData.match.isRealTime) {
       const match = this.props.matchData.match;
-      this.props.setPlayer(this.state.nickname);
       this.props.setCurrentMatch(match);
-      if (!match.isRealTime) {
-        this.props.history.push('/answer-question')
+      this.props.history.push(`/lobby`)
+    } else {
+      if (!this.state.nickname) {
+        let error = document.getElementById('error');
+        error.innerHTML = 'Please, enter a nickname';
+        error.style.color = 'red';
+        error.style.fontWeight = 'bold';
+        return;
       } else {
-        this.props.history.push(`/lobby`)
+        const match = this.props.matchData.match;
+        this.props.setPlayer(this.state.nickname);
+        this.props.setCurrentMatch(match);
+        if (!match.isRealTime) {
+          this.props.history.push('/answer-question')
+        } else {
+          this.props.history.push(`/lobby`)
+        }
       }
     }
   }
@@ -89,7 +95,7 @@ class StartMatch extends React.PureComponent {
       const stop = ranking.length < 5 ? ranking.length : 5;
       while (index < stop) {
         items.push(
-          <tr key={index}>
+          <tr key={ index }>
             <td>{ index + 1 }</td>
             <td>{ ranking[index].user }</td>
             <td>{ ranking[index].points } pts</td>
@@ -125,6 +131,20 @@ class StartMatch extends React.PureComponent {
     document.execCommand('copy', null, null);
   }
 
+  renderButton() {
+    if (this.props.matchData.owner && this.props.matchData.match.isRealTime) {
+      return (<Button bsSize="large" onClick={ this.handleClick }>GO TO ROOM</Button>)
+    } else {
+      return (
+        <div>
+          <label className='fs-22'>Enter your nickname</label>
+          <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+          <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
+        </div>
+      )
+    }
+  }
+
   render() {
     let component = null;
     if (this.props.matchData.error) {
@@ -152,9 +172,7 @@ class StartMatch extends React.PureComponent {
             <div className='form-container'>
               <form>
                 <div className='form-input horizontal long'>
-                  <label className='fs-22'>Enter your nickname</label>
-                  <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
-                  <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
+                  { this.renderButton() }
                 </div>
                 <p id='error'></p>
               </form>

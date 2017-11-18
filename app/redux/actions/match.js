@@ -19,7 +19,9 @@ import {
   SET_PLAYER,
   TIMEOUT,
   REDIRECT_ON,
-  REDIRECT_OFF
+  REDIRECT_OFF,
+  OWNER_ON,
+  OWNER_OFF
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -146,7 +148,9 @@ export const receiveMessageRealTime = ({ data }) => {
           if (messages[i][1].localeCompare('start') === 0) {
             start = true;
           } else {
-            players.push(messages[i][1]);
+            if (!getState().matchData.owner) {
+              players.push(messages[i][1]);
+            }
           }
         }
       }
@@ -200,3 +204,15 @@ export const timeout = () => ({
 export const nextQuestion = () => ({
   type: NEXT_QUESTION,
 });
+
+export const ownerOn = () => {
+  return {
+    type: OWNER_ON
+  }
+};
+
+export const ownerOff = () => {
+  return {
+    type: OWNER_OFF
+  }
+};

@@ -11,6 +11,8 @@ import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
 import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
 import { open, close } from '../redux/actions/ws';
+import matchService from '../services/match';
+import { Button } from 'react-bootstrap';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 class Lobby extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.startMatch = this.startMatch.bind(this);
   }
 
   componentWillMount() {
@@ -47,16 +50,32 @@ class Lobby extends React.PureComponent {
     this.props.close();
   }
 
+  startMatch() {
+    matchService.setStarted(this.props.matchData.match.id)
+    .catch((err) => {
+      console.log(err);
+    });
+    this.props.history.push('/');
+  }
+
+  showStart() {
+    if (this.props.matchData.owner) {
+      return (<Button className='button primary medium' onClick={ this.startMatch }>START</Button>)
+    }
+  }
+
   renderUsers = () => {
     const items = [];
-    this.props.players.map((player, index) => {
-      items.push(
-        <tr key={index}>
-          <td>{ index + 1 }</td>
-          <td>{ player }</td>
-        </tr>
-      );
-    });
+    if (this.props.players.length > 0) {
+      this.props.players.map((player, index) => {
+        items.push(
+          <tr key={ index }>
+            <td>{ index + 1 }</td>
+            <td>{ player }</td>
+          </tr>
+        );    
+      });
+    }
     return (
       <table className='table'>
         <tbody>{ items }</tbody>
@@ -81,6 +100,7 @@ class Lobby extends React.PureComponent {
             <h4>Waiting for players...</h4>
             <h3>In this room: { this.props.players.length }</h3>
             <h3>{ this.renderUsers() }</h3>
+            <h3>{ this.showStart() }</h3>
           </div>
         </div>
     )

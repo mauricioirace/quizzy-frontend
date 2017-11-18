@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Row, Col, Grid } from 'react-bootstrap';
 import MatchRow from '../components/match';
 import { connect } from 'react-redux';
-import { loadCurrentMatch, matchNameError, removeCurrentMatch, removeMatch } from '../redux/actions/match';
+import { loadCurrentMatch, matchNameError, removeCurrentMatch, removeMatch, ownerOff } from '../redux/actions/match';
 import { fetchLandingMatches } from '../redux/actions/matches';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -38,6 +38,7 @@ export class Home extends React.Component {
     this.props.removeCurrentMatch();
     this.props.removeMatch();
     this.props.fetchLandingMatches();
+    this.props.ownerOff();
   }
 
   componentDidMount() {
@@ -290,7 +291,8 @@ const mapDispatchToProps = dispatch => {
     removeCurrentMatch: (input) => dispatch(removeCurrentMatch()),
     removeMatch: (input) => dispatch(removeMatch()),
     fetchLandingMatches: () => dispatch(fetchLandingMatches()),
-    matchNameError: (msg) => dispatch(matchNameError(msg))
+    matchNameError: (msg) => dispatch(matchNameError(msg)),
+    ownerOff: () => dispatch(ownerOff())
   };
 }
 
