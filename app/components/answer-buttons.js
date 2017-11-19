@@ -77,7 +77,9 @@ class AnswerButtons extends React.PureComponent {
     } else {
       const lenAnswers = this.props.answers.length;
       this.mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
-      shuffle(this.mapping);
+      if (this.props.hint === '') {
+        shuffle(this.mapping);
+      }
     }
 
     const answers = this.props.answers.map((_, oldIndex) => {
@@ -86,14 +88,14 @@ class AnswerButtons extends React.PureComponent {
       const correct = index === matchService.decrypt(this.props.matchData.game.questions[this.props.matchState.question]);
 
       return (
-          <AnswerButton
-            key={ index }
-            id={ index }
-            text={ answer.answer }
-            correct={ correct }
-            onClick={ () => this.onClickAnswer(correct, index) }
-            answered={ answered }
-          />
+        <AnswerButton
+          key={ index }
+          id={ index }
+          text={ answer.answer }
+          correct={ correct }
+          onClick={ () => this.onClickAnswer(correct, index) }
+          answered={ answered }
+        />
       )
     });
     return (

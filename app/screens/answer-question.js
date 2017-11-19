@@ -5,6 +5,7 @@ import { Col, Grid, Row, Button, ControlLabel } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
+import QuestionHint from '../components/question-hint';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
@@ -91,16 +92,8 @@ class AnswerQuestion extends React.PureComponent {
           </SlideFadeDelayed>
         </Row>
 
-        { 
-          question.hint !== '' ?
-          <div>
-            <Button onClick={ this.showHint }>Help!</Button>
-              {
-                this.state.hintUsed ? 
-                <ControlLabel>{ question.hint }</ControlLabel> : null
-              }
-            </div> : null
-          }
+        <QuestionHint question={ question } hintUsed={ this.state.hintUsed } showHint={ this.showHint }/>
+
       </Grid>
     )
   }
