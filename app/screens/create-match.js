@@ -66,6 +66,7 @@ export class CreateMatch extends React.PureComponent {
 
   onSuccess(currentMatch) {
     this.props.setCurrentMatch(currentMatch);
+    sessionStorage.setItem('owner', JSON.stringify(true));
     this.props.history.push(`/start-match/${ this.props.match.params.url.toLowerCase() }`);
   }
 

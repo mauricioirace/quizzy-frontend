@@ -39,6 +39,7 @@ export class Home extends React.Component {
     this.props.removeMatch();
     this.props.fetchLandingMatches();
     this.props.ownerOff();
+    sessionStorage.setItem('owner', JSON.stringify(false));
   }
 
   componentDidMount() {

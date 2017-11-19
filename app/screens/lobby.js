@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import '../stylesheets/lobby.scss';
 import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
+import '../stylesheets/end-normal-game.scss';
 import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
 import { open, close } from '../redux/actions/ws';
 import matchService from '../services/match';
@@ -34,9 +35,14 @@ class Lobby extends React.PureComponent {
   constructor(props) {
     super(props);
     this.startMatch = this.startMatch.bind(this);
+    this.state = {
+      player: ''
+    };
   }
 
   componentWillMount() {
+    let player = JSON.parse(sessionStorage.getItem('player'));
+    this.setState({ player: player });
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
@@ -68,12 +74,19 @@ class Lobby extends React.PureComponent {
     const items = [];
     if (this.props.players.length > 1) {
       this.props.players.map((player, index) => {
-        if (player != '') { 
+        if (index != 0) {
           items.push(
-            <tr key={ index }>
-              <td>{ index }</td>
-              <td>{ player }</td>
-            </tr>
+            (player === this.state.player) ? (
+              <tr className='current-player' key={ index }>
+                <td>{ index }</td>
+                <td>{ player }</td>
+              </tr>
+            ) : (
+              <tr key={ index }>
+                <td>{ index }</td>
+                <td>{ player }</td>
+              </tr>
+            )
           );             
         }
       });
