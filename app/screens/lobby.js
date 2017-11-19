@@ -72,18 +72,20 @@ class Lobby extends React.PureComponent {
 
   renderUsers = () => {
     const items = [];
-    if (this.props.players.length > 1) {
+    let i = 0; 
+    if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
-        if (index != 0) {
+        if (player != '') {
+          i = i + 1;
           items.push(
             (player === this.state.player) ? (
-              <tr className='current-player' key={ index }>
-                <td>{ index }</td>
+              <tr className='current-player' key={ i }>
+                <td>{ i }</td>
                 <td>{ player }</td>
               </tr>
             ) : (
-              <tr key={ index }>
-                <td>{ index }</td>
+              <tr key={ i }>
+                <td>{ i }</td>
                 <td>{ player }</td>
               </tr>
             )
@@ -96,6 +98,18 @@ class Lobby extends React.PureComponent {
         <tbody>{ items }</tbody>
       </table>
     )
+  }
+
+  quantityUsers = () => {
+    let users = 0; 
+    if (this.props.players.length > 0) {
+      this.props.players.map((player, index) => {
+        if (player != '') {
+          users = users + 1;             
+        }
+      });
+    }
+    return (users)
   }
 
   render() {
@@ -113,7 +127,7 @@ class Lobby extends React.PureComponent {
             <h1 className='game-name'>{ match.game.name }</h1>
           </div>
           <h4>Waiting for players...</h4>
-          <h3>In this room: { this.props.players.length - 1}</h3>
+          <h3>In this room: { this.quantityUsers() }</h3>
           <h3>{ this.renderUsers() }</h3>
           <h3>{ this.showStart() }</h3>
         </div>
