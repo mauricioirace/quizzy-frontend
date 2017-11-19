@@ -88,7 +88,7 @@ class StartMatch extends React.PureComponent {
       if (!this.state.nickname) {
         let error = document.getElementById('error');
         error.innerHTML = 'Please, enter a nickname';
-        error.style.color = 'red';
+        error.style.color = 'white';
         error.style.fontWeight = 'bold';
         return;
       } else {

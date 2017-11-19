@@ -65,7 +65,7 @@ class Lobby extends React.PureComponent {
       this.props.history.push('/');
     } else {
       let error = document.getElementById('error');
-      error.innerHTML = 'There match must have at least 2 players';
+      error.innerHTML = 'The match must have at least 2 players';
       error.style.color = 'white';
       error.style.fontWeight = 'bold';
     }  
