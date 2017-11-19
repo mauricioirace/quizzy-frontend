@@ -57,11 +57,18 @@ class Lobby extends React.PureComponent {
   }
 
   startMatch() {
-    matchService.setStarted(this.props.matchData.match.id)
-    .catch((err) => {
-      console.log(err);
-    });
-    this.props.history.push('/');
+    if (this.quantityUsers() > 1) {
+      matchService.setStarted(this.props.matchData.match.id)
+      .catch((err) => {
+        console.log(err);
+      });
+      this.props.history.push('/');
+    } else {
+      let error = document.getElementById('error');
+      error.innerHTML = 'There match must have at least 2 players';
+      error.style.color = 'white';
+      error.style.fontWeight = 'bold';
+    }  
   }
 
   showStart() {
@@ -130,6 +137,7 @@ class Lobby extends React.PureComponent {
           <h3>In this room: { this.quantityUsers() }</h3>
           <h3>{ this.renderUsers() }</h3>
           <h3>{ this.showStart() }</h3>
+          <p id='error'></p>
         </div>
       </div>
     )

@@ -68,7 +68,7 @@ class StartMatch extends React.PureComponent {
       document.getElementById('error').innerHTML = '';
     }
     this.setState({
-      nickname: event.target.value
+      nickname: event.target.value.trim()
     });
   }
 
