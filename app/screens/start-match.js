@@ -9,6 +9,7 @@ import { setCurrentMatch } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
+import '../stylesheets/go-to-room-button.scss';
 import {
   Button,
   Col,
@@ -25,6 +26,7 @@ import { withRouter } from 'react-router-dom';
 import Reveal from 'react-reveal';
 import Spinner from '../components/spinner';
 import '../stylesheets/react-spinner.scss';
+import matchService from '../services/match';
 
 class StartMatch extends React.PureComponent {
   constructor(props) {
@@ -34,16 +36,31 @@ class StartMatch extends React.PureComponent {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
       nickname: '',
-      nicknameError : null,
+      nicknameError: null,
+      isRealTime: false,
+      owner: false
     };
   }
 
   componentWillMount() {
     this.props.fetchMatch(this.props.match.params.url);
+    this.getIsRealTime();
+    let owner = JSON.parse(sessionStorage.getItem('owner'));
+    this.setState({ owner: owner });
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  getIsRealTime = () => {
+    matchService.getIsRealTime(this.props.match.params.url)
+    .then((res) => {
+      this.setState({ isRealTime: res.data })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   handleChange(event) {
@@ -51,7 +68,7 @@ class StartMatch extends React.PureComponent {
       document.getElementById('error').innerHTML = '';
     }
     this.setState({
-      nickname: event.target.value
+      nickname: event.target.value.trim()
     });
   }
 
@@ -63,20 +80,27 @@ class StartMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    if (!this.state.nickname) {
-      let error = document.getElementById('error');
-      error.innerHTML = 'Please, enter a nickname';
-      error.style.color = 'red';
-      error.style.fontWeight = 'bold';
-      return;
-    } else {
+    if (this.state.owner && this.state.isRealTime) { 
       const match = this.props.matchData.match;
-      this.props.setPlayer(this.state.nickname);
       this.props.setCurrentMatch(match);
-      if (!match.isRealTime) {
-        this.props.history.push('/answer-question')
+      this.props.history.push(`/lobby`)
+    } else {
+      if (!this.state.nickname) {
+        let error = document.getElementById('error');
+        error.innerHTML = 'Please, enter a nickname';
+        error.style.color = 'red';
+        error.style.fontWeight = 'bold';
+        return;
       } else {
-        this.props.history.push(`/lobby`)
+        const match = this.props.matchData.match;
+        this.props.setPlayer(this.state.nickname);
+        this.props.setCurrentMatch(match);
+        if (!this.state.isRealTime) {
+          this.props.history.push('/answer-question')
+        } else {
+          sessionStorage.setItem('player', JSON.stringify(this.state.nickname));
+          this.props.history.push(`/lobby`)
+        }
       }
     }
   }
@@ -89,7 +113,7 @@ class StartMatch extends React.PureComponent {
       const stop = ranking.length < 5 ? ranking.length : 5;
       while (index < stop) {
         items.push(
-          <tr key={index}>
+          <tr key={ index }>
             <td>{ index + 1 }</td>
             <td>{ ranking[index].user }</td>
             <td>{ ranking[index].points } pts</td>
@@ -125,6 +149,20 @@ class StartMatch extends React.PureComponent {
     document.execCommand('copy', null, null);
   }
 
+  renderButton() {
+    if (this.state.owner && this.state.isRealTime) {
+      return (<Button className='go-to-room-button' onClick={ this.handleClick }>GO TO ROOM</Button>)
+    } else {
+      return (
+        <div className='form-input horizontal long'>
+          <label className='fs-22'>Enter your nickname</label>
+          <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+          <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
+        </div>
+      )
+    }
+  }
+
   render() {
     let component = null;
     if (this.props.matchData.error) {
@@ -148,14 +186,10 @@ class StartMatch extends React.PureComponent {
               { match.game.image ? <img src={ match.game.image } id='previewImage'/> : null }
               <h1 className='game-name'>{ match.game.name }</h1>
             </div>
-            <h3>Mode: { match.isRealTime ? 'Real-Time' : 'Normal' }</h3>
+            <h3>Mode: { this.state.isRealTime ? 'Real-Time' : 'Normal' }</h3>
             <div className='form-container'>
               <form>
-                <div className='form-input horizontal long'>
-                  <label className='fs-22'>Enter your nickname</label>
-                  <input className='fs-16' type='text' placeholder='eg: Pepu' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
-                  <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
-                </div>
+                { this.renderButton() }
                 <p id='error'></p>
               </form>
               <form>
@@ -173,7 +207,7 @@ class StartMatch extends React.PureComponent {
               <h4>{ match.game.description }</h4>
             </Reveal>
           </div>
-          { this.renderRanking() }
+          { (!this.state.isRealTime) ? this.renderRanking() : null}
         </div>
       </div>
     }

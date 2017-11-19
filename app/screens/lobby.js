@@ -9,8 +9,11 @@ import { withRouter } from 'react-router-dom';
 import '../stylesheets/lobby.scss';
 import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
+import '../stylesheets/end-normal-game.scss';
 import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
 import { open, close } from '../redux/actions/ws';
+import matchService from '../services/match';
+import { Button } from 'react-bootstrap';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,9 +34,15 @@ const mapDispatchToProps = (dispatch) => {
 class Lobby extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.startMatch = this.startMatch.bind(this);
+    this.state = {
+      player: ''
+    };
   }
 
   componentWillMount() {
+    let player = JSON.parse(sessionStorage.getItem('player'));
+    this.setState({ player: player });
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
@@ -47,21 +56,67 @@ class Lobby extends React.PureComponent {
     this.props.close();
   }
 
+  startMatch() {
+    if (this.quantityUsers() > 1) {
+      matchService.setStarted(this.props.matchData.match.id)
+      .catch((err) => {
+        console.log(err);
+      });
+      this.props.history.push('/');
+    } else {
+      let error = document.getElementById('error');
+      error.innerHTML = 'There match must have at least 2 players';
+      error.style.color = 'white';
+      error.style.fontWeight = 'bold';
+    }  
+  }
+
+  showStart() {
+    if (this.props.matchData.owner) {
+      return (<Button className='button primary medium' onClick={ this.startMatch }>START</Button>)
+    }
+  }
+
   renderUsers = () => {
     const items = [];
-    this.props.players.map((player, index) => {
-      items.push(
-        <tr key={index}>
-          <td>{ index + 1 }</td>
-          <td>{ player }</td>
-        </tr>
-      );
-    });
+    let i = 0; 
+    if (this.props.players.length > 0) {
+      this.props.players.map((player, index) => {
+        if (player != '') {
+          i = i + 1;
+          items.push(
+            (player === this.state.player) ? (
+              <tr className='current-player' key={ i }>
+                <td>{ i }</td>
+                <td>{ player }</td>
+              </tr>
+            ) : (
+              <tr key={ i }>
+                <td>{ i }</td>
+                <td>{ player }</td>
+              </tr>
+            )
+          );             
+        }
+      });
+    }
     return (
       <table className='table'>
         <tbody>{ items }</tbody>
       </table>
     )
+  }
+
+  quantityUsers = () => {
+    let users = 0; 
+    if (this.props.players.length > 0) {
+      this.props.players.map((player, index) => {
+        if (player != '') {
+          users = users + 1;             
+        }
+      });
+    }
+    return (users)
   }
 
   render() {
@@ -71,18 +126,20 @@ class Lobby extends React.PureComponent {
       this.props.history.push('/answer-question');
     };
     return (
-        <div className='page-match'>
-          <div className='Container' id='client'>
-            <PageHeader className='text-center'>Lobby { match.url }</PageHeader>
-            <div className='game-title'>
-              { match.game.image ? <img src={ match.game.image } className='previewImage'/> : null }
-              <h1 className='game-name'>{ match.game.name }</h1>
-            </div>
-            <h4>Waiting for players...</h4>
-            <h3>In this room: { this.props.players.length }</h3>
-            <h3>{ this.renderUsers() }</h3>
+      <div className='page-match'>
+        <div className='Container' id='client'>
+          <PageHeader className='text-center'>Lobby { match.url }</PageHeader>
+          <div className='game-title'>
+            { match.game.image ? <img src={ match.game.image } className='previewImage'/> : null }
+            <h1 className='game-name'>{ match.game.name }</h1>
           </div>
+          <h4>Waiting for players...</h4>
+          <h3>In this room: { this.quantityUsers() }</h3>
+          <h3>{ this.renderUsers() }</h3>
+          <h3>{ this.showStart() }</h3>
+          <p id='error'></p>
         </div>
+      </div>
     )
   }
 }

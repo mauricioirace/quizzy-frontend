@@ -18,10 +18,13 @@ import {
   SET_PLAYER,
   TIMEOUT,
   REDIRECT_ON,
-  REDIRECT_OFF
+  REDIRECT_OFF,
+  OWNER_ON,
+  OWNER_OFF
 } from '../constants/match';
 
 const initialState = {
+  owner: false,
   redirect: false,
   currentMatch: '',
   match: false,
@@ -182,6 +185,16 @@ export default (state = initialState, action) => {
         ...state,
         redirect: false
       }
+    case OWNER_ON:
+      return {
+        ...state,
+        owner: true
+      }
+    case OWNER_OFF:
+      return {
+        ...state,
+        owner: false
+      }  
     default:
       return state
   }

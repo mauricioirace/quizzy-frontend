@@ -20,6 +20,10 @@ class MatchService extends CrudService {
     return axios.get(`${ this.repository }/${ id }?v=ranking`);
   }
 
+  setStarted(id) {
+    return axios.put(`${ this.repository }/${ id }`, { started: true });
+  }
+  
   getIsRealTime(id) {
     return axios.get(`${ this.repository }/${ id }?v=isReal`);
   }

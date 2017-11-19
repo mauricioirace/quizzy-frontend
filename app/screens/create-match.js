@@ -4,7 +4,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router';
 import { Button, Col, Row, Grid } from 'react-bootstrap';
 import { sortBy } from 'underscore';
-import { createMatch, setCurrentMatch } from '../redux/actions/match';
+import { createMatch, setCurrentMatch, ownerOn } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../../node_modules/react-toggle-switch/dist/css/switch.min.css';
 import { withRouter } from 'react-router-dom';
@@ -18,7 +18,7 @@ import Spinner from '../components/spinner';
 export class CreateMatch extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this); 
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.onSuccess = this.onSuccess.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
@@ -60,11 +60,13 @@ export class CreateMatch extends React.PureComponent {
   }
 
   handleClick(event) {
+    this.props.ownerOn();
     this.props.createMatch(this.getMatch(), this.onSuccess);
   }
 
   onSuccess(currentMatch) {
     this.props.setCurrentMatch(currentMatch);
+    sessionStorage.setItem('owner', JSON.stringify(true));
     this.props.history.push(`/start-match/${ this.props.match.params.url.toLowerCase() }`);
   }
 
@@ -157,7 +159,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createMatch: (match, onSuccess) => dispatch(createMatch(match, onSuccess)),
-    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch))
+    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
+    ownerOn: () => dispatch(ownerOn())
   };
 };
 

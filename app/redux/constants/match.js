@@ -18,3 +18,5 @@ export const SET_PLAYER = 'SET_PLAYER';
 export const SET_PLAYERS = 'SET_PLAYERS';
 export const REDIRECT_ON = 'REDIRECT_ON';
 export const REDIRECT_OFF = 'REDIRECT_OFF';
+export const OWNER_ON = 'OWNER_ON';
+export const OWNER_OFF = 'OWNER_OFF';
