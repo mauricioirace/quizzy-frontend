@@ -68,7 +68,7 @@ class Lobby extends React.PureComponent {
       error.innerHTML = 'The match must have at least 2 players';
       error.style.color = 'white';
       error.style.fontWeight = 'bold';
-    }  
+    }
   }
 
   showStart() {
@@ -79,7 +79,7 @@ class Lobby extends React.PureComponent {
 
   renderUsers = () => {
     const items = [];
-    let i = 0; 
+    let i = 0;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
@@ -96,7 +96,7 @@ class Lobby extends React.PureComponent {
                 <td>{ player }</td>
               </tr>
             )
-          );             
+          );
         }
       });
     }
@@ -108,11 +108,11 @@ class Lobby extends React.PureComponent {
   }
 
   quantityUsers = () => {
-    let users = 0; 
+    let users = 0;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
-          users = users + 1;             
+          users = users + 1;
         }
       });
     }

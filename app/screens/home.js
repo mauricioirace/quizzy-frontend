@@ -193,7 +193,7 @@ export class Home extends React.Component {
                         </Link>
                       </div>
                       <div className='form-input horizontal medium'>
-                        <span className='error-message'> { this.props.matchData.error ? this.props.matchData.error : null } </span>
+                        <span className='error-message-white-bold'> { this.props.matchData.error ? this.props.matchData.error : null } </span>
                       </div>
                     </div>
                   </Reveal>
