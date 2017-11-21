@@ -145,6 +145,7 @@ export const redirectOff = () => {
 };
 
 export const receiveMessageAnswerQuestion = ({ data }) => {
+  console.log(data);
   const msg = JSON.parse(data);
   return (dispatch, getState) => {
     const { status } = getState().matchData.state;
@@ -175,14 +176,16 @@ export const receiveMessageAnswerQuestion = ({ data }) => {
     }
   }
 }
-export const connectRealTimeMatch = (ws) => {
+export const connectRealTimeMatch = ({ target }) => {
+  const ws = target;
+  console.log(ws);
   return (dispatch, getState) => {
-    const { url, totalPlayers, questions } = getState().matchData.match.game;
+    const { url, questions } = getState().matchData.match.game;
     const { player } = getState().matchData.state;
     ws.send(JSON.stringify({
       type: READY_ACTION,
       url,
-      totalPlayers,
+      totalPlayers : 2,
       player,
       correctAnswer: questions[0].correctAnswer
     }));

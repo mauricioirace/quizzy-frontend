@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    open: (endpoint) => dispatch(open(endpoint,(message) => dispatch(receiveMessageAnswerQuestion(message)),(ws) => dispatch(connectRealTimeMatch(ws)))),
+    open: (endpoint) => dispatch(open(endpoint,(message) => dispatch(receiveMessageAnswerQuestion(message)), (ws) => dispatch(connectRealTimeMatch(ws)))),
     close: () => dispatch(close()),
     timeout: () => dispatch(timeout()),
     clearMatchState: () => dispatch(clearMatchState())
