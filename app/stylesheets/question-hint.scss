@@ -1,0 +1,34 @@
+@import '../../assets/styles/variables.scss';
+
+hr.divider { 
+  margin: 0px;
+  border-width: 2px;
+} 
+
+.icon {
+  float: right;
+}
+
+.hint-hidden {  
+  margin-top: 20px;
+  width: 250px; 
+  min-width:250px; 
+  min-height:160px;  
+
+  p {
+    margin-top: 12px;
+    font-size: 13px;
+  } 
+}
+
+.hint {  
+  margin-top: 20px;
+  width: 250px; 
+  min-width:250px; 
+  min-height:110px;  
+
+  p {
+    margin-top: 12px;
+    font-size: 13px;
+  }  
+}

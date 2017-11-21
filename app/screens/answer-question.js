@@ -5,6 +5,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
+import QuestionHint from '../components/question-hint';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout, clearMatchState } from '../redux/actions/match';
 import '../stylesheets/home.scss';
@@ -37,6 +38,9 @@ class AnswerQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onTimeout = this.onTimeout.bind(this);
+    this.showHint = this.showHint.bind(this);
+    this.hideHint = this.hideHint.bind(this);
+    this.state = { hintUsed: false };
   }
 
   componentWillMount() {
@@ -49,6 +53,14 @@ class AnswerQuestion extends React.PureComponent {
   
   onTimeout() {
     this.props.timeout();
+  }
+
+  showHint() {
+    this.setState({ hintUsed: true });
+  }
+
+  hideHint() {
+    this.setState({ hintUsed: false });
   }
 
   render() {
@@ -76,12 +88,24 @@ class AnswerQuestion extends React.PureComponent {
           correct={ matchService.decrypt(question) === answered }
         />
         <Row>
-          <SlideFadeDelayed in={ answered === false  }>
+          <SlideFadeDelayed in={ answered === false }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
-              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
+              <AnswerButtons 
+                answers={ question.answers } 
+                correctAnswer={ question.correctAnswer } 
+                hintUsed={ this.state.hintUsed }
+                hideHint={ this.hideHint }
+                hint={ question.hint }           
+              />
             </Col>
           </SlideFadeDelayed>
         </Row>
+        <QuestionHint 
+          hint={ question.hint } 
+          hintUsed={ this.state.hintUsed } 
+          showHint={ this.showHint } 
+          stop={ answered }
+        />      
       </Grid>
     )
   }

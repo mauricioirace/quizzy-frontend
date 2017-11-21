@@ -22,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    answerQuestion: (correct,answer) => dispatch(answerQuestion(correct,answer)),
+    answerQuestion: (correct, answer, hintUsed) => dispatch(answerQuestion(correct, answer, hintUsed)),
     nextQuestion: () => dispatch(nextQuestion()),
   };
 };
@@ -39,7 +39,7 @@ class AnswerButtons extends React.PureComponent {
   }
 
   onClickAnswer(correct, answer) {
-    this.props.answerQuestion(correct, answer);
+    this.props.answerQuestion(correct, answer, this.props.hintUsed);
   }
 
   waitForNextQuestion() {
@@ -51,13 +51,15 @@ class AnswerButtons extends React.PureComponent {
         this.updateRanking();
       } else {
         this.props.nextQuestion();
+        this.props.hideHint();
       }
     }, 4000);
   }
 
   updateRanking = () => {
     const { id } = this.props.matchData;
-    const { player, score } = this.props.matchState;
+    let { player, score } = this.props.matchState;
+    if (score < 0) score = 0;
     if (player !== '') {
       matchService.rankingInsert(id, player, score)
       .then((res) => {
@@ -76,7 +78,9 @@ class AnswerButtons extends React.PureComponent {
     } else {
       const lenAnswers = this.props.answers.length;
       this.mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
-      shuffle(this.mapping);
+      if (this.props.hint === '') {
+        shuffle(this.mapping);
+      }
     }
 
     const answers = this.props.answers.map((_, oldIndex) => {
@@ -85,14 +89,14 @@ class AnswerButtons extends React.PureComponent {
       const correct = index === matchService.decrypt(this.props.matchData.game.questions[this.props.matchState.question]);
 
       return (
-          <AnswerButton
-            key={ index }
-            id={ index }
-            text={ answer.answer }
-            correct={ correct }
-            onClick={ () => this.onClickAnswer(correct, index) }
-            answered={ answered }
-          />
+        <AnswerButton
+          key={ index }
+          id={ index }
+          text={ answer.answer }
+          correct={ correct }
+          onClick={ () => this.onClickAnswer(correct, index) }
+          answered={ answered }
+        />
       )
     });
     return (
@@ -112,7 +116,10 @@ AnswerButtons.propTypes = {
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
-  nextQuestion: PropTypes.func
+  nextQuestion: PropTypes.func,
+  hintUsed: PropTypes.bool,
+  hideHint: PropTypes.func,
+  hint: PropTypes.string
 };
 
 export default AnswerButtons;

@@ -182,10 +182,11 @@ export const matchNameError = (msg) => ({
   msg
 });
 
-export const answerQuestion = (correct, answer) => ({
+export const answerQuestion = (correct, answer, hintUsed) => ({
   type: ANSWER_QUESTION,
   correct,
-  answer
+  answer,
+  hintUsed
 });
 
 export const timeout = () => ({
