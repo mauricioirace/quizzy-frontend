@@ -11,7 +11,7 @@ import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/end-normal-game.scss';
 import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
-import { open, close } from '../redux/actions/ws';
+import { open, close, send } from '../redux/actions/ws';
 import matchService from '../services/match';
 import { Button } from 'react-bootstrap';
 
@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     open: (endpoint) => dispatch(open(endpoint, (message) => dispatch(receiveMessageRealTime(message)))),
     close: () => dispatch(close()),
+    send: (msg) => dispatch(send(msg)),
     redirectOff: () => dispatch(redirectOff())
   };
 };
@@ -59,16 +60,22 @@ class Lobby extends React.PureComponent {
   startMatch() {
     if (this.quantityUsers() > 1) {
       matchService.setStarted(this.props.matchData.match.id)
+      .then(() => {
+        this.props.send(JSON.stringify([
+            this.props.matchData.match.url,
+            'start'
+          ]));
+          this.props.history.push('/');
+      })
       .catch((err) => {
         console.log(err);
       });
-      this.props.history.push('/');
     } else {
       let error = document.getElementById('error');
       error.innerHTML = 'The match must have at least 2 players';
       error.style.color = 'white';
       error.style.fontWeight = 'bold';
-    }  
+    }
   }
 
   showStart() {
@@ -79,7 +86,7 @@ class Lobby extends React.PureComponent {
 
   renderUsers = () => {
     const items = [];
-    let i = 0; 
+    let i = 0;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
@@ -96,7 +103,7 @@ class Lobby extends React.PureComponent {
                 <td>{ player }</td>
               </tr>
             )
-          );             
+          );
         }
       });
     }
@@ -108,11 +115,11 @@ class Lobby extends React.PureComponent {
   }
 
   quantityUsers = () => {
-    let users = 0; 
+    let users = 0;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
-          users = users + 1;             
+          users = users + 1;
         }
       });
     }
