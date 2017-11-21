@@ -60,16 +60,15 @@ class Lobby extends React.PureComponent {
   startMatch() {
     if (this.quantityUsers() > 1) {
       matchService.setStarted(this.props.matchData.match.id)
-      .then(() => {
-        this.props.send(JSON.stringify([
-            this.props.matchData.match.url,
-            'start'
-          ]));
-          this.props.history.push('/');
-      })
       .catch((err) => {
         console.log(err);
       });
+      this.props.send(JSON.stringify([
+        this.props.matchData.match.url,
+        'start'
+      ]));
+      this.props.history.push('/');
+
     } else {
       let error = document.getElementById('error');
       error.innerHTML = 'The match must have at least 2 players';
