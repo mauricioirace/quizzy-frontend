@@ -6,6 +6,12 @@ export const open = (endpoint, onMessage) => ({
   onMessage
 });
 
+export const send = (msg) => {
+  return (dispatch, getState) => {
+      const ws = getState().wsData.ws;
+      ws.send(msg);
+    }
+  };
 export const close = (players) => ({
   type: CLOSE
 });
