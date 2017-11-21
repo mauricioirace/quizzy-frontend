@@ -59,15 +59,13 @@ class QuestionHint extends React.PureComponent {
   }
 }
 
-// QuestionHint.PropTypes = {
-//   total: PropTypes.number,
-//   onTimeout: PropTypes.func,
-//   correct: PropTypes.bool,
-//   stop: PropTypes.oneOfType([
-//     PropTypes.number,
-//     PropTypes.bool
-//   ]),
-//   seconds: PropTypes.number,
-//   text: PropTypes.string,
-// }
+QuestionHint.PropTypes = {
+  hint: PropTypes.string,
+  hintUsed: PropTypes.bool,
+  showHint: PropTypes.func,
+  stop: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.bool
+  ]),
+}
 export default QuestionHint;

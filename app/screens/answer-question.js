@@ -90,12 +90,21 @@ class AnswerQuestion extends React.PureComponent {
         <Row>
           <SlideFadeDelayed in={ answered === false }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
-              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer } hintUsed={ this.state.hintUsed }
-              hideHint={ this.hideHint }/>
+              <AnswerButtons 
+                answers={ question.answers } 
+                correctAnswer={ question.correctAnswer } 
+                hintUsed={ this.state.hintUsed }
+                hideHint={ this.hideHint }
+                />
             </Col>
           </SlideFadeDelayed>            
         </Row>
-        <QuestionHint hint={ question.hint } hintUsed={ this.state.hintUsed } showHint={ this.showHint } stop={ answered }/>      
+        <QuestionHint 
+          hint={ question.hint } 
+          hintUsed={ this.state.hintUsed } 
+          showHint={ this.showHint } 
+          stop={ answered }
+          />      
       </Grid>
     )
   }
