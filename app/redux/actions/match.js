@@ -156,13 +156,6 @@ export const receiveMessageRealTime = ({ data }) => {
         dispatch(setPlayers(players));
         dispatch(redirectOn());
         ws.close();
-      } else {
-        if (totalPlayers === players.length) {
-          ws.send(JSON.stringify([
-            url,
-            'start'
-          ]));
-        }
       }
       dispatch(setPlayers(players));
     }
