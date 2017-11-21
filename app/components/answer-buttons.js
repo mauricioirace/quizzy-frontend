@@ -118,7 +118,9 @@ AnswerButtons.propTypes = {
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
-  nextQuestion: PropTypes.func
+  nextQuestion: PropTypes.func,
+  hintUsed: PropTypes.bool,
+  hideHint: PropTypes.func
 };
 
 export default AnswerButtons;
