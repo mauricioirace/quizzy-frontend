@@ -9,7 +9,6 @@ import { setCurrentMatch } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
-import '../stylesheets/go-to-room-button.scss';
 import {
   Button,
   Col,
@@ -80,7 +79,7 @@ class StartMatch extends React.PureComponent {
   }
 
   handleClick(event) {
-    if (this.state.owner && this.state.isRealTime) { 
+    if (this.state.owner && this.state.isRealTime) {
       const match = this.props.matchData.match;
       this.props.setCurrentMatch(match);
       this.props.history.push(`/lobby`)
@@ -151,7 +150,7 @@ class StartMatch extends React.PureComponent {
 
   renderButton() {
     if (this.state.owner && this.state.isRealTime) {
-      return (<Button className='go-to-room-button' onClick={ this.handleClick }>GO TO ROOM</Button>)
+      return (<Button className='button primary' onClick={ this.handleClick }>GO TO ROOM</Button>)
     } else {
       return (
         <div className='form-input horizontal long'>
