@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ControlLabel, ButtonToolbar, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Button, ControlLabel, Thumbnail, Col, Grid, Row } from 'react-bootstrap';
+import { SlideFadeDelayed, SlideFadeRight } from './transitions';
+import { Icon } from 'react-fa';
 import '../stylesheets/question-hint.scss';
 
 class QuestionHint extends React.PureComponent {
@@ -8,41 +10,49 @@ class QuestionHint extends React.PureComponent {
     super(props);
   }
 
+  renderHint() {
+    return (
+      <ControlLabel>{ this.props.question.hint }</ControlLabel>
+    )
+  }
+
   render() {
-        
-    const popoverBottom = (
-      <Popover id="popover-positioned-bottom" title="Popover bottom">
-        <strong>Holy guacamole!</strong> Check this info.
-      </Popover>
-    );
-    
-    const popoverRight = (
-      <Popover
-        id="popover-basic"
-        placement="right"
-        title="Popover right"
-      >
-        And here's some <strong>amazing</strong> content. It's very engaging. right?
-      </Popover>
-    );
 
-    if (this.props.question.hint !== '') {
-      return (
-        <div>
-          <Button onClick={ this.props.showHint }>Help!</Button>
-          { this.props.hintUsed ? <ControlLabel>{ this.props.question.hint }</ControlLabel> : null }
-
-          <ButtonToolbar>
-            <OverlayTrigger trigger="click" placement="bottom" overlay={ popoverBottom }>
-              <Button>Holy guacamole!</Button>
-            </OverlayTrigger>
-            <OverlayTrigger trigger="click" placement="right" overlay={ popoverRight }>
-              <Button>Holy guacamole!</Button>
-            </OverlayTrigger>
-          </ButtonToolbar>
-
-        </div>
-      )
+    if (this.props.hint !== '') {
+      if (!this.props.hintUsed) {
+        return (
+          <Grid>
+            <Row>
+              <SlideFadeRight in={ this.props.stop === false }>          
+                <Col xs={6} md={4}>
+                  <Thumbnail className='hint-hidden'>
+                    <h4>Hint available <Icon name='lightbulb-o'/></h4>
+                    <hr className='divider'/>
+                    <p>Keep in mind that you will receive less points if used.</p>
+                    <p><Button bsStyle="primary" onClick={ this.props.showHint }>Show me the hint!</Button></p>
+                  </Thumbnail>
+                </Col>
+              </SlideFadeRight>
+            </Row>
+          </Grid>
+        )
+      } else {
+        return (
+          <Grid>
+            <Row>
+              <SlideFadeRight in={ this.props.stop === false }>          
+                <Col xs={6} md={4}>
+                  <Thumbnail className='hint'>
+                    <h4>Good luck!</h4>
+                    <hr className='divider'/>                    
+                    <p>Hint: <i>{ this.props.hint }</i></p>                   
+                  </Thumbnail>
+                </Col>
+              </SlideFadeRight>
+            </Row>
+          </Grid>
+        )
+      }
     } else {
       return null
     }

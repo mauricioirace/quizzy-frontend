@@ -75,25 +75,23 @@ class AnswerQuestion extends React.PureComponent {
           percent={ 100 * (questionIndex) / totalQuestions }
           color={ PROGRESS_COLOR }
           height={ PROGRESS_HEIGHT }
-        />
+          />
         <QuestionHeader
           seconds={ TIME_TO_ANSWER }
           onTimeout={ this.onTimeout }
           text={ question.text }
           stop={ answered }
           correct={ matchService.decrypt(question) === answered }
-        />
+          />
         <Row>
-          <SlideFadeDelayed in={ answered === false  }>
+          <SlideFadeDelayed in={ answered === false }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
               <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer } hintUsed={ this.state.hintUsed }
               hideHint={ this.hideHint }/>
             </Col>
-          </SlideFadeDelayed>
+          </SlideFadeDelayed>            
         </Row>
-
-        <QuestionHint question={ question } hintUsed={ this.state.hintUsed } showHint={ this.showHint }/>
-
+        <QuestionHint hint={ question.hint } hintUsed={ this.state.hintUsed } showHint={ this.showHint } stop={ answered }/>      
       </Grid>
     )
   }
