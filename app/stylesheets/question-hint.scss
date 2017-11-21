@@ -1,9 +1,32 @@
 @import '../../assets/styles/variables.scss';
 
-.hint {  
-  height: 10px;
+hr.divider { 
+  margin: 0px;
+  border-width: 2px;
+} 
+
+.hint-hidden {  
+  margin-top: 20px;
+
+  width: 250px; 
+  min-width:250px; 
+  min-height:160px;  
+
+  p {
+    margin-top: 10px;
+    font-size: 13px;
+  }
 }
 
-#popover-positioned-right {  
-  height: 10px;
+.hint {  
+  margin-top: 20px;
+
+  width: 250px; 
+  min-width:250px; 
+  min-height:110px;  
+
+  p {
+    margin-top: 10px;
+    font-size: 13px;
+  }
 }
