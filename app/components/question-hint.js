@@ -10,14 +10,7 @@ class QuestionHint extends React.PureComponent {
     super(props);
   }
 
-  renderHint() {
-    return (
-      <ControlLabel>{ this.props.question.hint }</ControlLabel>
-    )
-  }
-
   render() {
-
     if (this.props.hint !== '') {
       if (!this.props.hintUsed) {
         return (

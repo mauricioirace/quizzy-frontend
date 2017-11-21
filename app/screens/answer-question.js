@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AnswerButtons from '../components/answer-buttons';
-import { Col, Grid, Row, Button, ControlLabel } from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
@@ -71,7 +71,7 @@ class AnswerQuestion extends React.PureComponent {
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
-    const answered = this.props.matchState.answer;    
+    const answered = this.props.matchState.answer;
 
     return (
       <Grid>
@@ -79,14 +79,14 @@ class AnswerQuestion extends React.PureComponent {
           percent={ 100 * (questionIndex) / totalQuestions }
           color={ PROGRESS_COLOR }
           height={ PROGRESS_HEIGHT }
-          />
+        />
         <QuestionHeader
           seconds={ TIME_TO_ANSWER }
           onTimeout={ this.onTimeout }
           text={ question.text }
           stop={ answered }
           correct={ matchService.decrypt(question) === answered }
-          />
+        />
         <Row>
           <SlideFadeDelayed in={ answered === false }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
@@ -95,16 +95,17 @@ class AnswerQuestion extends React.PureComponent {
                 correctAnswer={ question.correctAnswer } 
                 hintUsed={ this.state.hintUsed }
                 hideHint={ this.hideHint }
-                />
+                hint={ question.hint }           
+              />
             </Col>
-          </SlideFadeDelayed>            
+          </SlideFadeDelayed>
         </Row>
         <QuestionHint 
           hint={ question.hint } 
           hintUsed={ this.state.hintUsed } 
           showHint={ this.showHint } 
           stop={ answered }
-          />      
+        />      
       </Grid>
     )
   }
