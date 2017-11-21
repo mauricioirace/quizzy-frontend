@@ -32,7 +32,6 @@ const mapDispatchToProps = dispatch => {
 @withRouter
 class AnswerButtons extends React.PureComponent {
   mapping;
-  firstRender = true;
 
   constructor(props) {
     super(props);
@@ -51,7 +50,6 @@ class AnswerButtons extends React.PureComponent {
       if (next >= total) {
         this.updateRanking();
       } else {
-        this.firstRender = true;
         this.props.nextQuestion();
         this.props.hideHint();
       }
@@ -60,7 +58,8 @@ class AnswerButtons extends React.PureComponent {
 
   updateRanking = () => {
     const { id } = this.props.matchData;
-    const { player, score } = this.props.matchState;
+    let { player, score } = this.props.matchState;
+    if (score < 0) score = 0;
     if (player !== '') {
       matchService.rankingInsert(id, player, score)
       .then((res) => {
@@ -78,9 +77,8 @@ class AnswerButtons extends React.PureComponent {
       this.waitForNextQuestion();
     } else {
       const lenAnswers = this.props.answers.length;
-      if (this.firstRender) {
-        this.firstRender = false;
-        this.mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
+      this.mapping = [ ...Array(lenAnswers).keys() ]; // array from 0 to lenAnswers - 1
+      if (this.props.hint === '') {
         shuffle(this.mapping);
       }
     }

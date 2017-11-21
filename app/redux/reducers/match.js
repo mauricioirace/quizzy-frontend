@@ -101,8 +101,8 @@ export default (state = initialState, action) => {
         }
       }
 
-      if (action.hintUsed && score > 0) {
-        score -= 100;          
+      if (action.hintUsed) {
+        score -= 100;
       }
 
       return {
