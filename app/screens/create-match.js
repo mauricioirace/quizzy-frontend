@@ -139,6 +139,7 @@ CreateMatch.propTypes = {
   currentMatch: PropTypes.string,
   createMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
+  ownerOn: PropTypes.func,
   history: ReactRouterPropTypes.history,
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match

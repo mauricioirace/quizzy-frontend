@@ -1,5 +1,7 @@
 import {
   SET_PLAYERS,
+  CLEAN_PLAYERS,
+  CLEAN_PLAYER,
   CLEAR_MATCH_STATE,
   LOAD_CURRENT_MATCH,
   REMOVE_CURRENT_MATCH,
@@ -194,7 +196,23 @@ export default (state = initialState, action) => {
       return {
         ...state,
         owner: false
-      }  
+      }
+    case CLEAN_PLAYERS:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          players: []
+        }
+      }
+    case CLEAN_PLAYER:
+      return {
+        ...state,
+        state: {
+          ...state.state,
+          player: ''
+        }
+      }
     default:
       return state
   }

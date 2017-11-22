@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { setPlayer, fetchMatch } from '../redux/actions/match';
+import { setPlayer, fetchMatch, setCurrentMatch, cleanPlayers } from '../redux/actions/match';
 import { connect } from 'react-redux';
-import { setCurrentMatch } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
@@ -82,6 +81,7 @@ class StartMatch extends React.PureComponent {
     if (this.state.owner && this.state.isRealTime) {
       const match = this.props.matchData.match;
       this.props.setCurrentMatch(match);
+      this.props.cleanPlayers();
       this.props.history.push(`/lobby`)
     } else {
       if (!this.state.nickname) {
@@ -98,6 +98,7 @@ class StartMatch extends React.PureComponent {
           this.props.history.push('/answer-question')
         } else {
           sessionStorage.setItem('player', JSON.stringify(this.state.nickname));
+          this.props.cleanPlayers();
           this.props.history.push(`/lobby`)
         }
       }
@@ -221,7 +222,8 @@ StartMatch.propTypes = {
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
   fetchMatch: PropTypes.func,
-  setCurrentMatch: PropTypes.func
+  setCurrentMatch: PropTypes.func,
+  cleanPlayers: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -235,6 +237,7 @@ const mapDispatchToProps = (dispatch) => {
     setPlayer: (nickname) => dispatch(setPlayer(nickname)),
     fetchMatch: (match) => dispatch(fetchMatch(match)),
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
+    cleanPlayers: (currentMatch) => dispatch(cleanPlayers()),
   };
 };
 

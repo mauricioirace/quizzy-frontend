@@ -10,7 +10,7 @@ import '../stylesheets/lobby.scss';
 import '../stylesheets/create-match.scss';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/end-normal-game.scss';
-import { receiveMessageRealTime, redirectOff } from '../redux/actions/match';
+import { receiveMessageRealTime, redirectOff, cleanPlayer } from '../redux/actions/match';
 import { open, close, send } from '../redux/actions/ws';
 import matchService from '../services/match';
 import { Button } from 'react-bootstrap';
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
   return {
     matchData: state.matchData,
     player: state.matchData.state.player,
-    players: state.matchData.state.players
+    players: state.matchData.state.players,
   };
 };
 
@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
     open: (endpoint) => dispatch(open(endpoint, (message) => dispatch(receiveMessageRealTime(message)))),
     close: () => dispatch(close()),
     send: (msg) => dispatch(send(msg)),
-    redirectOff: () => dispatch(redirectOff())
+    redirectOff: () => dispatch(redirectOff()),
+    cleanPlayer: () => dispatch(cleanPlayer()),
   };
 };
 
@@ -37,13 +38,18 @@ class Lobby extends React.PureComponent {
     super(props);
     this.startMatch = this.startMatch.bind(this);
     this.state = {
-      player: ''
+      player: '',
+      owner: false
     };
   }
 
   componentWillMount() {
-    let player = JSON.parse(sessionStorage.getItem('player'));
-    this.setState({ player: player });
+    let owner = JSON.parse(sessionStorage.getItem('owner'));
+    this.setState({ owner: owner });
+    if (!owner) {
+      let player = JSON.parse(sessionStorage.getItem('player'));
+      this.setState({ player: player });
+    }
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
@@ -55,6 +61,8 @@ class Lobby extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.close();
+    this.props.cleanPlayer();
+    sessionStorage.setItem('player', JSON.stringify(''));  
   }
 
   startMatch() {
@@ -68,7 +76,6 @@ class Lobby extends React.PureComponent {
         'start'
       ]));
       this.props.history.push('/');
-
     } else {
       let error = document.getElementById('error');
       error.innerHTML = 'The match must have at least 2 players';
@@ -78,7 +85,7 @@ class Lobby extends React.PureComponent {
   }
 
   showStart() {
-    if (this.props.matchData.owner) {
+    if (this.state.owner) {
       return (<Button className='button primary medium' onClick={ this.startMatch }>START</Button>)
     }
   }
@@ -159,6 +166,9 @@ Lobby.propTypes = {
   players: PropTypes.array,
   open: PropTypes.func,
   close: PropTypes.func,
+  send: PropTypes.func,
+  redirectOff: PropTypes.func
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Lobby));

@@ -21,7 +21,9 @@ import {
   REDIRECT_ON,
   REDIRECT_OFF,
   OWNER_ON,
-  OWNER_OFF
+  OWNER_OFF,
+  CLEAN_PLAYERS,
+  CLEAN_PLAYER
 } from '../constants/match';
 
 export const loadCurrentMatch = (input) => {
@@ -205,5 +207,17 @@ export const ownerOn = () => {
 export const ownerOff = () => {
   return {
     type: OWNER_OFF
+  }
+};
+
+export const cleanPlayers = () => {
+  return {
+    type: CLEAN_PLAYERS
+  }
+};
+
+export const cleanPlayer = () => {
+  return {
+    type: CLEAN_PLAYER
   }
 };
