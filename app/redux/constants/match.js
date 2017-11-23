@@ -20,3 +20,5 @@ export const REDIRECT_ON = 'REDIRECT_ON';
 export const REDIRECT_OFF = 'REDIRECT_OFF';
 export const OWNER_ON = 'OWNER_ON';
 export const OWNER_OFF = 'OWNER_OFF';
+export const CLEAN_PLAYERS = 'CLEAN_PLAYERS';
+export const CLEAN_PLAYER = 'CLEAN_PLAYER';
