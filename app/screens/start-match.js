@@ -29,6 +29,7 @@ import matchService from '../services/match';
 class StartMatch extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.showStarted = this.showStarted.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -49,6 +50,12 @@ class StartMatch extends React.PureComponent {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  showStarted() {
+    if (this.props.matchData.match.started === true && this.props.matchData.match.isRealTime === true) {
+      this.props.history.push('/end-normal-game/' + this.props.matchData.match.id + '/fulano/-1');
+    }
   }
 
   getIsRealTime = () => {
@@ -164,6 +171,7 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
+    this.showStarted();
     let component = null;
     if (this.props.matchData.error) {
       component = <div>Could not get the match from the server :(</div>
