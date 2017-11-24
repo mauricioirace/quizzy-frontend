@@ -61,7 +61,7 @@ class Lobby extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.close();
-    this.props.cleanPlayer();
+    // this.props.cleanPlayer();
     sessionStorage.setItem('player', JSON.stringify(''));  
   }
 
