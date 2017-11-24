@@ -90,23 +90,25 @@ class Lobby extends React.PureComponent {
   renderUsers = () => {
     const items = [];
     let i = 0;
+    let highlighted = false;
+    let element = null;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
           i = i + 1;
-          items.push(
-            (player === this.state.player) ? (
-              <tr className='current-player' key={ i }>
-                <td>{ i }</td>
-                <td>{ player }</td>
-              </tr>
-            ) : (
-              <tr key={ i }>
-                <td>{ i }</td>
-                <td>{ player }</td>
-              </tr>
-            )
-          );
+          if (player === this.state.player && !highlighted) {
+            highlighted = true;
+            element = <tr className='current-player' key={ i }>
+                        <td>{ i }</td>
+                        <td>{ player }</td>
+                      </tr>
+          } else {
+            element = <tr key={ i }>
+                        <td>{ i }</td>
+                        <td>{ player }</td>
+                      </tr>
+          }
+          items.push(element);
         }
       });
     }
