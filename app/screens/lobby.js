@@ -46,10 +46,8 @@ class Lobby extends React.PureComponent {
   componentWillMount() {
     let owner = JSON.parse(sessionStorage.getItem('owner'));
     this.setState({ owner: owner });
-    if (!owner) {
-      let player = JSON.parse(sessionStorage.getItem('player'));
-      this.setState({ player: player });
-    }
+    let player = JSON.parse(sessionStorage.getItem('player'));
+    this.setState({ player: player });
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
@@ -61,7 +59,6 @@ class Lobby extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.close();
-    // this.props.cleanPlayer();
     sessionStorage.setItem('player', JSON.stringify(''));  
   }
 
