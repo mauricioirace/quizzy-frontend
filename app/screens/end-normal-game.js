@@ -20,6 +20,7 @@ class EndNormalGame extends React.PureComponent {
     this.renderRanking = this.renderRanking.bind(this);
     this.renderHeaderRanking = this.renderHeaderRanking.bind(this);
     this.isUser = this.isUser.bind(this);
+    this.showTitle = this.showTitle.bind(this);
     this.userPosition = -1;
     this.id = this.props.match.params.id;
     this.player = this.props.match.params.player;
@@ -33,6 +34,10 @@ class EndNormalGame extends React.PureComponent {
   componentWillMount() {
     this.getRanking();
     this.getIsRealTime();
+  }
+
+  componentWillUnMount() {
+    this.userPosition = -1;		
   }
 
   getRanking = () => {
@@ -87,12 +92,8 @@ class EndNormalGame extends React.PureComponent {
     if (lastIndex >= 0) {
       let first;
       let until;
-      let userPosition = this.state.ranking.findIndex(this.isUser);
-      if (userPosition === -1) {
-        userPosition = this.state.ranking.length;
-      }
-      this.userPosition = userPosition;
-      if (this.state.isRealTime === true) {
+      this.userPosition = this.state.ranking.findIndex(this.isUser);
+      if (this.state.isRealTime) {
         //in real time show complete ranking
         first = 0; 
         until = lastIndex;
@@ -103,7 +104,7 @@ class EndNormalGame extends React.PureComponent {
           until = lastIndex;
         } else {
           //if current user is in first place or second one
-          if (this.userPosition === 0 || this.userPosition === 1) {
+          if (this.userPosition <= 0 || this.userPosition === 1) {
             //show 5 starting from 0
             first = 0;
             until = 4;
@@ -141,11 +142,21 @@ class EndNormalGame extends React.PureComponent {
     );
   }
 
+  showTitle() {
+	return (
+	  (this.score < 0) ? (
+	    <h1>Watch the end of the game!</h1>
+	  ) : (
+	    <h1>Your final score is { this.score }!</h1>
+	  )
+	)    		
+  }
+
   render() {
     return (
       <div className='container'>
         <Jumbotron className='margin-jumbotron'>
-          <h1>Your final score is { this.score }!</h1>
+          { this.showTitle() }
         </Jumbotron>
         <h2>Leaderboard</h2>
         <Table responsive>

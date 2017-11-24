@@ -46,10 +46,8 @@ class Lobby extends React.PureComponent {
   componentWillMount() {
     let owner = JSON.parse(sessionStorage.getItem('owner'));
     this.setState({ owner: owner });
-    if (!owner) {
-      let player = JSON.parse(sessionStorage.getItem('player'));
-      this.setState({ player: player });
-    }
+    let player = JSON.parse(sessionStorage.getItem('player'));
+    this.setState({ player: player });
     const HOST = process.env.API_HOST;
     const PORT = process.env.API_PORT;
     this.props.open(`ws://${HOST}:${PORT}/realusers`);
@@ -61,7 +59,6 @@ class Lobby extends React.PureComponent {
 
   componentWillUnmount() {
     this.props.close();
-    this.props.cleanPlayer();
     sessionStorage.setItem('player', JSON.stringify(''));  
   }
 
@@ -75,7 +72,7 @@ class Lobby extends React.PureComponent {
         this.props.matchData.match.url,
         'start'
       ]));
-      this.props.history.push('/');
+      this.props.history.push(`/end-normal-game/${ this.props.matchData.match.id }/fulano/-1`);
     } else {
       let error = document.getElementById('error');
       error.innerHTML = 'The match must have at least 2 players';
@@ -93,23 +90,25 @@ class Lobby extends React.PureComponent {
   renderUsers = () => {
     const items = [];
     let i = 0;
+    let highlighted = false;
+    let element = null;
     if (this.props.players.length > 0) {
       this.props.players.map((player, index) => {
         if (player != '') {
           i = i + 1;
-          items.push(
-            (player === this.state.player) ? (
-              <tr className='current-player' key={ i }>
-                <td>{ i }</td>
-                <td>{ player }</td>
-              </tr>
-            ) : (
-              <tr key={ i }>
-                <td>{ i }</td>
-                <td>{ player }</td>
-              </tr>
-            )
-          );
+          if (player === this.state.player && !highlighted) {
+            highlighted = true;
+            element = <tr className='current-player' key={ i }>
+                        <td>{ i }</td>
+                        <td>{ player }</td>
+                      </tr>
+          } else {
+            element = <tr key={ i }>
+                        <td>{ i }</td>
+                        <td>{ player }</td>
+                      </tr>
+          }
+          items.push(element);
         }
       });
     }
