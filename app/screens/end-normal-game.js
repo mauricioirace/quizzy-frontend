@@ -37,7 +37,7 @@ class EndNormalGame extends React.PureComponent {
   }
 
   componentWillUnMount() {
-  	this.userPosition = -1;		
+    this.userPosition = -1;		
   }
 
   getRanking = () => {
