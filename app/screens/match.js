@@ -37,9 +37,12 @@ export class Match extends React.PureComponent {
       );
     } else if (matchData.error ) {
       return <CreateGame/>;
-    } else if (matchData.match) {
+    } else if (matchData.match.started === false) {
       this.props.setCurrentMatch(this.props.matchData.match);
       this.props.history.push(`/start-match/${ this.props.matchData.match.url }`);
+    } else if (matchData.match.started === true) {
+      this.props.setCurrentMatch(this.props.matchData.match);
+      this.props.history.push(`/end-normal-game/${ this.props.matchData.match.id }/fulano/-1`);
     }
     return (<div></div>);
   }

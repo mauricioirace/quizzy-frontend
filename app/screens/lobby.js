@@ -75,7 +75,7 @@ class Lobby extends React.PureComponent {
         this.props.matchData.match.url,
         'start'
       ]));
-      this.props.history.push('/');
+      this.props.history.push(`/end-normal-game/${ this.props.matchData.match.id }/fulano/-1`);
     } else {
       let error = document.getElementById('error');
       error.innerHTML = 'The match must have at least 2 players';

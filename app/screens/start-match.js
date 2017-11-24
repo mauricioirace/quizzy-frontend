@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { setPlayer, fetchMatch, setCurrentMatch, cleanPlayers } from '../redux/actions/match';
+import { setPlayer, fetchMatch, setCurrentMatch, cleanPlayers, cleanPlayer } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -29,6 +29,7 @@ import matchService from '../services/match';
 class StartMatch extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.started = this.started.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -61,6 +62,13 @@ class StartMatch extends React.PureComponent {
     });
   }
 
+  started() {
+    if (this.props.matchData.match.started) {
+      this.props.setCurrentMatch(this.props.matchData.match);
+      this.props.history.push(`/end-normal-game/${ this.props.matchData.match.id }/fulano/-1`);
+    }
+  }
+
   handleChange(event) {
     if (event.target.value !== ''){
       document.getElementById('error').innerHTML = '';
@@ -81,6 +89,7 @@ class StartMatch extends React.PureComponent {
     if (this.state.owner && this.state.isRealTime) {
       const match = this.props.matchData.match;
       this.props.setCurrentMatch(match);
+      this.props.cleanPlayer();
       this.props.cleanPlayers();
       this.props.history.push(`/lobby`)
     } else {
@@ -164,6 +173,7 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
+    this.started();
     let component = null;
     if (this.props.matchData.error) {
       component = <div>Could not get the match from the server :(</div>
@@ -223,7 +233,8 @@ StartMatch.propTypes = {
   match: ReactRouterPropTypes.match,
   fetchMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
-  cleanPlayers: PropTypes.func
+  cleanPlayers: PropTypes.func,
+  cleanPlayer: PropTypes.func
 }
 
 const mapStateToProps = state => {
@@ -238,6 +249,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchMatch: (match) => dispatch(fetchMatch(match)),
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
     cleanPlayers: (currentMatch) => dispatch(cleanPlayers()),
+    cleanPlayer: (currentMatch) => dispatch(cleanPlayer()),
   };
 };
 
