@@ -18,16 +18,11 @@ class QuestionHint extends React.PureComponent {
             <Row>
               <SlideFadeRight in={ this.props.stop === false }>          
                 <Col xs={6} md={4}>
-                  <Thumbnail className='hint-hidden'>
-                    <h4>Hint available <Icon name='lightbulb-o' className='icon'/></h4>
-                    <hr className='divider'/>
-                    <p>Keep in mind that you will receive less points if used.</p>
-                    <p>
-                      <Button bsStyle="primary" onClick={ this.props.showHint } disabled={ this.props.stop !== false }>
-                        Show me the hint!
-                      </Button>
-                    </p>
-                  </Thumbnail>
+                  { this.props.stop !== false ? null 
+                  : <Thumbnail className='hint-hidden'>
+                      <h4>Hint available <Icon name='lightbulb-o' className='icon' id='arAnswer' onClick={ this.props.showHint }/></h4> 
+                    </Thumbnail>
+                  }
                 </Col>
               </SlideFadeRight>
             </Row>
@@ -37,12 +32,10 @@ class QuestionHint extends React.PureComponent {
         return (
           <Grid>
             <Row>
-              <SlideFadeRight in={ this.props.stop === false }>          
+              <SlideFadeRight in={ this.props.stop === false }>
                 <Col xs={6} md={4}>
                   <Thumbnail className='hint'>
-                    <h4>Good luck! <Icon name='lightbulb-o' className='icon'/></h4>
-                    <hr className='divider'/>                    
-                    <p>Hint: <i>{ this.props.hint }</i></p>                   
+                    <h4>Hint: <i>{ this.props.hint }</i></h4>
                   </Thumbnail>
                 </Col>
               </SlideFadeRight>
