@@ -40,13 +40,12 @@ class AnswerQuestion extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.props.clearMatchState();
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-  
+
   onTimeout() {
     this.props.timeout();
   }
@@ -54,8 +53,8 @@ class AnswerQuestion extends React.PureComponent {
   render() {
     if (!this.props.matchData) {
       this.props.history.push('/');
-      return <Spinner/>;
     }
+
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];

@@ -145,7 +145,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: false
-      }
+      };
     case CLEAR_MATCH_STATE:
       return {
         ...state,
@@ -155,12 +155,12 @@ export default (state = initialState, action) => {
           score: 0,
           answer: false
         }
-      }
+      };
     case UPDATE_MATCH:
       return {
         ...state,
         match: action.match
-      }
+      };
     case SET_PLAYER:
       return {
         ...state,
@@ -168,7 +168,7 @@ export default (state = initialState, action) => {
           ...state.state,
           player: action.player
         }
-      }
+      };
     case SET_PLAYERS:
       return {
         ...state,
@@ -176,27 +176,27 @@ export default (state = initialState, action) => {
           ...state.state,
           players: action.players
         }
-      }
+      };
     case REDIRECT_ON:
       return {
         ...state,
         redirect: true
-      }
+      };
     case REDIRECT_OFF:
       return {
         ...state,
         redirect: false
-      }
+      };
     case OWNER_ON:
       return {
         ...state,
         owner: true
-      }
+      };
     case OWNER_OFF:
       return {
         ...state,
         owner: false
-      }
+      };
     case CLEAN_PLAYERS:
       return {
         ...state,
@@ -204,7 +204,7 @@ export default (state = initialState, action) => {
           ...state.state,
           players: []
         }
-      }
+      };
     case CLEAN_PLAYER:
       return {
         ...state,
@@ -212,8 +212,8 @@ export default (state = initialState, action) => {
           ...state.state,
           player: ''
         }
-      }
+      };
     default:
-      return state
-  }
+      return state;
+  };
 }

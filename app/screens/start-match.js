@@ -5,6 +5,7 @@ import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
 import { setPlayer, fetchMatch, setCurrentMatch, cleanPlayers, cleanPlayer } from '../redux/actions/match';
 import { connect } from 'react-redux';
+import { setCurrentMatch, clearMatchState } from '../redux/actions/match';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
 import '../stylesheets/create-match.scss';
@@ -42,6 +43,7 @@ class StartMatch extends React.PureComponent {
   }
 
   componentWillMount() {
+    this.props.clearMatchState();
     this.props.fetchMatch(this.props.match.params.url);
     this.getIsRealTime();
     let owner = JSON.parse(sessionStorage.getItem('owner'));
@@ -250,6 +252,7 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
     cleanPlayers: (currentMatch) => dispatch(cleanPlayers()),
     cleanPlayer: (currentMatch) => dispatch(cleanPlayer()),
+    clearMatchState: () => dispatch(clearMatchState())
   };
 };
 
