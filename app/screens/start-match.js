@@ -235,6 +235,7 @@ StartMatch.propTypes = {
   fetchMatch: PropTypes.func,
   setCurrentMatch: PropTypes.func,
   cleanPlayers: PropTypes.func,
+  clearMatchState: PropTypes.func,
   cleanPlayer: PropTypes.func
 }
 
