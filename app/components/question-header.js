@@ -66,7 +66,7 @@ class QuestionHeader extends React.PureComponent {
             <Col sm={ 4 } xs={ 12 }>
               <PageHeader className='text-center'>{ this.props.text }</PageHeader>
             </Col>
-          </SlideFadeDelayed>
+          </SlideFadeDelayed>                    
         </Row>
         <Row>
           <Col smHidden mdHidden lgHidden>

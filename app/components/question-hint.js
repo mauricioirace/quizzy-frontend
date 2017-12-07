@@ -14,33 +14,18 @@ class QuestionHint extends React.PureComponent {
     if (this.props.hint !== '') {
       if (!this.props.hintUsed) {
         return (
-          <Grid>
-            <Row>
-              <SlideFadeRight in={ this.props.stop === false }>          
-                <Col xs={6} md={4}>
-                  { this.props.stop !== false ? null 
-                  : <Thumbnail className='hint-hidden'>
-                      <h4>Hint available <Icon name='lightbulb-o' className='icon' id='arAnswer' onClick={ this.props.showHint }/></h4> 
-                    </Thumbnail>
-                  }
-                </Col>
-              </SlideFadeRight>
-            </Row>
-          </Grid>
+          <div className='hint'>
+            { this.props.stop !== false 
+              ? null 
+              : <h4 id='arAnswer' onClick={ this.props.showHint }>Hint available <Icon name='lightbulb-o' className='icon'  /></h4> 
+            }
+          </div>
         )
       } else {
         return (
-          <Grid>
-            <Row>
-              <SlideFadeRight in={ this.props.stop === false }>
-                <Col xs={6} md={4}>
-                  <Thumbnail className='hint'>
-                    <h4>Hint: <i>{ this.props.hint }</i></h4>
-                  </Thumbnail>
-                </Col>
-              </SlideFadeRight>
-            </Row>
-          </Grid>
+          <div className='hint'>
+            <h4>Hint: <i>{ this.props.hint }</i></h4>
+          </div>
         )
       }
     } else {

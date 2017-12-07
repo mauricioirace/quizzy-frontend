@@ -6,34 +6,17 @@ hr.divider {
 } 
 
 .icon {
-  float: right;
-  
   #arAnswer:hover {
     cursor: pointer;
     color: $primary-color;
   }  
 }
 
-.hint-hidden {  
-  margin-top: 20px;
-  width: 150px;
-  min-width: 250px;
-  min-height: 50px;
-
-  p {
-    margin-top: 12px;
-    font-size: 13px;
-  } 
-}
-
 .hint {  
   margin-top: 20px;
-  width: 150px; 
-  min-width: 250px; 
-  min-height: 50px;  
+  text-align: center;  
 
-  p {
-    margin-top: 12px;
-    font-size: 13px;
+  h4 {
+    font-size: 15px;
   }  
 }

@@ -12,6 +12,7 @@ import { SlideFadeLeft } from '../components/transitions';
 import shuffle from 'shuffle-array';
 import PropTypes from 'prop-types';
 import matchService from '../services/match';
+import QuestionHint from '../components/question-hint';
 
 const mapStateToProps = state => {
   return {
@@ -36,10 +37,13 @@ class AnswerButtons extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onClickAnswer = this.onClickAnswer.bind(this);
+    this.showHint = this.showHint.bind(this);
+    this.hideHint = this.hideHint.bind(this);
+    this.state = { hintUsed: false };        
   }
 
   onClickAnswer(correct, answer) {
-    this.props.answerQuestion(correct, answer, this.props.hintUsed);
+    this.props.answerQuestion(correct, answer, this.state.hintUsed);
   }
 
   waitForNextQuestion() {
@@ -51,7 +55,7 @@ class AnswerButtons extends React.PureComponent {
         this.updateRanking();
       } else {
         this.props.nextQuestion();
-        this.props.hideHint();
+        this.hideHint();
       }
     }, 4000);
   }
@@ -71,6 +75,14 @@ class AnswerButtons extends React.PureComponent {
     }
   }
 
+  showHint() {
+    this.setState({ hintUsed: true });
+  }
+
+  hideHint() {
+    this.setState({ hintUsed: false });
+  }
+
   render() {
     const answered = this.props.matchState.answer;
     if(answered !== false) {
@@ -87,7 +99,6 @@ class AnswerButtons extends React.PureComponent {
       const index = this.mapping[oldIndex];
       const answer = this.props.answers[index];
       const correct = index === matchService.decrypt(this.props.matchData.game.questions[this.props.matchState.question]);
-
       return (
         <AnswerButton
           key={ index }
@@ -102,6 +113,13 @@ class AnswerButtons extends React.PureComponent {
     return (
       <ButtonGroup vertical block>
         { answers }
+
+        <QuestionHint 
+          hint={ this.props.hint } 
+          hintUsed={ this.state.hintUsed } 
+          showHint={ this.showHint } 
+          stop={ this.props.stop }
+        />   
       </ButtonGroup>
     )
   }

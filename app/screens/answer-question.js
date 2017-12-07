@@ -38,9 +38,6 @@ class AnswerQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onTimeout = this.onTimeout.bind(this);
-    this.showHint = this.showHint.bind(this);
-    this.hideHint = this.hideHint.bind(this);
-    this.state = { hintUsed: false };
   }
 
   componentDidMount() {
@@ -49,14 +46,6 @@ class AnswerQuestion extends React.PureComponent {
 
   onTimeout() {
     this.props.timeout();
-  }
-
-  showHint() {
-    this.setState({ hintUsed: true });
-  }
-
-  hideHint() {
-    this.setState({ hintUsed: false });
   }
 
   render() {
@@ -89,19 +78,13 @@ class AnswerQuestion extends React.PureComponent {
               <AnswerButtons 
                 answers={ question.answers } 
                 correctAnswer={ question.correctAnswer } 
-                hintUsed={ this.state.hintUsed }
                 hideHint={ this.hideHint }
-                hint={ question.hint }           
+                hint={ question.hint }    
+                stop={ answered }          
               />
             </Col>
           </SlideFadeDelayed>
-        </Row>
-        <QuestionHint 
-          hint={ question.hint } 
-          hintUsed={ this.state.hintUsed } 
-          showHint={ this.showHint } 
-          stop={ answered }
-        />      
+        </Row>  
       </Grid>
     )
   }
