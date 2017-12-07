@@ -6,7 +6,7 @@ import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { fetchMatch, removeCurrentMatch, timeout, clearMatchState } from '../redux/actions/match';
+import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
 import { TIME_TO_ANSWER, PROGRESS_HEIGHT, PROGRESS_COLOR } from '../constants/match';
 import { SlideFadeDelayed } from '../components/transitions';
@@ -39,14 +39,10 @@ class AnswerQuestion extends React.PureComponent {
     this.onTimeout = this.onTimeout.bind(this);
   }
 
-  componentWillMount() {
-    this.props.clearMatchState();
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
   }
-  
+
   onTimeout() {
     this.props.timeout();
   }
@@ -54,8 +50,8 @@ class AnswerQuestion extends React.PureComponent {
   render() {
     if (!this.props.matchData) {
       this.props.history.push('/');
-      return <Spinner/>;
     }
+
     const totalQuestions = this.props.matchData.game.questions.length;
     const questionIndex = this.props.matchState.question;
     const question = this.props.matchData.game.questions[questionIndex];
@@ -93,7 +89,6 @@ AnswerQuestion.propTypes = {
   removeCurrentMatch: PropTypes.func,
   fetchMatch: PropTypes.func,
   timeout: PropTypes.func,
-  clearMatchState: PropTypes.func,
 }
 
 export default AnswerQuestion;
