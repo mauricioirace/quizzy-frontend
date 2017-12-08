@@ -5,6 +5,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import '../stylesheets/answer-question.scss';
 import { connect } from 'react-redux';
 import QuestionHeader from '../components/question-header';
+import QuestionHint from '../components/question-hint';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchMatch, removeCurrentMatch, timeout } from '../redux/actions/match';
 import '../stylesheets/home.scss';
@@ -72,12 +73,18 @@ class AnswerQuestion extends React.PureComponent {
           correct={ matchService.decrypt(question) === answered }
         />
         <Row>
-          <SlideFadeDelayed in={ answered === false  }>
+          <SlideFadeDelayed in={ answered === false }>
             <Col xs={ 12 } smOffset={ 3 } sm={ 6 }>
-              <AnswerButtons answers={ question.answers } correctAnswer={ question.correctAnswer }/>
+              <AnswerButtons 
+                answers={ question.answers } 
+                correctAnswer={ question.correctAnswer } 
+                hideHint={ this.hideHint }
+                hint={ question.hint }    
+                stop={ answered }          
+              />
             </Col>
           </SlideFadeDelayed>
-        </Row>
+        </Row>  
       </Grid>
     )
   }
