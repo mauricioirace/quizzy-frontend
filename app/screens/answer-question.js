@@ -40,10 +40,6 @@ class AnswerQuestion extends React.PureComponent {
     this.onTimeout = this.onTimeout.bind(this);
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   onTimeout() {
     this.props.timeout();
   }
