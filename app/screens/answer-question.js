@@ -40,10 +40,6 @@ class AnswerQuestion extends React.PureComponent {
     this.onTimeout = this.onTimeout.bind(this);
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   onTimeout() {
     this.props.timeout();
   }
@@ -51,6 +47,7 @@ class AnswerQuestion extends React.PureComponent {
   render() {
     if (!this.props.matchData) {
       this.props.history.push('/');
+      return <Spinner/>
     }
 
     const totalQuestions = this.props.matchData.game.questions.length;
