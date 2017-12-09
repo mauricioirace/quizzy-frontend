@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import Header from '../components/header';
 import { Route, Link, Redirect } from 'react-router';
-import { setPlayer, fetchMatch, setCurrentMatch, cleanPlayers, cleanPlayer, clearMatchState } from '../redux/actions/match';
+import { setPlayer, fetchMatch, cleanPlayers, cleanPlayer, clearMatchState } from '../redux/actions/match';
 import { connect } from 'react-redux';
 import Switch from 'react-toggle-switch';
 import '../stylesheets/start-match.scss';
@@ -65,7 +65,6 @@ class StartMatch extends React.PureComponent {
 
   started() {
     if (this.props.matchData.match.started) {
-      this.props.setCurrentMatch(this.props.matchData.match);
       this.props.history.push(`/end-normal-game/${ this.props.matchData.match.id }/fulano/-1`);
     }
   }
@@ -88,8 +87,6 @@ class StartMatch extends React.PureComponent {
 
   handleClick(event) {
     if (this.state.owner && this.state.isRealTime) {
-      const match = this.props.matchData.match;
-      this.props.setCurrentMatch(match);
       this.props.cleanPlayer();
       this.props.cleanPlayers();
       this.props.history.push(`/lobby`)
@@ -101,9 +98,7 @@ class StartMatch extends React.PureComponent {
         error.style.fontWeight = 'bold';
         return;
       } else {
-        const match = this.props.matchData.match;
         this.props.setPlayer(this.state.nickname);
-        this.props.setCurrentMatch(match);
         if (!this.state.isRealTime) {
           this.props.history.push('/answer-question')
         } else {
@@ -174,7 +169,6 @@ class StartMatch extends React.PureComponent {
   }
 
   render() {
-    this.started();
     let component = null;
     if (this.props.matchData.error) {
       component = <div>Could not get the match from the server :(</div>
@@ -188,6 +182,7 @@ class StartMatch extends React.PureComponent {
         </div>
       </div>
     } else if (this.props.matchData.match) {
+      this.started();
       const match = this.props.matchData.match;
       component =
       <div className='page-match'>
@@ -233,7 +228,6 @@ StartMatch.propTypes = {
   location: ReactRouterPropTypes.location,
   match: ReactRouterPropTypes.match,
   fetchMatch: PropTypes.func,
-  setCurrentMatch: PropTypes.func,
   cleanPlayers: PropTypes.func,
   clearMatchState: PropTypes.func,
   cleanPlayer: PropTypes.func
@@ -249,7 +243,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setPlayer: (nickname) => dispatch(setPlayer(nickname)),
     fetchMatch: (match) => dispatch(fetchMatch(match)),
-    setCurrentMatch: (currentMatch) => dispatch(setCurrentMatch(currentMatch)),
     cleanPlayers: (currentMatch) => dispatch(cleanPlayers()),
     cleanPlayer: (currentMatch) => dispatch(cleanPlayer()),
     clearMatchState: () => dispatch(clearMatchState())
