@@ -166,7 +166,7 @@ class StartMatch extends React.PureComponent {
       return (
         <div className='form-input horizontal long'>
           <label className='fs-22'>Enter your nickname</label>
-          <input className='fs-16' type='text' placeholder='eg: Pepu' maxLength='40' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
+          <input className='fs-16' type='text' placeholder='eg: Nick_Carter' maxLength='40' onKeyPress={ this.handleKeyPress } onChange={ this.handleChange }/>
           <Button className='button primary medium' onClick={ this.handleClick }>PLAY!</Button>
         </div>
       )
